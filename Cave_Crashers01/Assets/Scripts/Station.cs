@@ -122,5 +122,4 @@ public class Station : MonoBehaviour, IInteractable
         if (pc) pc.enabled = false;
         if (characterController) characterController.enabled = false;
     }
-
 }
