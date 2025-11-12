@@ -35,7 +35,7 @@ public class Station : MonoBehaviour, IInteractable
         {
             SeatPlayer(interactor);
         }
-        else if (interactor == currentUser)
+        else if (inUse && interactor == currentUser)
         {
             ExitStation(interactor);
         }
