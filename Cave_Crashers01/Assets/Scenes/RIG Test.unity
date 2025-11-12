@@ -780,6 +780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inUse: 0
+  pilotSeat: {fileID: 0}
   stationSeat: {fileID: 0}
   player: {fileID: 0}
   characterController: {fileID: 0}
@@ -787,6 +788,7 @@ MonoBehaviour:
   exitTransform: {fileID: 0}
   playerCamera: {fileID: 1867408844}
   drill: {fileID: 1287119464}
+  drillButton: {fileID: 1294099892}
 --- !u!1 &1315777637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,6 +1436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inUse: 0
+  pilotSeat: {fileID: 1725900204}
   stationSeat: {fileID: 0}
   player: {fileID: 0}
   characterController: {fileID: 0}
@@ -1441,6 +1444,7 @@ MonoBehaviour:
   exitTransform: {fileID: 0}
   playerCamera: {fileID: 0}
   drill: {fileID: 0}
+  drillButton: {fileID: 1294099892}
 --- !u!1 &1867408844 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6336581540935228899, guid: 011acb8002255fe4ab2c815f8cdf6cc4, type: 3}

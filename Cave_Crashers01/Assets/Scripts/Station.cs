@@ -8,7 +8,11 @@ public class Station : MonoBehaviour, IInteractable
     private Transform originalParent;
     //[SerializeField] InputActionAsset inputActions;
 
+    //pilot seat references
+    public GameObject pilotSeat;
     public GameObject stationSeat;
+
+    //player
     public GameObject player;
 
     public CharacterController characterController; 
@@ -22,6 +26,7 @@ public class Station : MonoBehaviour, IInteractable
     //drill references
     public GameObject drill;
     private DrillController drillController;
+    public GameObject drillButton;
 
     private void Awake()
     {
@@ -44,7 +49,7 @@ public class Station : MonoBehaviour, IInteractable
     {
         //handling pilot seat interactions
         Debug.Log("lol");
-        if (!inUse)
+        if (!inUse && gameObject == drillButton)
         {
             //UNCOMMENT THIS AFTERWARDS, NEED TO FIND A WAY SO THAT YOU CAN DISTINGUISH BETWEEN STATIONS
             //SeatPlayer(interactor);
@@ -52,6 +57,10 @@ public class Station : MonoBehaviour, IInteractable
             //disable the player camera and go into mining mode
             playerCamera.SetActive(false);
             drillController.EnableDrill();
+        }
+        if(!inUse && gameObject == pilotSeat)
+        {
+            SeatPlayer(interactor);
         }
         else if (inUse && interactor == currentUser)
         {
