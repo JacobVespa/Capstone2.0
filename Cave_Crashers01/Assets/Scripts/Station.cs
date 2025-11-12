@@ -16,6 +16,13 @@ public class Station : MonoBehaviour, IInteractable
     public Transform seatTransform;
     public Transform exitTransform;
 
+    //player camera
+    public GameObject playerCamera;
+
+    //drill references
+    public GameObject drill;
+    private DrillController drillController;
+
     private void Awake()
     {
         if (stationSeat == null)
@@ -28,12 +35,23 @@ public class Station : MonoBehaviour, IInteractable
         inUse = false;
     }
 
+    private void Start()
+    {
+        drillController = drill.GetComponent<DrillController>();
+    }
+
     public void Interact(PlayerController interactor)
     {
+        //handling pilot seat interactions
         Debug.Log("lol");
         if (!inUse)
         {
-            SeatPlayer(interactor);
+            //UNCOMMENT THIS AFTERWARDS, NEED TO FIND A WAY SO THAT YOU CAN DISTINGUISH BETWEEN STATIONS
+            //SeatPlayer(interactor);
+
+            //disable the player camera and go into mining mode
+            playerCamera.SetActive(false);
+            drillController.EnableDrill();
         }
         else if (inUse && interactor == currentUser)
         {
@@ -52,10 +70,8 @@ public class Station : MonoBehaviour, IInteractable
         //inUse = true;
 
         characterController = pc.GetComponent<CharacterController>();
-       
-        //Disable moveement while at the station
-        if (pc) pc.enabled = false; 
-        if (characterController) characterController.enabled = false;
+
+        FreezeMovement(pc);
 
         //Save Parent for later
         originalParent = pc.transform.parent;
@@ -89,6 +105,13 @@ public class Station : MonoBehaviour, IInteractable
 
         currentUser = null;
         inUse = false;
+    }
+
+    private void FreezeMovement(PlayerController pc)
+    {
+        //Disable moveement while at the station
+        if (pc) pc.enabled = false;
+        if (characterController) characterController.enabled = false;
     }
 
 }

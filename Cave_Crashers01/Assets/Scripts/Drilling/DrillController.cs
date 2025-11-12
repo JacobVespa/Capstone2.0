@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class DrillController : MonoBehaviour
@@ -5,10 +6,27 @@ public class DrillController : MonoBehaviour
 
     [SerializeField] private float moveSpeed;
 
+    //drill script reference
+    private Drilling drilling;
+
+    //drill camera
+    [SerializeField] private GameObject drillCamera;
+
+    private void Start()
+    {
+        //getting the drilling script and camera objects and disabling them
+        drilling = GetComponentInChildren<Drilling>();
+        drilling.enabled = false;
+        drillCamera.SetActive(false);
+    }
+
     // Update is called once per frame
     void Update()
     {
-        MoveDrill();
+        //DO NOT NEED DRILL MOVEMENT, WAS JUST FOR TESTING
+        //MoveDrill();
+
+        //if interaction to start drill station occurs, call it here
     }
 
     private void MoveDrill()
@@ -33,6 +51,12 @@ public class DrillController : MonoBehaviour
         {
             gameObject.transform.Translate(Vector3.back * moveSpeed * Time.deltaTime);
         }
+    }
+
+    public void EnableDrill()
+    {
+        drilling.enabled = true;
+        drillCamera.SetActive(true);
     }
 
 }
