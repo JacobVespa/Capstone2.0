@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InteractorSource: {fileID: 1181606478002997350}
   InteractRange: 20
+  playerController: {fileID: 0}
+  inputActions: {fileID: 0}
 --- !u!114 &1725206336493819680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -288,6 +290,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4a390993-e90e-4934-af88-447acc6da340
     m_ActionName: 'Rig/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 68188ada-b8b4-438e-b61e-35819245a2e2
+    m_ActionName: 'Player/Disengage[/Keyboard/q]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
