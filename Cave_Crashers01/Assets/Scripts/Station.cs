@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
+using System.Collections;
 
 public class Station : MonoBehaviour, IInteractable
 {
@@ -28,13 +28,17 @@ public class Station : MonoBehaviour, IInteractable
     private DrillController drillController;
     public GameObject drillButton;
 
+    // Double press prevention
+    private bool canToggle = true;   // cooldown gate
+    [SerializeField] private float toggleCooldown = 0.5f;
+
     private void Awake()
     {
         if (stationSeat == null)
         {
             stationSeat = GameObject.FindGameObjectWithTag("PilotSeat");
-            seatTransform = stationSeat.transform.Find("SeatTransform");
-            exitTransform = stationSeat.transform.Find("ExitTransform");
+            //seatTransform = stationSeat.transform.Find("SeatTransform");
+            //exitTransform = stationSeat.transform.Find("ExitTransform");
         }
 
         inUse = false;
@@ -47,48 +51,56 @@ public class Station : MonoBehaviour, IInteractable
 
     public void Interact(PlayerController interactor)
     {
-        //handling pilot seat interactions
-        Debug.Log("lol");
-        if (!inUse && gameObject == drillButton)
-        {
-            //UNCOMMENT THIS AFTERWARDS, NEED TO FIND A WAY SO THAT YOU CAN DISTINGUISH BETWEEN STATIONS
-            //SeatPlayer(interactor);
+        if (!canToggle) return;      // block extra calls during cooldown
+        StartCoroutine(ToggleWithCooldown(interactor));
+    }
 
-            //disable the player camera and go into mining mode
-            playerCamera.SetActive(false);
-            drillController.EnableDrill();
-        }
-        if(!inUse && gameObject == pilotSeat)
+    private IEnumerator ToggleWithCooldown(PlayerController interactor)
+    {
+         canToggle = false;
+
+        if (!inUse)
         {
-            SeatPlayer(interactor);
+            // Enter the correct station type based on tag
+            if (CompareTag("PilotSeat"))
+            {
+                SeatPlayer(interactor);
+            }
+            else if (CompareTag("DrillButton"))
+            {
+                // Drill station logic
+                playerCamera.SetActive(false);
+                drillController.EnableDrill();
+            }
         }
-        else if (inUse && interactor == currentUser)
+        else if (interactor == currentUser) // <---- ALWAYS FALSE
         {
+            Debug.Log("Exiting station");
             ExitStation(interactor);
         }
         else
         {
             Debug.Log("Station is occupied");
         }
-        
+
+        yield return new WaitForSeconds(toggleCooldown);
+        canToggle = true;
     }
 
     public void SeatPlayer(PlayerController pc)
     {
-        if (inUse) { return; }
-        //inUse = true;
+        if (inUse) return;
 
         characterController = pc.GetComponent<CharacterController>();
 
         FreezeMovement(pc);
 
-        //Save Parent for later
+        // Save the original parent so we can restore it later
         originalParent = pc.transform.parent;
 
-        //Parent to the seat and zero local pose
-        pc.transform.SetParent(seatTransform, worldPositionStays: false);
-        pc.transform.localPosition = Vector3.zero;
-        pc.transform.localRotation = Quaternion.identity;
+        // Snap the player exactly to the seat position and rotation
+        pc.transform.SetParent(seatTransform);
+        pc.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, 180f, 0)); // Set to exact transforms later
         pc.transform.localScale = Vector3.one;
 
         currentUser = pc;
@@ -97,20 +109,20 @@ public class Station : MonoBehaviour, IInteractable
 
     public void ExitStation(PlayerController pc)
     {
-        if (!inUse || pc != currentUser) { return; }
+        if (!inUse || pc != currentUser) return;
 
         characterController = pc.GetComponent<CharacterController>();
 
-        //Unparent and place at exit
-        pc.transform.SetParent(originalParent, worldPositionStays: true);
+        // Unparent back to original parent
+        pc.transform.SetParent(originalParent);
+
+        // Move to exit point
         if (exitTransform)
         {
             pc.transform.SetPositionAndRotation(exitTransform.position, exitTransform.rotation);
         }
 
-        //Re-enable movement and colliders
-        if (pc) pc.enabled = true;
-        if (characterController) characterController.enabled = true;
+        UnFreezeMovement(pc);
 
         currentUser = null;
         inUse = false;
@@ -121,5 +133,12 @@ public class Station : MonoBehaviour, IInteractable
         //Disable moveement while at the station
         if (pc) pc.enabled = false;
         if (characterController) characterController.enabled = false;
+    }
+
+    private void UnFreezeMovement(PlayerController pc)
+    {
+        //Enable moveement while at the station
+        if (pc) pc.enabled = true;
+        if (characterController) characterController.enabled = true;
     }
 }

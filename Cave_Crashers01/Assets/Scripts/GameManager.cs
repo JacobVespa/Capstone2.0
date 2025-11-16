@@ -18,12 +18,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private int gems;
-    private int shards;
+    public int gems;
+    public int shards;
 
     void Start()
     {
-        gems = 0;
+        gems = 5;
         shards = 0;
     }
 

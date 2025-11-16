@@ -16,7 +16,7 @@ public class InteractorScript : MonoBehaviour
 
     private void Awake()
     {
-        playerController = this.GetComponent<PlayerController>();
+        playerController = GetComponent<PlayerController>();
     }
     /*
     private InputAction interactAction;
