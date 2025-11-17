@@ -25,7 +25,7 @@ public class FirstPersonCam : MonoBehaviour
 
         yRotation += mouseX;
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 10f);
+        xRotation = Mathf.Clamp(xRotation, -90f, 35f);
 
         //rotate cam, drill and orientation
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);

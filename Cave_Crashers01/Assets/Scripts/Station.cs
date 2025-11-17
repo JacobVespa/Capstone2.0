@@ -100,7 +100,7 @@ public class Station : MonoBehaviour, IInteractable
 
         // Snap the player exactly to the seat position and rotation
         pc.transform.SetParent(seatTransform);
-        pc.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.Euler(0, 180f, 0)); // Set to exact transforms later
+        pc.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity); // Set to exact transforms later
         pc.transform.localScale = Vector3.one;
 
         currentUser = pc;

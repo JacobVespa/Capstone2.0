@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class RigMovement : MonoBehaviour
 {
@@ -7,15 +8,28 @@ public class RigMovement : MonoBehaviour
     public GameObject pilotSeat;
     public GameObject rig;
     public Rigidbody rigBody;
-    public Transform exitTransform;
+    public float rigSpeed = 5.0f;
 
+    [SerializeField] InputActionAsset inputActions;
+    private InputAction rigMoveAction;
+    private Vector2 rigMoveInput;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        pilotSeat = GameObject.FindGameObjectWithTag("PilotSeat");
         rig = GameObject.FindGameObjectWithTag("Rig");
         rigBody = rig.GetComponent<Rigidbody>();
-        exitTransform = pilotSeat.GetComponentInChildren<Transform>(); //This might be wrong
+        var map = inputActions.FindActionMap("Rig", throwIfNotFound: true);
+        rigMoveAction = map.FindAction("Move", throwIfNotFound: true);
+    }
+
+    private void OnEnable()
+    {
+        rigMoveAction.Enable();
+    }
+
+    private void OnDisable()
+    {
+        rigMoveAction.Disable();
     }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -26,7 +40,9 @@ public class RigMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        rigMoveInput = rigMoveAction.ReadValue<Vector2>();
+
+        DriveRig();
     }
 
   // public void Interact()
@@ -47,5 +63,11 @@ public class RigMovement : MonoBehaviour
   //     
   //
   // }
+
+    public void DriveRig()
+    {
+        Vector3 input = new Vector3(rigMoveInput.x, 0f, rigMoveInput.y);
+        Vector3 planar = transform.TransformDirection(input) * rigSpeed;
+    }
 
 }
