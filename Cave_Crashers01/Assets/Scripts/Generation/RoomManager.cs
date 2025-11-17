@@ -49,7 +49,7 @@ public class RoomManager : MonoBehaviour
     private void GenerateRooms()
     {
         TryToPlaceLargeRoom();
-        //TryToPlaceSmallRoom();
+        TryToPlaceSmallRoom();
     }
 
     private void TryToPlaceLargeRoom()
