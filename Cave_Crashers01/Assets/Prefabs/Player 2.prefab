@@ -485,6 +485,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 4a390993-e90e-4934-af88-447acc6da340
     m_ActionName: 'Rig/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 68188ada-b8b4-438e-b61e-35819245a2e2
+    m_ActionName: 'Player/Disengage[/Keyboard/q,/DualShock4GamepadHID/buttonSouth,/DualShock4GamepadHID1/buttonSouth]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: Player
@@ -503,6 +507,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InteractorSource: {fileID: 747269749847424105}
-  InteractRange: 20
+  InteractRange: 1
   playerController: {fileID: 9017781344700302513}
   inputActions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
