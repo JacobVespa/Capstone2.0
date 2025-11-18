@@ -73,9 +73,10 @@ public class Station : MonoBehaviour, IInteractable
             else if (CompareTag("DrillButton"))
             {
                 // Drill station logic
-                SeatPlayer(interactor);
+                
                 playerCamera.SetActive(false);
                 drillController.EnableDrill();
+                SeatPlayer(interactor);
             }
         }
         else if (interactor == currentUser) // <---- ALWAYS FALSE
@@ -124,7 +125,7 @@ public class Station : MonoBehaviour, IInteractable
         pc.transform.SetParent(originalParent);
 
         // Move to exit point
-        if (exitTransform)
+        if (exitTransform != null)
         {
             pc.transform.SetPositionAndRotation(exitTransform.position, exitTransform.rotation);
         }

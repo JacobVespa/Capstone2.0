@@ -41,7 +41,7 @@ public class AppraisalStation : MonoBehaviour, IInteractable
 
     public void Interact(PlayerBody interactor)
     {
-        interactor.EnterStation();
+        
         if (!canToggle) return;      // block extra calls during cooldown
         StartCoroutine(ToggleWithCooldown(interactor));
 
@@ -71,6 +71,7 @@ public class AppraisalStation : MonoBehaviour, IInteractable
 
         appraising = true;
         interactor.Inputs.enabled = false; // Disable player movement while appraising
+        interactor.EnterStation();
 
     }
 

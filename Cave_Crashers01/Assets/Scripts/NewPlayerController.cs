@@ -50,10 +50,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (body.State == PlayerBody.PlayerState.Station)
-        {
-            return;
-        }
+        //if (body.State == PlayerBody.PlayerState.Station)
+        //{
+        //    return;
+        //}
         if (context.phase == InputActionPhase.Started)
         {
             body.Interact();
