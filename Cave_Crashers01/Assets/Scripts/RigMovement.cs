@@ -45,16 +45,16 @@ public class RigMovement : MonoBehaviour
         RigTurn();
     }
 
-    private void RigDrive()
+    public void RigDrive()
     {
-       float moveInput = -rigMoveInput.y; //This is negative because the tranform on the Ship exterior prefab in the Rig Test scene is backwards
+       float moveInput = rigMoveInput.y; //This is/was negative because the tranform on the Ship exterior prefab in the Rig Test scene is backwards
 
        Vector3 moveForce = rigBody.position + rig.transform.forward * moveInput * rigMoveSpeed * Time.fixedDeltaTime;
 
        rigBody.MovePosition(moveForce);
     }
 
-    private void RigTurn()
+    public void RigTurn()
     {
         float turnInput = rigMoveInput.x;
 
