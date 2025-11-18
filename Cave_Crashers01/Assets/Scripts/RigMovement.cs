@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
 
 public class RigMovement : MonoBehaviour
 {
@@ -50,7 +49,7 @@ public class RigMovement : MonoBehaviour
     {
        float moveInput = -rigMoveInput.y; //This is negative because the tranform on the Ship exterior prefab in the Rig Test scene is backwards
 
-       Vector3 moveForce = rigBody.position + rig.transform.forward * moveInput * rigMoveSpeed * Time.deltaTime;
+       Vector3 moveForce = rigBody.position + rig.transform.forward * moveInput * rigMoveSpeed * Time.fixedDeltaTime;
 
        rigBody.MovePosition(moveForce);
     }
