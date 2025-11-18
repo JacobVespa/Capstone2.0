@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public EventSystem UIEvent;
+
     public int gems;
     public int shards;
 
@@ -25,6 +28,8 @@ public class GameManager : MonoBehaviour
     {
         gems = 5;
         shards = 0;
+
+        UIEvent = FindAnyObjectByType<EventSystem>();
     }
 
 }

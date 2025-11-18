@@ -66,6 +66,11 @@ public class Station : MonoBehaviour, IInteractable
         StartCoroutine(ToggleWithCooldown(interactor));
     }
 
+    public void Select(PlayerBody interactor)
+    {
+        //NOTHING
+    }
+
     private IEnumerator ToggleWithCooldown(PlayerBody interactor)
     {
          canToggle = false;

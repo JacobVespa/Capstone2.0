@@ -26,14 +26,10 @@ public class AppraisalStation : MonoBehaviour, IInteractable
     [SerializeField] private bool appraising = false;
     [SerializeField] private float toggleCooldown = 0.5f;
 
-    EventSystem CanvasControl;
-
     private bool canToggle = true;   // cooldown gate
 
     private void Start()
     {
-        CanvasControl = FindFirstObjectByType<EventSystem>();
-
         dismantleButton.gameObject.SetActive(false);
         speedUpgradeButton.gameObject.SetActive(false);
         rateOfFireUpgradeButton.gameObject.SetActive(false);
@@ -57,6 +53,11 @@ public class AppraisalStation : MonoBehaviour, IInteractable
 
     }
 
+    public void Select(PlayerBody interactor)
+    {
+
+    }
+
     private IEnumerator ToggleWithCooldown(PlayerBody interactor)
     {
         canToggle = false;
@@ -77,9 +78,17 @@ public class AppraisalStation : MonoBehaviour, IInteractable
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        CanvasControl.firstSelectedGameObject = appraiseButton.gameObject;
+        //GameManager.Instance.UIEvent.firstSelectedGameObject = appraiseButton.gameObject;
+        if (appraiseButton.gameObject.activeSelf)
+        {
+            appraiseButton.Select();
+        }
+        else
+        {
+            speedUpgradeButton.Select();
+        }
 
-        UpdateValues();
+            UpdateValues();
 
         appraising = true;
         interactor.Inputs.enabled = false; // Disable player movement while appraising
@@ -123,6 +132,9 @@ public class AppraisalStation : MonoBehaviour, IInteractable
             appraiseButton.gameObject.SetActive(false);
             dismantleButton.gameObject.SetActive(true);
 
+            //GameManager.Instance.UIEvent.firstSelectedGameObject = speedUpgradeButton.gameObject;
+            speedUpgradeButton.Select();
+
             GameManager.Instance.gems -= 1;
         }
         else
@@ -142,6 +154,9 @@ public class AppraisalStation : MonoBehaviour, IInteractable
         dismantleButton.gameObject.SetActive(false);
         speedUpgradeButton.gameObject.SetActive(false);
         rateOfFireUpgradeButton.gameObject.SetActive(false);
+
+        //GameManager.Instance.UIEvent.firstSelectedGameObject = appraiseButton.gameObject;
+        appraiseButton.Select();
     }
 
     // HARD CODED UPGRADES FOR DEMONSTRATION PURPOSES ONLY
@@ -164,6 +179,9 @@ public class AppraisalStation : MonoBehaviour, IInteractable
         speedUpgradeButton.gameObject.SetActive(false);
         rateOfFireUpgradeButton.gameObject.SetActive(false);
         appraiseButton.gameObject.SetActive(true);
+
+        //GameManager.Instance.UIEvent.firstSelectedGameObject = appraiseButton.gameObject;
+        appraiseButton.Select();
     }
 
     public void UpgradeRateOfFire()
@@ -174,5 +192,8 @@ public class AppraisalStation : MonoBehaviour, IInteractable
         speedUpgradeButton.gameObject.SetActive(false);
         rateOfFireUpgradeButton.gameObject.SetActive(false);
         appraiseButton.gameObject.SetActive(true);
+
+        //GameManager.Instance.UIEvent.firstSelectedGameObject = appraiseButton.gameObject;
+        appraiseButton.Select();
     }
 }
