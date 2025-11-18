@@ -51,7 +51,7 @@ public class InteractorScript : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
             {
-                interactObj.Interact(playerController);
+                interactObj.Interact(null) ;
             }
         }
     }

@@ -1,10 +1,11 @@
 using UnityEngine;
 using System.Collections;
 
+
 public class Station : MonoBehaviour, IInteractable
 {
     [SerializeField] bool inUse;
-    private PlayerController currentUser;
+    private PlayerBody currentUser;
     private Transform originalParent;
     //[SerializeField] InputActionAsset inputActions;
 
@@ -49,13 +50,14 @@ public class Station : MonoBehaviour, IInteractable
         drillController = drill.GetComponent<DrillController>();
     }
 
-    public void Interact(PlayerController interactor)
+    public void Interact(PlayerBody interactor)
     {
+        
         if (!canToggle) return;      // block extra calls during cooldown
         StartCoroutine(ToggleWithCooldown(interactor));
     }
 
-    private IEnumerator ToggleWithCooldown(PlayerController interactor)
+    private IEnumerator ToggleWithCooldown(PlayerBody interactor)
     {
          canToggle = false;
 
@@ -69,6 +71,7 @@ public class Station : MonoBehaviour, IInteractable
             else if (CompareTag("DrillButton"))
             {
                 // Drill station logic
+                SeatPlayer(interactor);
                 playerCamera.SetActive(false);
                 drillController.EnableDrill();
             }
@@ -87,9 +90,10 @@ public class Station : MonoBehaviour, IInteractable
         canToggle = true;
     }
 
-    public void SeatPlayer(PlayerController pc)
+    public void SeatPlayer(PlayerBody pc)
     {
         if (inUse) return;
+        
 
         characterController = pc.GetComponent<CharacterController>();
 
@@ -107,7 +111,7 @@ public class Station : MonoBehaviour, IInteractable
         inUse = true;
     }
 
-    public void ExitStation(PlayerController pc)
+    public void ExitStation(PlayerBody pc)
     {
         if (!inUse || pc != currentUser) return;
 
@@ -128,17 +132,18 @@ public class Station : MonoBehaviour, IInteractable
         inUse = false;
     }
 
-    private void FreezeMovement(PlayerController pc)
+    private void FreezeMovement(PlayerBody pc)
     {
         //Disable moveement while at the station
-        if (pc) pc.enabled = false;
+        Debug.Log("freeze");
+        if (pc) pc.Inputs.enabled = false; pc.EnterStation();
         if (characterController) characterController.enabled = false;
     }
 
-    private void UnFreezeMovement(PlayerController pc)
+    private void UnFreezeMovement(PlayerBody pc)
     {
         //Enable moveement while at the station
-        if (pc) pc.enabled = true;
+        if (pc) pc.Inputs.enabled = true; pc.ExitStation();
         if (characterController) characterController.enabled = true;
     }
 }

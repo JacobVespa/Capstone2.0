@@ -39,14 +39,15 @@ public class AppraisalStation : MonoBehaviour, IInteractable
         }
     }
 
-    public void Interact(PlayerController interactor)
+    public void Interact(PlayerBody interactor)
     {
+        interactor.EnterStation();
         if (!canToggle) return;      // block extra calls during cooldown
         StartCoroutine(ToggleWithCooldown(interactor));
 
     }
 
-    private IEnumerator ToggleWithCooldown(PlayerController interactor)
+    private IEnumerator ToggleWithCooldown(PlayerBody interactor)
     {
         canToggle = false;
 
@@ -60,7 +61,7 @@ public class AppraisalStation : MonoBehaviour, IInteractable
         canToggle = true;
     }
 
-    private void Enter(PlayerController interactor)
+    private void Enter(PlayerBody interactor)
     {
         appraisalCanvas.gameObject.SetActive(true);
         Cursor.visible = true;
@@ -69,18 +70,19 @@ public class AppraisalStation : MonoBehaviour, IInteractable
         UpdateValues();
 
         appraising = true;
-        interactor.enabled = false; // Disable player movement while appraising
+        interactor.Inputs.enabled = false; // Disable player movement while appraising
 
     }
 
-    private void Exit(PlayerController interactor)
+    private void Exit(PlayerBody interactor)
     {
         appraisalCanvas.gameObject.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
         appraising = false;
-        interactor.enabled = true; // Re-enable player movement
+        interactor.Inputs.enabled = true; // Re-enable player movement
+        interactor.ExitStation();
     }
 
     private void UpdateValues()
