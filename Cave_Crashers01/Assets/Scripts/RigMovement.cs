@@ -4,18 +4,16 @@ using UnityEngine.Rendering;
 
 public class RigMovement : MonoBehaviour
 {
-    public GameObject player;
-    public GameObject pilotSeat;
     public GameObject rig;
     public Rigidbody rigBody;
-    public float rigSpeed = 5.0f;
+    public float rigSpeed = 50.0f;
 
     [SerializeField] InputActionAsset inputActions;
     private InputAction rigMoveAction;
     private Vector2 rigMoveInput;
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        //player = GameObject.FindGameObjectWithTag("Player");
         rig = GameObject.FindGameObjectWithTag("Rig");
         rigBody = rig.GetComponent<Rigidbody>();
         var map = inputActions.FindActionMap("Rig", throwIfNotFound: true);
@@ -45,29 +43,13 @@ public class RigMovement : MonoBehaviour
         DriveRig();
     }
 
-  // public void Interact()
-  // {
-  //     //Set Players Transform to Pilot Seat Transform
-  //     player.transform.position = pilotSeat.transform.position; 
-  //     //Debug.Log("Here");
-  //
-  //     //UI Transition?
-  //
-  //     //Movement Controls
-  //     //Get rigidbody of the ship 
-  //     //AddForce to the Rig as neccesary
-  //
-  //     //trying to figure out how to use the new input system with this
-  //
-  //
-  //     
-  //
-  // }
-
     public void DriveRig()
     {
         Vector3 input = new Vector3(rigMoveInput.x, 0f, rigMoveInput.y);
         Vector3 planar = transform.TransformDirection(input) * rigSpeed;
+
+        Vector3 motion = new Vector3(planar.x, -1f, planar.z);
+        rigBody.MovePosition(transform.position + motion * Time.deltaTime * rigSpeed);
     }
 
 }

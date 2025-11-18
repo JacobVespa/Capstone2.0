@@ -11,6 +11,7 @@ public class Station : MonoBehaviour, IInteractable
     //pilot seat references
     public GameObject pilotSeat;
     public GameObject stationSeat;
+    public RigMovement rigMovement;
 
     //player
     public GameObject player;
@@ -40,7 +41,7 @@ public class Station : MonoBehaviour, IInteractable
             //seatTransform = stationSeat.transform.Find("SeatTransform");
             //exitTransform = stationSeat.transform.Find("ExitTransform");
         }
-
+        rigMovement.enabled = false;
         inUse = false;
     }
 
@@ -65,6 +66,7 @@ public class Station : MonoBehaviour, IInteractable
             if (CompareTag("PilotSeat"))
             {
                 SeatPlayer(interactor);
+                rigMovement.enabled = true;
             }
             else if (CompareTag("DrillButton"))
             {
@@ -77,6 +79,7 @@ public class Station : MonoBehaviour, IInteractable
         {
             Debug.Log("Exiting station");
             ExitStation(interactor);
+            rigMovement.enabled = false;
         }
         else
         {
