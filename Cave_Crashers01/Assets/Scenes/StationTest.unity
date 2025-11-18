@@ -387,17 +387,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3674bb0e5680ffc42826c5f3ed9e8f22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &602163986 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5006082439582561420, guid: 011acb8002255fe4ab2c815f8cdf6cc4, type: 3}
-  m_PrefabInstance: {fileID: 562018181}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19d16b95e75064641867614da64b114d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1133095650
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,8 +771,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inUse: 0
+  pilotSeat: {fileID: 0}
   stationSeat: {fileID: 1491697934}
-  playerController: {fileID: 602163986}
+  player: {fileID: 0}
+  characterController: {fileID: 0}
+  seatTransform: {fileID: 0}
+  exitTransform: {fileID: 0}
+  playerCamera: {fileID: 0}
+  drill: {fileID: 0}
+  drillButton: {fileID: 0}
+  toggleCooldown: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -68,6 +68,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnPause(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
 
+        if (PauseManager.Instance != null)
+        {
+            PauseManager.Instance.TogglePause();
+        }
+    }
 
 }

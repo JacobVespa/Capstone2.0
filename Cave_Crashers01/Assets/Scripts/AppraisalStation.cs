@@ -16,6 +16,11 @@ public class AppraisalStation : MonoBehaviour, IInteractable
     [SerializeField] private Button speedUpgradeButton;
     [SerializeField] private Button rateOfFireUpgradeButton;
 
+    [Header("RIG Upgrades")]
+    [SerializeField] private RigMovement rigMovement;
+    [SerializeField] private float speedUpgradeAmount = 5f;
+    [SerializeField] private float maxRigSpeed = 40f;
+
 
     [SerializeField] private bool appraising = false;
     [SerializeField] private float toggleCooldown = 0.5f;
@@ -135,8 +140,20 @@ public class AppraisalStation : MonoBehaviour, IInteractable
     // HARD CODED UPGRADES FOR DEMONSTRATION PURPOSES ONLY
     public void UpgradeSpeed()
     {
-        // ATTACH TEMP UPGRADE HERE
-        
+        // TEMP: Rig speed upgrade
+        if (rigMovement != null)
+        {
+            float oldSpeed = rigMovement.rigMoveSpeed;
+            float newSpeed = Mathf.Min(oldSpeed + speedUpgradeAmount, maxRigSpeed);
+            rigMovement.rigMoveSpeed = newSpeed;
+
+            Debug.Log("Rig speed upgraded from " + oldSpeed + " to " + newSpeed);
+        }
+        else
+        {
+            Debug.LogWarning("RigMovement reference not set on AppraisalStation.");
+        }
+
         speedUpgradeButton.gameObject.SetActive(false);
         rateOfFireUpgradeButton.gameObject.SetActive(false);
         appraiseButton.gameObject.SetActive(true);
@@ -144,7 +161,8 @@ public class AppraisalStation : MonoBehaviour, IInteractable
 
     public void UpgradeRateOfFire()
     {
-        // ATTACH TEMP UPGRADE HERE
+        // TEMP: Stub for later weapon integration
+        Debug.Log("Rate of Fire upgrade chosen (stub – hook into weapon/rig guns later).");
 
         speedUpgradeButton.gameObject.SetActive(false);
         rateOfFireUpgradeButton.gameObject.SetActive(false);
