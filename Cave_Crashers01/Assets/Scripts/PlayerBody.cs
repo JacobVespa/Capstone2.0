@@ -69,7 +69,7 @@ public class PlayerBody : MonoBehaviour
         HandleGravity();
 
 
-        //Debug.Log(motion);
+        
         if(state == PlayerState.Free) { bodyController.Move(motion * Time.fixedDeltaTime); }
         
         

@@ -25,11 +25,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-
+        
     }
 
     public void OnMovement(InputAction.CallbackContext context)
     {
+        
         if (body.State == PlayerBody.PlayerState.Station)
         {
             return; 
@@ -40,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnView(InputAction.CallbackContext context)
     {
+        //Debug.Log("lol");
         if (body.State == PlayerBody.PlayerState.Station)
         {
             return;
