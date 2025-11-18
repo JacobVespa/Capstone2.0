@@ -3,18 +3,22 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Windows;
 
-[RequireComponent(typeof(NewPlayerController))]
+[RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(CharacterController))]
 public class PlayerBody : MonoBehaviour
 {
     [Header("Player Aspects")]
-    [SerializeField] private NewPlayerController inputs;
+    [SerializeField] private PlayerController inputs;
+    public PlayerController Inputs { get { return inputs; } }
 
     [SerializeField] private CharacterController bodyController;
+    public CharacterController BodyController { get { return bodyController; } }
+
     [SerializeField] private Camera camera;
 
     [Header("Player State")]
     [SerializeField] private PlayerState state;
+    public PlayerState State { get { return state; } }
 
 
     [Header("Movement Settings")]
@@ -53,7 +57,7 @@ public class PlayerBody : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        
         UpdateMovement();
     }
 
@@ -65,8 +69,9 @@ public class PlayerBody : MonoBehaviour
         HandleGravity();
 
 
-        Debug.Log(motion);
-        bodyController.Move(motion * Time.fixedDeltaTime);
+        //Debug.Log(motion);
+        if(state == PlayerState.Free) { bodyController.Move(motion * Time.fixedDeltaTime); }
+        
         
     }
 
@@ -116,8 +121,32 @@ public class PlayerBody : MonoBehaviour
         {
             if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
             {
-                interactObj.Interact(null) ;
+                interactObj.Interact(this) ;
             }
         }
+    }
+
+    public void DisEngage()
+    {
+        Station station = GetComponentInParent<Station>();
+        if(station != null)
+        {
+            station.ExitStation(this);
+        }
+        else
+        {
+            Debug.LogError("STATION NOT IN PARENTS OF OBJECT");
+        }
+    }
+
+    public void EnterStation()
+    {
+        state = PlayerState.Station;
+        inputDir = Vector3.zero;
+    }
+
+    public void ExitStation()
+    {
+        state = PlayerState.Free;
     }
 }
