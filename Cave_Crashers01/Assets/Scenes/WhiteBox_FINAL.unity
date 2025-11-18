@@ -23119,7 +23119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inUse: 0
-  pilotSeat: {fileID: 757603820}
+  pilotSeat: {fileID: 0}
   stationSeat: {fileID: 757603820}
   rigMovement: {fileID: 961130410}
   player: {fileID: 0}
@@ -49336,6 +49336,10 @@ PrefabInstance:
     - target: {fileID: 7178492564460138171, guid: cc1878e89289db4439f77284665e984a, type: 3}
       propertyPath: m_LocalPosition.y
       value: 2.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8127318024697963259, guid: cc1878e89289db4439f77284665e984a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
