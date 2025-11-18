@@ -83,7 +83,6 @@ public class Station : MonoBehaviour, IInteractable
         {
             Debug.Log("Exiting station");
             ExitStation(interactor);
-            rigMovement.enabled = false;
         }
         else
         {
@@ -134,6 +133,7 @@ public class Station : MonoBehaviour, IInteractable
 
         currentUser = null;
         inUse = false;
+        rigMovement.enabled = false; //This should not be here, but I am running out of ideas
     }
 
     private void FreezeMovement(PlayerBody pc)
