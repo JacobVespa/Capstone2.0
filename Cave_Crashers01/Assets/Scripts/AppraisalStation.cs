@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 
 public class AppraisalStation : MonoBehaviour, IInteractable
 {
@@ -25,10 +26,14 @@ public class AppraisalStation : MonoBehaviour, IInteractable
     [SerializeField] private bool appraising = false;
     [SerializeField] private float toggleCooldown = 0.5f;
 
+    EventSystem CanvasControl;
+
     private bool canToggle = true;   // cooldown gate
 
     private void Start()
     {
+        CanvasControl = FindFirstObjectByType<EventSystem>();
+
         dismantleButton.gameObject.SetActive(false);
         speedUpgradeButton.gameObject.SetActive(false);
         rateOfFireUpgradeButton.gameObject.SetActive(false);
@@ -71,6 +76,8 @@ public class AppraisalStation : MonoBehaviour, IInteractable
         appraisalCanvas.gameObject.SetActive(true);
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        CanvasControl.firstSelectedGameObject = appraiseButton.gameObject;
 
         UpdateValues();
 
