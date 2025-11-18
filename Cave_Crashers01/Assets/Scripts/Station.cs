@@ -44,6 +44,14 @@ public class Station : MonoBehaviour, IInteractable
         }
         rigMovement.enabled = false;
         inUse = false;
+
+        Debug.Log("Turned on " + transform.parent.gameObject);
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("Turned off" + transform.parent.gameObject);
+        //this.enabled = true;
     }
 
     private void Start()
@@ -73,10 +81,10 @@ public class Station : MonoBehaviour, IInteractable
             else if (CompareTag("DrillButton"))
             {
                 // Drill station logic
-                
+                playerCamera = interactor.GetComponentInChildren<Camera>().gameObject;
                 playerCamera.SetActive(false);
-                drillController.EnableDrill();
                 SeatPlayer(interactor);
+                drillController.EnableDrill();
             }
         }
         else if (interactor == currentUser) // <---- ALWAYS FALSE
@@ -128,6 +136,9 @@ public class Station : MonoBehaviour, IInteractable
         {
             pc.transform.SetPositionAndRotation(exitTransform.position, exitTransform.rotation);
         }
+
+        //reset the scale of the player, this was causing issues
+        pc.transform.localScale = Vector3.one;
 
         UnFreezeMovement(pc);
 
