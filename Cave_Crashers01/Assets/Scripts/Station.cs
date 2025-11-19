@@ -142,6 +142,12 @@ public class Station : MonoBehaviour, IInteractable
             pc.transform.SetPositionAndRotation(exitTransform.position, exitTransform.rotation);
         }
 
+        if(CompareTag("DrillButton"))
+        {
+            playerCamera.SetActive(true);
+            drillController.DisableDrill();
+        }
+
         //reset the scale of the player, this was causing issues
         pc.transform.localScale = Vector3.one;
 

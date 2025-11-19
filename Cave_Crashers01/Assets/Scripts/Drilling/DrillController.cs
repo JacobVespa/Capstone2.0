@@ -59,4 +59,10 @@ public class DrillController : MonoBehaviour
         drillCamera.SetActive(true);
     }
 
+    public void DisableDrill()
+    {
+        drilling.enabled = false;
+        drillCamera.SetActive(false);
+    }
+
 }
