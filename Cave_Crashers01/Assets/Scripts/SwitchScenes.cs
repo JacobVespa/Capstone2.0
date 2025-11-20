@@ -25,4 +25,10 @@ public class SwitchScenes : MonoBehaviour
             LoadSceneByName();
         }
     }
+
+    public void OnClick()
+    {
+        LoadSceneByName();
+    }
+
 }
