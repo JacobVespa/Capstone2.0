@@ -13,33 +13,22 @@ public class RigMovement : MonoBehaviour
 
     [Header("Input")]
     [SerializeField] InputActionAsset inputActions;
-    private InputAction rigMoveAction;
 
-    private Vector2 rigMoveInput;
+    private InputAction rigMoveAction;
+    private Vector2 RIGMoveInput;
 
     private void Awake()
     {
         var map = inputActions.FindActionMap("Rig", throwIfNotFound: true);
         rigMoveAction = map.FindAction("Move", throwIfNotFound: true);
-
-       //if (!rigBody)
-       //{
-       //    rigBody = GetComponent<Rigidbody>();
-       //}
     }
 
-    private void OnEnable()
-    {
-        rigMoveAction.Enable();
-    }
-    private void OnDisable()
-    {
-        rigMoveAction.Disable();
-    }
+    private void OnEnable() => rigMoveAction.Enable();
+    private void OnDisable() => rigMoveAction.Disable();
 
     private void FixedUpdate()
     {
-        rigMoveInput = rigMoveAction.ReadValue<Vector2>();
+        RIGMoveInput = rigMoveAction.ReadValue<Vector2>();
 
         RigDrive();
         RigTurn();
@@ -47,20 +36,21 @@ public class RigMovement : MonoBehaviour
 
     public void RigDrive()
     {
-       float moveInput = rigMoveInput.y; //This is/was negative because the tranform on the Ship exterior prefab in the Rig Test scene is backwards
+        float moveInput = RIGMoveInput.y;
 
-       Vector3 moveForce = rigBody.position + rig.transform.forward * moveInput * rigMoveSpeed * Time.fixedDeltaTime;
-
-       rigBody.MovePosition(moveForce);
+        Vector3 move = rig.transform.forward * moveInput * rigMoveSpeed * Time.fixedDeltaTime;
+        rigBody.MovePosition(rigBody.position + move);
     }
 
     public void RigTurn()
     {
-        float turnInput = rigMoveInput.x;
+        float turnInput = RIGMoveInput.x;
 
-        Quaternion turnForce = Quaternion.Euler(0f, turnInput * rigTurnSpeed * Time.fixedDeltaTime, 0f);
+        Quaternion deltaRot = Quaternion.Euler(0f,
+            turnInput * rigTurnSpeed * Time.fixedDeltaTime,
+            0f);
 
-        rigBody.MoveRotation(rigBody.rotation * turnForce);
+        rigBody.MoveRotation(rigBody.rotation * deltaRot);
     }
 
 }

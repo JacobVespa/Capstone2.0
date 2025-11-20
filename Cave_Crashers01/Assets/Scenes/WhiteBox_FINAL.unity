@@ -1524,6 +1524,10 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5410605702193711414, guid: e7895346cf72ae84081a8ac253bf5edb, type: 3}
+      propertyPath: RIGRigidbody
+      value: 
+      objectReference: {fileID: 1720095609}
     - target: {fileID: 8325609319897188275, guid: e7895346cf72ae84081a8ac253bf5edb, type: 3}
       propertyPath: m_Name
       value: new Player
@@ -51825,6 +51829,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1639033812454790997, guid: cc1878e89289db4439f77284665e984a, type: 3}
   m_PrefabInstance: {fileID: 1720095605}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &1720095609 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 3421472801071037891, guid: cc1878e89289db4439f77284665e984a, type: 3}
+  m_PrefabInstance: {fileID: 1720095605}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1721731723
 GameObject:
   m_ObjectHideFlags: 0
@@ -54351,6 +54360,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5410605702193711414, guid: e7895346cf72ae84081a8ac253bf5edb, type: 3}
+      propertyPath: RIGRigidbody
+      value: 
+      objectReference: {fileID: 1720095609}
     - target: {fileID: 8325609319897188275, guid: e7895346cf72ae84081a8ac253bf5edb, type: 3}
       propertyPath: m_Name
       value: new Player (1)
@@ -62931,7 +62944,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -0.3398018, y: -99.90058}
+  m_AnchoredPosition: {x: -0.33981323, y: -99.90058}
   m_SizeDelta: {x: 798.7936, y: 199.8112}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2083593081

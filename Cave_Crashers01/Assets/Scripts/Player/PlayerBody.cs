@@ -30,7 +30,10 @@ public class PlayerBody : MonoBehaviour
 
     private Vector3 motion = Vector3.zero;
 
-
+    [Header("RIG reference")]
+    [SerializeField] private Rigidbody RIGRigidbody;
+    private Quaternion lastRIGRotation;
+    private Vector3 lastRIGPosition;
 
     [Header("View Sensitivity")]
     [SerializeField] private float lookSensitivity = 2.0f;
@@ -50,6 +53,18 @@ public class PlayerBody : MonoBehaviour
         Station = 1,
     }
 
+    void Start()
+    {
+        if (RIGRigidbody == null)
+            RIGRigidbody = GetComponentInParent<Rigidbody>();
+
+        if (RIGRigidbody != null)
+        {
+            lastRIGRotation = RIGRigidbody.rotation;
+            lastRIGPosition = RIGRigidbody.position;
+        }
+    }
+
     private void Update()
     {
         HandleRotation();
@@ -58,7 +73,7 @@ public class PlayerBody : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
+        ApplyShipMotion();
         UpdateMovement();
     }
 
@@ -109,6 +124,35 @@ public class PlayerBody : MonoBehaviour
 
 
 
+    }
+
+    private void ApplyShipMotion()
+    {
+        if (!RIGRigidbody) return;
+
+        if (state == PlayerState.Free)
+        {
+            Vector3 currentPos = RIGRigidbody.position;
+            Quaternion currentRot = RIGRigidbody.rotation;
+
+            Vector3 rigDeltaPos = currentPos - lastRIGPosition;
+            Quaternion rigDeltaRot = currentRot * Quaternion.Inverse(lastRIGRotation);
+
+            bodyController.Move(rigDeltaPos);
+
+            transform.rotation = rigDeltaRot * transform.rotation;
+
+            Vector3 offset = transform.position - RIGRigidbody.position;
+            Vector3 rotatedOffset = rigDeltaRot * offset;
+            Vector3 rotationDiff = rotatedOffset - offset;
+
+            bodyController.Move(rotationDiff);
+
+            motion = rigDeltaRot * motion;
+
+            lastRIGPosition = currentPos;
+            lastRIGRotation = currentRot;
+        }
     }
     #endregion
 
