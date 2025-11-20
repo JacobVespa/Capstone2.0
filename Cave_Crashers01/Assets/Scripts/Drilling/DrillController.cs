@@ -53,10 +53,12 @@ public class DrillController : MonoBehaviour
         }
     }
 
-    public void EnableDrill()
+    public void EnableDrill(PlayerBody body)
     {
+        
         drilling.enabled = true;
         drillCamera.SetActive(true);
+        drillCamera.GetComponent<Camera>().rect = body.Camera.rect;
     }
 
     public void DisableDrill()

@@ -15,6 +15,7 @@ public class PlayerBody : MonoBehaviour
     public CharacterController BodyController { get { return bodyController; } }
 
     [SerializeField] private Camera camera;
+    public Camera Camera { get { return camera; } } 
 
     [Header("Player State")]
     [SerializeField] private PlayerState state;
@@ -143,6 +144,7 @@ public class PlayerBody : MonoBehaviour
     {
         state = PlayerState.Station;
         inputDir = Vector3.zero;
+        ViewDir = Vector3.zero;
     }
 
     public void ExitStation()

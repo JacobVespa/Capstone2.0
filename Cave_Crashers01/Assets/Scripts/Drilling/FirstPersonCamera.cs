@@ -9,7 +9,7 @@ public class FirstPersonCam : MonoBehaviour
     public Transform orientation;
 
     float xRotation;
-    float yRotation;
+    float yRotation = 90;
 
     private void Start()
     {

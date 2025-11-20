@@ -89,7 +89,7 @@ public class Station : MonoBehaviour, IInteractable
                 playerCamera = interactor.GetComponentInChildren<Camera>().gameObject;
                 playerCamera.SetActive(false);
                 SeatPlayer(interactor);
-                drillController.EnableDrill();
+                drillController.EnableDrill(interactor);
             }
         }
         else if (interactor == currentUser) // <---- ALWAYS FALSE
