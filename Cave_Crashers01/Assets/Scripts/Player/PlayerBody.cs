@@ -15,7 +15,10 @@ public class PlayerBody : MonoBehaviour
     public CharacterController BodyController { get { return bodyController; } }
 
     [SerializeField] private Camera camera;
-    public Camera Camera { get { return camera; } } 
+    public Camera Camera { get { return camera; } }
+
+    [SerializeField] private PlayerUIManager UImanager;
+    public PlayerUIManager UIManager { get { return UImanager; } }
 
     [Header("Player State")]
     [SerializeField] private PlayerState state;
@@ -176,6 +179,7 @@ public class PlayerBody : MonoBehaviour
         Station station = GetComponentInParent<Station>();
         if(station != null)
         {
+            UImanager.SetToFree();
             station.ExitStation(this);
         }
         else

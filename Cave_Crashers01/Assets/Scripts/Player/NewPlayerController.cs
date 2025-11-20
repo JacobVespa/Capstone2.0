@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
     public void OnMovement(InputAction.CallbackContext context)
     {
         
-        if (body.State == PlayerBody.PlayerState.Station)
+        if (body.State != PlayerBody.PlayerState.Free)
         {
             return; 
         }
@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
     public void OnView(InputAction.CallbackContext context)
     {
         //Debug.Log("lol");
-        if (body.State == PlayerBody.PlayerState.Station)
+        if (body.State != PlayerBody.PlayerState.Free)
         {
             return;
         }
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnDisengage(InputAction.CallbackContext context)
     {
-        if(body.State == PlayerBody.PlayerState.Station)
+        if(body.State != PlayerBody.PlayerState.Free)
         {
             body.DisEngage();
         }

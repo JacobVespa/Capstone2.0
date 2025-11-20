@@ -80,12 +80,15 @@ public class Station : MonoBehaviour, IInteractable
             // Enter the correct station type based on tag
             if (CompareTag("PilotSeat"))
             {
+                interactor.UIManager.SetToDriving();
                 SeatPlayer(interactor);
                 rigMovement.enabled = true;
             }
             else if (CompareTag("DrillButton"))
             {
+
                 // Drill station logic
+                interactor.UIManager.SetToDriving();
                 playerCamera = interactor.GetComponentInChildren<Camera>().gameObject;
                 playerCamera.SetActive(false);
                 SeatPlayer(interactor);
@@ -140,6 +143,7 @@ public class Station : MonoBehaviour, IInteractable
         if (exitTransform != null)
         {
             pc.transform.SetPositionAndRotation(exitTransform.position, exitTransform.rotation);
+            
         }
 
         if(CompareTag("DrillButton"))
