@@ -16,14 +16,40 @@ public class PlayerSpawn : MonoBehaviour
 
     public void OnPlayerJoined(PlayerInput playerInput)
     {
-        StartCoroutine(SetSpawn(playerInput));
+        //StartCoroutine(SetSpawn(playerInput));
+        Debug.Log("Spawn Point position" + playerCount + ": " + spawnPoints[playerCount].transform.position);
+        Debug.Log("Player Position before : " + playerInput.transform.position);
+        playerInput.transform.position = spawnPoints[playerCount].transform.position;
+
+        Debug.Log("Player Position After: " + playerInput.transform.position);
+        Camera cam = playerInput.GetComponentInChildren<Camera>();
+
+        if (cam != null)
+        {
+            cam.rect = viewports[playerCount];
+        }
+
+        if (playerCount == 0)
+        {
+            cam.cullingMask = ~LayerMask.GetMask("p2");
+
+        }
+        else
+        {
+            cam.cullingMask = ~LayerMask.GetMask("p1");
+        }
+
+        playerCount++;
     }
 
     private IEnumerator SetSpawn(PlayerInput playerInput)
     {
         yield return null;
+        Debug.Log("Spawn Point position" + playerCount + ": " + spawnPoints[playerCount].transform.position);
+        Debug.Log("Player Position before : " + playerInput.transform.position);
+        playerInput.transform.position = spawnPoints[playerCount].transform.position;
 
-        playerInput.gameObject.transform.position = spawnPoints[playerCount].transform.position;
+        Debug.Log("Player Position After: " + playerInput.transform.position);
         Camera cam = playerInput.GetComponentInChildren<Camera>();
         if (cam == null)
         {
