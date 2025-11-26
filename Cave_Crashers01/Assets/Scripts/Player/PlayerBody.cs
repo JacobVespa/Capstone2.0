@@ -114,18 +114,24 @@ public class PlayerBody : MonoBehaviour
         }
     }
 
-
+    public void EnableGravity(bool isEnabled)
+    {
+        if (isEnabled)
+        {
+            gravity = 9.8f;
+        }
+        else
+        {
+            gravity = 0;
+        }
+    }
 
     private void HandleRotation()
     {
 
-
-
         Vector3 rotate = new Vector3(0, viewDir.x, 0);
         rotate *= lookSensitivity;
         transform.Rotate(rotate);
-
-
 
     }
 
