@@ -9,10 +9,7 @@ public class InteractorScript : MonoBehaviour
     [Header("Interaction Settings")]
     public Transform InteractorSource;
     public float InteractRange;
-    public PlayerController playerController;
-
-    [Header("Input Actions")]
-    [SerializeField] private InputActionAsset inputActions;
+    private PlayerController playerController;
 
     private void Awake()
     {
