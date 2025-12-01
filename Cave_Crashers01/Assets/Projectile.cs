@@ -23,9 +23,15 @@ public class Projectile : MonoBehaviour
     {
         DisableProjectile();
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        DisableProjectile();
+    }
+
 
     private void DisableProjectile()
     {
+        
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
