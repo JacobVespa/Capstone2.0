@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,17 @@ public class TurretScript : MonoBehaviour
     private PlayerBody body;
     private PlayerInput input;
 
+    [SerializeField] private Transform turretTransformOrigin;
+    private Transform turretTransform;
+    private Quaternion originalRotation;
+    private float returnSpeed = 10f;
+
+    private void Start()
+    {
+        turretTransform = turretTransformOrigin;
+        originalRotation = turretTransform.localRotation;
+    }
+
     void Update()
     {
         // If no one is mounted, check all players in range for interact input
@@ -25,7 +37,7 @@ public class TurretScript : MonoBehaviour
             {
                 if (CheckPlayerInput(player))
                 {
-                    MountPlayer(player);
+                    MountPlayer(player);                  
                     break; // Only let one player mount
                 }
             }
@@ -35,13 +47,48 @@ public class TurretScript : MonoBehaviour
         {
             StartCoroutine(TeleportAndUnmount());
         }
+
+        if (mountedPlayer != null) UpdateMovement();
+        else ResetTurretPosition();
+    }
+
+    private float yaw,pitch;
+
+    private void UpdateMovement()
+    {
+        if (input != null)
+        {
+            Vector2 lookInput = input.actions["Look"].ReadValue<Vector2>();
+            float sensitivity = body.LookSensitivity;
+
+            yaw += lookInput.x * sensitivity;
+            pitch -= lookInput.y * sensitivity;
+
+            pitch = Mathf.Clamp(pitch, -20f, 80f);
+            yaw = Mathf.Clamp(yaw, -80f, 80f);
+
+            turretTransform.localRotation = Quaternion.Euler(pitch,yaw,0f);
+        }
+    }
+
+    public void ResetTurretPosition()
+    {
+        if (turretTransform.localRotation != originalRotation)
+        {
+            // Smoothly return turret to original rotation
+            turretTransform.localRotation = Quaternion.Lerp(
+                turretTransform.localRotation,
+                originalRotation,
+                returnSpeed * Time.deltaTime
+            );
+        }
     }
 
     private bool CheckPlayerInput(GameObject player)
     {
-        PlayerInput playerInput = player.GetComponent<PlayerInput>();
-        if (playerInput == null) return false;
-        return playerInput.actions["Interact"].WasPerformedThisFrame();
+        input = player.GetComponent<PlayerInput>();
+        if (input == null) return false;
+        return input.actions["Interact"].WasPerformedThisFrame();
     }
 
     private bool ButtonPressed() // Temp until a perminent control solution is figured out!
@@ -52,6 +99,8 @@ public class TurretScript : MonoBehaviour
 
     private void MountPlayer(GameObject player)
     {
+        yaw = 0; pitch = 0;
+
         mountedPlayer = player;
         controller = player.GetComponent<CharacterController>();
         body = player.GetComponent<PlayerBody>();
@@ -62,7 +111,10 @@ public class TurretScript : MonoBehaviour
         {
             body.EnterStation();
         }
-        
+
+        // Parent player to turret
+        player.transform.SetParent(turretTransform);
+
         // Enable shooting
         GunnerScript gunner = GetComponent<GunnerScript>();
         if (gunner != null)
@@ -87,11 +139,18 @@ public class TurretScript : MonoBehaviour
         {
             body.ExitStation();
         }
-        
+
+        // Unparent player
+        if (mountedPlayer != null)
+        {
+            mountedPlayer.transform.SetParent(null);
+        }
+
         mountedPlayer = null;
         controller = null;
         body = null;
         input = null;
+        turretTransform = turretTransformOrigin;
     }
 
     private IEnumerator TeleportAndUnmount()

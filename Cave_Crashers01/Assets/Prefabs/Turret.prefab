@@ -24,12 +24,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 63034327946035768}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.887, z: 7.455}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.0069999695, z: 3.5049999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7541809015257944434}
+  m_Father: {fileID: 1291665212206448403}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1491250709608157115
 GameObject:
@@ -66,7 +66,6 @@ Transform:
   m_Children:
   - {fileID: 8131527915883357116}
   - {fileID: 1291665212206448403}
-  - {fileID: 7541809015257944434}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &283176541508743074
@@ -81,9 +80,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af12455580003e143825fbefb5395cf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrelTransform: {fileID: 0}
+  barrelTransform: {fileID: 7820673337939585023}
   seatTransform: {fileID: 6853601982685067089}
   entryTransform: {fileID: 6538986672591955557}
+  turretTransformOrigin: {fileID: 1291665212206448403}
 --- !u!114 &3869668449345698837
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +206,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6853601982685067089}
+  - {fileID: 553220486150871044}
+  - {fileID: 7820673337939585023}
   m_Father: {fileID: 2491799196849587601}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8391705352895703961
@@ -273,7 +275,7 @@ GameObject:
   - component: {fileID: 501409331143258603}
   - component: {fileID: 2442440761403841326}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,12 +289,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3669703094412168842}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 6.878, z: 5.458}
+  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -0.0020003319, z: 1.5080001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7541809015257944434}
+  m_Father: {fileID: 1291665212206448403}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &501409331143258603
 MeshFilter:
@@ -377,39 +379,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1291665212206448403}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5709399131049133908
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7541809015257944434}
-  m_Layer: 0
-  m_Name: GunnerBarrel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7541809015257944434
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5709399131049133908}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 553220486150871044}
-  - {fileID: 7820673337939585023}
-  m_Father: {fileID: 2491799196849587601}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6172363855149807239
 GameObject:

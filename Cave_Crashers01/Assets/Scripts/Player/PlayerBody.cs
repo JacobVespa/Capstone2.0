@@ -40,6 +40,7 @@ public class PlayerBody : MonoBehaviour
 
     [Header("View Sensitivity")]
     [SerializeField] private float lookSensitivity = 2.0f;
+    public float LookSensitivity { get { return lookSensitivity; } }
     [SerializeField] private float verticalRange = 80.0f;
     [SerializeField] private float horizontalRange = 80.0f;
     private Vector3 viewDir = Vector3.zero;
@@ -128,7 +129,6 @@ public class PlayerBody : MonoBehaviour
 
     private void HandleRotation()
     {
-
         Vector3 rotate = new Vector3(0, viewDir.x, 0);
         rotate *= lookSensitivity;
         transform.Rotate(rotate);
