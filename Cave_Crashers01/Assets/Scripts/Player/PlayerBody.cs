@@ -28,6 +28,7 @@ public class PlayerBody : MonoBehaviour
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 3;
     [SerializeField] private float gravity = 9.8f;
+
     private Vector3 inputDir = Vector3.zero;
     public Vector3 InputDir { get { return inputDir; } set { inputDir = value; } }
 

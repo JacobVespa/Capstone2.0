@@ -1,16 +1,132 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class EnemyBody : MonoBehaviour
+[RequireComponent(typeof(EnemyAI))]
+[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(DamageSource))]
+
+public class EnemyBody : MonoBehaviour, IDamageReceiver
 {
+    [Header("Required Scripts")]
+    [SerializeField] private EnemyAI ai;
+    [SerializeField] private CharacterController bodyController;
     [SerializeField] private DamageSource damageSource;
+     
 
+    [Header("Movement Stats")]
+    [SerializeField] private float moveSpeed = 5;
+    [SerializeField] private float turnSpeed = 5;
+    [SerializeField] private float gravity = 9.8f;
+
+    private Vector3 motion = Vector3.zero;
+
+    private Vector3 inputDir = Vector3.zero;
+    public Vector3 InputDir {  get { return inputDir; } set {  inputDir = value; } }
+
+    
+
+    private Vector3 viewDir = Vector3.zero;
+    public Vector3 ViewDir { get { return viewDir; } set {  viewDir = value; } }
+
+    [Header("Combat Stats")]
     [SerializeField] private float health = 100;
     public float Health {  get { return health; } set {  health = value; } }
+
+    [SerializeField] private float attackRate = 0.75f;
+    public float AttackRate { get {  return attackRate; } set { attackRate = value; } }
+
+    private float attackCooldown = 0.75f;
 
     [SerializeField] private float attackRange = 20f;
     public float AttackRange { get {  return attackRange; } set {  attackRange = value; } }
 
-    public void TakeDamage(float damage)
+    
+
+    private void Start()
+    {
+        attackCooldown = attackRate;
+        if(ai == null)
+        {
+            ai = GetComponent<EnemyAI>();
+        }
+        if(bodyController == null)
+        {
+            bodyController = GetComponent<CharacterController>();
+        }
+        if(damageSource == null)
+        {
+            damageSource = GetComponent<DamageSource>();
+        }
+        
+    }
+
+    private void UpdateCooldown()
+    {
+        if(attackCooldown >= attackRate) { return; }
+
+        attackCooldown += 1 * Time.fixedDeltaTime;
+        
+    }
+
+    public void Attack(Vector3 dir)
+    {
+        if (attackCooldown < attackRate) { return; }
+        
+        Ray r = new Ray(gameObject.transform.position, dir);
+        Debug.DrawRay(gameObject.transform.position, dir * attackRange, Color.blue);
+        if (Physics.Raycast(r, out RaycastHit hitInfo, attackRange))
+        {
+            if (hitInfo.collider.gameObject.TryGetComponent(out IDamageReceiver damageTarget))
+            {
+                damageTarget.Attacked(damageSource);
+            }
+
+        }
+        attackCooldown = 0;
+    }
+
+    private void FixedUpdate()
+    {
+        UpdateMovemnet();
+        UpdateCooldown();
+    }
+
+    private void UpdateMovemnet()
+    {
+        
+        HandleMovement();
+        HandleGravity();
+        bodyController.Move(motion * Time.fixedDeltaTime);
+    }
+
+    private void HandleMovement()
+    {
+        if(inputDir == Vector3.zero) { motion = Vector3.zero;  return; }
+        
+        motion = transform.TransformDirection(inputDir) * moveSpeed;
+        inputDir = Vector3.zero;
+        
+    }
+
+    private void HandleGravity()
+    {
+        if (bodyController.isGrounded) { motion.y = -1; }
+        else if (!bodyController.isGrounded) {  motion.y  -= gravity; }
+    }
+
+    private void HandleRotation()
+    {
+
+    }
+
+
+    #region Handle Attacked
+    public void Attacked(DamageSource d)
+    {
+        TakeDamage(d.DamageVal);
+    }
+
+    private void TakeDamage(float damage)
     {
         
         health -= damage;
@@ -20,33 +136,32 @@ public class EnemyBody : MonoBehaviour
         }
     }
 
-    public void Death()
+    private void Death()
     {
         this.gameObject.SetActive(false);
     }
 
-    private void Attack()
-    {
-        Ray r = new Ray(gameObject.transform.position, gameObject.transform.forward);
-        if (Physics.Raycast(r, out RaycastHit hitInfo, attackRange))
-        {
-            
-        }
-    }
+    #endregion
+
+
+
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.TryGetComponent(out DamageSource ds))
+        if(other.TryGetComponent(out DamageSource d))
         {
-            if(ds.DamageTarget == DamageSource.DamageType.Enemy)
+            if(d.DamageTarget == DamageSource.DamageType.Enemy)
             {
-                TakeDamage(ds.DamageVal);
+                Attacked(d);
             }
-            else if(ds.DamageTarget != DamageSource.DamageType.Enemy)
+            else if(d.DamageTarget != DamageSource.DamageType.Enemy && other.gameObject != this.gameObject)
             {
+                
                 Debug.LogError("DamageTarget is set to the wrong value to damage this");
             }
         }
+
+        
     }
 
     

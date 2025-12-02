@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5567191904680076619}
   - component: {fileID: 3222819635504393767}
+  - component: {fileID: 2474437812240429035}
   - component: {fileID: 4999559579210579368}
-  - component: {fileID: 3670156741963846128}
+  - component: {fileID: 1274440936988391349}
+  - component: {fileID: 769298047699936438}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -47,9 +49,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dcebc6371568fc42a9ef0060ddf3f29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageSource: {fileID: 0}
+  ai: {fileID: 2474437812240429035}
+  bodyController: {fileID: 769298047699936438}
+  damageSource: {fileID: 4999559579210579368}
+  moveSpeed: 7.5
+  turnSpeed: 5
+  gravity: 9.8
   health: 100
-  attackRange: 20
+  attackRange: 5
+--- !u!114 &2474437812240429035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295354876960323268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2aef7c58310c48a42bee38bf53d71e5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 3222819635504393767}
+  target: {fileID: 0}
+  hasTarget: 0
 --- !u!114 &4999559579210579368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,8 +86,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageVal: 10
   damageTarget: 2
---- !u!65 &3670156741963846128
-BoxCollider:
+--- !u!135 &1274440936988391349
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -83,8 +105,33 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.7191563, y: 2.3055367, z: 0.1}
-  m_Center: {x: -0.10957813, y: -0.15276861, z: 0}
+  m_Radius: 1.25
+  m_Center: {x: -0.15, y: -0.26, z: 0}
+--- !u!143 &769298047699936438
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295354876960323268}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 1
+  m_Radius: 1
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: -0.15, y: -0.26, z: 0}
 --- !u!1 &6913717892505371041
 GameObject:
   m_ObjectHideFlags: 0
