@@ -7,10 +7,12 @@ using UnityEngine.UIElements;
 
 public class EnemyBody : MonoBehaviour, IDamageReceiver
 {
-    [Header("Required Scripts")]
+    [Header("Required Components")]
     [SerializeField] private EnemyAI ai;
     [SerializeField] private CharacterController bodyController;
     [SerializeField] private DamageSource damageSource;
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private Camera sceneCamera;
      
 
     [Header("Movement Stats")]
@@ -37,7 +39,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private float attackCooldown = 0.75f;
 
-    [SerializeField] private float attackRange = 20f;
+    [SerializeField] private float attackRange = 2f;
     public float AttackRange { get {  return attackRange; } set {  attackRange = value; } }
 
     
@@ -56,6 +58,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         if(damageSource == null)
         {
             damageSource = GetComponent<DamageSource>();
+        }
+        if(sprite == null)
+        {
+            sprite = GetComponentInChildren<SpriteRenderer>();
+            Debug.Log(sprite.gameObject.name);
         }
         
     }
@@ -85,6 +92,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         attackCooldown = 0;
     }
 
+    private void Update()
+    {
+        
+    }
+
     private void FixedUpdate()
     {
         UpdateMovemnet();
@@ -95,7 +107,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     {
         
         HandleMovement();
-        HandleGravity();
+        //HandleGravity();
         bodyController.Move(motion * Time.fixedDeltaTime);
     }
 
@@ -114,10 +126,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         else if (!bodyController.isGrounded) {  motion.y  -= gravity; }
     }
 
-    private void HandleRotation()
-    {
-
-    }
+    
 
 
     #region Handle Attacked

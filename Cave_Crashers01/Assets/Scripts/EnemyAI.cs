@@ -6,6 +6,8 @@ public class EnemyAI : MonoBehaviour
 {
     [SerializeField] private EnemyBody body;
     [SerializeField] private GameObject target;
+    public GameObject Target { get { return target; } set { target = value; } }
+
     [SerializeField] private bool hasTarget;
     private Vector3 targetDist = Vector3.zero;
     private float totalDist = 0;
@@ -47,7 +49,7 @@ public class EnemyAI : MonoBehaviour
     {
         if (!hasTarget) {moveInput = Vector3.zero; return; }
 
-        targetDist = transform.position - target.transform.position ;
+        targetDist = target.transform.position - transform.position;
 
         totalDist = targetDist.magnitude ;
 
@@ -64,11 +66,17 @@ public class EnemyAI : MonoBehaviour
         Vector3 attackAim = target.transform.position - transform.position ;
         attackAim = attackAim.normalized;
         body.Attack(attackAim);
-        if(target.active == false)
+        if(target.activeSelf == false)
         {
             target = null;
             hasTarget = false;
             
         }
+    }
+
+    public void CheckIfTarget()
+    {
+        if (target == null) { hasTarget = false; }
+        else { hasTarget = true; }
     }
 }

@@ -1,14 +1,11 @@
 using UnityEngine;
 
-public interface IDamageReceiver
-{
-    public void Attacked(DamageSource d);
-}
+
 
 public class AttackTest : MonoBehaviour, IDamageReceiver
 {
     public float hp = 10f;
-
+    
     public void TakeDamage(float damage)
     {
         
