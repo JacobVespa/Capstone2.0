@@ -1,15 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls playerControls;
     private CharacterController player;
+    private PlayerInteract interactor;
 
     private void Start()
     {
         playerControls = GetComponent<PlayerControls>();
         player = GetComponent<CharacterController>();
+        interactor = GetComponentInChildren<PlayerInteract>();
     }
+
 
     [Header("Custom Varaibles")]
     [SerializeField] private float movementSpeed = 5.0f;
@@ -33,9 +37,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (playerControls.controlEvent.HasInteracted)
         {
-            //Collider Check Here
-            HandleMounting();
-            HandlePickup();
+            if (interactor.canMount) HandleMounting();
+            else if (interactor.canPickup) HandlePickup();
         }
         else if (playerControls.controlEvent.HasDisengaged)
         {
@@ -51,11 +54,6 @@ public class PlayerMovement : MonoBehaviour
         isMounted = true;
     }
 
-    private void HandleDismounting()
-    {
-        isMounted = false;
-    }
-
     private void HandlePickup()
     {
         if (isHolding) HandleDrop();
@@ -63,8 +61,26 @@ public class PlayerMovement : MonoBehaviour
         isHolding = true;
     }
 
+    private void HandleDismounting()
+    {
+        isMounted = false;
+    }
+
     private void HandleDrop()
     {
         isHolding = false;
     }
+
+    private IEnumerator Teleport(Transform location)
+    {
+        player.enabled = false;
+
+        this.transform.position = location.position;
+        //this.transform.rotation = location.rotation;
+
+        player.enabled = true;
+
+        yield return null;
+    }
+
 }
