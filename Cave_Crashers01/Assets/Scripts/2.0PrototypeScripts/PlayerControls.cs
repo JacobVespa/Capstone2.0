@@ -46,11 +46,11 @@ public class PlayerControls : MonoBehaviour
 
     public void Interacted(InputAction.CallbackContext context)
     {
-        controlEvent.HasAttacked = context.action.IsPressed();
+        controlEvent.HasInteracted = context.action.WasPressedThisFrame();
     }
 
     public void Disengaged(InputAction.CallbackContext context)
     {
-        controlEvent.HasAttacked = context.action.IsPressed();
+        controlEvent.HasDisengaged = context.action.WasPressedThisFrame();
     }
 }
