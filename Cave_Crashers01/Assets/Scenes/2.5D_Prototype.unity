@@ -459,8 +459,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 5295354876960323268, guid: 51fad6758cfdfdd49b36625ff1e6e91c, type: 3}
   target: {fileID: 722850690}
-  spawnInterval: 7.5
+  spawnInterval: 2.5
   spawnTime: 0
+  enemySprites:
+  - {fileID: 21300000, guid: e9771c2f5480cca4ea8f578e11e6cb1c, type: 3}
+  - {fileID: 21300000, guid: 540e7b9b3c9ccb94f9c6ee4c1e027dda, type: 3}
+  - {fileID: 21300000, guid: 9cb5d9c67172ace40a10621fdc4c7c3e, type: 3}
 --- !u!4 &672769108
 Transform:
   m_ObjectHideFlags: 0
