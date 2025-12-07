@@ -33,9 +33,11 @@ public class EnemyAI : MonoBehaviour
         if(totalDist >= body.AttackRange*2/3)
         {
             ApproachTarget();
+            body.AttackCooldown = 0;
         }
         else
         {
+
             moveInput = Vector3.zero;
             
             AttackTarget();

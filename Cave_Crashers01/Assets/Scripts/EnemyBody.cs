@@ -38,6 +38,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     public float AttackRate { get {  return attackRate; } set { attackRate = value; } }
 
     private float attackCooldown = 0.75f;
+    public float AttackCooldown { get { return attackCooldown; } set { attackCooldown = value; } }
 
     [SerializeField] private float attackRange = 2f;
     public float AttackRange { get {  return attackRange; } set {  attackRange = value; } }

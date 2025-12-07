@@ -52,10 +52,13 @@ MonoBehaviour:
   ai: {fileID: 2474437812240429035}
   bodyController: {fileID: 769298047699936438}
   damageSource: {fileID: 4999559579210579368}
+  sprite: {fileID: 0}
+  sceneCamera: {fileID: 0}
   moveSpeed: 7.5
   turnSpeed: 5
   gravity: 9.8
   health: 100
+  attackRate: 0.75
   attackRange: 5
 --- !u!114 &2474437812240429035
 MonoBehaviour:
@@ -84,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8985a4141778c49af1f779a1c1d628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageVal: 10
+  damageVal: 1
   damageTarget: 2
 --- !u!135 &1274440936988391349
 SphereCollider:
@@ -105,7 +108,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 1.25
+  m_Radius: 1.5
   m_Center: {x: -0.15, y: -0.26, z: 0}
 --- !u!143 &769298047699936438
 CharacterController:
@@ -125,7 +128,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1
+  m_Height: 3
   m_Radius: 1
   m_SlopeLimit: 45
   m_StepOffset: 0.3

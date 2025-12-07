@@ -7,7 +7,7 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField] private GameObject target;
     [SerializeField] private float spawnInterval = 7.5f;
     [SerializeField] private float spawnTime;
-
+    [SerializeField] private Sprite[] enemySprites;
     private void Start()
     {
         spawnTime = spawnInterval;
@@ -24,6 +24,9 @@ public class EnemySpawn : MonoBehaviour
         if (spawnTime < spawnInterval) { return; }
         
         GameObject spawnEnemy = Instantiate(enemyPrefab, transform.position, transform.rotation);
+        
+
+        spawnEnemy.GetComponentInChildren<SpriteRenderer>().sprite = enemySprites[Random.Range(0,enemySprites.Length)];
         if(target.activeSelf == true)
         {
             spawnEnemy.GetComponent<EnemyAI>().Target = target;
