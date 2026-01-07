@@ -10,13 +10,33 @@ public class PlayerInteract : MonoBehaviour
 
     public GameObject currentInteractObject;
 
+    /*
+     * Method that grabs a collider from the player that determines collisions
+     * 
+     * Param( interactCollider ) --> grabs collision from player
+     * 
+     * Param( interactRange ) --> determines the reach of the collision detection
+     * 
+     */
+
     private void Start()
     {
         interactCollider = GetComponent<SphereCollider>();
         interactCollider.radius = interactRange;
     }
 
-    private void OnTriggerEnter(Collider other) // Handle teleporting on/off turret
+
+    /*
+     * Method that determines what collider the player is currently in contact with
+     * 
+     * Param( canMount ) --> allows a player to mount a turret when pressing the interact button (When in the correct collider)
+     * 
+     * Param( canPickup ) --> allows a player to pickup an object when pressing the interact button (When in the correct collider)
+     * 
+     * Object( currentInteractObject ) --> tracks which object collider the player is currently inside
+     */
+
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Turret"))
         {
@@ -30,7 +50,16 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other) // Removes ability to mount or pickup
+    /*
+     * Method that determines when a player exits a collider, setting proper parameters to flase
+     * 
+     * Param( canMount ) --> allows a player to dismount a turret when pressing the disengage button
+     * 
+     * Param( canPickup ) --> allows a player to drop an object when pressing the disengage button
+     * 
+     */
+
+    private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Turret"))
         {
