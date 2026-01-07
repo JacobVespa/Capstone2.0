@@ -14,7 +14,14 @@ public class Turret : MonoBehaviour
     Vector2 aimPos;
     RaycastHit2D hit;
 
-    private void FixedUpdate()
+    [SerializeField] float aimSpeed = 20.0f;
+
+    private void Start()
+    {
+        aimPos = transform.position;
+    }
+
+    private void Update()
     {
         if (playerMounted)
         {
@@ -60,7 +67,7 @@ public class Turret : MonoBehaviour
     {
         if (player != null && currentControls != null)
         {
-            aimPos += currentControls.controlEvent.LookDirection;
+            aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
             crosshair.transform.position = aimPos;
         }
     }
