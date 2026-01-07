@@ -28,25 +28,28 @@ public class PlayerMovement : MonoBehaviour
         HandleInput();
     }
 
+    // Method that calculates player movement
     private void HandleMovement()
     {
         player.Move((playerControls.controlEvent.MoveDirection * movementSpeed) * Time.fixedDeltaTime);
     }
 
+    // Method that determines what buttons are pressed and action results
     private void HandleInput()
     {
         if (playerControls.controlEvent.HasInteracted)
         {
-            if (interactor.canMount) HandleMounting();
-            else if (interactor.canPickup) HandlePickup();
+            if (interactor.canMount) HandleMounting(); // If the player is able to mount and presses interact, mount
+            else if (interactor.canPickup) HandlePickup(); // If the player is able to pickup and presses interact, interact
         }
         else if (playerControls.controlEvent.HasDisengaged)
         {
-            HandleDismounting();
-            HandleDrop();
+            HandleDismounting(); // Dismounts player
+            HandleDrop(); // Drops pickup
         }
     }
 
+    // Calls turret script and provides player gameobject to allow only one player to mount and control turret
     private void HandleMounting()
     {
         if (isHolding) HandleDrop();
@@ -55,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         interactor.currentInteractObject.GetComponent<Turret>().Mount(this.gameObject);
     }
 
+    // Calls pickup script and provides...
     private void HandlePickup()
     {
         if (isHolding) HandleDrop();
@@ -62,12 +66,14 @@ public class PlayerMovement : MonoBehaviour
         isHolding = true;
     }
 
+    // Removes player referene from turret and resets script
     private void HandleDismounting()
     {
         isMounted = false;
         interactor.currentInteractObject.GetComponent<Turret>().Dismount();
     }
 
+    // Drops what the player is holding
     private void HandleDrop()
     {
         isHolding = false;
