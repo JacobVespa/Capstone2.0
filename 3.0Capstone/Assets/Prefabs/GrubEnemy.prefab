@@ -9,13 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6181852771610103027}
-  - component: {fileID: 1391943081961795519}
-  - component: {fileID: 332251980458966859}
-  - component: {fileID: 8623837714907416360}
+  - component: {fileID: 8242955958413940642}
+  - component: {fileID: 6726628139389650614}
+  - component: {fileID: 3739521471955693038}
   - component: {fileID: 2497648489484503082}
   - component: {fileID: 2353242843174374453}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: GrubEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ Transform:
   - {fileID: 2885800829536410349}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1391943081961795519
+--- !u!114 &8242955958413940642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -47,36 +47,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 369488387364779184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2aef7c58310c48a42bee38bf53d71e5c, type: 3}
+  m_Script: {fileID: 11500000, guid: f9b4dd99fe0672548a206974b2b8844c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 332251980458966859}
-  target: {fileID: 0}
-  hasTarget: 0
---- !u!114 &332251980458966859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369488387364779184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dcebc6371568fc42a9ef0060ddf3f29, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ai: {fileID: 1391943081961795519}
+  ai: {fileID: 0}
   bodyController: {fileID: 2497648489484503082}
-  damageSource: {fileID: 8623837714907416360}
+  damageSource: {fileID: 3739521471955693038}
   sprite: {fileID: 5451431036356453378}
   sceneCamera: {fileID: 0}
-  moveSpeed: 5
-  turnSpeed: 5
-  gravity: 9.8
   health: 100
-  attackRate: 0.75
+  attackRate: 3
   attackRange: 2
---- !u!114 &8623837714907416360
+  moveSpeed: 5
+--- !u!114 &6726628139389650614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369488387364779184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc192980f48a52a4c953bc63da4f4bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  hasTarget: 0
+--- !u!114 &3739521471955693038
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8985a4141778c49af1f779a1c1d628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageVal: 10
+  damageVal: 1
   damageTarget: 2
 --- !u!143 &2497648489484503082
 CharacterController:
@@ -108,7 +105,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 0.5
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
@@ -132,7 +129,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Radius: 1.2
   m_Center: {x: 0, y: 0, z: 0}
@@ -299,12 +296,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e9771c2f5480cca4ea8f578e11e6cb1c, type: 3}
+  m_Sprite: {fileID: -7542816695316370919, guid: 744e3958962564f4f8fb40cea3803a0e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 20, y: 20}
+  m_Size: {x: 3.1, y: 2.9}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
