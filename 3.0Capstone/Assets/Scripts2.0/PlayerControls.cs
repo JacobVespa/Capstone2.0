@@ -6,8 +6,8 @@ public class PlayerControls : MonoBehaviour
     // Stucture that stores all boolean and vector values for public access
     public struct Controls
     { 
-        private Vector3 moveDirection;
-        public Vector3 MoveDirection { get { return moveDirection; } set { moveDirection = value; } }
+        private Vector2 moveDirection;
+        public Vector2 MoveDirection { get { return moveDirection; } set { moveDirection = value; } }
 
         private Vector2 lookDirection;
         public Vector2 LookDirection { get { return lookDirection; } set { lookDirection = value; } }
@@ -21,6 +21,14 @@ public class PlayerControls : MonoBehaviour
         private bool hasDisengaged;
         public bool HasDisengaged { get { return hasDisengaged; } set { hasDisengaged = value; } }
 
+        // Method to reset all button states
+        public void ResetButtons()
+        {
+            hasAttacked = false;
+            hasInteracted = false;
+            hasDisengaged = false;
+        }
+
     }
     public Controls controlEvent;
 
@@ -29,35 +37,38 @@ public class PlayerControls : MonoBehaviour
         controlEvent = new Controls();
     }
 
+    private void LateUpdate()
+    {
+        controlEvent.ResetButtons();
+    }
+
     // Method that stores left stick and or WASD input as a Vector2
     public void MoveValue(InputAction.CallbackContext context)
     {
-        Vector2 placeHolder = context.action.ReadValue<Vector2>();
-        controlEvent.MoveDirection = new Vector2(placeHolder.x, placeHolder.y);
+        controlEvent.MoveDirection = context.action.ReadValue<Vector2>();
     }
 
     // Method that stores right stick or mouse input as a Vector2
     public void LookValue(InputAction.CallbackContext context)
     {
-        Vector2 placeHolder = context.action.ReadValue<Vector2>();
-        controlEvent.LookDirection = new Vector2(placeHolder.x, placeHolder.y);
+        controlEvent.LookDirection = context.action.ReadValue<Vector2>();
     }
 
     // Method that tracks when attack button is pressed
     public void Attacked(InputAction.CallbackContext context)
     {
-        controlEvent.HasAttacked = context.action.IsPressed();
+        controlEvent.HasAttacked = context.action.WasPressedThisFrame();
     }
 
     // Method that tracks when the interact button is pressed
     public void Interacted(InputAction.CallbackContext context)
     {
-        controlEvent.HasInteracted = context.action.WasReleasedThisFrame();
+        controlEvent.HasInteracted = context.action.WasPressedThisFrame();
     }
 
     // Method that tracks when the disengage button is pressed
     public void Disengaged(InputAction.CallbackContext context)
     {
-        controlEvent.HasDisengaged = context.action.WasReleasedThisFrame();
+        controlEvent.HasDisengaged = context.action.WasPressedThisFrame();
     }
 }

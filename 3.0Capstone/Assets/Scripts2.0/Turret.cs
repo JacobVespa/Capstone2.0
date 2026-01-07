@@ -62,6 +62,7 @@ public class Turret : MonoBehaviour
                 if (hit.collider != null && hit.collider.CompareTag("Enemy"))
                 {
                     Debug.Log("Enemy hit!");
+                    
                 }
 
             }
