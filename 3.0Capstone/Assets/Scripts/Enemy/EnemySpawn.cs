@@ -29,7 +29,7 @@ public class EnemySpawn : MonoBehaviour
         spawnEnemy.GetComponentInChildren<SpriteRenderer>().sprite = enemySprites[Random.Range(0,enemySprites.Length)];
         if(target.activeSelf == true)
         {
-            spawnEnemy.GetComponent<EnemyAI>().Target = target;
+            //spawnEnemy.GetComponent<EnemyAI>().Target = target;
         }
 
         spawnTime = 0;
