@@ -1,16 +1,68 @@
+using System.Xml.Serialization;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    [SerializeField] GameObject crosshair;
+    private GameObject player;
+    private PlayerControls currentControls;
+
+    private bool playerMounted = false;
+
+    Vector2 aimPos;
+    RaycastHit2D hit;
+
+    private void FixedUpdate()
     {
-        
+        if (playerMounted)
+        {
+            Aim();
+            Shoot();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Mount(GameObject p)
     {
-        
+        player = p;
+        currentControls = player.GetComponent<PlayerControls>();
+        crosshair.SetActive(true);
+        playerMounted = true;
     }
+
+    public void Dismount()
+    {
+        player = null;
+        currentControls = null;
+        crosshair.SetActive(false);
+        playerMounted = false;
+    }
+
+    private void Shoot()
+    {
+        if (player != null && currentControls != null)
+        {
+            if (currentControls.controlEvent.HasAttacked)
+            {
+                hit = Physics2D.Raycast(transform.position, aimPos);
+
+                if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+                {
+                    Debug.Log("Enemy hit!");
+                }
+
+            }
+        }
+    }
+
+    private void Aim()
+    {
+        if (player != null && currentControls != null)
+        {
+            aimPos += currentControls.controlEvent.LookDirection;
+            crosshair.transform.position = aimPos;
+        }
+    }
+
 }

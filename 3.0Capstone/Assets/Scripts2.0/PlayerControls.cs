@@ -36,7 +36,8 @@ public class PlayerControls : MonoBehaviour
 
     public void LookValue(InputAction.CallbackContext context)
     {
-        controlEvent.LookDirection = context.action.ReadValue<Vector2>();
+        Vector2 placeHolder = context.action.ReadValue<Vector2>();
+        controlEvent.LookDirection = new Vector2(placeHolder.x, placeHolder.y);
     }
 
     public void Attacked(InputAction.CallbackContext context)

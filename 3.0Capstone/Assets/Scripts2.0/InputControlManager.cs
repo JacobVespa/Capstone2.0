@@ -7,6 +7,7 @@ public class InputControlManager : MonoBehaviour
 
     private void Awake()
     {
+        Cursor.visible = false; //TODO move this to a menu/settings script later
         playerInputManager = GetComponent<PlayerInputManager>();
     }
 

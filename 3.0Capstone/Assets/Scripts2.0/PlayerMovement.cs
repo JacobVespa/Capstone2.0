@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         if (isHolding) HandleDrop();
 
         isMounted = true;
+        interactor.currentInteractObject.GetComponent<Turret>().Mount(this.gameObject);
     }
 
     private void HandlePickup()
@@ -64,6 +65,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleDismounting()
     {
         isMounted = false;
+        interactor.currentInteractObject.GetComponent<Turret>().Dismount();
     }
 
     private void HandleDrop()

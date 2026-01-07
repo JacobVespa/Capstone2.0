@@ -8,7 +8,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private float interactRange = 1.2f;
     private SphereCollider interactCollider;
 
-    private GameObject currentInteractObject;
+    public GameObject currentInteractObject;
 
     private void Start()
     {
