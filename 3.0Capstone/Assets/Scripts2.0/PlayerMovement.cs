@@ -60,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         if (isHolding) HandleDrop();
 
         isHolding = true;
+        interactor.currentInteractObject.GetComponent<AmmoBox>().SpawnAmmo();
     }
 
     private void HandleDismounting()

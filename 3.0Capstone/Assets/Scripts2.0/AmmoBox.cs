@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class AmmoBox : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    //reference to the ammo round
+    public GameObject ammoRound;
+
+    //instantiating the ammo round
+    public void SpawnAmmo()
     {
-        
+        Instantiate(ammoRound);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

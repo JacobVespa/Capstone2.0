@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Xml.Serialization;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,6 +16,9 @@ public class Turret : MonoBehaviour
     RaycastHit2D hit;
 
     [SerializeField] float aimSpeed = 20.0f;
+
+    //reference to the muzzle flash vfx
+    public GameObject muzzleFlash;
 
     private void Start()
     {
@@ -52,6 +56,7 @@ public class Turret : MonoBehaviour
         {
             if (currentControls.controlEvent.HasAttacked)
             {
+                StartCoroutine(ShootingVFX());
                 hit = Physics2D.Raycast(transform.position, aimPos);
 
                 if (hit.collider != null && hit.collider.CompareTag("Enemy"))
@@ -70,6 +75,13 @@ public class Turret : MonoBehaviour
             aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
             crosshair.transform.position = aimPos;
         }
+    }
+
+    IEnumerator ShootingVFX()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForEndOfFrame();
+        muzzleFlash.SetActive(false);
     }
 
 }
