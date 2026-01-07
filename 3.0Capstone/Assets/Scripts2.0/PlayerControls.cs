@@ -31,7 +31,7 @@ public class PlayerControls : MonoBehaviour
     public void MoveValue(InputAction.CallbackContext context)
     {
         Vector2 placeHolder = context.action.ReadValue<Vector2>();
-        controlEvent.MoveDirection = new Vector3(placeHolder.x,0,placeHolder.y);
+        controlEvent.MoveDirection = new Vector2(placeHolder.x, placeHolder.y);
     }
 
     public void LookValue(InputAction.CallbackContext context)

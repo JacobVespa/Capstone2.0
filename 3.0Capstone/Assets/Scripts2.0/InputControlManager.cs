@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 
 public class InputControlManager : MonoBehaviour
 {
-    public GameObject playerPrefab;
     private PlayerInputManager playerInputManager;
 
     private void Awake()
