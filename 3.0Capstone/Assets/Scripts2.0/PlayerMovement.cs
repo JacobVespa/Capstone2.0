@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -27,6 +28,24 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement();
         HandleInput();
     }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    Debug.Log("Here");
+    //    if (interactor.canRepair && other.gameObject.CompareTag("Damaged"))
+    //    {
+    //        Debug.Log(other.tag);
+    //        other.gameObject.SetActive(false);
+    //    }
+    //}
+
+    //How do I do what happens in OntriggerEnter here in this method?
+    private void HandleRepair(Collider other)
+    {
+        if (playerControls.controlEvent.HasInteracted)
+        {
+            other.gameObject.SetActive(false);
+        }
+    }
 
     // Method that calculates player movement
     private void HandleMovement()
@@ -41,6 +60,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (interactor.canMount) HandleMounting(); // If the player is able to mount and presses interact, mount
             else if (interactor.canPickup) HandlePickup(); // If the player is able to pickup and presses interact, interact
+            //else if (interactor.canRepair) HandleRepair();
         }
         else if (playerControls.controlEvent.HasDisengaged)
         {

@@ -4,6 +4,7 @@ public class PlayerInteract : MonoBehaviour
 {
     public bool canMount = false;
     public bool canPickup = false;
+    public bool canRepair = false;
 
     [SerializeField] private float interactRange = 1.2f;
     private SphereCollider interactCollider;
@@ -48,6 +49,12 @@ public class PlayerInteract : MonoBehaviour
             canPickup = true;
             currentInteractObject = other.gameObject;
         }
+        else if (other.CompareTag("Repair"))
+        {
+            canRepair = true;
+            Debug.Log("Repair station interacted: " + canRepair);
+            currentInteractObject = other.gameObject;
+        }
     }
 
     /*
@@ -71,5 +78,10 @@ public class PlayerInteract : MonoBehaviour
             canPickup = false;
             currentInteractObject = other.gameObject;
         }
+        else if (other.CompareTag("Repair"))
+        {
+            canRepair = false;
+            Debug.Log("left repair station");
+        }    
     }
 }
