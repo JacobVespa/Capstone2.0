@@ -22,5 +22,11 @@ public abstract class EnemyAI : MonoBehaviour
     }
 
     protected abstract void AIFlowChart();
-    
+
+    public void SetTarget(GameObject newTarget)
+    {
+        target = newTarget;
+        hasTarget = (target != null);
+    }
+
 }
