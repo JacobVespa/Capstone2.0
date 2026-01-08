@@ -10,6 +10,7 @@ public class GrubEnemyAI : EnemyAI
     private bool inRange = false;
 
     private Vector2 moveInput;
+    private Vector2 contact;
 
     private void Start()
     {
@@ -82,10 +83,14 @@ public class GrubEnemyAI : EnemyAI
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
         Debug.Log("hit");
         if(collision.gameObject == target)
         {
             inRange = true;
+
+            
+
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -93,6 +98,7 @@ public class GrubEnemyAI : EnemyAI
         if(collision.gameObject == target)
         {
             inRange = false;
+            contact = Vector2.zero;
         }
     }
 }

@@ -21,16 +21,21 @@ public class GrubEnemyBody : EnemyBody
 
     
 
-    public void Attack(Vector3 dir)
+    public void Attack(Vector2 dir)
     {
-        Debug.Log("attack");
-        Ray2D r = new Ray2D(gameObject.transform.position, new Vector2(1, 1));
-        Debug.DrawRay(gameObject.transform.position, new Vector2(1, 1), Color.red);
+        //Debug.Log("attack");
+        
         if (attackCooldown < attackRate) { return; }
 
-        
+        Ray2D r = new Ray2D(gameObject.transform.position, dir * 3f);
+        Debug.DrawRay(gameObject.transform.position, dir * 3f, Color.red);
+        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, dir, 100f,1);
+        if (hit)
+        {
+            Debug.Log(hit.collider.name);
+        }
 
-        
+
     }
 
     
