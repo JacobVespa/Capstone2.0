@@ -6,6 +6,7 @@ public class Turret : MonoBehaviour
     [SerializeField] AudioClip shootClip;
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject crosshair;
+    [SerializeField] LayerMask enemyLayer;
     private GameObject player;
     private PlayerControls currentControls;
 
@@ -62,7 +63,7 @@ public class Turret : MonoBehaviour
         Vector3 origin = transform.position;
         Vector3 direction = (aimPos - (Vector2)origin).normalized;
 
-        if (Physics.Raycast(origin, direction, out hit, 100f))
+        if (Physics.Raycast(origin, direction, out hit, 100f, enemyLayer))
         {
             Debug.Log("Hit: " + hit.collider.name);
 
