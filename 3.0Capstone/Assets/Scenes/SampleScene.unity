@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!82 &71102792 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4617398429662602465, guid: d9a255caf6122204b9dffa97956a9448, type: 3}
+  m_PrefabInstance: {fileID: 964680545}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &394686291
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,9 +1076,21 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3035953174502917894, guid: d9a255caf6122204b9dffa97956a9448, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 71102792}
     - target: {fileID: 3583193755906840622, guid: d9a255caf6122204b9dffa97956a9448, type: 3}
       propertyPath: m_Name
       value: Ammo Box
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617398429662602465, guid: d9a255caf6122204b9dffa97956a9448, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 3be83146ee23eaf4a9ac3b26cf003bf1, type: 3}
+    - target: {fileID: 4617398429662602465, guid: d9a255caf6122204b9dffa97956a9448, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5576941978182912344, guid: d9a255caf6122204b9dffa97956a9448, type: 3}
       propertyPath: m_LocalScale.x
