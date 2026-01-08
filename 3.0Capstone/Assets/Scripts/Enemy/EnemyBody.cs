@@ -2,14 +2,13 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 //[RequireComponent(typeof(EnemyAI))]
-[RequireComponent(typeof(CharacterController))]
+//[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(DamageSource))]
 
 public class EnemyBody : MonoBehaviour, IDamageReceiver
 {
     [Header("Required Components")]
     [SerializeField] protected EnemyAI ai;
-    [SerializeField] protected CharacterController bodyController;
     [SerializeField] protected DamageSource damageSource;
     [SerializeField] protected SpriteRenderer sprite;
     [SerializeField] protected Camera sceneCamera;
@@ -60,10 +59,6 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         {
             ai = GetComponent<EnemyAI>();
         }
-        if(bodyController == null)
-        {
-            bodyController = GetComponent<CharacterController>();
-        }
         if(damageSource == null)
         {
             damageSource = GetComponent<DamageSource>();
@@ -85,14 +80,6 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     }
 
     
-    
-
-    
-
-    
-
-    
-
 
     #region Handle Attacked
     public void Attacked(DamageSource d)

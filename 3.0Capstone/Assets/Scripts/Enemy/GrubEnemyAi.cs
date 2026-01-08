@@ -7,6 +7,8 @@ public class GrubEnemyAI : EnemyAI
     private Vector2 targetDist = Vector3.zero;
     private float totalDist = 0;
 
+    private bool inRange = false;
+
     private Vector2 moveInput;
 
     private void Start()
@@ -21,15 +23,17 @@ public class GrubEnemyAI : EnemyAI
     {
         if (!hasTarget) { return; }
 
-        if(totalDist >= body.AttackRange*2/3)
+        //Debug.Log(totalDist);
+
+        if(!inRange)
         {
             ApproachTarget();
             body.AttackCooldown = 0;
         }
-        else
+        else if(inRange)
         {
             moveInput = Vector2.zero;
-            //AttackTarget();
+            AttackTarget();
         }
     }
 
@@ -59,6 +63,7 @@ public class GrubEnemyAI : EnemyAI
         {
             target = null;
             hasTarget = false;
+            inRange = false;
 
         }
     }
@@ -67,6 +72,28 @@ public class GrubEnemyAI : EnemyAI
     {
         if (target == null) { hasTarget = false; }
         else { hasTarget = true; }
+    }
+
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("hit");
+        if(collision.gameObject == target)
+        {
+            inRange = true;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject == target)
+        {
+            inRange = false;
+        }
     }
 }
 
