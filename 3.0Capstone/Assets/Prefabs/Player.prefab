@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canMount: 0
   canPickup: 0
+  canRepair: 0
   interactRange: 1
   currentInteractObject: {fileID: 0}
 --- !u!1 &2963705724401187127
@@ -352,7 +353,7 @@ GameObject:
   - component: {fileID: 7312108193430956016}
   - component: {fileID: 2911914625624740174}
   m_Layer: 8
-  m_Name: Capsule
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
