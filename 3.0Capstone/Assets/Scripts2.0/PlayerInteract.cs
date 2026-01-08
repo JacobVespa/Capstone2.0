@@ -54,8 +54,6 @@ public class PlayerInteract : MonoBehaviour
         else if (other.CompareTag("Repair"))
         {
             canRepair = true;
-            Debug.Log("Repair station interacted: " + canRepair);
-            Debug.Log("WHO");
             currentInteractObject = other.gameObject;
         }
     }

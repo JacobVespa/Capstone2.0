@@ -32,12 +32,17 @@ public class PlayerMovement : MonoBehaviour
     //There's probably a better way to do this
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("WHAT");
-        if (interactor.canRepair && other.CompareTag("Damaged"))
+        Debug.Log("Can Repair: " + interactor.canRepair);
+        Debug.Log("Has Interacted: " + playerControls.controlEvent.HasInteracted);
+        Debug.Log("Tag: " + other.tag);
+        if (playerControls.controlEvent.HasInteracted)
         {
-            //HandleRepair(other.gameObject);
-            other.gameObject.SetActive(false); 
-            interactor.canRepair = false;
+            if (interactor.canRepair && other.CompareTag("Damaged"))
+            {
+                //HandleRepair(other.gameObject);
+                other.gameObject.SetActive(false);
+                interactor.canRepair = false;
+            }
         }
     }
 
