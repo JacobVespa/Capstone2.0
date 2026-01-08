@@ -12,7 +12,7 @@ public class Turret : MonoBehaviour
     private bool playerMounted = false;
 
     Vector2 aimPos;
-    RaycastHit hit;
+    RaycastHit2D hit;
     DamageSource currentDamage;
 
     [SerializeField] float aimSpeed = 20.0f;
@@ -62,7 +62,9 @@ public class Turret : MonoBehaviour
         Vector3 origin = transform.position;
         Vector3 direction = (aimPos - (Vector2)origin).normalized;
 
-        if (Physics.Raycast(origin, direction, out hit, 100f, 64)) //layer 6 is enemy layer
+        hit = Physics2D.Raycast(origin, direction, 100f, 64);
+
+        if (hit)//Physics2D.Raycast(origin, direction, out hit, 100f, 64)) //layer 6 is enemy layer
         {
             Debug.Log("Hit: " + hit.collider.name);
 
