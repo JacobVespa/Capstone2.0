@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Xml.Serialization;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -14,7 +12,8 @@ public class Turret : MonoBehaviour
     private bool playerMounted = false;
 
     Vector2 aimPos;
-    RaycastHit2D hit;
+    RaycastHit hit;
+    DamageSource currentDamage;
 
     [SerializeField] float aimSpeed = 20.0f;
 
@@ -25,6 +24,7 @@ public class Turret : MonoBehaviour
     {
         aimPos = transform.position;
         audioSource.clip = shootClip;
+        currentDamage = GetComponent<DamageSource>();
     }
 
     private void Update()
@@ -54,19 +54,25 @@ public class Turret : MonoBehaviour
 
     private void Shoot()
     {
-        if (player != null && currentControls != null)
+        if (player == null || currentControls == null) return;
+        if (!currentControls.controlEvent.HasAttacked) return;
+
+        StartCoroutine(ShootingVFX());
+
+        Vector3 origin = transform.position;
+        Vector3 direction = (aimPos - (Vector2)origin).normalized;
+
+        if (Physics.Raycast(origin, direction, out hit, 100f))
         {
-            if (currentControls.controlEvent.HasAttacked)
+            Debug.Log("Hit: " + hit.collider.name);
+
+            if (hit.collider.CompareTag("Enemy"))
             {
-                StartCoroutine(ShootingVFX());
-                hit = Physics2D.Raycast(transform.position, aimPos);
-
-                if (hit.collider != null && hit.collider.CompareTag("Enemy"))
+                var body = hit.collider.GetComponent<GrubEnemyBody>();
+                if (body != null)
                 {
-                    Debug.Log("Enemy hit!");
-                    
+                    body.Attacked(currentDamage);
                 }
-
             }
         }
     }
