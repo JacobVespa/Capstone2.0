@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Turret : MonoBehaviour
 {
-
+    [SerializeField] AudioClip shootClip;
+    [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject crosshair;
     private GameObject player;
     private PlayerControls currentControls;
@@ -23,6 +24,7 @@ public class Turret : MonoBehaviour
     private void Start()
     {
         aimPos = transform.position;
+        audioSource.clip = shootClip;
     }
 
     private void Update()
@@ -81,6 +83,7 @@ public class Turret : MonoBehaviour
     IEnumerator ShootingVFX()
     {
         muzzleFlash.SetActive(true);
+        audioSource.Play();
         yield return new WaitForEndOfFrame();
         muzzleFlash.SetActive(false);
     }
