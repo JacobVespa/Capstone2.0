@@ -34,6 +34,8 @@ public class PlayerInteract : MonoBehaviour
      * 
      * Param( canPickup ) --> allows a player to pickup an object when pressing the interact button (When in the correct collider)
      * 
+     * Param( canRepair ) --> enables the player to repair a damaged area (When in the correct collider)
+     * 
      * Object( currentInteractObject ) --> tracks which object collider the player is currently inside
      */
 
@@ -53,6 +55,7 @@ public class PlayerInteract : MonoBehaviour
         {
             canRepair = true;
             Debug.Log("Repair station interacted: " + canRepair);
+            Debug.Log("WHO");
             currentInteractObject = other.gameObject;
         }
     }
@@ -77,11 +80,6 @@ public class PlayerInteract : MonoBehaviour
         {
             canPickup = false;
             currentInteractObject = other.gameObject;
-        }
-        else if (other.CompareTag("Repair"))
-        {
-            canRepair = false;
-            Debug.Log("left repair station");
-        }    
+        }  
     }
 }

@@ -28,24 +28,28 @@ public class PlayerMovement : MonoBehaviour
         HandleMovement();
         HandleInput();
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    Debug.Log("Here");
-    //    if (interactor.canRepair && other.gameObject.CompareTag("Damaged"))
-    //    {
-    //        Debug.Log(other.tag);
-    //        other.gameObject.SetActive(false);
-    //    }
-    //}
 
-    //How do I do what happens in OntriggerEnter here in this method?
-    private void HandleRepair(Collider other)
+    //There's probably a better way to do this
+    private void OnTriggerEnter(Collider other)
     {
-        if (playerControls.controlEvent.HasInteracted)
+        Debug.Log("WHAT");
+        if (interactor.canRepair && other.CompareTag("Damaged"))
         {
-            other.gameObject.SetActive(false);
+            //HandleRepair(other.gameObject);
+            other.gameObject.SetActive(false); 
+            interactor.canRepair = false;
         }
     }
+
+    //How do I detect a button being held down for a certain duration? (and have it as a untiy event?)
+    //private void HandleRepair(GameObject other)
+    //{
+    //    if (playerControls.controlEvent.HasInteracted)
+    //    {
+    //        other.SetActive(false);
+    //        //interactor.canRepair = false; //Once you finish repairing, canRepair should be set to false
+    //    }
+    //}
 
     // Method that calculates player movement
     private void HandleMovement()

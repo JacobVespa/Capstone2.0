@@ -21,12 +21,16 @@ public class PlayerControls : MonoBehaviour
         private bool hasDisengaged;
         public bool HasDisengaged { get { return hasDisengaged; } set { hasDisengaged = value; } }
 
+        private bool heldInteracted;
+        public bool HeldInteracted { get { return hasDisengaged; } set { hasDisengaged = value; } }
+
         // Method to reset all button states
         public void ResetButtons()
         {
             hasAttacked = false;
             hasInteracted = false;
             hasDisengaged = false;
+            heldInteracted = false;
         }
 
     }
@@ -65,6 +69,12 @@ public class PlayerControls : MonoBehaviour
     {
         controlEvent.HasInteracted = context.action.WasPressedThisFrame();
     }
+
+    //// Method that tracks when the interact button is held
+    //public void HeldInteracted(InputAction.CallbackContext context)
+    //{
+    //    controlEvent.HeldInteracted = context.action.WasHeld(-need to figure out how to do this);
+    //}
 
     // Method that tracks when the disengage button is pressed
     public void Disengaged(InputAction.CallbackContext context)
