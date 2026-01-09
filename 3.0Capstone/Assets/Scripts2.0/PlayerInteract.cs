@@ -11,6 +11,8 @@ public class PlayerInteract : MonoBehaviour
 
     public GameObject currentInteractObject;
 
+    public GameObject wallSection;
+
     /*
      * Method that grabs a collider from the player that determines collisions
      * 
@@ -55,6 +57,10 @@ public class PlayerInteract : MonoBehaviour
         {
             canRepair = true;
             currentInteractObject = other.gameObject;
+        }
+        else if(other.CompareTag("WallTrigger"))
+        {
+            Instantiate(wallSection, new Vector2(0, 83.75f), Quaternion.identity);
         }
     }
 

@@ -15,7 +15,7 @@ public class InputControlManager : MonoBehaviour
     private void Start()
     {
         SpawnPlayer();
-        SpawnPlayer();
+        //SpawnPlayer();
     }
 
     public void SpawnPlayer(InputDevice device = null)
