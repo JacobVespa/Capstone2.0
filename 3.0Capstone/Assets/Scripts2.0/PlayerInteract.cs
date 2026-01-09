@@ -60,6 +60,7 @@ public class PlayerInteract : MonoBehaviour
         }
         else if(other.CompareTag("WallTrigger"))
         {
+            //instantiating a new wall piece above the others to create a looping effect
             Instantiate(wallSection, new Vector2(0, 83.75f), Quaternion.identity);
         }
     }
