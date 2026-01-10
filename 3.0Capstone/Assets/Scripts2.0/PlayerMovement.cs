@@ -22,10 +22,14 @@ public class PlayerMovement : MonoBehaviour
     [Header("Debug Values")]
     [SerializeField] private bool isMounted = false;
     [SerializeField] private bool isHolding = false;
+    [SerializeField] private bool canMove = true; //testing for now
 
     private void Update()
     {
-        HandleMovement();
+        if(canMove)
+        {
+            HandleMovement();
+        }
         HandleInput();
     }
 
@@ -84,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
         if (isHolding) HandleDrop();
 
         isMounted = true;
+        canMove = false; //testing for now
         interactor.currentInteractObject.GetComponent<Turret>().Mount(this.gameObject);
     }
 
@@ -100,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleDismounting()
     {
         isMounted = false;
+        canMove = true; //testing for now
         interactor.currentInteractObject.GetComponent<Turret>().Dismount();
     }
 
