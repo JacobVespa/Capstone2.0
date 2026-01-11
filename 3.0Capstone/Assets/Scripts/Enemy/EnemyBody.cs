@@ -11,7 +11,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [SerializeField] protected EnemyAI ai;
     [SerializeField] protected DamageSource damageSource;
     [SerializeField] protected SpriteRenderer sprite;
-    [SerializeField] protected Camera sceneCamera;
+    
 
     public enum EnemyMoveType
     {
@@ -42,10 +42,10 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [SerializeField] protected float health = 100;
     public float Health {  get { return health; } set {  health = value; } }
 
-    [SerializeField] protected float attackRate = 0.75f;
+    [SerializeField] protected float attackRate = 3;
     public float AttackRate { get {  return attackRate; } set { attackRate = value; } }
 
-    protected float attackCooldown = 0.75f;
+    protected float attackCooldown = 3;
     public float AttackCooldown { get { return attackCooldown; } set { attackCooldown = value; } }
 
     
@@ -73,7 +73,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     protected void UpdateCooldown()
     {
-        if(attackCooldown >= attackRate) { return; }
+        if(attackCooldown >= attackRate || ai.behaviour != EnemyAI.Behaviour.Attack) { return; }
 
         attackCooldown += 1 * Time.fixedDeltaTime;
         
@@ -84,7 +84,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     #region Handle Attacked
     public void Attacked(DamageSource d)
     {
-        TakeDamage(d.DamageVal);
+        if(d.DamageTarget == DamageSource.DamageType.Enemy)
+        {
+            TakeDamage(d.DamageVal);
+        }
+        
     }
 
     private void TakeDamage(float damage)

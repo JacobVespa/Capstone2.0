@@ -1,4 +1,6 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class GrubEnemyAI : EnemyAI
 {
@@ -10,7 +12,7 @@ public class GrubEnemyAI : EnemyAI
     private bool inRange = false;
 
     private Vector2 moveInput;
-    private Vector2 contact;
+    
 
     private void Start()
     {
@@ -28,11 +30,14 @@ public class GrubEnemyAI : EnemyAI
 
         if(!inRange)
         {
+            if(behaviour != Behaviour.None) { behaviour = Behaviour.None; }
             ApproachTarget();
             body.AttackCooldown = 0;
         }
         else if(inRange)
         {
+            if(behaviour != Behaviour.Attack) { behaviour = Behaviour.Attack; }
+            
             moveInput = Vector2.zero;
             AttackTarget();
         }
@@ -59,7 +64,7 @@ public class GrubEnemyAI : EnemyAI
 
         Vector3 attackAim = target.transform.position - transform.position;
         attackAim = attackAim.normalized;
-        body.Attack(attackAim);
+        body.Attack(target);
         if (target.activeSelf == false)
         {
             target = null;
@@ -77,20 +82,15 @@ public class GrubEnemyAI : EnemyAI
 
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
+    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        Debug.Log("hit");
         if(collision.gameObject == target)
         {
+
             inRange = true;
-
-            
-
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -98,7 +98,7 @@ public class GrubEnemyAI : EnemyAI
         if(collision.gameObject == target)
         {
             inRange = false;
-            contact = Vector2.zero;
+            
         }
     }
 }

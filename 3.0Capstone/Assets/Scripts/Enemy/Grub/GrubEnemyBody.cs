@@ -4,10 +4,11 @@ using UnityEngine;
 public class GrubEnemyBody : EnemyBody
 {
 
-    
+    [SerializeField] private CircleCollider2D attackRange;
     [SerializeField] private float attackRangeVal = 2;
-    public float AttackRange { get { return attackRangeVal; } set {  attackRangeVal = value; } }
+    public float AttackRangeVal { get { return attackRangeVal; } set {  attackRangeVal = value; attackRange.radius = attackRangeVal; } }
     
+
 
     [Header("Movemnet Stats")]
     [SerializeField] private float moveSpeed = 5;
@@ -19,23 +20,30 @@ public class GrubEnemyBody : EnemyBody
     private Vector2 inputDir = Vector2.zero;
     public Vector2 InputDir { get { return inputDir; } set { inputDir = value; } }
 
-    
-
-    public void Attack(Vector2 dir)
+    private void Start()
     {
-        //Debug.Log("attack");
+        attackRange.radius = attackRangeVal;
+    }
+
+    public void Attack(GameObject target)
+    {
+        
         
         if (attackCooldown < attackRate) { return; }
 
-        Ray2D r = new Ray2D(gameObject.transform.position, dir * 3f);
-        Debug.DrawRay(gameObject.transform.position, dir * 3f, Color.red);
-        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, dir, 100f,1);
-        if (hit)
+        Debug.Log("attack");
+
+        
+        if(target.TryGetComponent<IDamageReceiver>(out IDamageReceiver damageTarget))
         {
-            Debug.Log(hit.collider.name);
+            damageTarget.Attacked(damageSource);
+        }
+        else
+        {
+            Debug.LogError("no IDamage Receiver on target");
         }
 
-
+        attackCooldown = 0;
     }
 
     

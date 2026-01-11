@@ -5,9 +5,17 @@ using UnityEngine.UIElements;
 public abstract class EnemyAI : MonoBehaviour
 {
     //public virtual EnemyBody body { get; set; }
+   
 
     [SerializeField] protected GameObject target;
     [SerializeField] protected bool hasTarget;
+    public Behaviour behaviour;
+
+    public enum Behaviour
+    {
+        None = 0,
+        Attack = 1,
+    }
 
     private void Update()
     {

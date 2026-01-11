@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3611787792641163113}
   - component: {fileID: 1215407965381333140}
   m_Layer: 6
-  m_Name: GrubEnemy 1
+  m_Name: GrubEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,12 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b4dd99fe0672548a206974b2b8844c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ai: {fileID: 0}
+  ai: {fileID: 6726628139389650614}
   damageSource: {fileID: 3739521471955693038}
   sprite: {fileID: 5451431036356453378}
-  sceneCamera: {fileID: 0}
   health: 3
   attackRate: 3
+  attackRange: {fileID: 1215407965381333140}
   attackRangeVal: 2
   moveSpeed: 5
 --- !u!114 &6726628139389650614
@@ -149,7 +149,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 1
+  m_Radius: 1.25
 --- !u!58 &1215407965381333140
 CircleCollider2D:
   m_ObjectHideFlags: 0
