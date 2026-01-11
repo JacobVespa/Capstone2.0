@@ -2,6 +2,53 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
+
+/*
+ * WaveSpawner
+ * --------------------------------------------------
+ * Handles spawning enemies in configurable waves.
+ *
+ * HOW IT WORKS:
+ * - Enemies spawn over time from defined spawn points
+ * - Each wave spawns a fixed number of enemies
+ * - A max-alive cap prevents overwhelming the player
+ * - Waves can advance automatically or wait until cleared
+ *
+ * INSPECTOR SECTIONS:
+ *
+ * [Wave Settings]
+ * - Enemies Per Wave:
+ *   Total number of enemies spawned in a single wave.
+ *
+ * - Spawn Interval:
+ *   Time (seconds) between individual enemy spawns.
+ *
+ * - Time Between Waves:
+ *   Delay (seconds) before the next wave begins.
+ *
+ * [Difficulty / Safety Caps]
+ * - Max Alive Enemies:
+ *   Hard limit on how many enemies can exist at once.
+ *   Spawning pauses until enemies are killed.
+ *
+ * [Wave Rules]
+ * - Require Wave Clear To Advance:
+ *   If enabled, the next wave will not start until all
+ *   enemies from the current wave are dead/inactive.
+ *
+ * - Finite Waves:
+ *   If enabled, the spawner will stop after Total Waves.
+ *
+ * - Total Waves:
+ *   Number of waves when Finite Waves is enabled.
+ *
+ * NOTES:
+ * - Enemies automatically target the RIG on spawn
+ * - Uses activeSelf to track alive enemies
+ * - Suitable for all rooms
+ */
+
+
 public class WaveSpawner : MonoBehaviour
 {
     [Header("References")]
