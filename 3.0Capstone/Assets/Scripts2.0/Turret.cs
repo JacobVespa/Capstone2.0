@@ -64,7 +64,7 @@ public class Turret : MonoBehaviour
 
         hit = Physics2D.Raycast(origin, direction, 100f, 64);
 
-        if (hit)//Physics2D.Raycast(origin, direction, out hit, 100f, 64)) //layer 6 is enemy layer
+        if (hit) //layer 6 is enemy layer
         {
             Debug.Log("Hit: " + hit.collider.name);
 
@@ -74,6 +74,15 @@ public class Turret : MonoBehaviour
                 if (body != null)
                 {
                     body.Attacked(currentDamage);
+                }
+            }
+
+            if (hit.collider.CompareTag("Gem"))
+            {
+                var gem = hit.collider.GetComponent<Resource>();
+                if (gem != null)
+                {
+                    gem.Damage();
                 }
             }
         }

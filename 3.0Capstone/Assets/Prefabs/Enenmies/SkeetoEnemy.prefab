@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4908277479223875768}
   - component: {fileID: 3611470731844568476}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,9 +101,9 @@ GameObject:
   - component: {fileID: 1503413796833272081}
   - component: {fileID: 5133152207654928519}
   - component: {fileID: 504331918213096786}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SkeetoEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   hasTarget: 0
-  body: {fileID: 1632932676753608099}
+  behaviour: 0
 --- !u!114 &1503413796833272081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7576113355717440580}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FireLocation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
