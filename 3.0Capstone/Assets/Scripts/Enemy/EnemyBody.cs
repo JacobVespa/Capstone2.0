@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -87,6 +88,8 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         if(d.DamageTarget == DamageSource.DamageType.Enemy)
         {
             TakeDamage(d.DamageVal);
+            originalPosition = transform.localPosition;
+            StartCoroutine(Shake());
         }
         
     }
@@ -106,6 +109,27 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         this.gameObject.SetActive(false);
     }
 
+    public float shakeDuration = 0.3f;   // how long the shake lasts
+    public float shakeStrength = 0.1f;    // how strong the shake is
+    private Vector3 originalPosition;
+    
+    IEnumerator Shake()
+    {
+        float elapsed = 0f;
+
+        while (elapsed < shakeDuration)
+        {
+            float x = Random.Range(-1f, 1f) * shakeStrength;
+            float y = Random.Range(-1f, 1f) * shakeStrength;
+
+            transform.localPosition = originalPosition + new Vector3(x, y, 0);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localPosition = originalPosition;
+    }
     #endregion
 
 
