@@ -21,15 +21,22 @@ public class GameManager : MonoBehaviour
 
     public EventSystem UIEvent;
 
-    public int gems;
-    public int shards;
+    private int gems;
+    public int Gems { get { return gems; } }
+    private int shards;
+    public int Shards { get { return shards; } }
 
     void Start()
     {
-        gems = 5;
+        gems = 0;
         shards = 0;
 
         UIEvent = FindAnyObjectByType<EventSystem>();
+    }
+
+    public void AddShards(int amount)
+    {
+        shards += amount;
     }
 
 }

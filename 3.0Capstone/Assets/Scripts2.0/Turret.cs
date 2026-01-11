@@ -94,7 +94,7 @@ public class Turret : MonoBehaviour
         {
             aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
             crosshair.transform.position = aimPos;
-            transform.LookAt(transform.position + Vector3.fwd, crosshair.transform.position - transform.position); //maybe?
+            transform.LookAt(transform.position + Vector3.forward, crosshair.transform.position - transform.position); //maybe?
             transform.Rotate(new Vector3(0, 0, -90));
         }
     }

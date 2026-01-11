@@ -1,12 +1,14 @@
 using UnityEngine;
 using System.Collections;
-using System.Xml.Serialization;
 
 public class Resource : MonoBehaviour
 {
 
     [SerializeField] int OriginalHP = 3;
     private int currentHP;
+
+    private int breakMulitplier = 2;
+    private int damageMulitplier = 1;
 
     void Start()
     {
@@ -16,9 +18,24 @@ public class Resource : MonoBehaviour
 
     public void Damage()
     {
+        int previousHP = currentHP;
         StartCoroutine(Shake());
         currentHP--;
         if (currentHP <= 0) Destroy(gameObject);
+
+        RewardShards(-(currentHP - previousHP), currentHP <= 0);
+    }
+
+    private void RewardShards(int shards, bool broken)
+    {
+        if (broken)
+        {
+            GameManager.Instance.AddShards(shards * breakMulitplier);
+        }
+        else
+        {
+            GameManager.Instance.AddShards(shards * damageMulitplier);
+        }
     }
 
     

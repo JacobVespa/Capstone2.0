@@ -111,8 +111,8 @@ public class AppraisalStation : MonoBehaviour, IInteractable
     {
         if (GameManager.Instance != null)
         {
-            gemCountText.text = "Gems: " + GameManager.Instance.gems;
-            shardCountText.text = "Shards: " + GameManager.Instance.shards;
+            //gemCountText.text = "Gems: " + GameManager.Instance.gems;
+            //shardCountText.text = "Shards: " + GameManager.Instance.shards;
         }
         else
         {
@@ -125,22 +125,22 @@ public class AppraisalStation : MonoBehaviour, IInteractable
     {
         if (GameManager.Instance == null) return;
 
-        if (GameManager.Instance.gems > 0)
-        {
-            speedUpgradeButton.gameObject.SetActive(true);
-            rateOfFireUpgradeButton.gameObject.SetActive(true);
-            appraiseButton.gameObject.SetActive(false);
-            dismantleButton.gameObject.SetActive(true);
+        //if (GameManager.Instance.gems > 0)
+        //{
+            //speedUpgradeButton.gameObject.SetActive(true);
+            //rateOfFireUpgradeButton.gameObject.SetActive(true);
+            //appraiseButton.gameObject.SetActive(false);
+            //dismantleButton.gameObject.SetActive(true);
 
             //GameManager.Instance.UIEvent.firstSelectedGameObject = speedUpgradeButton.gameObject;
-            speedUpgradeButton.Select();
+            //speedUpgradeButton.Select();
 
-            GameManager.Instance.gems -= 1;
-        }
-        else
-        {
-            Debug.Log("No gems to appraise.");
-        }
+            //GameManager.Instance.gems -= 1;
+        //}
+        //else
+        //{
+            //Debug.Log("No gems to appraise.");
+        //}
 
     }
 
@@ -148,7 +148,7 @@ public class AppraisalStation : MonoBehaviour, IInteractable
     {
         if (GameManager.Instance == null) return;
 
-        GameManager.Instance.shards += 5000;
+        //GameManager.Instance.shards += 5000;
 
         appraiseButton.gameObject.SetActive(true);
         dismantleButton.gameObject.SetActive(false);
@@ -187,7 +187,7 @@ public class AppraisalStation : MonoBehaviour, IInteractable
     public void UpgradeRateOfFire()
     {
         // TEMP: Stub for later weapon integration
-        Debug.Log("Rate of Fire upgrade chosen (stub – hook into weapon/rig guns later).");
+        Debug.Log("Rate of Fire upgrade chosen (stub ï¿½ hook into weapon/rig guns later).");
 
         speedUpgradeButton.gameObject.SetActive(false);
         rateOfFireUpgradeButton.gameObject.SetActive(false);
