@@ -19,6 +19,7 @@ public class Turret : MonoBehaviour
 
     //reference to the muzzle flash vfx
     public GameObject muzzleFlash;
+    [SerializeField] private ParticleSystem comicShot;
 
     private void Start()
     {
@@ -102,6 +103,7 @@ public class Turret : MonoBehaviour
     IEnumerator ShootingVFX()
     {
         muzzleFlash.SetActive(true);
+        comicShot.Play();
         audioSource.Play();
         yield return new WaitForSeconds(0.1f);
         muzzleFlash.SetActive(false);
