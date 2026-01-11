@@ -9,6 +9,10 @@ public class Turret : MonoBehaviour
     private GameObject player;
     private PlayerControls currentControls;
 
+    [SerializeField] public int maxAmmo = 10;
+    public int currentAmmo;
+    [SerializeField] private GameObject reloadNotif;
+
     private bool playerMounted = false;
 
     Vector2 aimPos;
@@ -23,6 +27,9 @@ public class Turret : MonoBehaviour
 
     private void Start()
     {
+        reloadNotif.SetActive(false);
+        currentAmmo = maxAmmo;
+
         aimPos = transform.position;
         audioSource.clip = shootClip;
         currentDamage = GetComponent<DamageSource>();
@@ -57,36 +64,45 @@ public class Turret : MonoBehaviour
     {
         if (player == null || currentControls == null) return;
         if (!currentControls.controlEvent.HasAttacked) return;
-
-        StartCoroutine(ShootingVFX());
-
-        Vector3 origin = transform.position;
-        Vector3 direction = (aimPos - (Vector2)origin).normalized;
-
-        hit = Physics2D.Raycast(origin, direction, 100f, 64);
-
-        if (hit) //layer 6 is enemy layer
+        if (currentAmmo > 0)
         {
-            Debug.Log("Hit: " + hit.collider.name);
-
-            if (hit.collider.CompareTag("Enemy"))
+            currentAmmo--;
+            if (currentAmmo ==0)
             {
-                var body = hit.collider.GetComponent<GrubEnemyBody>();
-                if (body != null)
-                {
-                    body.Attacked(currentDamage);
-                }
+                reloadNotif.SetActive(true);
             }
 
-            if (hit.collider.CompareTag("Gem"))
+            StartCoroutine(ShootingVFX());
+
+            Vector3 origin = transform.position;
+            Vector3 direction = (aimPos - (Vector2)origin).normalized;
+
+            hit = Physics2D.Raycast(origin, direction, 100f, 64);
+
+            if (hit) //layer 6 is enemy layer
             {
-                var gem = hit.collider.GetComponent<Resource>();
-                if (gem != null)
+                Debug.Log("Hit: " + hit.collider.name);
+
+                if (hit.collider.CompareTag("Enemy"))
                 {
-                    gem.Damage();
+                    var body = hit.collider.GetComponent<GrubEnemyBody>();
+                    if (body != null)
+                    {
+                        body.Attacked(currentDamage);
+                    }
+                }
+
+                if (hit.collider.CompareTag("Gem"))
+                {
+                    var gem = hit.collider.GetComponent<Resource>();
+                    if (gem != null)
+                    {
+                        gem.Damage();
+                    }
                 }
             }
         }
+        
     }
 
     private void Aim()
