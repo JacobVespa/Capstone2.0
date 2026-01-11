@@ -12,7 +12,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [SerializeField] protected EnemyAI ai;
     [SerializeField] protected DamageSource damageSource;
     [SerializeField] protected SpriteRenderer sprite;
-    
+    [SerializeField] protected GameObject attackNotif;
+
+    [SerializeField] private ParticleSystem comicHurt;
+    [SerializeField] private ParticleSystem comicDeath;
+
 
     public enum EnemyMoveType
     {
@@ -55,6 +59,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private void Start()
     {
+        attackNotif.SetActive(false);
         attackCooldown = attackRate;
         if(ai == null)
         {
@@ -88,6 +93,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         if(d.DamageTarget == DamageSource.DamageType.Enemy)
         {
             TakeDamage(d.DamageVal);
+            comicHurt.Play();
             originalPosition = transform.localPosition;
             StartCoroutine(Shake());
         }
@@ -106,6 +112,10 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private void Death()
     {
+        //ParticleSystem comicDeath2 = Instantiate(comicDeath); 
+        //comicDeath2.transform.parent = null;
+        //comicDeath2.Play();
+        //Destroy(comicDeath2, 5);
         this.gameObject.SetActive(false);
     }
 
