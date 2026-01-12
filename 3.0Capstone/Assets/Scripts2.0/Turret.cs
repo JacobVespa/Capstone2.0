@@ -12,6 +12,7 @@ public class Turret : MonoBehaviour
     [SerializeField] public int maxAmmo = 10;
     public int currentAmmo;
     [SerializeField] private GameObject reloadNotif;
+    public bool needsReload = false;
 
     private bool playerMounted = false;
 
@@ -70,6 +71,7 @@ public class Turret : MonoBehaviour
             if (currentAmmo ==0)
             {
                 reloadNotif.SetActive(true);
+                needsReload = true; //test
             }
 
             StartCoroutine(ShootingVFX());
@@ -123,6 +125,12 @@ public class Turret : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSeconds(0.1f);
         muzzleFlash.SetActive(false);
+    }
+
+    public void RefillAmmo()
+    {
+        currentAmmo = maxAmmo;
+        reloadNotif.SetActive(false);
     }
 
 }

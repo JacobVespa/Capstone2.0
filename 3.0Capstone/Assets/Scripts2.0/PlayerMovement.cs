@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
     [SerializeField] private GameObject heldRepair; //sprite for player holding biotape
 
-    private bool isHoldingAmmo;
+    public bool isHoldingAmmo;
     private bool isHoldingRepair;
 
     private void Start()
@@ -127,7 +127,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Drops what the player is holding
-    private void HandleDrop()
+    public void HandleDrop() //can probably switch back to private later, check reloading in player interact
     {
         isHolding = false;
 

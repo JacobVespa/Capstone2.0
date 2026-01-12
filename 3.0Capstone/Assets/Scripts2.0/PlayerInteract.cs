@@ -13,6 +13,9 @@ public class PlayerInteract : MonoBehaviour
 
     public GameObject wallSection;
 
+    private PlayerMovement playerMove;
+    private Turret turret;
+
     /*
      * Method that grabs a collider from the player that determines collisions
      * 
@@ -26,6 +29,7 @@ public class PlayerInteract : MonoBehaviour
     {
         interactCollider = GetComponent<SphereCollider>();
         interactCollider.radius = interactRange;
+        playerMove = GetComponentInParent<PlayerMovement>();
     }
 
 
@@ -45,8 +49,15 @@ public class PlayerInteract : MonoBehaviour
     {
         if (other.CompareTag("Turret"))
         {
+            turret = other.GetComponent<Turret>();
             canMount = true;
             currentInteractObject = other.gameObject;
+            //testing reload
+            if(playerMove.isHoldingAmmo && turret.needsReload)
+            {
+                turret.RefillAmmo();
+                playerMove.HandleDrop();
+            }
         }
         else if (other.CompareTag("Ammo"))
         {

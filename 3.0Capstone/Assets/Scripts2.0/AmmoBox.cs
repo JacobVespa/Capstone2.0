@@ -11,7 +11,7 @@ public class AmmoBox : MonoBehaviour
     public void SpawnAmmo()
     {
         audioSource.Play();
-        Instantiate(ammoRound);
+        //Instantiate(ammoRound);
     }
 
 }
