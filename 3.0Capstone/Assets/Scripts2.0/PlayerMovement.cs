@@ -8,11 +8,20 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController player;
     private PlayerInteract interactor;
 
+    [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
+    [SerializeField] private GameObject heldRepair; //sprite for player holding biotape
+
+    private bool isHoldingAmmo;
+    private bool isHoldingRepair;
+
     private void Start()
     {
         playerControls = GetComponent<PlayerControls>();
         player = GetComponent<CharacterController>();
         interactor = GetComponentInChildren<PlayerInteract>();
+
+        isHoldingAmmo = false;
+        isHoldingRepair = false;
     }
 
 
@@ -99,6 +108,14 @@ public class PlayerMovement : MonoBehaviour
 
         isHolding = true;
         interactor.currentInteractObject.GetComponent<AmmoBox>().SpawnAmmo();
+
+        //this is temp
+        if (interactor.currentInteractObject.TryGetComponent<AmmoBox>(out var ammo))
+        {
+            heldAmmo.SetActive(true);
+            isHoldingAmmo = true;
+        }
+        
     }
 
     // Removes player referene from turret and resets script
@@ -113,6 +130,12 @@ public class PlayerMovement : MonoBehaviour
     private void HandleDrop()
     {
         isHolding = false;
+
+        //this is temporary
+        isHoldingAmmo = false;
+        isHoldingRepair = false;
+        heldAmmo.SetActive(false);
+        heldRepair.SetActive(false);
     }
 
     private IEnumerator Teleport(Transform location)
