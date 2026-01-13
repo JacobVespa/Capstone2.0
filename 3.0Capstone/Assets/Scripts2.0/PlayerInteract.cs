@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
@@ -15,6 +16,9 @@ public class PlayerInteract : MonoBehaviour
 
     private PlayerMovement playerMove;
     private Turret turret;
+
+    //temp
+    private bool canSpawnWall = true;
 
     /*
      * Method that grabs a collider from the player that determines collisions
@@ -69,11 +73,6 @@ public class PlayerInteract : MonoBehaviour
             canRepair = true;
             currentInteractObject = other.gameObject;
         }
-        else if(other.CompareTag("WallTrigger"))
-        {
-            //instantiating a new wall piece above the others to create a looping effect
-            Instantiate(wallSection, new Vector2(0, 83.75f), Quaternion.identity);
-        }
     }
 
     /*
@@ -98,4 +97,6 @@ public class PlayerInteract : MonoBehaviour
             currentInteractObject = other.gameObject;
         }  
     }
+
+
 }
