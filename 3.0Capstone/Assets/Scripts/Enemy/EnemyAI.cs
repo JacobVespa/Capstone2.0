@@ -22,7 +22,7 @@ public abstract class EnemyAI : MonoBehaviour
         AIFlowChart();
     }
 
-    private void Start()
+    private void Awake()
     {
         
         if (target == null) { hasTarget = false; }

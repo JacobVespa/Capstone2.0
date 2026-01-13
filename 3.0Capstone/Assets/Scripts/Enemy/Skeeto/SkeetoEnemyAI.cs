@@ -4,9 +4,10 @@ public class SkeetoEnemyAI : EnemyAI
 {
     protected SkeetoEnemyBody body;
 
-    private void Start()
+    private void Awake()
     {
         if (body == null) { body = GetComponent<SkeetoEnemyBody>(); }
+        if (target == null) { hasTarget = false; }
     }
 
     private void FixedUpdate()

@@ -3,23 +3,32 @@ using UnityEngine;
 public class SkeetoEnemyBody : EnemyBody
 {
 
-
-    [SerializeField] private GameObject projectile;
+    [SerializeField] private GameObject objectPool;
+    private GameObject[] bullets;
     [SerializeField] private Transform fireLocation;
 
-    public void Attack(GameObject target)
+    protected override void Awake()
     {
-        if(attackCooldown < attackRate) { return; }
+        base.Awake();
+        Debug.Log("yes");
+    }
 
-        Debug.Log("attack");
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+    }
+
+    public override void Attack(GameObject target)
+    {
+        if (attackCooldown < attackRate) { return; }
+        attackCooldown = 0;
+
         Fire(target);
 
-        attackCooldown = 0;
     }
 
     private void Fire(GameObject target)
     {
-        GameObject bullet = Instantiate(projectile, fireLocation.position,Quaternion.identity);
-        bullet.SetActive(true);
+        Debug.Log("fired");
     }
 }

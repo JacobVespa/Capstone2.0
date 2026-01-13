@@ -14,7 +14,7 @@ public class GrubEnemyAI : EnemyAI
     private Vector2 moveInput;
     
 
-    private void Start()
+    private void Awake()
     {
         if (body == null) { body = GetComponent<GrubEnemyBody>(); }
         if (target == null) { hasTarget = false; }

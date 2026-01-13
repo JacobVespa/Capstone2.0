@@ -10,7 +10,7 @@ public class GUI : MonoBehaviour
         if (GameManager.Instance != null)
         {
             shardText.text = "Shards: " + GameManager.Instance.Shards;
-            Debug.Log("Shards: " + GameManager.Instance.Shards);
+            //Debug.Log("Shards: " + GameManager.Instance.Shards);
         }
     }
 

@@ -44,27 +44,25 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     
 
     [Header("Combat Stats")]
-    [SerializeField] protected float health = 100;
+    [SerializeField] protected float health = 3;
     public float Health {  get { return health; } set {  health = value; } }
 
     [SerializeField] protected float attackRate = 3;
     public float AttackRate { get {  return attackRate; } set { attackRate = value; } }
 
-    protected float attackCooldown = 3;
+    protected float attackCooldown = 0;
     public float AttackCooldown { get { return attackCooldown; } set { attackCooldown = value; } }
 
     
 
     
 
-    private void Start()
+    protected virtual void Awake()
     {
+        Debug.Log("lol");
         attackNotif.SetActive(false);
-        attackCooldown = attackRate;
-        if(ai == null)
-        {
-            ai = GetComponent<EnemyAI>();
-        }
+        attackCooldown = 0;
+        
         if(damageSource == null)
         {
             damageSource = GetComponent<DamageSource>();
@@ -77,13 +75,25 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         
     }
 
-    protected void UpdateCooldown()
+    protected virtual void FixedUpdate()
     {
+        UpdateCooldown();
+    }
+
+    private void UpdateCooldown()
+    {
+       
         if(attackCooldown >= attackRate || ai.behaviour != EnemyAI.Behaviour.Attack) { return; }
 
         attackCooldown += 1 * Time.fixedDeltaTime;
         
     }
+
+    public virtual void Attack(GameObject target) 
+    {
+        
+    }
+    
 
     
 

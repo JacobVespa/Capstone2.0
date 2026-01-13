@@ -580,6 +580,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GrubEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 369488387364779184, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6181852771610103027, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.9369
@@ -1400,6 +1404,10 @@ PrefabInstance:
     - target: {fileID: 2876655065483165158, guid: 6a4e578535206b6418e0bc6869eb37bb, type: 3}
       propertyPath: m_Name
       value: SkeetoEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2876655065483165158, guid: 6a4e578535206b6418e0bc6869eb37bb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6079224487851204178, guid: 6a4e578535206b6418e0bc6869eb37bb, type: 3}
       propertyPath: m_LocalPosition.x

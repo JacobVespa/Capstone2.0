@@ -20,46 +20,37 @@ public class GrubEnemyBody : EnemyBody
     private Vector2 inputDir = Vector2.zero;
     public Vector2 InputDir { get { return inputDir; } set { inputDir = value; } }
 
-    private void Start()
+    protected override void Awake()
     {
+        base.Awake();
         attackRange.radius = attackRangeVal;
     }
 
-    public void Attack(GameObject target)
+    public override void Attack(GameObject target)
     {
-        
-        
         if (attackCooldown < attackRate) { return; }
+        attackCooldown = 0;
 
-        Debug.Log("attack");
-
-        
-        if(target.TryGetComponent<IDamageReceiver>(out IDamageReceiver damageTarget))
+        if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver damageTarget))
         {
             damageTarget.Attacked(damageSource);
         }
-        else
-        {
-            Debug.LogError("no IDamage Receiver on target");
-        }
+        else{ Debug.LogError("no IDamage Receiver on target");}
 
-        attackCooldown = 0;
+        
     }
 
-    
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
+        base.FixedUpdate();
         UpdateMovemnet();
-        UpdateCooldown();
     }
 
     private void UpdateMovemnet()
     {
-
         HandleMovement();
         transform.position = (transform.position + (motion * Time.fixedDeltaTime));
-        
     }
 
     private void HandleMovement()
