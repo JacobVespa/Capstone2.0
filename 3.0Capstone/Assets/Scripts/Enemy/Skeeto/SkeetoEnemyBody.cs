@@ -42,8 +42,6 @@ public class SkeetoEnemyBody : EnemyBody
 
     private Projectile GetProjectile()
     {
-        //if(bullets.Count == 0) {  }
-        
         foreach(Projectile b in bullets)
         {
             if (!b.active)
@@ -52,12 +50,8 @@ public class SkeetoEnemyBody : EnemyBody
             }
         }
         return CreateProjectile();
-
-
-        //return null;
     }
 
-    
     
     private Projectile CreateProjectile()
     {

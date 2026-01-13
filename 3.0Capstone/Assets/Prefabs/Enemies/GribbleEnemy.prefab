@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 6
   m_Sprite: {fileID: -7197147881584039178, guid: e9aa6e22566b01e4dabfb0897117bdc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -162,7 +162,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 397041867132271434, guid: a46bec7399ceaa6498b7abc08809727a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -296,10 +296,10 @@ MonoBehaviour:
   attackNotif: {fileID: 1890810218810033128}
   comicHurt: {fileID: 8036523748669703191}
   comicDeath: {fileID: 8418658996730869995}
-  health: 5
-  attackRate: 20
   shakeDuration: 0.3
   shakeStrength: 0.1
+  health: 5
+  attackRate: 20
   projSpeed: 5
   bulletPrefab: {fileID: 6735711473433599987, guid: 9bc8267722b991a4b9837db225663d7e, type: 3}
   objectPool: {fileID: 4123940007936774137}

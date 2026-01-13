@@ -37,11 +37,14 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     //protected EnemyMoveType moveType;
     //protected EnemyAttackType attackType;
 
-    
 
-    
+    [Header("Shake Stats")]
+    public float shakeDuration = 0.3f;   // how long the shake lasts
+    public float shakeStrength = 0.1f;    // how strong the shake is
+    private Vector3 originalPosition;
 
-    
+
+
 
     [Header("Combat Stats")]
     [SerializeField] protected float health = 3;
@@ -82,13 +85,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private void UpdateCooldown()
     {
-       
         if(attackCooldown >= attackRate || ai.behaviour != EnemyAI.Behaviour.Attack) { return; }
 
         attackCooldown += 1 * Time.fixedDeltaTime;
         if(attackNotif.activeSelf == false  && attackCooldown >= attackRate/2) { attackNotif.SetActive(true); }
-        
-        
+          
     }
 
     public virtual void Attack(GameObject target) 
@@ -131,10 +132,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         //Destroy(comicDeath2, 5);
         this.gameObject.SetActive(false);
     }
-
-    public float shakeDuration = 0.3f;   // how long the shake lasts
-    public float shakeStrength = 0.1f;    // how strong the shake is
-    private Vector3 originalPosition;
+    
     
     IEnumerator Shake()
     {

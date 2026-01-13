@@ -37,7 +37,6 @@ public class GrubEnemyBody : EnemyBody
         }
         else{ Debug.LogError("no IDamage Receiver on target");}
 
-        
     }
 
 
