@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
     [SerializeField] private GameObject heldRepair; //sprite for player holding biotape
-    public GameObject damagedArea;
+    private GameObject damagedArea;
 
     public bool isHoldingAmmo;
     private bool isHoldingRepair;
@@ -44,13 +44,23 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //There's probably a better way to do this
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Damaged"))
+        {
+            damagedArea = other.gameObject;
+        }
+    }
+
+    //How do I detect a button being held down for a certain duration? (and have it as a untiy event?)
     private void HandleRepair()
     {
-         if (damagedArea != null)
+         if (interactor.canRepair && damagedArea != null)
          {
              damagedArea.SetActive(false);
              interactor.canRepair = false;
          }
+        
     }
 
     // Method that calculates player movement
