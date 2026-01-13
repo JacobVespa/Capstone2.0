@@ -49,7 +49,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 8332371267642828256}
   damageSource: {fileID: 0}
-  lifetime: 5
+  active: 0
+  lifetime: 6
+  speed: 0
 --- !u!212 &6395796729567113017
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -93,7 +95,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_Sprite: {fileID: 1527222657387034221, guid: 1d362ec91001b0c4690ac0e91fd2e45f, type: 3}
   m_Color: {r: 0.9686275, g: 0.6313726, b: 0.27450982, a: 1}
   m_FlipX: 0
@@ -148,7 +150,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

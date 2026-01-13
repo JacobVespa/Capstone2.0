@@ -1,13 +1,18 @@
+using NUnit.Framework;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class SkeetoEnemyBody : EnemyBody
 {
+    [SerializeField] private float projSpeed;
+
+    [Header("Required Bullet Compoennts")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform objectPool;
-    private GameObject[] bullets;
+    private List<Projectile> bullets = new List<Projectile>();
     [SerializeField] private Transform fireLocation;
 
-    [SerializeField] private float projSpeed;
+    
     
 
     protected override void Awake()
@@ -26,31 +31,56 @@ public class SkeetoEnemyBody : EnemyBody
         if (attackCooldown < attackRate) { return; }
         attackCooldown = 0;
 
-        GameObject bulletObj = GetProjectile();
-        Projectile bulletScript = bulletObj.GetComponent<Projectile>();
+        Projectile bullet = GetProjectile();
 
-        bulletObj.transform.position = fireLocation.position;
-
+        bullet.gameObject.transform.position = fireLocation.position;
         Vector2 projDir = (target.transform.position - fireLocation.position).normalized;
+        projDir = SetBloom(projDir);
 
-
-
-        bulletScript.Fire(projSpeed, projDir);
+        bullet.Fire(projSpeed, projDir);
     }
 
-    private GameObject GetProjectile()
+    private Projectile GetProjectile()
     {
-        if(objectPool.childCount == 0) { return CreateProjectile(); }
+        //if(bullets.Count == 0) {  }
+        
+        foreach(Projectile b in bullets)
+        {
+            if (!b.active)
+            {
+                return b;
+            }
+        }
+        return CreateProjectile();
 
-        return null;
+
+        //return null;
     }
+
     
-    private GameObject CreateProjectile()
+    
+    private Projectile CreateProjectile()
     {
-        GameObject bullet = Instantiate(bulletPrefab, objectPool);
+        GameObject bulletObj = Instantiate(bulletPrefab, objectPool);
 
-        bullet.GetComponent<Projectile>().DamageSource = damageSource;
+        Projectile bulletScript = bulletObj.GetComponent<Projectile>();
+        bulletScript.DamageSource = damageSource;
 
-        return bullet;
+        bullets.Add(bulletScript);
+
+        return bulletScript;
     }
+
+    private Vector2 SetBloom(Vector2 dir)
+    {
+        float xChange = Random.Range(0.9f, 1.1f); ;
+        float yChange = Random.Range(0.9f, 1.1f); ;
+
+        dir.x = dir.x * xChange;
+        dir.y = dir.y * yChange;
+
+        return dir;
+    }
+
+    
 }
