@@ -74,6 +74,10 @@ public class PlayerInteract : MonoBehaviour
             //instantiating a new wall piece above the others to create a looping effect
             Instantiate(wallSection, new Vector2(0, 83.75f), Quaternion.identity);
         }
+        else if (other.CompareTag("Damaged"))
+        {
+            playerMove.damagedArea = other.gameObject;
+        }
     }
 
     /*
