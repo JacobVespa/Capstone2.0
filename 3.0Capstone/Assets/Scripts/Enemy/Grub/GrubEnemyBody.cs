@@ -29,7 +29,7 @@ public class GrubEnemyBody : EnemyBody
     public override void Attack(GameObject target)
     {
         if (attackCooldown < attackRate) { return; }
-        attackCooldown = 0;
+        base.Attack(target);
 
         if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver damageTarget))
         {

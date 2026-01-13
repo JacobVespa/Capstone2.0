@@ -87,7 +87,7 @@ public class Turret : MonoBehaviour
 
                 if (hit.collider.CompareTag("Enemy"))
                 {
-                    var body = hit.collider.GetComponent<GrubEnemyBody>();
+                    var body = hit.collider.GetComponent<EnemyBody>();
                     if (body != null)
                     {
                         body.Attacked(currentDamage);

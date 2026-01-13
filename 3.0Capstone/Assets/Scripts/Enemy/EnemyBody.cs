@@ -86,12 +86,15 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         if(attackCooldown >= attackRate || ai.behaviour != EnemyAI.Behaviour.Attack) { return; }
 
         attackCooldown += 1 * Time.fixedDeltaTime;
+        if(attackNotif.activeSelf == false  && attackCooldown >= attackRate/2) { attackNotif.SetActive(true); }
+        
         
     }
 
     public virtual void Attack(GameObject target) 
     {
-        
+        attackCooldown = 0;
+        attackNotif.SetActive(false);
     }
     
 

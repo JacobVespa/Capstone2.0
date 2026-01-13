@@ -29,7 +29,7 @@ public class Projectile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(Time.time - spawnTime);
+        
         if(Time.time - spawnTime >= lifetime) { DisableProjectile(); }
         
 
@@ -44,8 +44,7 @@ public class Projectile : MonoBehaviour
         speed = spd;
         direction = Dir;
 
-        Debug.Log(speed);
-        Debug.Log(direction);
+        
 
         float rotatation = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
 
@@ -53,7 +52,7 @@ public class Projectile : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(Vector3.forward * (rotatation + offset));
 
-        Debug.Log("fire");
+        
     }
 
     private void DisableProjectile()
@@ -67,15 +66,18 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject.name);
+
+        if (collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); Debug.Log("triggered"); }
         DisableProjectile();
-        if (collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log(collision.gameObject.name);
+
+        if(collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); Debug.Log("hit"); }
         DisableProjectile();
 
-        if(collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); }
-        
     }
 }

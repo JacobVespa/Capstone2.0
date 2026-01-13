@@ -29,7 +29,7 @@ public class SkeetoEnemyBody : EnemyBody
     public override void Attack(GameObject target)
     {
         if (attackCooldown < attackRate) { return; }
-        attackCooldown = 0;
+        base.Attack(target);
 
         Projectile bullet = GetProjectile();
 
