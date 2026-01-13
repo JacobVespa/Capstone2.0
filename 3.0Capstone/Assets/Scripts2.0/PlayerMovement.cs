@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerControls playerControls;
     private CharacterController player;
     private PlayerInteract interactor;
+    private InputControlManager inputControlManager;
 
     [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
     [SerializeField] private GameObject heldRepair; //sprite for player holding biotape
@@ -20,6 +21,11 @@ public class PlayerMovement : MonoBehaviour
         playerControls = GetComponent<PlayerControls>();
         player = GetComponent<CharacterController>();
         interactor = GetComponentInChildren<PlayerInteract>();
+        inputControlManager = InputControlManager.Instance;
+
+        Transform spawn = inputControlManager.SpawnPoints[0];
+        StartCoroutine(Teleport(spawn));
+        inputControlManager.HasSpawned();
 
         isHoldingAmmo = false;
         isHoldingRepair = false;

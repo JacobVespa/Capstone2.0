@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8589792835370274094}
   - component: {fileID: 4981488863747200225}
   - component: {fileID: 1819593787302128508}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: InteractCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ SphereCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
@@ -113,7 +113,7 @@ GameObject:
   - component: {fileID: 6939150101142744482}
   - component: {fileID: 2506961191395098456}
   - component: {fileID: 5898586163461851818}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -322,7 +322,7 @@ CharacterController:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 384
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
@@ -360,6 +360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heldAmmo: {fileID: 8709191247872423162}
   heldRepair: {fileID: 5584584525575227812}
+  isHoldingAmmo: 0
   movementSpeed: 1
   isMounted: 0
   isHolding: 0
