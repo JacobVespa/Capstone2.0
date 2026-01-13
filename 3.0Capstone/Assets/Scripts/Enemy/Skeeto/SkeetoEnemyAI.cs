@@ -6,6 +6,7 @@ public class SkeetoEnemyAI : EnemyAI
 
     private void Awake()
     {
+
         if (body == null) { body = GetComponent<SkeetoEnemyBody>(); }
         if (target == null) { hasTarget = false; }
     }
@@ -16,6 +17,8 @@ public class SkeetoEnemyAI : EnemyAI
     }
     protected override void AIFlowChart()
     {
+        
+
         behaviour = Behaviour.Attack;
         body.Attack(target);
     }
