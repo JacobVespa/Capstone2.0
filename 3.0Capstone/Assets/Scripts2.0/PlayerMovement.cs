@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
     [SerializeField] private GameObject heldRepair; //sprite for player holding biotape
+    private GameObject damagedArea;
 
     public bool isHoldingAmmo;
     private bool isHoldingRepair;
@@ -45,29 +46,22 @@ public class PlayerMovement : MonoBehaviour
     //There's probably a better way to do this
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Can Repair: " + interactor.canRepair);
-        Debug.Log("Has Interacted: " + playerControls.controlEvent.HasInteracted);
-        Debug.Log("Tag: " + other.tag);
-        if (playerControls.controlEvent.HasInteracted)
+        if (other.CompareTag("Damaged"))
         {
-            if (interactor.canRepair && other.CompareTag("Damaged"))
-            {
-                //HandleRepair(other.gameObject);
-                other.gameObject.SetActive(false);
-                interactor.canRepair = false;
-            }
+            damagedArea = other.gameObject;
         }
     }
 
     //How do I detect a button being held down for a certain duration? (and have it as a untiy event?)
-    //private void HandleRepair(GameObject other)
-    //{
-    //    if (playerControls.controlEvent.HasInteracted)
-    //    {
-    //        other.SetActive(false);
-    //        //interactor.canRepair = false; //Once you finish repairing, canRepair should be set to false
-    //    }
-    //}
+    private void HandleRepair()
+    {
+         if (interactor.canRepair && damagedArea != null)
+         {
+             damagedArea.SetActive(false);
+             interactor.canRepair = false;
+         }
+        
+    }
 
     // Method that calculates player movement
     private void HandleMovement()
@@ -82,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (interactor.canMount) HandleMounting(); // If the player is able to mount and presses interact, mount
             else if (interactor.canPickup) HandlePickup(); // If the player is able to pickup and presses interact, interact
-            //else if (interactor.canRepair) HandleRepair();
+            else if (interactor.canRepair) HandleRepair();
         }
         else if (playerControls.controlEvent.HasDisengaged)
         {
