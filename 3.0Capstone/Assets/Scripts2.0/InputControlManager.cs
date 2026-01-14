@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -29,8 +28,21 @@ public class InputControlManager : MonoBehaviour
     [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
     public List<Transform> SpawnPoints { get { return spawnPoints; } }
 
+    private Mole[] player = new Mole[2];
+
+    [Header("Player One Assets")]
+    [SerializeField] private Sprite playerOneSprite;
+
+    [Header("Player Two Assets")]
+    [SerializeField] private Sprite playerTwoSprite;
+
+    [Header("Shared Player Assets")]
+    [SerializeField] private Animator playerAnimator;
+
     private void Start()
     {
+        SetplayerAssets();
+
         if (numberOfPlayers < 1) numberOfPlayers = 1;
 
         for (int i = 0; i < numberOfPlayers; i++)
@@ -44,9 +56,29 @@ public class InputControlManager : MonoBehaviour
         playerInputManager.JoinPlayer(playerInputManager.playerCount, -1,null, device);
     }
 
-    public void HasSpawned()
+    public void HasSpawned() // Replace this with a temp list instead of deleting spawnpoints perminantely!
     {
         if (spawnPoints.Count > 0) spawnPoints.RemoveAt(0);
+    }
+
+    public void SetplayerAssets()
+    {
+        if (numberOfPlayers <= 0 || numberOfPlayers > 2) return;
+
+        player[0] = new Mole(playerOneSprite,playerAnimator);
+        player[1] = new Mole(playerTwoSprite,playerAnimator);
+    }
+
+    public class Mole
+    {
+        Sprite playerSprite;
+        Animator playerAnimator;
+
+        public Mole(Sprite sprite, Animator animator)
+        {
+            this.playerSprite = sprite;
+            this.playerAnimator = animator;
+        }
     }
 
 

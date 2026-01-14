@@ -4,11 +4,11 @@ using UnityEngine;
 public class WallMoving : MonoBehaviour
 {
     [SerializeField] public float wallMoveSpeed = 3f;
+    [SerializeField] private GameObject[] gems;
 
     //offset wall position for despawning
     private float offsetPos = -43.5f;
 
-    // Update is called once per frame
     void Update()
     {
         transform.position -= new Vector3(0, wallMoveSpeed, 0) * Time.deltaTime;
@@ -18,6 +18,12 @@ public class WallMoving : MonoBehaviour
         {
             //Destroy(gameObject);
             transform.position = new Vector3(0, 43.5f, 0);
+            Debug.Log(gems.Length);
+            foreach (GameObject gem in gems)
+            {
+                Resource resource = gem.GetComponent<Resource>();
+                resource.Respawn();
+            }
         }
     }
 

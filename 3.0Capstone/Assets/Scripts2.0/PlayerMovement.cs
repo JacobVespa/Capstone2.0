@@ -9,10 +9,14 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInteract interactor;
     private InputControlManager inputControlManager;
 
+    [Header("Sprites")]
     [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
     [SerializeField] private GameObject heldRepair; //sprite for player holding biotape
+    private Sprite playerSprite;
+    private Animator playerAnimator;
     private GameObject damagedArea;
 
+    [Header("Booleans")]
     public bool isHoldingAmmo;
     private bool isHoldingRepair;
 

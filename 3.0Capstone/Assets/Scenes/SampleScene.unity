@@ -1375,6 +1375,9 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1392999511}
   - {fileID: 985233986}
+  playerOneSprite: {fileID: 0}
+  playerTwoSprite: {fileID: 0}
+  playerAnimator: {fileID: 0}
 --- !u!4 &1069561792
 Transform:
   m_ObjectHideFlags: 0
@@ -1605,7 +1608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9dfe7192142cf4a921aa227cd8410c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIEvent: {fileID: 0}
 --- !u!4 &1614824873
 Transform:
   m_ObjectHideFlags: 0
