@@ -799,27 +799,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 369488387364779184, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6181852771610103027, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.9369
+      value: 1.2007425
       objectReference: {fileID: 0}
     - target: {fileID: 6181852771610103027, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.9369
+      value: 1.2007425
       objectReference: {fileID: 0}
     - target: {fileID: 6181852771610103027, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.9369
+      value: 1.2007425
       objectReference: {fileID: 0}
     - target: {fileID: 6181852771610103027, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.2
+      value: 13.642
       objectReference: {fileID: 0}
     - target: {fileID: 6181852771610103027, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.31
+      value: 10.084
       objectReference: {fileID: 0}
     - target: {fileID: 6181852771610103027, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
       propertyPath: m_LocalPosition.z
@@ -857,8 +857,13 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 8243271062758563734}
+    - target: {fileID: 8487761357748488517, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.05
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8408601802152057847, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
