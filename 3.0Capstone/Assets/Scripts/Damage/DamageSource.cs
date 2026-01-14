@@ -28,6 +28,7 @@ public class DamageSource : MonoBehaviour
         {
             Debug.LogError("DamageVal was not set or set to 0");
         }
+
     }
 
 }
