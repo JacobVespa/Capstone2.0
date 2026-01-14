@@ -29,6 +29,7 @@ public class InputControlManager : MonoBehaviour
     public List<Transform> SpawnPoints { get { return spawnPoints; } }
 
     private Mole[] player = new Mole[2];
+    public Mole[] Player { get { return player; } }
 
     [Header("Player One Assets")]
     [SerializeField] private Sprite playerOneSprite;
@@ -79,6 +80,9 @@ public class InputControlManager : MonoBehaviour
             this.playerSprite = sprite;
             this.playerAnimator = animator;
         }
+
+        public Sprite PlayerSprite { get { return playerSprite; } }
+        public Animator PlayerAnimator { get { return playerAnimator; } }
     }
 
 

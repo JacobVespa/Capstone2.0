@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
     [SerializeField] private GameObject heldRepair; //sprite for player holding biotape
-    private Sprite playerSprite;
+    [SerializeField] private GameObject playerSprite;
     private Animator playerAnimator;
     private GameObject damagedArea;
 
@@ -28,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
         interactor = GetComponentInChildren<PlayerInteract>();
         inputControlManager = InputControlManager.Instance;
         moleAnims = GetComponent<Animator>();
+
+        SpriteRenderer pSprite = playerSprite.GetComponent<SpriteRenderer>();
+        pSprite.sprite = inputControlManager.Player[inputControlManager.SpawnPoints.Count - 1].PlayerSprite;
 
         Transform spawn = inputControlManager.SpawnPoints[0];
         StartCoroutine(Teleport(spawn));
