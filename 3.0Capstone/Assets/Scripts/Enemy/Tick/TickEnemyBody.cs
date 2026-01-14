@@ -60,6 +60,8 @@ public class TickEnemyBody : EnemyBody
                 Debug.Log("hit");
                 Debug.Log(rb.gravityScale);
                 Debug.Log(rb.linearVelocityY);
+                rb.linearVelocityY *= -0.9f;
+                /*
                 if(rb.linearVelocityY <= -1) 
                 {
                     
@@ -67,7 +69,9 @@ public class TickEnemyBody : EnemyBody
                     rb.gravityScale *= 0.4f;
                 }
                 else if (rb.linearVelocityY > -1) { Debug.Log("stop"); break;  }
+                */
                 transform.position = targetPos;
+                //break;
             }
             
             
