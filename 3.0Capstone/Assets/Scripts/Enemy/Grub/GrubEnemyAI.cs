@@ -14,12 +14,18 @@ public class GrubEnemyAI : EnemyAI
     private Vector2 moveInput;
     
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (body == null) { body = GetComponent<GrubEnemyBody>(); }
-        if (target == null) { hasTarget = false; }
-        else { hasTarget = true; targetDist = transform.position - target.transform.position; totalDist = targetDist.magnitude; }
+        
+        if (hasTarget == true){ targetDist = transform.position - target.transform.position; totalDist = targetDist.magnitude; }
     
+    }
+
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
     }
 
     protected override void AIFlowChart()

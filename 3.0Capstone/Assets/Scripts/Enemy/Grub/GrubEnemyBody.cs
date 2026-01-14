@@ -35,9 +35,8 @@ public class GrubEnemyBody : EnemyBody
         {
             damageTarget.Attacked(damageSource);
         }
-        else{ Debug.LogError("no IDamage Receiver on target");}
+        else{ Debug.LogError("no IDamage Receiver found on target");}
 
-        
     }
 
 

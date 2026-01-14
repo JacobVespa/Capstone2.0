@@ -4,17 +4,18 @@ public class SkeetoEnemyAI : EnemyAI
 {
     protected SkeetoEnemyBody body;
 
-    private void Awake()
+    protected override void Awake()
     {
-
+        base.Awake();
         if (body == null) { body = GetComponent<SkeetoEnemyBody>(); }
-        if (target == null) { hasTarget = false; }
+        
     }
 
-    private void FixedUpdate()
+    protected override void FixedUpdate()
     {
-        AIFlowChart();
+        base.FixedUpdate();
     }
+
     protected override void AIFlowChart()
     {
         

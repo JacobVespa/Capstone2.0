@@ -21,9 +21,15 @@ public class Resource : MonoBehaviour
         int previousHP = currentHP;
         StartCoroutine(Shake());
         currentHP--;
-        if (currentHP <= 0) Destroy(gameObject);
+        if (currentHP <= 0) gameObject.SetActive(false);
 
         RewardShards(-(currentHP - previousHP), currentHP <= 0);
+    }
+
+    public void Respawn()
+    {
+        gameObject.SetActive(true);
+        currentHP = OriginalHP;
     }
 
     private void RewardShards(int shards, bool broken)

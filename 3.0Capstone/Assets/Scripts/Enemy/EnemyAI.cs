@@ -14,15 +14,18 @@ public abstract class EnemyAI : MonoBehaviour
     public enum Behaviour
     {
         None = 0,
-        Attack = 1,
+        Moving = 1,
+        Attack = 2,
+        Dead = 3,
+        Spawning = 4,
     }
 
-    private void Update()
+    protected virtual void FixedUpdate()
     {
         AIFlowChart();
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         
         if (target == null) { hasTarget = false; }

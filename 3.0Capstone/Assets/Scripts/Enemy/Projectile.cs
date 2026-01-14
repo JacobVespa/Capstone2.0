@@ -29,10 +29,8 @@ public class Projectile : MonoBehaviour
 
     private void FixedUpdate()
     {
-        
         if(Time.time - spawnTime >= lifetime) { DisableProjectile(); }
         
-
         body.AddForce(direction * speed);
     }
 
@@ -44,15 +42,12 @@ public class Projectile : MonoBehaviour
         speed = spd;
         direction = Dir;
 
-        
-
         float rotatation = Mathf.Atan2(direction.y,direction.x) * Mathf.Rad2Deg;
 
         float offset = 90;
 
         transform.rotation = Quaternion.Euler(Vector3.forward * (rotatation + offset));
 
-        
     }
 
     private void DisableProjectile()

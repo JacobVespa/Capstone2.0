@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,24 +20,38 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public EventSystem UIEvent;
-
-    private int gems;
-    public int Gems { get { return gems; } }
     private int shards;
     public int Shards { get { return shards; } }
 
+    private float gameTime;
+    public float GameTime { get { return gameTime; } }
+
+    private bool timeActive;
+
     void Start()
     {
-        gems = 0;
         shards = 0;
+    }
 
-        UIEvent = FindAnyObjectByType<EventSystem>();
+    private void Update()
+    {
+        if (timeActive) gameTime = Time.time;
     }
 
     public void AddShards(int amount)
     {
         shards += amount;
+    }
+
+    public void StartGameTime() { timeActive = true; }
+
+    public void PauseGameTime() { timeActive = false; }
+
+    public void ResetGameTime()
+    {
+        timeActive = false;
+        gameTime = 0;
+        timeActive = true;
     }
 
 }
