@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class Turret : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class Turret : MonoBehaviour
     public int currentAmmo;
     [SerializeField] private GameObject reloadNotif;
     public bool needsReload = false;
+    [SerializeField] public TextMeshPro ammoCountText;
 
     private bool playerMounted = false;
 
@@ -21,6 +23,10 @@ public class Turret : MonoBehaviour
     DamageSource currentDamage;
 
     [SerializeField] float aimSpeed = 20.0f;
+
+    //cooldown between shots
+    //[SerializeField] float fireRate = 10f;
+    //float shotCooldown;
 
     //reference to the muzzle flash vfx
     public GameObject muzzleFlash;
@@ -34,6 +40,8 @@ public class Turret : MonoBehaviour
         aimPos = transform.position;
         audioSource.clip = shootClip;
         currentDamage = GetComponent<DamageSource>();
+        string ammoCount = maxAmmo.ToString();
+        ammoCountText.text = ammoCount;
     }
 
     private void Update()
