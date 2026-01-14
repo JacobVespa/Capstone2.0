@@ -57,6 +57,25 @@ public class PlayerMovement : MonoBehaviour
     private void HandleMovement()
     {
         player.Move((playerControls.controlEvent.MoveDirection * movementSpeed) * Time.fixedDeltaTime);
+        HandleRotation(playerControls.controlEvent.MoveDirection);
+    }
+
+    Quaternion rotateTo = Quaternion.Euler(0, 0, 0);
+    float speed = 10f;
+    private void HandleRotation(Vector2 direction)
+    {
+        if (direction.x < 0  && direction.x != -180)
+        {
+            //lerp from 0 to -180
+            rotateTo = Quaternion.Euler(0, 180, 0);
+        }
+        else if (direction.x > 0 && direction.x != 0)
+        {
+            //lerp from -180 to 0
+            rotateTo = Quaternion.Euler(0, 0, 0);
+        }
+
+        this.transform.rotation = Quaternion.Lerp(this.transform.rotation, rotateTo, Time.deltaTime * speed);
     }
 
     // Method that determines what buttons are pressed and action results
