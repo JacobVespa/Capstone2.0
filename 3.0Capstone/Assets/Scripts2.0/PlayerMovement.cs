@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController player;
     private PlayerInteract interactor;
     private InputControlManager inputControlManager;
+    private Animator moleAnims;
 
     [Header("Sprites")]
     [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<CharacterController>();
         interactor = GetComponentInChildren<PlayerInteract>();
         inputControlManager = InputControlManager.Instance;
+        moleAnims = GetComponent<Animator>();
 
         Transform spawn = inputControlManager.SpawnPoints[0];
         StartCoroutine(Teleport(spawn));
@@ -49,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         if(canMove)
         {
             HandleMovement();
+            moleAnims.SetBool("WalkBool", true);
         }
         HandleInput();
     }
