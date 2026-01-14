@@ -53,26 +53,6 @@ public class PlayerMovement : MonoBehaviour
         HandleInput();
     }
 
-    //There's probably a better way to do this
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Damaged"))
-        {
-            damagedArea = other.gameObject;
-        }
-    }
-
-    //How do I detect a button being held down for a certain duration? (and have it as a untiy event?)
-    private void HandleRepair()
-    {
-         if (interactor.canRepair && damagedArea != null)
-         {
-             damagedArea.SetActive(false);
-             interactor.canRepair = false;
-         }
-        
-    }
-
     // Method that calculates player movement
     private void HandleMovement()
     {
@@ -93,6 +73,25 @@ public class PlayerMovement : MonoBehaviour
             HandleDismounting(); // Dismounts player
             HandleDrop(); // Drops pickup
         }
+    }
+
+    //There might be a better way to do this
+    private void HandleRepair()
+    {
+        if (interactor.currentInteractObject.CompareTag("Repair"))
+        {
+            heldRepair.SetActive(true);
+            isHoldingRepair = true;
+        }
+
+        if (isHoldingRepair && interactor.currentInteractObject.CompareTag("Damaged"))
+        {
+            interactor.currentInteractObject.SetActive(false);
+            interactor.canRepair = false;
+            isHoldingRepair = false;
+            heldRepair.SetActive(false);
+        }
+
     }
 
     // Calls turret script and provides player gameobject to allow only one player to mount and control turret

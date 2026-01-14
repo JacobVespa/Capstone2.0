@@ -73,6 +73,10 @@ public class PlayerInteract : MonoBehaviour
             canRepair = true;
             currentInteractObject = other.gameObject;
         }
+        else if (other.CompareTag("Damaged"))
+        {
+            currentInteractObject = other.gameObject;
+        }
     }
 
     /*
