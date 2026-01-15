@@ -57,7 +57,8 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     protected float attackCooldown = 0;
     public float AttackCooldown { get { return attackCooldown; } set { attackCooldown = value; } }
 
-    
+    [Header("Animator")]
+    [SerializeField] private Animator enemyAnims;
 
     
 
@@ -118,13 +119,23 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         health -= damage;
         if(health <= 0)
         {
-            Death();
+            StartCoroutine(PlayDeathAnim());
         }
+    }
+
+    private IEnumerator PlayDeathAnim()
+    {
+        if(enemyAnims != null) //if enemy has animations, play them before triggering death
+        {
+            enemyAnims.SetBool("Death", true); //MAKE DEATH ANIM PARAMETER THE SAME NAME FOR ALL ENEMIES
+            yield return new WaitForSeconds(1);
+            enemyAnims.SetBool("Death", false);
+        }
+        Death();
     }
 
     private void Death()
     {
-        
         ai.behaviour = EnemyAI.Behaviour.Dead;
         sprite.SetActive(false);
         Collider2D[] colliders = GetComponents<Collider2D>();

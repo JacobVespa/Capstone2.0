@@ -13,13 +13,18 @@ public class SkeetoEnemyBody : EnemyBody
     private List<Projectile> bullets = new List<Projectile>();
     [SerializeField] private Transform fireLocation;
 
-    
+    private Animator skeetoAnims;
     
 
     protected override void Awake()
     {
         base.Awake();
         Debug.Log("yes");
+    }
+
+    private void Start()
+    {
+        skeetoAnims = sprite.GetComponent<Animator>();
     }
 
     protected override void FixedUpdate()
@@ -35,6 +40,7 @@ public class SkeetoEnemyBody : EnemyBody
         if (agent != null && !agent.CanDealDamage) { return; }
 
         base.Attack(target);
+        StartCoroutine(SkeetoAttack());
 
         Projectile bullet = GetProjectile();
 
@@ -43,6 +49,13 @@ public class SkeetoEnemyBody : EnemyBody
         projDir = SetBloom(projDir);
 
         bullet.Fire(projSpeed, projDir);
+    }
+
+    IEnumerator SkeetoAttack()
+    {
+        skeetoAnims.SetBool("Attack", true);
+        yield return new WaitForSeconds(0.25f); //can adjust the time on this
+        skeetoAnims.SetBool("Attack", false);
     }
 
     private Projectile GetProjectile()

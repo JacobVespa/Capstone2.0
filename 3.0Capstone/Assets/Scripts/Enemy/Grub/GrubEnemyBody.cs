@@ -10,7 +10,7 @@ public class GrubEnemyBody : EnemyBody
     public float AttackRangeVal { get { return attackRangeVal; } set {  attackRangeVal = value; attackRange.radius = attackRangeVal; } }
 
 
-    [Header("Movemnet Stats")]
+    [Header("Movement Stats")]
     [SerializeField] private float moveSpeed = 5;
 
     private Animator grubAnims;
@@ -30,7 +30,7 @@ public class GrubEnemyBody : EnemyBody
 
     private void Start()
     {
-        grubAnims = GetComponentInChildren<Animator>();
+        grubAnims = sprite.GetComponent<Animator>();
     }
 
     public override void Attack(GameObject target)
@@ -54,7 +54,7 @@ public class GrubEnemyBody : EnemyBody
     IEnumerator GrubAttack()
     {
         grubAnims.SetBool("Attack", true);
-        yield return new WaitForSeconds(2.5f); //can adjust the time on this
+        yield return new WaitForSeconds(0.25f); //can adjust the time on this
         grubAnims.SetBool("Attack", false);
     }
 
