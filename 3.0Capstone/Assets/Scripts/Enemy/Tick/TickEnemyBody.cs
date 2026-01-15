@@ -29,6 +29,10 @@ public class TickEnemyBody : EnemyBody
     public override void Attack(GameObject target)
     {
         if (attackCooldown < attackRate) { return; }
+
+        AttackQueueAgent agent = GetComponent<AttackQueueAgent>();
+        if (agent != null && !agent.CanDealDamage) { return; }
+
         base.Attack(target);
 
         if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr))

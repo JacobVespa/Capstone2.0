@@ -11,7 +11,7 @@ public class AttackZone : MonoBehaviour
         if (rigRoot == null) rigRoot = manager != null ? manager.transform : transform.root;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         AttackQueueAgent agent = other.GetComponentInParent<AttackQueueAgent>();
         if (agent != null && manager != null)
@@ -20,7 +20,7 @@ public class AttackZone : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         AttackQueueAgent agent = other.GetComponentInParent<AttackQueueAgent>();
         if (agent != null)

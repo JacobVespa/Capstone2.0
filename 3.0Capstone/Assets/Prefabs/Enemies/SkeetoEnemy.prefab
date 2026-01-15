@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 1503413796833272081}
   - component: {fileID: 5133152207654928519}
   - component: {fileID: 504331918213096786}
+  - component: {fileID: 8533314574862420927}
   m_Layer: 6
   m_Name: SkeetoEnemy
   m_TagString: Enemy
@@ -247,6 +248,19 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 1.5
+--- !u!114 &8533314574862420927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876655065483165158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 1632932676753608099}
 --- !u!1 &2970274516241402116
 GameObject:
   m_ObjectHideFlags: 0
