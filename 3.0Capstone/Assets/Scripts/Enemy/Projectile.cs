@@ -1,11 +1,13 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Projectile : MonoBehaviour
+public class Projectile : MonoBehaviour, IDamageReceiver
 {
     [SerializeField] private Rigidbody2D body;
     [SerializeField] private DamageSource damageSource;
     public DamageSource DamageSource { get { return damageSource; } set {  damageSource = value; } }
+    public bool Destructable;
+
 
     [Header("Projectile Stats")]
     public bool active = false;
@@ -48,6 +50,13 @@ public class Projectile : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(Vector3.forward * (rotatation + offset));
 
+    }
+
+    public void Attacked(DamageSource d)
+    {
+        if (!Destructable || !((int)d.DamageTarget == 1) ) { return ; }
+        
+        DisableProjectile();
     }
 
     private void DisableProjectile()

@@ -8,7 +8,7 @@ public class SkeetoEnemyAI : EnemyAI
     {
         base.Awake();
         if (body == null) { body = GetComponent<SkeetoEnemyBody>(); }
-        
+        behaviour = Behaviour.Attack;
     }
 
     protected override void FixedUpdate()
@@ -19,8 +19,11 @@ public class SkeetoEnemyAI : EnemyAI
     protected override void AIFlowChart()
     {
         
-
-        behaviour = Behaviour.Attack;
-        body.Attack(target);
+        if((int) behaviour == 2)
+        {
+            body.Attack(target);
+        }
+        
+        
     }
 }

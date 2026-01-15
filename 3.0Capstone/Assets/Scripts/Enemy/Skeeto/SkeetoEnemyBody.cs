@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 public class SkeetoEnemyBody : EnemyBody
 {
@@ -67,6 +68,32 @@ public class SkeetoEnemyBody : EnemyBody
         bullets.Add(bulletScript);
 
         return bulletScript;
+    }
+
+    protected override IEnumerator DestroyObject()
+    {
+        while (true)
+        {
+            int inactiveProj = 0;
+            foreach(Projectile b in bullets)
+            {
+                if (!b.active)
+                {
+                    inactiveProj++;
+                }
+            }
+            if(inactiveProj == bullets.Count)
+            {
+                break;
+            }
+
+            
+
+            
+            yield return null;
+        }
+
+        
     }
 
     private Vector2 SetBloom(Vector2 dir)

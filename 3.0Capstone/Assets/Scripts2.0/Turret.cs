@@ -88,7 +88,7 @@ public class Turret : MonoBehaviour
             Vector3 direction = (aimPos - (Vector2)origin).normalized;
 
             hit = Physics2D.Raycast(origin, direction, 100f, 64);
-
+            
             if (hit) //layer 6 is enemy layer
             {
                 Debug.Log("Hit: " + hit.collider.name);
@@ -108,6 +108,14 @@ public class Turret : MonoBehaviour
                     if (gem != null)
                     {
                         gem.Damage();
+                    }
+                }
+
+                if (hit.collider.CompareTag("Projectile")){
+                    var proj = hit.collider.GetComponent<Projectile>();
+                    if(proj != null)
+                    {
+                        proj.Attacked(currentDamage);
                     }
                 }
             }

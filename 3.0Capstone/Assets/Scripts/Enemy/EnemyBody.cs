@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -11,7 +12,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [Header("Required Components")]
     [SerializeField] protected EnemyAI ai;
     [SerializeField] protected DamageSource damageSource;
-    [SerializeField] protected SpriteRenderer sprite;
+    [SerializeField] protected GameObject sprite;
     [SerializeField] protected GameObject attackNotif;
 
     [SerializeField] private ParticleSystem comicHurt;
@@ -62,7 +63,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     protected virtual void Awake()
     {
-        Debug.Log("lol");
+        
         attackNotif.SetActive(false);
         attackCooldown = 0;
         
@@ -70,11 +71,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         {
             damageSource = GetComponent<DamageSource>();
         }
-        if(sprite == null)
-        {
-            sprite = GetComponentInChildren<SpriteRenderer>();
-            
-        }
+        
         
     }
 
@@ -109,6 +106,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             TakeDamage(d.DamageVal);
             comicHurt.Play();
             originalPosition = transform.localPosition;
+            
             StartCoroutine(Shake());
         }
         
@@ -126,13 +124,34 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private void Death()
     {
-        //ParticleSystem comicDeath2 = Instantiate(comicDeath); 
-        //comicDeath2.transform.parent = null;
-        //comicDeath2.Play();
-        //Destroy(comicDeath2, 5);
-        this.gameObject.SetActive(false);
+        
+        ai.behaviour = EnemyAI.Behaviour.Dead;
+        sprite.SetActive(false);
+        Collider2D[] colliders = GetComponents<Collider2D>();
+        attackNotif.SetActive(false);
+
+        foreach(Collider2D c in colliders) { c.enabled = false; }
+
+        ParticleSystem comicDeath2 = Instantiate(comicDeath); 
+        comicDeath2.transform.parent = null;
+        comicDeath2.Play();
+        Destroy(comicDeath2, 5);
+        //this.gameObject.SetActive(false);
+        StartCoroutine(DestroyObject());
     }
     
+    protected virtual IEnumerator DestroyObject()
+    {
+
+        
+
+        
+
+        yield return null;
+    }
+
+
+
     
     IEnumerator Shake()
     {

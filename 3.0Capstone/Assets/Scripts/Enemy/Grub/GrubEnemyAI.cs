@@ -20,7 +20,7 @@ public class GrubEnemyAI : EnemyAI
         if (body == null) { body = GetComponent<GrubEnemyBody>(); }
         
         if (hasTarget == true){ targetDist = transform.position - target.transform.position; totalDist = targetDist.magnitude; }
-    
+        behaviour = Behaviour.Moving;
     }
 
     protected override void FixedUpdate()
@@ -34,13 +34,13 @@ public class GrubEnemyAI : EnemyAI
 
         //Debug.Log(totalDist);
 
-        if(!inRange)
+        if((int)behaviour == 1)
         {
             if(behaviour != Behaviour.None) { behaviour = Behaviour.None; }
             ApproachTarget();
             body.AttackCooldown = 0;
         }
-        else if(inRange)
+        else if((int)behaviour == 2)
         {
             if(behaviour != Behaviour.Attack) { behaviour = Behaviour.Attack; }
             
@@ -95,7 +95,7 @@ public class GrubEnemyAI : EnemyAI
 
         if(collision.gameObject == target)
         {
-
+            behaviour = Behaviour.Attack;
             inRange = true;
         }
     }
@@ -103,6 +103,7 @@ public class GrubEnemyAI : EnemyAI
     {
         if(collision.gameObject == target)
         {
+            behaviour = Behaviour.None;
             inRange = false;
             
         }

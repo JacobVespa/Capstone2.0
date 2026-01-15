@@ -33,7 +33,7 @@ public class TickEnemyAI : EnemyAI
             }
             
         }
-        if((int)behaviour == 2)
+        else if((int)behaviour == 2)
         {
             body.Attack(target);
         }

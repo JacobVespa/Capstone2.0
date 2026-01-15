@@ -49,7 +49,11 @@ public class TickEnemyBody : EnemyBody
         transform.position = new Vector2(targetPos.x, targetPos.y + 75);
         rb.gravityScale = 1;
 
-        attackNotif.transform.position = targetPos - notifPos;
+        //rb.gravityScale = 40;
+
+        attackNotif.transform.position = notifPos;
+        
+
         attackNotif.SetActive(true);
 
         while (true)
@@ -57,36 +61,25 @@ public class TickEnemyBody : EnemyBody
 
             yield return null;
             rb.gravityScale += 1 * Time.deltaTime;
-            attackNotif.transform.position = targetPos - notifPos;
-            if (transform.position.y <= targetPos.y ) 
+            attackNotif.transform.position = notifPos;
+            
+            if (transform.position.y < targetPos.y ) 
             {
+                rb.linearVelocityY *= -0.5f;
                 
-                Debug.Log("hit");
-                Debug.Log(rb.gravityScale);
-                Debug.Log(rb.linearVelocityY);
-                rb.linearVelocityY *= -0.9f;
-                /*
-                if(rb.linearVelocityY <= -1) 
-                {
-                    
-                    rb.linearVelocityY *= -0.6f; 
-                    rb.gravityScale *= 0.4f;
-                }
-                else if (rb.linearVelocityY > -1) { Debug.Log("stop"); break;  }
-                */
+                if(rb.linearVelocityY <= 10){ break; }
                 transform.position = targetPos;
-                //break;
             }
-            
-            
         }
-        Debug.Log("stop drop");
+        
         attackNotif.transform.position = notifPos;
+        attackNotif.SetActive(false);
+
         rb.gravityScale = 0;
         rb.linearVelocityY = 0;
+
         dropping = false;
         ai.behaviour = EnemyAI.Behaviour.Attack;
-        //attackNotif.transform = notifPos;
     }
 }
     
