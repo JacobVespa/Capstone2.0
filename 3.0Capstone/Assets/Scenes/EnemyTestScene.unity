@@ -543,6 +543,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7eb130feda58d4c97bc26203c02a2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberOfPlayers: 2
+  spawnPoints: []
+  playerOneSprite: {fileID: 0}
+  playerTwoSprite: {fileID: 0}
+  playerAnimator: {fileID: 0}
 --- !u!4 &1069561792
 Transform:
   m_ObjectHideFlags: 0
@@ -658,6 +663,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 699295995}
+    - target: {fileID: 6726628139389650614, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
+      propertyPath: hasTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -966,6 +975,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5434616013358176905, guid: a80db917e2cbb5549a9d8ce0a4d92d86, type: 3}
+      propertyPath: debugLogs
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -973,6 +986,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3567049082753535836, guid: a80db917e2cbb5549a9d8ce0a4d92d86, type: 3}
       insertIndex: -1
       addedObject: {fileID: 699295999}
+    - targetCorrespondingSourceObject: {fileID: 2876994136969619065, guid: a80db917e2cbb5549a9d8ce0a4d92d86, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: a80db917e2cbb5549a9d8ce0a4d92d86, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

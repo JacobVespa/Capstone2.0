@@ -67,6 +67,12 @@ public class AttackQueueAgent : MonoBehaviour
         // Hook player readability
         // show exclamation mark / outline / etc.
         // Pseudo: body.SetThreatIndicator(allowed);
+
+
+        // Visual debug: tint sprite
+        var sr = GetComponentInChildren<SpriteRenderer>();
+        if (sr != null)
+            sr.color = allowed ? Color.red : Color.white;
     }
 
     public bool CanDealDamage => canDealDamage;

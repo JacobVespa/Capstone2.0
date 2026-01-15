@@ -30,6 +30,7 @@ public class GrubEnemyAI : EnemyAI
 
     protected override void AIFlowChart()
     {
+        /*
         if (!hasTarget) { return; }
 
         //Debug.Log(totalDist);
@@ -47,6 +48,26 @@ public class GrubEnemyAI : EnemyAI
             moveInput = Vector2.zero;
             AttackTarget();
         }
+        */
+        if (!hasTarget) return;
+
+        switch (behaviour)
+        {
+            case Behaviour.Moving:
+                ApproachTarget();
+                break;
+
+            case Behaviour.Attack:
+                moveInput = Vector2.zero;
+                AttackTarget();
+                break;
+
+            default:
+                // If it ever gets set to None, recover gracefully
+                behaviour = Behaviour.Moving;
+                break;
+        }
+
     }
 
     private void ApproachTarget()
@@ -92,21 +113,40 @@ public class GrubEnemyAI : EnemyAI
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        if(collision.gameObject == target)
+        if (collision.isTrigger) return;
+        /*
+        if (collision.gameObject == target)
         {
             behaviour = Behaviour.Attack;
             inRange = true;
         }
+        */
+
+        if (target != null && collision.transform.root == target.transform)
+        {
+            behaviour = Behaviour.Attack;
+            inRange = true;
+        }
+
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.gameObject == target)
+        if (collision.isTrigger) return;
+        /*
+        if (collision.gameObject == target)
         {
             behaviour = Behaviour.None;
             inRange = false;
             
         }
+        */
+
+        if (target != null && collision.transform.root == target.transform)
+        {
+            behaviour = Behaviour.Attack;
+            inRange = true;
+        }
+
     }
 }
 
