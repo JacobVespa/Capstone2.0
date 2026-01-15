@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -7,11 +8,12 @@ public class GrubEnemyBody : EnemyBody
     [SerializeField] private CircleCollider2D attackRange;
     [SerializeField] private float attackRangeVal = 2;
     public float AttackRangeVal { get { return attackRangeVal; } set {  attackRangeVal = value; attackRange.radius = attackRangeVal; } }
-    
 
 
     [Header("Movemnet Stats")]
     [SerializeField] private float moveSpeed = 5;
+
+    private Animator grubAnims;
     
     
 
@@ -26,6 +28,11 @@ public class GrubEnemyBody : EnemyBody
         attackRange.radius = attackRangeVal;
     }
 
+    private void Start()
+    {
+        grubAnims = GetComponentInChildren<Animator>();
+    }
+
     public override void Attack(GameObject target)
     {
         if (attackCooldown < attackRate) { return; }
@@ -34,6 +41,7 @@ public class GrubEnemyBody : EnemyBody
         if (agent != null && !agent.CanDealDamage) { return; }
 
         base.Attack(target);
+        StartCoroutine(GrubAttack());
 
         if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver damageTarget))
         {
@@ -41,6 +49,13 @@ public class GrubEnemyBody : EnemyBody
         }
         else{ Debug.LogError("no IDamage Receiver found on target");}
 
+    }
+
+    IEnumerator GrubAttack()
+    {
+        grubAnims.SetBool("Attack", true);
+        yield return new WaitForSeconds(2.5f); //can adjust the time on this
+        grubAnims.SetBool("Attack", false);
     }
 
 
