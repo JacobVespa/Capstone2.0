@@ -24,7 +24,7 @@ public class SkeetoEnemyBody : EnemyBody
 
     private void Start()
     {
-        skeetoAnims = GetComponentInChildren<Animator>();
+        skeetoAnims = sprite.GetComponent<Animator>();
     }
 
     protected override void FixedUpdate()

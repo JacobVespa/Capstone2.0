@@ -30,7 +30,7 @@ public class GrubEnemyBody : EnemyBody
 
     private void Start()
     {
-        grubAnims = GetComponentInChildren<Animator>();
+        grubAnims = sprite.GetComponent<Animator>();
     }
 
     public override void Attack(GameObject target)
