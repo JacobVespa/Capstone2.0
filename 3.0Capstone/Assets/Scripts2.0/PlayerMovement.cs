@@ -46,19 +46,8 @@ public class PlayerMovement : MonoBehaviour
             playerIndex = inputControlManager.Player.Length - 1;
         }
 
-        // Set sprite for this player
-        SpriteRenderer pSprite = playerSprite.GetComponent<SpriteRenderer>();
-        pSprite.sprite = inputControlManager.Player[playerIndex].PlayerSprite;
-
-        // Get or add Animator component to the sprite GameObject
-        playerAnimator = playerSprite.GetComponent<Animator>();
-        if (playerAnimator == null)
-        {
-            playerAnimator = playerSprite.AddComponent<Animator>();
-        }
-        
-        // Assign the unique animator controller for this player
-        playerAnimator.runtimeAnimatorController = inputControlManager.Player[playerIndex].AnimatorController;
+        //Spawn player animator/layers
+        Instantiate(inputControlManager.Player[playerIndex].PlayerObject, this.transform);
 
         // Teleport to spawn point
         Transform spawn = inputControlManager.GetCurrentSpawnPoint();
@@ -80,7 +69,7 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             // Stop walk animation when can't move
-            playerAnimator.SetBool("WalkBool", false);
+            //playerAnimator.SetBool("WalkBool", false);
         }
         
         HandleInput();
@@ -92,9 +81,8 @@ public class PlayerMovement : MonoBehaviour
         player.Move((moveDirection * movementSpeed) * Time.fixedDeltaTime);
         
         // Only set walk animation to true if actually moving
-        bool isMoving = moveDirection.magnitude > 0.1f;
-        playerAnimator.SetBool("WalkBool", isMoving);
-        playerAnimator.SetBool("IdleBool", !isMoving);
+        //bool isMoving = moveDirection.magnitude > 0.1f;
+        //playerAnimator.SetBool("IdleBool", !isMoving);
 
         HandleRotation(moveDirection);
     }

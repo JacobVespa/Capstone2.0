@@ -143,10 +143,14 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
         foreach(Collider2D c in colliders) { c.enabled = false; }
 
-        ParticleSystem comicDeath2 = Instantiate(comicDeath); 
-        comicDeath2.transform.parent = null;
-        comicDeath2.Play();
-        Destroy(comicDeath2, 5);
+        if (comicDeath != null)
+        {
+            ParticleSystem comicDeath2 = Instantiate(comicDeath); 
+            comicDeath2.transform.parent = null;
+            comicDeath2.Play();
+            Destroy(comicDeath2, 5);
+        }
+
         //this.gameObject.SetActive(false);
         StartCoroutine(DestroyObject());
     }

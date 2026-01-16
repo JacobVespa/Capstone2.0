@@ -1010,14 +1010,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 8243271062758563734}
-    - target: {fileID: 8242955958413940642, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
-      propertyPath: sprite
-      value: 
-      objectReference: {fileID: 904950466}
-    - target: {fileID: 8242955958413940642, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
-      propertyPath: enemyAnims
-      value: 
-      objectReference: {fileID: 654362939}
     - target: {fileID: 8487761357748488517, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.05
@@ -1028,11 +1020,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
---- !u!95 &654362939 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 2714447845760821111, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
-  m_PrefabInstance: {fileID: 654362938}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &837453369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1158,11 +1145,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallMoveSpeed: 2
   gems: []
---- !u!1 &904950466 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6800617680777049114, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
-  m_PrefabInstance: {fileID: 654362938}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &953441407
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1457,9 +1439,8 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 1392999511}
   - {fileID: 985233986}
-  playerOneSprite: {fileID: 1944315744872116217, guid: c9d04f1556414e14cbe92f279fe9884f, type: 3}
-  playerTwoSprite: {fileID: -3814789064798789691, guid: 383afdff74a8cba47bfd7deb52eb0d64, type: 3}
-  playerAnimator: {fileID: 0}
+  playerOne: {fileID: 0}
+  playerTwo: {fileID: 0}
 --- !u!4 &1069561792
 Transform:
   m_ObjectHideFlags: 0

@@ -36,12 +36,16 @@ public class InputControlManager : MonoBehaviour
     public int SpawnedPlayerCount { get { return spawnedPlayerCount; } }
 
     [Header("Player One Assets")]
-    [SerializeField] private Sprite playerOneSprite;
-    [SerializeField] private RuntimeAnimatorController playerOneAnimatorController;
+    //[SerializeField] private Sprite playerOneSprite;
+    //[SerializeField] private RuntimeAnimatorController playerOneAnimatorController;
+
+    [SerializeField] private GameObject playerOne;
 
     [Header("Player Two Assets")]
-    [SerializeField] private Sprite playerTwoSprite;
-    [SerializeField] private RuntimeAnimatorController playerTwoAnimatorController;
+    //[SerializeField] private Sprite playerTwoSprite;
+    //[SerializeField] private RuntimeAnimatorController playerTwoAnimatorController;
+
+    [SerializeField] private GameObject playerTwo;
 
     private void Start()
     {
@@ -98,22 +102,30 @@ public class InputControlManager : MonoBehaviour
     {
         if (numberOfPlayers <= 0 || numberOfPlayers > 2) return;
 
-        player[0] = new Mole(playerOneSprite, playerOneAnimatorController);
-        player[1] = new Mole(playerTwoSprite, playerTwoAnimatorController);
+        //player[0] = new Mole(playerOneSprite, playerOneAnimatorController);
+        //player[1] = new Mole(playerTwoSprite, playerTwoAnimatorController);
+
+        player[0] = new Mole(playerOne);
+        player[1] = new Mole(playerTwo);
     }
 
     public class Mole
     {
-        private Sprite playerSprite;
-        private RuntimeAnimatorController animatorController;
+        //private Sprite playerSprite;
+        //private RuntimeAnimatorController animatorController;
+        private GameObject playerObject;
 
-        public Mole(Sprite sprite, RuntimeAnimatorController controller)
+        public Mole(GameObject playerObject)
         {
-            this.playerSprite = sprite;
-            this.animatorController = controller;
+            //this.playerSprite = sprite;
+            //this.animatorController = controller;
+
+            this.playerObject = playerObject;
         }
 
-        public Sprite PlayerSprite { get { return playerSprite; } }
-        public RuntimeAnimatorController AnimatorController { get { return animatorController; } }
+        //public Sprite PlayerSprite { get { return playerSprite; } }
+        //public RuntimeAnimatorController AnimatorController { get { return animatorController; } }
+
+        public GameObject PlayerObject { get { return playerObject; } }
     }
 }
