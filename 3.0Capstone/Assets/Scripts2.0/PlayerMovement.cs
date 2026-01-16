@@ -9,13 +9,13 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInteract interactor;
     private InputControlManager inputControlManager;
     private Animator moleAnims;
+    [SerializeField] private RigHealth rigHealth;
 
     [Header("Sprites")]
     [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
     [SerializeField] private GameObject heldRepair; //sprite for player holding biotape
     [SerializeField] private GameObject playerSprite;
     private Animator playerAnimator;
-    private GameObject damagedArea;
 
     [Header("Booleans")]
     public bool isHoldingAmmo;
@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
         interactor = GetComponentInChildren<PlayerInteract>();
         inputControlManager = InputControlManager.Instance;
         moleAnims = GetComponent<Animator>();
+        rigHealth = FindFirstObjectByType<RigHealth>();
 
         SpriteRenderer pSprite = playerSprite.GetComponent<SpriteRenderer>();
         pSprite.sprite = inputControlManager.Player[inputControlManager.SpawnPoints.Count - 1].PlayerSprite;
@@ -115,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
             interactor.canRepair = false;
             isHoldingRepair = false;
             heldRepair.SetActive(false);
+            rigHealth.HealDamage(5);
+            rigHealth.SetAreaFalse(interactor.currentInteractObject);
         }
 
     }
