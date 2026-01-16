@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8520242987207639652}
   - component: {fileID: 7175154442329052532}
   - component: {fileID: 462778362323528124}
+  - component: {fileID: 3260288782453463011}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -18,14 +19,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8520242987207639652
-Transform:
+--- !u!224 &8520242987207639652
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3932545320157543553}
-  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -33,6 +33,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7175154442329052532
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45,6 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9dfe7192142cf4a921aa227cd8410c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameTime: 0
 --- !u!114 &462778362323528124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,6 +63,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a11abfb1e6cb384458736ac0064a9d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: []
-  loadingScreen: {fileID: 0}
-  progressBar: {fileID: 0}
+--- !u!114 &3260288782453463011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3932545320157543553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0784d7fe65f29024393b33f5a3ea1bcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

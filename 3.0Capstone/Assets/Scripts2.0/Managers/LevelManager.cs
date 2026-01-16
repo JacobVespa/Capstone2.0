@@ -4,78 +4,82 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private string[] sceneName;
-
-    public GameObject loadingScreen;
-    public UnityEngine.UI.Slider progressBar;
-
     public static LevelManager Instance { get; private set; }
 
-    private Level currentLevel;
+    private bool isLoading = false;
 
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // Destroy duplicate instances
+            Destroy(gameObject);
         }
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scene loads
+            DontDestroyOnLoad(gameObject);
         }
+    }
+
+    private void OnEnable()
+    {
+        // Subscribe to scene loaded event to reset the loading flag
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe to prevent memory leaks
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Reset the loading flag whenever a scene finishes loading
+        isLoading = false;
     }
 
     public void LoadScene(int index)
     {
-        if (index < 0 || index >= sceneName.Length) index = 0;
-
+        if (isLoading) return;
         StartCoroutine(LoadSceneAsync(index));
     }
 
     private IEnumerator LoadSceneAsync(int index)
     {
-        if (loadingScreen != null)
-            loadingScreen.SetActive(true);
+        isLoading = true;
 
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName[index]);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(index);
         operation.allowSceneActivation = false;
+
+        while (operation.progress < 0.9f)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
+        operation.allowSceneActivation = true;
 
         while (!operation.isDone)
         {
-            // Progress goes from 0 to 0.9 before activation
-            float progress = Mathf.Clamp01(operation.progress / 0.9f);
-
-            if (progressBar != null)
-                progressBar.value = progress;
-
-            // When loading is done, activate scene
-            if (operation.progress >= 0.9f)
-            {
-                // Small delay
-                yield return new WaitForSeconds(0.5f);
-                operation.allowSceneActivation = true;
-            }
-
             yield return null;
         }
-    
     }
 
-    public void StartScrollerLevel()
+    public void StartWindDownLevel(Level level)
     {
-        currentLevel = new ScrollerLevel(1);
-        currentLevel.StartLevel();
+        StartCoroutine(WindDownRoutine(level));
     }
 
-    public void RestartLevel()
+    private IEnumerator WindDownRoutine(Level level)
     {
-        currentLevel.RestartLevel();
-    }
+        WaveSpawner spawner = Object.FindFirstObjectByType<WaveSpawner>();
+        if (spawner != null)
+            spawner.enabled = false;
 
-    public void EndLevel()
-    {
-        currentLevel.EndLevel();
-    }
+        yield return new WaitForSecondsRealtime(1f);
 
+        level.EndLevel();
+    }
 }

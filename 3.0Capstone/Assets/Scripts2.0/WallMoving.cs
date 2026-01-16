@@ -18,7 +18,6 @@ public class WallMoving : MonoBehaviour
         {
             //Destroy(gameObject);
             transform.position = new Vector3(0, 43.5f, 0);
-            Debug.Log(gems.Length);
             foreach (GameObject gem in gems)
             {
                 Resource resource = gem.GetComponent<Resource>();

@@ -13,11 +13,15 @@ public class Level
 
     protected LevelType levelType;
     protected int sceneIndex;
+    protected float duration; // in seconds
 
-    public Level(LevelType type, int index)
+    public float Duration => duration;
+
+    public Level(LevelType type, int index, float durationSeconds)
     {
         this.levelType = type;
         this.sceneIndex = index;
+        this.duration = durationSeconds;
     }
 
     public virtual void StartLevel() // Menu -> Level
@@ -25,9 +29,14 @@ public class Level
         levelManager.LoadScene(sceneIndex);
     }
 
+    public virtual void WindDownLevel() // Level -> Level Transition
+    {
+        levelManager.StartWindDownLevel(this);
+    }
+
     public virtual void EndLevel() // Level -> Menu  | OR | Level -> End Game
     {
-        levelManager.LoadScene(0);
+        levelManager.LoadScene(0); //Loops to menu for now, add logic to determine othe levels later
     }
 
     public virtual void RestartLevel() // Level -> Level

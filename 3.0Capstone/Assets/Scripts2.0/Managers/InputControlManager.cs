@@ -14,7 +14,6 @@ public class InputControlManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // Persist across scene loads
         }
 
         Cursor.visible = false; //TODO move this to a menu/settings script later

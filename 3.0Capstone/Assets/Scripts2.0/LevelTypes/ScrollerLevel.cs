@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class ScrollerLevel : Level
 {
-    public ScrollerLevel(int sceneIndex) 
-        : base(LevelType.SCROLLER, sceneIndex)
+    public ScrollerLevel(int sceneIndex, float duration) 
+        : base(LevelType.SCROLLER, sceneIndex, duration)
     {
     }
 
@@ -13,10 +13,15 @@ public class ScrollerLevel : Level
         base.StartLevel();
     }
 
-    public override void EndLevel()
+    public override void WindDownLevel()
     {
         Debug.Log("Scroller Level Complete!");
+        base.WindDownLevel();
+    }
+
+    public override void EndLevel()
+    {
+        Debug.Log("Ending Scroller Level");
         base.EndLevel();
     }
 }
-
