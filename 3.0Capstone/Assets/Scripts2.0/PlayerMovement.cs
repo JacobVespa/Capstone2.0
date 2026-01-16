@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,18 +7,27 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController player;
     private PlayerInteract interactor;
     private InputControlManager inputControlManager;
-    private Animator moleAnims;
+    private Animator playerAnimator;
     [SerializeField] private RigHealth rigHealth;
 
     [Header("Sprites")]
-    [SerializeField] private GameObject heldAmmo; //sprite for player holding ammo
-    [SerializeField] private GameObject heldRepair; //sprite for player holding biotape
+    [SerializeField] private GameObject heldAmmo;
+    [SerializeField] private GameObject heldRepair;
     [SerializeField] private GameObject playerSprite;
-    private Animator playerAnimator;
 
     [Header("Booleans")]
     public bool isHoldingAmmo;
     private bool isHoldingRepair;
+
+    [Header("Custom Variables")]
+    [SerializeField] private float movementSpeed = 5.0f;
+
+    [Header("Debug Values")]
+    [SerializeField] private bool isMounted = false;
+    [SerializeField] private bool isHolding = false;
+    [SerializeField] private bool canMove = true;
+
+    private int playerIndex; // Which player this is (0 or 1)
 
     private void Start()
     {
@@ -27,81 +35,119 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<CharacterController>();
         interactor = GetComponentInChildren<PlayerInteract>();
         inputControlManager = InputControlManager.Instance;
-        moleAnims = GetComponent<Animator>();
         rigHealth = FindFirstObjectByType<RigHealth>();
 
-        SpriteRenderer pSprite = playerSprite.GetComponent<SpriteRenderer>();
-        pSprite.sprite = inputControlManager.Player[inputControlManager.SpawnPoints.Count - 1].PlayerSprite;
+        // Get the index for this player instance
+        playerIndex = inputControlManager.GetCurrentPlayerIndex();
 
-        Transform spawn = inputControlManager.SpawnPoints[0];
+        // Ensure playerIndex is within bounds
+        if (playerIndex >= inputControlManager.Player.Length)
+        {
+            playerIndex = inputControlManager.Player.Length - 1;
+        }
+
+        // Set sprite for this player
+        SpriteRenderer pSprite = playerSprite.GetComponent<SpriteRenderer>();
+        pSprite.sprite = inputControlManager.Player[playerIndex].PlayerSprite;
+
+        // Get or add Animator component to the sprite GameObject
+        playerAnimator = playerSprite.GetComponent<Animator>();
+        if (playerAnimator == null)
+        {
+            playerAnimator = playerSprite.AddComponent<Animator>();
+        }
+        
+        // Assign the unique animator controller for this player
+        playerAnimator.runtimeAnimatorController = inputControlManager.Player[playerIndex].AnimatorController;
+
+        // Teleport to spawn point
+        Transform spawn = inputControlManager.GetCurrentSpawnPoint();
         StartCoroutine(Teleport(spawn));
+        
+        // Notify manager that this player has spawned
         inputControlManager.HasSpawned();
 
         isHoldingAmmo = false;
         isHoldingRepair = false;
     }
 
-
-    [Header("Custom Varaibles")]
-    [SerializeField] private float movementSpeed = 5.0f;
-
-    [Header("Debug Values")]
-    [SerializeField] private bool isMounted = false;
-    [SerializeField] private bool isHolding = false;
-    [SerializeField] private bool canMove = true; //testing for now
-
     private void Update()
     {
-        if(canMove)
+        if (canMove)
         {
             HandleMovement();
-            moleAnims.SetBool("WalkBool", true);
         }
+        else
+        {
+            // Stop walk animation when can't move
+            playerAnimator.SetBool("WalkBool", false);
+        }
+        
         HandleInput();
     }
 
-    // Method that calculates player movement
     private void HandleMovement()
     {
-        player.Move((playerControls.controlEvent.MoveDirection * movementSpeed) * Time.fixedDeltaTime);
-        HandleRotation(playerControls.controlEvent.MoveDirection);
+        Vector2 moveDirection = playerControls.controlEvent.MoveDirection;
+        player.Move((moveDirection * movementSpeed) * Time.fixedDeltaTime);
+        
+        // Only set walk animation to true if actually moving
+        bool isMoving = moveDirection.magnitude > 0.1f;
+        playerAnimator.SetBool("WalkBool", isMoving);
+        playerAnimator.SetBool("IdleBool", !isMoving);
+
+        HandleRotation(moveDirection);
     }
 
-    Quaternion rotateTo = Quaternion.Euler(0, 0, 0);
-    float speed = 10f;
+    private Quaternion rotateTo = Quaternion.Euler(0, 0, 0);
+    private float rotationSpeed = 10f;
+    private float lastDirectionX = 0f; // Track the last non-zero direction
+
     private void HandleRotation(Vector2 direction)
     {
-        if (direction.x < 0  && direction.x != -180)
+        // Only update target rotation if there's significant horizontal input
+        if (Mathf.Abs(direction.x) > 0.1f)
         {
-            //lerp from 0 to -180
-            rotateTo = Quaternion.Euler(0, 180, 0);
+            lastDirectionX = direction.x;
+            
+            if (direction.x < 0)
+            {
+                rotateTo = Quaternion.Euler(0, 180, 0);
+            }
+            else if (direction.x > 0)
+            {
+                rotateTo = Quaternion.Euler(0, 0, 0);
+            }
         }
-        else if (direction.x > 0 && direction.x != 0)
-        {
-            //lerp from -180 to 0
-            rotateTo = Quaternion.Euler(0, 0, 0);
-        }
-
-        this.transform.rotation = Quaternion.Lerp(this.transform.rotation, rotateTo, Time.deltaTime * speed);
+        
+        // Always lerp towards the target rotation for smooth transitions
+        this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotateTo, Time.deltaTime * rotationSpeed);
     }
 
-    // Method that determines what buttons are pressed and action results
     private void HandleInput()
     {
         if (playerControls.controlEvent.HasInteracted)
         {
-            if (interactor.canMount) HandleMounting(); // If the player is able to mount and presses interact, mount
-            else if (interactor.canPickup) HandlePickup(); // If the player is able to pickup and presses interact, interact
-            else if (interactor.canRepair) HandleRepair();
+            if (interactor.canMount)
+            {
+                HandleMounting();
+            }
+            else if (interactor.canPickup)
+            {
+                HandlePickup();
+            }
+            else if (interactor.canRepair)
+            {
+                HandleRepair();
+            }
         }
         else if (playerControls.controlEvent.HasDisengaged)
         {
-            HandleDismounting(); // Dismounts player
-            HandleDrop(); // Drops pickup
+            HandleDismounting();
+            HandleDrop();
         }
     }
 
-    //There might be a better way to do this
     private void HandleRepair()
     {
         if (interactor.currentInteractObject.CompareTag("Repair"))
@@ -119,20 +165,17 @@ public class PlayerMovement : MonoBehaviour
             rigHealth.HealDamage(5);
             rigHealth.SetAreaFalse(interactor.currentInteractObject);
         }
-
     }
 
-    // Calls turret script and provides player gameobject to allow only one player to mount and control turret
     private void HandleMounting()
     {
         if (isHolding) HandleDrop();
 
         isMounted = true;
-        canMove = false; //testing for now
+        canMove = false;
         interactor.currentInteractObject.GetComponent<Turret>().Mount(this.gameObject);
     }
 
-    // Calls pickup script and provides...
     private void HandlePickup()
     {
         if (isHolding) HandleDrop();
@@ -140,29 +183,27 @@ public class PlayerMovement : MonoBehaviour
         isHolding = true;
         interactor.currentInteractObject.GetComponent<AmmoBox>().SpawnAmmo();
 
-        //this is temp
         if (interactor.currentInteractObject.TryGetComponent<AmmoBox>(out var ammo))
         {
             heldAmmo.SetActive(true);
             isHoldingAmmo = true;
         }
-        
     }
 
-    // Removes player referene from turret and resets script
     private void HandleDismounting()
     {
+        if (!isMounted) return;
+        
         isMounted = false;
-        canMove = true; //testing for now
+        canMove = true;
         interactor.currentInteractObject.GetComponent<Turret>().Dismount();
     }
 
-    // Drops what the player is holding
-    public void HandleDrop() //can probably switch back to private later, check reloading in player interact
+    public void HandleDrop()
     {
+        if (!isHolding) return;
+        
         isHolding = false;
-
-        //this is temporary
         isHoldingAmmo = false;
         isHoldingRepair = false;
         heldAmmo.SetActive(false);
@@ -172,13 +213,8 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator Teleport(Transform location)
     {
         player.enabled = false;
-
         this.transform.position = location.position;
-        //this.transform.rotation = location.rotation;
-
         player.enabled = true;
-
         yield return null;
     }
-
 }

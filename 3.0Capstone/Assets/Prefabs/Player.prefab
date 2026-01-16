@@ -113,7 +113,6 @@ GameObject:
   - component: {fileID: 6939150101142744482}
   - component: {fileID: 2506961191395098456}
   - component: {fileID: 5898586163461851818}
-  - component: {fileID: 5669370390421035236}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -359,6 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06c7fb344f138f48982605540172032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rigHealth: {fileID: 0}
   heldAmmo: {fileID: 8709191247872423162}
   heldRepair: {fileID: 5584584525575227812}
   playerSprite: {fileID: 6939361553614826340}
@@ -367,28 +367,6 @@ MonoBehaviour:
   isMounted: 0
   isHolding: 0
   canMove: 1
---- !u!95 &5669370390421035236
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2963705724401187127}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6a6275c0b8d628346aca4c89e786aef3, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5584584525575227812
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,7 +538,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8709191247872423162
