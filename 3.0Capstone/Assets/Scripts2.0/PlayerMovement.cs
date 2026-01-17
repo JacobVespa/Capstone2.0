@@ -13,7 +13,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Sprites")]
     [SerializeField] private GameObject heldAmmo;
     [SerializeField] private GameObject heldRepair;
-    [SerializeField] private GameObject playerSprite;
 
     [Header("Booleans")]
     public bool isHoldingAmmo;
@@ -47,7 +46,9 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Spawn player animator/layers
-        Instantiate(inputControlManager.Player[playerIndex].PlayerObject, this.transform);
+        GameObject playerBody = Instantiate(inputControlManager.Player[playerIndex].PlayerObject, this.transform);
+
+        playerAnimator = playerBody.GetComponentInChildren<Animator>();
 
         // Teleport to spawn point
         Transform spawn = inputControlManager.GetCurrentSpawnPoint();
@@ -134,6 +135,12 @@ public class PlayerMovement : MonoBehaviour
             HandleDismounting();
             HandleDrop();
         }
+        else if(playerControls.controlEvent.HasSwungHammer)
+        {
+            Debug.Log("Tried to swing the hammer...");
+            //StartCoroutine(HammerSwing());
+            playerAnimator.SetTrigger("HammerSwing");
+        }
     }
 
     private void HandleRepair()
@@ -204,5 +211,12 @@ public class PlayerMovement : MonoBehaviour
         this.transform.position = location.position;
         player.enabled = true;
         yield return null;
+    }
+
+    private IEnumerator HammerSwing()
+    {
+        playerAnimator.SetBool("HammerSwing", true);
+        yield return new WaitForSeconds(1);
+        playerAnimator.SetBool("HammerSwing", false);
     }
 }

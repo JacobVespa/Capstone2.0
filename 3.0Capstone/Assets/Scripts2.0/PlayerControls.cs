@@ -24,6 +24,9 @@ public class PlayerControls : MonoBehaviour
         private bool heldInteracted;
         public bool HeldInteracted { get { return hasDisengaged; } set { hasDisengaged = value; } }
 
+        private bool hasSwungHammer;
+        public bool HasSwungHammer { get { return hasSwungHammer; } set { hasSwungHammer = value; } }
+
         // Method to reset all button states
         public void ResetButtons()
         {
@@ -81,4 +84,10 @@ public class PlayerControls : MonoBehaviour
     {
         controlEvent.HasDisengaged = context.action.WasPressedThisFrame();
     }
+
+    public void SwingHammer(InputAction.CallbackContext context)
+    {
+        controlEvent.HasSwungHammer = context.action.WasPressedThisFrame();
+    }
+
 }

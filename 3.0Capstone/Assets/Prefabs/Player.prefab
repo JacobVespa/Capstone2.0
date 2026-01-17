@@ -303,6 +303,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 3dd99718-f07b-4010-815d-c4064b768bdd
     m_ActionName: 'Player/Disengage[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2506961191395098456}
+        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
+        m_MethodName: SwingHammer
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c2f1c7cc-c6c6-4058-9264-eaeecb76d553
+    m_ActionName: 'Player/HammerSwing[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -360,12 +376,13 @@ MonoBehaviour:
   rigHealth: {fileID: 0}
   heldAmmo: {fileID: 8709191247872423162}
   heldRepair: {fileID: 5584584525575227812}
-  playerSprite: {fileID: 0}
   isHoldingAmmo: 0
   movementSpeed: 1
   isMounted: 0
   isHolding: 0
   canMove: 1
+  player1Animator: {fileID: 7832188785760753114, guid: d3eed4cfc8c9821468b70450ab0acb68, type: 3}
+  player2Animator: {fileID: 2744891307180660838, guid: 32f664db559914a47848d66cf404fe6d, type: 3}
 --- !u!1 &5584584525575227812
 GameObject:
   m_ObjectHideFlags: 0
