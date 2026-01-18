@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
-public class SkeetoEnemyBody : EnemyBody
+public class RangedEnemyBody : EnemyBody
 {
     [SerializeField] private float projSpeed;
 

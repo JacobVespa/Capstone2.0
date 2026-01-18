@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class SkeetoEnemyAI : EnemyAI
+public class RangedEnemyAI : EnemyAI
 {
-    protected SkeetoEnemyBody body;
+    protected RangedEnemyBody body;
 
     protected override void Awake()
     {
         base.Awake();
-        if (body == null) { body = GetComponent<SkeetoEnemyBody>(); }
+        if (body == null) { body = GetComponent<RangedEnemyBody>(); }
         behaviour = Behaviour.Attack;
     }
 

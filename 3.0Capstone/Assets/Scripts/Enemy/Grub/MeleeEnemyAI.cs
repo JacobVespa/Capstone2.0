@@ -2,9 +2,9 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 
-public class GrubEnemyAI : EnemyAI
+public class MeleeEnemyAI : EnemyAI
 {
-    protected GrubEnemyBody body;
+    protected MeleeEnemyBody body;
 
     private Vector2 targetDist = Vector3.zero;
     private float totalDist = 0;
@@ -17,7 +17,7 @@ public class GrubEnemyAI : EnemyAI
     protected override void Awake()
     {
         base.Awake();
-        if (body == null) { body = GetComponent<GrubEnemyBody>(); }
+        if (body == null) { body = GetComponent<MeleeEnemyBody>(); }
         
         if (hasTarget == true){ targetDist = transform.position - target.transform.position; totalDist = targetDist.magnitude; }
         behaviour = Behaviour.Moving;

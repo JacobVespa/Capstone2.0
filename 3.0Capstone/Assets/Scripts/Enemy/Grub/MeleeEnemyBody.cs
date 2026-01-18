@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-public class GrubEnemyBody : EnemyBody
+public class MeleeEnemyBody : EnemyBody
 {
 
     [SerializeField] private CircleCollider2D attackRange;
