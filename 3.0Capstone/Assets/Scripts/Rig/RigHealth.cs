@@ -34,7 +34,6 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         {
             TakeDamage(d.DamageVal);
         }
-        
     }
 
     private void TakeDamage(float damage)
@@ -45,7 +44,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
         if (currentHealth <= 0)
         {
-            Debug.Log("Here");
+            //Debug.Log("Here");
             Death();
         }
 

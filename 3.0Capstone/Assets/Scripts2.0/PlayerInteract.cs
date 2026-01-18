@@ -77,6 +77,10 @@ public class PlayerInteract : MonoBehaviour
         {
             currentInteractObject = other.gameObject;
         }
+        else if (other.CompareTag("Engine"))
+        {
+            currentInteractObject = other.gameObject;
+        }
     }
 
     /*

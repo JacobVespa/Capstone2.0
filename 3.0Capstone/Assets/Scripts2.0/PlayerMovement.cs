@@ -8,7 +8,8 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInteract interactor;
     private InputControlManager inputControlManager;
     private Animator playerAnimator;
-    [SerializeField] private RigHealth rigHealth;
+    private RigHealth rigHealth;
+    private Engine engine;
 
     [Header("Sprites")]
     [SerializeField] private GameObject heldAmmo;
@@ -158,7 +159,6 @@ public class PlayerMovement : MonoBehaviour
             isHoldingRepair = false;
             heldRepair.SetActive(false);
             rigHealth.HealDamage(5);
-            
         }
     }
 
