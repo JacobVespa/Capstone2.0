@@ -248,6 +248,7 @@ GameObject:
   - component: {fileID: 1945931679265964822}
   - component: {fileID: 7708585933460996079}
   - component: {fileID: 2136788478825979421}
+  - component: {fileID: 7931192781087365118}
   - component: {fileID: 6477001970716319405}
   - component: {fileID: 7827972095545819546}
   m_Layer: 6
@@ -293,6 +294,7 @@ MonoBehaviour:
   ai: {fileID: 7708585933460996079}
   damageSource: {fileID: 2136788478825979421}
   sprite: {fileID: 5509699016841819461}
+  animator: {fileID: 0}
   attackNotif: {fileID: 1890810218810033128}
   comicHurt: {fileID: 8036523748669703191}
   comicDeath: {fileID: 8418658996730869995}
@@ -300,6 +302,7 @@ MonoBehaviour:
   shakeStrength: 0.1
   health: 5
   attackRate: 20
+  enemyAnims: {fileID: 0}
   projSpeed: 5
   bulletPrefab: {fileID: 6735711473433599987, guid: 9bc8267722b991a4b9837db225663d7e, type: 3}
   objectPool: {fileID: 4123940007936774137}
@@ -318,6 +321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   hasTarget: 0
+  agent: {fileID: 0}
   behaviour: 0
 --- !u!114 &2136788478825979421
 MonoBehaviour:
@@ -333,6 +337,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageVal: 5
   damageTarget: 2
+--- !u!114 &7931192781087365118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8688287907360281687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 1945931679265964822}
 --- !u!50 &6477001970716319405
 Rigidbody2D:
   serializedVersion: 5

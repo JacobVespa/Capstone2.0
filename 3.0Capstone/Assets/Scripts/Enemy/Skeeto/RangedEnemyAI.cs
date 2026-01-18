@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.U2D;
 
 public class RangedEnemyAI : EnemyAI
 {
@@ -8,7 +9,13 @@ public class RangedEnemyAI : EnemyAI
     {
         base.Awake();
         if (body == null) { body = GetComponent<RangedEnemyBody>(); }
-        behaviour = Behaviour.Attack;
+        behaviour = Behaviour.Ready;
+        
+    }
+
+    private void Start()
+    {
+        AddToAttackQueue();
     }
 
     protected override void FixedUpdate()
@@ -18,12 +25,13 @@ public class RangedEnemyAI : EnemyAI
 
     protected override void AIFlowChart()
     {
-        
-        if((int) behaviour == 2)
+        switch (behaviour)
         {
-            body.Attack(target);
+            case Behaviour.Ready:
+                body.Attack(target);
+                break;
         }
-        
+       
         
     }
 }

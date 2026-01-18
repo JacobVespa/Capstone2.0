@@ -49,8 +49,6 @@ public class TickEnemyBody : EnemyBody
         transform.position = new Vector2(targetPos.x, targetPos.y + 75);
         rb.gravityScale = 1;
 
-        //rb.gravityScale = 40;
-
         attackNotif.transform.position = notifPos;
         
 
@@ -79,7 +77,8 @@ public class TickEnemyBody : EnemyBody
         rb.linearVelocityY = 0;
 
         dropping = false;
-        ai.behaviour = EnemyAI.Behaviour.Attack;
+        ai.behaviour = EnemyAI.Behaviour.Ready;
+        ai.AddToAttackQueue();
     }
 }
     

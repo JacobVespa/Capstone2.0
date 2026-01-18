@@ -9,6 +9,7 @@ public abstract class EnemyAI : MonoBehaviour
 
     [SerializeField] protected GameObject target;
     [SerializeField] protected bool hasTarget;
+    [SerializeField] public AttackQueueAgent agent;
     public Behaviour behaviour;
 
     public enum Behaviour
@@ -31,6 +32,7 @@ public abstract class EnemyAI : MonoBehaviour
         
         if (target == null) { hasTarget = false; }
         else { hasTarget = true; }
+        if(agent == null) { agent = GetComponent<AttackQueueAgent>(); }
     }
 
     protected abstract void AIFlowChart();
@@ -41,4 +43,13 @@ public abstract class EnemyAI : MonoBehaviour
         hasTarget = (target != null);
     }
 
+    public void AddToAttackQueue()
+    {
+        agent.OnEnterAttackZone(AttackQueueManager.instance, AttackQueueManager.instance.transform);
+    }
+
+    public void RemoveFromAttackQueue()
+    {
+        agent.OnExitAttackZone();
+    }
 }

@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 8242955958413940642}
   - component: {fileID: 6726628139389650614}
   - component: {fileID: 3739521471955693038}
+  - component: {fileID: 6002745671595500572}
   - component: {fileID: 375707694229889882}
   - component: {fileID: 3611787792641163113}
   - component: {fileID: 1215407965381333140}
-  - component: {fileID: 6002745671595500572}
   m_Layer: 6
   m_Name: GrubEnemy
   m_TagString: Enemy
@@ -58,6 +58,7 @@ MonoBehaviour:
   ai: {fileID: 6726628139389650614}
   damageSource: {fileID: 3739521471955693038}
   sprite: {fileID: 6800617680777049114}
+  animator: {fileID: 0}
   attackNotif: {fileID: 5151522712046799291}
   comicHurt: {fileID: 10622166586988311}
   comicDeath: {fileID: 8088068495395112198}
@@ -83,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   hasTarget: 0
+  agent: {fileID: 0}
   behaviour: 0
 --- !u!114 &3739521471955693038
 MonoBehaviour:
@@ -98,6 +100,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageVal: 1
   damageTarget: 2
+--- !u!114 &6002745671595500572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369488387364779184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 8242955958413940642}
 --- !u!50 &375707694229889882
 Rigidbody2D:
   serializedVersion: 5
@@ -197,19 +212,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 2
---- !u!114 &6002745671595500572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369488387364779184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 8242955958413940642}
 --- !u!1 &2120958408404255510
 GameObject:
   m_ObjectHideFlags: 0

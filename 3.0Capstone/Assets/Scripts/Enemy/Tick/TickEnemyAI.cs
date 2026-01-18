@@ -24,18 +24,15 @@ public class TickEnemyAI : EnemyAI
 
     protected override void AIFlowChart()
     {
-        if((int)behaviour == 4)
+
+        switch(behaviour)
         {
-            
-            if (!body.dropping)
-            {
-                StartCoroutine(body.DropOnRig(dropPos));
-            }
-            
-        }
-        else if((int)behaviour == 2)
-        {
-            body.Attack(target);
+            case Behaviour.Spawning:
+                if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos)); }
+                break;
+            case Behaviour.Ready:
+                body.Attack(target);
+                break;
         }
     }
 

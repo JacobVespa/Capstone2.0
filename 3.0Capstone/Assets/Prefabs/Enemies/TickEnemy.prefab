@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 3839815783547890168}
   - component: {fileID: 2830340047023057878}
   - component: {fileID: 1426932880656027853}
+  - component: {fileID: 1926179241513098203}
   - component: {fileID: 569287320527668088}
   - component: {fileID: 8581929505525562313}
   m_Layer: 6
@@ -142,6 +143,7 @@ MonoBehaviour:
   ai: {fileID: 2830340047023057878}
   damageSource: {fileID: 1426932880656027853}
   sprite: {fileID: 1230291262372992781}
+  animator: {fileID: 0}
   attackNotif: {fileID: 5083942795406288887}
   comicHurt: {fileID: 7942022794436582569}
   comicDeath: {fileID: 8449306675412832433}
@@ -149,6 +151,7 @@ MonoBehaviour:
   shakeStrength: 0.1
   health: 2
   attackRate: 3
+  enemyAnims: {fileID: 0}
   dropping: 0
 --- !u!114 &2830340047023057878
 MonoBehaviour:
@@ -164,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   hasTarget: 0
+  agent: {fileID: 0}
   behaviour: 0
 --- !u!114 &1426932880656027853
 MonoBehaviour:
@@ -179,6 +183,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageVal: 1
   damageTarget: 2
+--- !u!114 &1926179241513098203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1410103180657650976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 3839815783547890168}
 --- !u!50 &569287320527668088
 Rigidbody2D:
   serializedVersion: 5

@@ -99,9 +99,9 @@ GameObject:
   - component: {fileID: 1632932676753608099}
   - component: {fileID: 2633591487707297084}
   - component: {fileID: 1503413796833272081}
+  - component: {fileID: 8533314574862420927}
   - component: {fileID: 5133152207654928519}
   - component: {fileID: 504331918213096786}
-  - component: {fileID: 8533314574862420927}
   m_Layer: 6
   m_Name: SkeetoEnemy
   m_TagString: Enemy
@@ -146,6 +146,7 @@ MonoBehaviour:
   ai: {fileID: 2633591487707297084}
   damageSource: {fileID: 1503413796833272081}
   sprite: {fileID: 1503045953572898300}
+  animator: {fileID: 0}
   attackNotif: {fileID: 4836865024657577240}
   comicHurt: {fileID: 2213592736336454901}
   comicDeath: {fileID: 1375778713665985699}
@@ -172,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   hasTarget: 0
+  agent: {fileID: 0}
   behaviour: 0
 --- !u!114 &1503413796833272081
 MonoBehaviour:
@@ -187,6 +189,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageVal: 1
   damageTarget: 2
+--- !u!114 &8533314574862420927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2876655065483165158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 1632932676753608099}
 --- !u!50 &5133152207654928519
 Rigidbody2D:
   serializedVersion: 5
@@ -250,19 +265,6 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 1.5
---- !u!114 &8533314574862420927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2876655065483165158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 1632932676753608099}
 --- !u!1 &2970274516241402116
 GameObject:
   m_ObjectHideFlags: 0
