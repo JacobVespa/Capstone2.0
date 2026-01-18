@@ -19,7 +19,7 @@ public class SkeetoEnemyBody : EnemyBody
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log("yes");
+        
     }
 
     private void Start()
@@ -53,9 +53,13 @@ public class SkeetoEnemyBody : EnemyBody
 
     IEnumerator SkeetoAttack()
     {
-        skeetoAnims.SetBool("Attack", true);
-        yield return new WaitForSeconds(0.25f); //can adjust the time on this
-        skeetoAnims.SetBool("Attack", false);
+        if(skeetoAnims != null) {
+            skeetoAnims.SetBool("Attack", true);
+            yield return new WaitForSeconds(0.25f); //can adjust the time on this
+            skeetoAnims.SetBool("Attack", false);
+        }
+        
+        
     }
 
     private Projectile GetProjectile()
@@ -100,9 +104,6 @@ public class SkeetoEnemyBody : EnemyBody
                 break;
             }
 
-            
-
-            
             yield return null;
         }
 

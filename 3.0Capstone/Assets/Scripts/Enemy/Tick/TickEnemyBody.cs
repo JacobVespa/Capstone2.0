@@ -44,7 +44,7 @@ public class TickEnemyBody : EnemyBody
 
     public IEnumerator DropOnRig(Vector2 targetPos)
     {
-        Debug.Log("drop");
+        
         dropping = true;
         transform.position = new Vector2(targetPos.x, targetPos.y + 75);
         rb.gravityScale = 1;

@@ -1,5 +1,7 @@
-using System;
+
 using UnityEngine;
+
+
 
 public class RigHealth : MonoBehaviour, IDamageReceiver
 {
@@ -7,19 +9,19 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [SerializeField] private float currentHealth;
     [SerializeField] private float lastHealthStep;
     [SerializeField] private GameObject[] damagedAreas;
-    private bool[] areaOccupied;
+    
     
     public float Health { get { return health; } set {  health = value; } }
 
     private void Start()
     {
-        areaOccupied = new bool[damagedAreas.Length];
+        
 
         //Set areaOccupied to false, as to indicate a damagedAreaSpawn area is not occupied
         for(int i = 0; i < damagedAreas.Length; i++)
         {
             damagedAreas[i].SetActive(false);
-            areaOccupied[i] = false;
+            
         }
 
         currentHealth = health;
@@ -49,6 +51,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
         if (currentStep < lastHealthStep)
         {
+            Debug.Log(CheckDamagedArea());
             EnableDamagedArea();
             lastHealthStep = currentStep;
         }
@@ -64,31 +67,33 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         }
     }
 
-    public void SetAreaFalse(GameObject area)
-    {
-        for (int i = 0; i < damagedAreas.Length; ++i)
-        {
-            if (damagedAreas[i] == area)
-            {
-                areaOccupied[i] = false;
-            }
-        }
-    }
-
     private void EnableDamagedArea()
     {
-        int spawnIndex = UnityEngine.Random.Range(0, damagedAreas.Length);
+        if (CheckDamagedArea()) { return; }
+        int spawnIndex = Random.Range(0, damagedAreas.Length);
 
-        if (areaOccupied[spawnIndex] == false)
+        while (true)
         {
-            damagedAreas[spawnIndex].SetActive(true);
-            areaOccupied[spawnIndex] = true;
+            if (damagedAreas[spawnIndex].activeSelf == false)
+            {
+                damagedAreas[spawnIndex].SetActive(true);
+                break;
+            }
+
+            spawnIndex = Random.Range(0, damagedAreas.Length);
         }
-        else
+
+    }
+
+    private bool CheckDamagedArea()
+    {
+
+        foreach (GameObject da in damagedAreas)
         {
-            EnableDamagedArea();
+            if(da.activeSelf == false) { return false; }
         }
-        
+
+        return true;
     }
 
     private void Death()

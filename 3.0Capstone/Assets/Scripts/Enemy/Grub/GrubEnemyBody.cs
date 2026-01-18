@@ -53,9 +53,13 @@ public class GrubEnemyBody : EnemyBody
 
     IEnumerator GrubAttack()
     {
-        grubAnims.SetBool("Attack", true);
-        yield return new WaitForSeconds(0.25f); //can adjust the time on this
-        grubAnims.SetBool("Attack", false);
+        if(grubAnims != null)
+        {
+            grubAnims.SetBool("Attack", true);
+            yield return new WaitForSeconds(0.25f); //can adjust the time on this
+            grubAnims.SetBool("Attack", false);
+        }
+        
     }
 
 
