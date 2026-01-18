@@ -87,6 +87,7 @@ public class RangedEnemyBody : EnemyBody
         return bulletScript;
     }
 
+    /*
     protected override IEnumerator DestroyObject()
     {
         while (true)
@@ -109,6 +110,7 @@ public class RangedEnemyBody : EnemyBody
 
         
     }
+    */
 
     private Vector2 SetBloom(Vector2 dir)
     {

@@ -106,7 +106,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         {
             TakeDamage(d.DamageVal);
             comicHurt.Play();
-            originalPosition = transform.localPosition;
+            originalPosition = sprite.transform.localPosition;
             
             StartCoroutine(Shake());
         }
@@ -119,54 +119,37 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         health -= damage;
         if(health <= 0)
         {
-            StartCoroutine(PlayDeathAnim());
+            StartCoroutine(Death());
         }
     }
 
-    private IEnumerator PlayDeathAnim()
-    {
-        if(enemyAnims != null) //if enemy has animations, play them before triggering death
-        {
-            enemyAnims.SetBool("Death", true); //MAKE DEATH ANIM PARAMETER THE SAME NAME FOR ALL ENEMIES
-            yield return new WaitForSeconds(1);
-            enemyAnims.SetBool("Death", false);
-        }
-        Death();
-    }
-
-    private void Death()
+    private IEnumerator Death()
     {
         ai.behaviour = EnemyAI.Behaviour.Dead;
-        sprite.SetActive(false);
         Collider2D[] colliders = GetComponents<Collider2D>();
+        foreach (Collider2D c in colliders) { c.enabled = false; }
         attackNotif.SetActive(false);
 
-        foreach(Collider2D c in colliders) { c.enabled = false; }
 
         if (comicDeath != null)
         {
-            ParticleSystem comicDeath2 = Instantiate(comicDeath); 
+            ParticleSystem comicDeath2 = Instantiate(comicDeath);
             comicDeath2.transform.parent = null;
             comicDeath2.Play();
             Destroy(comicDeath2, 5);
         }
 
-        //this.gameObject.SetActive(false);
-        StartCoroutine(DestroyObject());
-    }
-    
-    protected virtual IEnumerator DestroyObject()
-    {
-
+        if (enemyAnims != null) //if enemy has animations, play them before triggering death
+        {
+            enemyAnims.SetBool("Death", true); //MAKE DEATH ANIM PARAMETER THE SAME NAME FOR ALL ENEMIES
+            yield return new WaitForSeconds(1);
+            enemyAnims.SetBool("Death", false);
+        }
+        
         
 
-        
-
-        yield return null;
+        Destroy(this.gameObject);
     }
-
-
-
     
     IEnumerator Shake()
     {
@@ -177,13 +160,13 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             float x = Random.Range(-1f, 1f) * shakeStrength;
             float y = Random.Range(-1f, 1f) * shakeStrength;
 
-            transform.localPosition = originalPosition + new Vector3(x, y, 0);
+            sprite.transform.localPosition = originalPosition + new Vector3(x, y, 0);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        transform.localPosition = originalPosition;
+        sprite.transform.localPosition = originalPosition;
     }
     #endregion
 

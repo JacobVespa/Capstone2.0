@@ -61,9 +61,12 @@ public class MeleeEnemyAI : EnemyAI
                 moveInput = Vector2.zero;
                 AttackTarget();
                 break;
+            case Behaviour.Dead:
 
+                break;
             default:
                 // If it ever gets set to None, recover gracefully
+                Debug.Log("fuck");
                 behaviour = Behaviour.Moving;
                 break;
         }
@@ -113,6 +116,7 @@ public class MeleeEnemyAI : EnemyAI
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (behaviour == Behaviour.Dead) return;
         if (collision.isTrigger) return;
         /*
         if (collision.gameObject == target)
@@ -131,6 +135,7 @@ public class MeleeEnemyAI : EnemyAI
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (behaviour == Behaviour.Dead) return;
         if (collision.isTrigger) return;
         /*
         if (collision.gameObject == target)
@@ -141,10 +146,12 @@ public class MeleeEnemyAI : EnemyAI
         }
         */
 
-        if (target != null && collision.transform.root == target.transform)
+        if (target != null && collision.transform.root == target.transform )
         {
-            behaviour = Behaviour.Attack;
-            inRange = true;
+            Debug.LogError("fuck");
+            Debug.Log("smh");
+            behaviour = Behaviour.None;
+            inRange = false;
         }
 
     }

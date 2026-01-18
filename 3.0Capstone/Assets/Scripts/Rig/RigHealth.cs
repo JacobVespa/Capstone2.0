@@ -51,7 +51,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
         if (currentStep < lastHealthStep)
         {
-            Debug.Log(CheckDamagedArea());
+            
             EnableDamagedArea();
             lastHealthStep = currentStep;
         }
