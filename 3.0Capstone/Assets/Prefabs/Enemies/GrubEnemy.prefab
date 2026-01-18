@@ -60,7 +60,7 @@ MonoBehaviour:
   sprite: {fileID: 6800617680777049114}
   attackNotif: {fileID: 5151522712046799291}
   comicHurt: {fileID: 10622166586988311}
-  comicDeath: {fileID: 8088068495395112198}
+  comicDeath: {fileID: 0}
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 3
@@ -68,7 +68,7 @@ MonoBehaviour:
   enemyAnims: {fileID: 2714447845760821111}
   attackRange: {fileID: 1215407965381333140}
   attackRangeVal: 2
-  moveSpeed: 5
+  moveSpeed: 3
 --- !u!114 &6726628139389650614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,10 +611,5 @@ PrefabInstance:
 --- !u!4 &3027939764926341433 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8532664798115923394, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
-  m_PrefabInstance: {fileID: 6660676795351229691}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8088068495395112198 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3193594404914143741, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
   m_PrefabInstance: {fileID: 6660676795351229691}
   m_PrefabAsset: {fileID: 0}

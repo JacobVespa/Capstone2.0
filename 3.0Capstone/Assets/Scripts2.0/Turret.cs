@@ -98,6 +98,7 @@ public class Turret : MonoBehaviour
                     var body = hit.collider.GetComponent<EnemyBody>();
                     if (body != null)
                     {
+                        StartCoroutine(HitMarker(Color.red));
                         body.Attacked(currentDamage);
                     }
                 }
@@ -107,6 +108,7 @@ public class Turret : MonoBehaviour
                     var gem = hit.collider.GetComponent<Resource>();
                     if (gem != null)
                     {
+                        StartCoroutine(HitMarker(Color.blue));
                         gem.Damage();
                     }
                 }
@@ -115,6 +117,7 @@ public class Turret : MonoBehaviour
                     var proj = hit.collider.GetComponent<Projectile>();
                     if(proj != null)
                     {
+                        StartCoroutine(HitMarker(Color.yellow));
                         proj.Attacked(currentDamage);
                     }
                 }
@@ -147,6 +150,14 @@ public class Turret : MonoBehaviour
     {
         currentAmmo = maxAmmo;
         reloadNotif.SetActive(false);
+    }
+
+    IEnumerator HitMarker(Color hitMarkerColor)
+    {
+        var crosshairSprite = crosshair.GetComponent<SpriteRenderer>();
+        crosshairSprite.color = hitMarkerColor;
+        yield return new WaitForSeconds(0.1f);
+        crosshairSprite.color = Color.black;
     }
 
 }
