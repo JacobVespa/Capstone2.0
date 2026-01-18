@@ -10,6 +10,9 @@ public class Resource : MonoBehaviour
     private int breakMulitplier = 2;
     private int damageMulitplier = 1;
 
+    [SerializeField] private ParticleSystem crystalCrack;
+    [SerializeField] private ParticleSystem shardScatter;
+
     void Start()
     {
         originalPosition = transform.localPosition;
@@ -19,6 +22,8 @@ public class Resource : MonoBehaviour
     public void Damage()
     {
         int previousHP = currentHP;
+        crystalCrack.Play();
+        //shardScatter.Play();
         StartCoroutine(Shake());
         currentHP--;
         if (currentHP <= 0) gameObject.SetActive(false);
