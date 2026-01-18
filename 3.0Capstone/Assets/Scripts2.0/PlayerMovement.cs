@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
     private void HandleMovement()
     {
         Vector2 moveDirection = playerControls.controlEvent.MoveDirection;
-        player.Move((moveDirection * movementSpeed) * Time.fixedDeltaTime);
+        player.Move((moveDirection * movementSpeed) * Time.deltaTime);
         
         // Only set walk animation to true if actually moving
         //bool isMoving = moveDirection.magnitude > 0.1f;

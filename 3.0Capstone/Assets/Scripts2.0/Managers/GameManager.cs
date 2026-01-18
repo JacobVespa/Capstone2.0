@@ -5,11 +5,23 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    private int shards;
-    [SerializeField] private float gameTime;
+    [SerializeField] private int resultScreenIndex = 2;
+    public int ResultScreenIndex => resultScreenIndex;
     private bool timeActive;
 
+    private bool gameOverTriggered = false;
+    public bool GameOverTriggered { set { gameOverTriggered = value; } }
+
+    private bool gameOver = false;
+    public bool GameOverStatus {get { return gameOver; } set { gameOver = value; } }
+
+    private int shards;
     public int Shards => shards;
+
+    private int kills;
+    public int Kills => kills;
+
+    [SerializeField] private float gameTime;
     public float GameTime => gameTime;
 
     private void Awake()
@@ -28,11 +40,18 @@ public class GameManager : MonoBehaviour
     {
         shards = 0;
         timeActive = false;
+        SoundManager.Instance.PlayBGM("CaveFight");
     }
 
     private void Update()
     {
         if (timeActive) gameTime += Time.deltaTime;
+
+        if (gameOver && !gameOverTriggered) 
+        {
+            gameOverTriggered = true;
+            GameOver();
+        }
     }
 
     public void AddShards(int amount)
@@ -40,11 +59,34 @@ public class GameManager : MonoBehaviour
         shards += amount;
     }
 
+    public void AddKills(int amount)
+    {
+        kills += amount;
+    }
+
     public void StartGameTime() => timeActive = true;
     public void PauseGameTime() => timeActive = false;
+    public void StopGameTime() => Time.timeScale = 0f;
+    public void ResumeGameTime() => Time.timeScale = 1f;
 
     public void ResetGameTime()
     {
         gameTime = 0f;
+    }
+
+    public void GameOver()
+    {
+        PauseGameTime();
+        StopGameTime();
+        SoundManager.Instance.PlayBGM("Navigation");
+        LevelManager.Instance.ShowEndScreen(resultScreenIndex);
+    }
+
+    public void Victory()
+    {
+        PauseGameTime();
+        StopGameTime();
+        SoundManager.Instance.PlayBGM("Navigation");
+        LevelManager.Instance.ShowEndScreen(resultScreenIndex);
     }
 }

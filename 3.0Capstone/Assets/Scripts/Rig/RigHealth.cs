@@ -11,7 +11,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [SerializeField] private GameObject[] damagedAreas;
     
     
-    public float Health { get { return health; } set {  health = value; } }
+    public float Health { get { return currentHealth; } set {  currentHealth = value; } }
 
     private void Start()
     {
@@ -97,6 +97,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
     private void Death()
     {
-        this.gameObject.SetActive(false);
+        GameManager.Instance.GameOverStatus = true;
+        //this.gameObject.SetActive(false);
     }
 }

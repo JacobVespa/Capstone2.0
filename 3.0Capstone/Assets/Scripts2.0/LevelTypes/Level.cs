@@ -37,6 +37,7 @@ public class Level
     public virtual void EndLevel() // Level -> Menu  | OR | Level -> End Game
     {
         levelManager.LoadScene(0); //Loops to menu for now, add logic to determine othe levels later
+        SoundManager.Instance.PlayBGM("CaveFight");
     }
 
     public virtual void RestartLevel() // Level -> Level

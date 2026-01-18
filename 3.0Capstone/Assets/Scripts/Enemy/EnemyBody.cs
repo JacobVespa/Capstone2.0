@@ -153,7 +153,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         }
         
         
-
+        GameManager.Instance.AddKills(1);
         Destroy(this.gameObject);
     }
     

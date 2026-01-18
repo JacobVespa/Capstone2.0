@@ -11,10 +11,11 @@ public class GameflowManager : MonoBehaviour
         if (!levelRunning || CurrentLevel == null)
             return;
 
-        if (GameManager.Instance.GameTime >= CurrentLevel.Duration)
+        if (GameManager.Instance.GameTime >= CurrentLevel.Duration && GameManager.Instance.GameOverStatus == false)
         {
             levelRunning = false;
-            WindDownLevel();
+            //WindDownLevel();
+            GameManager.Instance.Victory();
         }
     }
 
@@ -31,10 +32,27 @@ public class GameflowManager : MonoBehaviour
 
     private void BeginLevel()
     {
-        GameManager.Instance.ResetGameTime();
-        GameManager.Instance.StartGameTime();
+        ResetValues();
         levelRunning = true;
         CurrentLevel?.StartLevel();
+    }
+
+    public void EndLevel()
+    {
+        if (CurrentLevel == null) return;
+
+        GameManager.Instance.ResetGameTime();
+        levelRunning = false;
+        CurrentLevel?.EndLevel();
+    }
+
+    public void RestartLevel()
+    {
+        if (CurrentLevel == null) return;
+
+        ResetValues();
+        levelRunning = true;
+        CurrentLevel?.RestartLevel();
     }
 
     public void WindDownLevel()
@@ -45,5 +63,15 @@ public class GameflowManager : MonoBehaviour
         GameManager.Instance.ResetGameTime();
         levelRunning = false;
         CurrentLevel?.WindDownLevel();
+    }
+
+    // -------- Utility --------
+
+    public void ResetValues()
+    {
+        GameManager.Instance.GameOverStatus = false;
+        GameManager.Instance.GameOverTriggered = false;
+        GameManager.Instance.ResetGameTime();
+        GameManager.Instance.StartGameTime();
     }
 }

@@ -37,6 +37,7 @@ public class LevelManager : MonoBehaviour
     {
         // Reset the loading flag whenever a scene finishes loading
         isLoading = false;
+        GameManager.Instance.ResumeGameTime();
     }
 
     public void LoadScene(int index)
@@ -81,5 +82,36 @@ public class LevelManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
 
         level.EndLevel();
+    }
+
+    public void ShowEndScreen(int screenSceneIndex)
+    {
+        if (isLoading) return;
+        StartCoroutine(LoadAdditiveScene(screenSceneIndex));
+    }
+
+    private IEnumerator LoadAdditiveScene(int index)
+    {
+        isLoading = true;
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(index, LoadSceneMode.Additive);
+
+        while (!operation.isDone)
+            yield return null;
+
+        isLoading = false;
+    }
+
+    public void HideEndScreen(int screenSceneIndex)
+    {
+        StartCoroutine(UnloadAdditiveScene(screenSceneIndex));
+    }
+
+    private IEnumerator UnloadAdditiveScene(int index)
+    {
+        AsyncOperation operation = SceneManager.UnloadSceneAsync(index);
+
+        while (!operation.isDone)
+            yield return null;
     }
 }
