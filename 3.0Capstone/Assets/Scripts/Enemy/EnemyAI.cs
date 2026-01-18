@@ -13,11 +13,12 @@ public abstract class EnemyAI : MonoBehaviour
 
     public enum Behaviour
     {
-        None = 0,
-        Moving = 1,
-        Attack = 2,
-        Dead = 3,
-        Spawning = 4,
+        None,
+        Moving,     // enemy is moving toward rig(melee only)
+        Ready,      // enemy is in range of the rig is able to attack but waiting for its turn in queue
+        Attacking,  // enemy is currently attacking the rig
+        Dead,       // enemy is dead/dying
+        Spawning,   // enemy is spawning in
     }
 
     protected virtual void FixedUpdate()

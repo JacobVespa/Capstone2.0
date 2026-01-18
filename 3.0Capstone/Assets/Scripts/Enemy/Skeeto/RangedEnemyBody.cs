@@ -22,10 +22,6 @@ public class RangedEnemyBody : EnemyBody
         
     }
 
-    private void Start()
-    {
-        skeetoAnims = sprite.GetComponent<Animator>();
-    }
 
     protected override void FixedUpdate()
     {

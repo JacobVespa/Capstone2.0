@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class AttackQueueManager : MonoBehaviour
 {
+    public static AttackQueueManager instance {  get; private set; }
+
     [Header("Debug")]
     [SerializeField] private bool debugLogs = false;
 
@@ -19,6 +21,12 @@ public class AttackQueueManager : MonoBehaviour
 
     // Candidates in range who want a slot
     private readonly List<AttackQueueAgent> waiting = new List<AttackQueueAgent>();
+
+    private void Awake()
+    {
+        if (instance != null && instance != this) { Destroy(this); return; }
+        instance = this;
+    }
 
     private void Update()
     {

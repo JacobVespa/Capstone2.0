@@ -26,12 +26,10 @@ public class MeleeEnemyBody : EnemyBody
     {
         base.Awake();
         attackRange.radius = attackRangeVal;
-    }
-
-    private void Start()
-    {
         grubAnims = sprite.GetComponent<Animator>();
     }
+
+    
 
     public override void Attack(GameObject target)
     {

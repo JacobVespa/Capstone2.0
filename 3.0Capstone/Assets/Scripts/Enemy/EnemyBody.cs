@@ -13,6 +13,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [SerializeField] protected EnemyAI ai;
     [SerializeField] protected DamageSource damageSource;
     [SerializeField] protected GameObject sprite;
+    [SerializeField] protected Animator animator;
     [SerializeField] protected GameObject attackNotif;
 
     [SerializeField] private ParticleSystem comicHurt;
@@ -72,7 +73,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         {
             damageSource = GetComponent<DamageSource>();
         }
-        
+        if(animator == null && sprite != null)
+        {
+            animator = sprite.GetComponent<Animator>();
+        }
+        else { Debug.LogError("Animator not set in code becuase Sprite was not set manually"); }
         
     }
 
@@ -83,7 +88,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private void UpdateCooldown()
     {
-        if(attackCooldown >= attackRate || ai.behaviour != EnemyAI.Behaviour.Attack) { return; }
+        if(attackCooldown >= attackRate || ai.behaviour != EnemyAI.Behaviour.Ready) { return; }
 
         attackCooldown += 1 * Time.fixedDeltaTime;
         if(attackNotif.activeSelf == false  && attackCooldown >= attackRate/2) { attackNotif.SetActive(true); }
@@ -106,7 +111,8 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         {
             TakeDamage(d.DamageVal);
             comicHurt.Play();
-            originalPosition = sprite.transform.localPosition;
+            //originalPosition = transform.position;
+            originalPosition = transform.position;
             
             StartCoroutine(Shake());
         }
@@ -155,18 +161,20 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     {
         float elapsed = 0f;
 
+        GameObject spritePos = sprite.transform.parent.gameObject;
+
         while (elapsed < shakeDuration)
         {
             float x = Random.Range(-1f, 1f) * shakeStrength;
             float y = Random.Range(-1f, 1f) * shakeStrength;
 
-            sprite.transform.localPosition = originalPosition + new Vector3(x, y, 0);
+            spritePos.transform.position = originalPosition + new Vector3(x, y, 0);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        sprite.transform.localPosition = originalPosition;
+        spritePos.transform.position = originalPosition;
     }
     #endregion
 

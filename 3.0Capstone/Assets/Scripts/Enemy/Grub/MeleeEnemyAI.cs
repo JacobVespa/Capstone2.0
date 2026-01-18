@@ -30,25 +30,7 @@ public class MeleeEnemyAI : EnemyAI
 
     protected override void AIFlowChart()
     {
-        /*
-        if (!hasTarget) { return; }
-
-        //Debug.Log(totalDist);
-
-        if((int)behaviour == 1)
-        {
-            if(behaviour != Behaviour.None) { behaviour = Behaviour.None; }
-            ApproachTarget();
-            body.AttackCooldown = 0;
-        }
-        else if((int)behaviour == 2)
-        {
-            if(behaviour != Behaviour.Attack) { behaviour = Behaviour.Attack; }
-            
-            moveInput = Vector2.zero;
-            AttackTarget();
-        }
-        */
+        
         if (!hasTarget) return;
 
         switch (behaviour)
@@ -57,18 +39,11 @@ public class MeleeEnemyAI : EnemyAI
                 ApproachTarget();
                 break;
 
-            case Behaviour.Attack:
+            case Behaviour.Ready:
                 moveInput = Vector2.zero;
-                AttackTarget();
+                TryAttackTarget();
                 break;
-            case Behaviour.Dead:
-
-                break;
-            default:
-                // If it ever gets set to None, recover gracefully
-                Debug.Log("fuck");
-                behaviour = Behaviour.Moving;
-                break;
+            
         }
 
     }
@@ -87,21 +62,12 @@ public class MeleeEnemyAI : EnemyAI
         body.InputDir = moveInput;
     }
 
-    private void AttackTarget()
+    private void TryAttackTarget()
     {
-
         if (!hasTarget) { return; }
 
-        Vector3 attackAim = target.transform.position - transform.position;
-        attackAim = attackAim.normalized;
         body.Attack(target);
-        if (target.activeSelf == false)
-        {
-            target = null;
-            hasTarget = false;
-            inRange = false;
-
-        }
+        
     }
 
     public void CheckIfTarget()
@@ -128,7 +94,7 @@ public class MeleeEnemyAI : EnemyAI
 
         if (target != null && collision.transform.root == target.transform)
         {
-            behaviour = Behaviour.Attack;
+            behaviour = Behaviour.Ready;
             inRange = true;
         }
 
@@ -148,8 +114,7 @@ public class MeleeEnemyAI : EnemyAI
 
         if (target != null && collision.transform.root == target.transform )
         {
-            Debug.LogError("fuck");
-            Debug.Log("smh");
+            
             behaviour = Behaviour.None;
             inRange = false;
         }
