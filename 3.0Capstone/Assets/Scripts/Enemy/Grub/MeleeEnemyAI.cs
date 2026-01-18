@@ -94,7 +94,6 @@ public class MeleeEnemyAI : EnemyAI
 
         if (target != null && collision.transform.root == target.transform)
         {
-            Debug.Log("lol");
             behaviour = Behaviour.Ready;
             inRange = true;
             AddToAttackQueue();
