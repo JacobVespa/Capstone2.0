@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1931495225676585688}
   m_Layer: 0
   m_Name: Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,6 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallMoveSpeed: 3
+  floorMoveSpeed: 2
   gems:
   - {fileID: 1492813518965167239}
   - {fileID: 6523769654135355234}

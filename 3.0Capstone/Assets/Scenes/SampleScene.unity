@@ -198,7 +198,7 @@ GameObject:
   - component: {fileID: 39134503}
   m_Layer: 0
   m_Name: Background_Floor_0 (1)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359887a154e113d42bc531a3221a62aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMoveSpeed: 2
+  wallMoveSpeed: 3
+  floorMoveSpeed: 2
   gems: []
 --- !u!95 &39134504
 Animator:
@@ -1029,7 +1030,7 @@ GameObject:
   - component: {fileID: 837453373}
   m_Layer: 0
   m_Name: Background_Floor_0
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1138,7 +1139,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359887a154e113d42bc531a3221a62aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMoveSpeed: 2
+  wallMoveSpeed: 3
+  floorMoveSpeed: 2
   gems: []
 --- !u!1001 &953441407
 PrefabInstance:
