@@ -31,7 +31,16 @@ public class TickEnemyAI : EnemyAI
                 if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos)); }
                 break;
             case Behaviour.Ready:
+                if (agent.CanDealDamage)
+                {
+                    behaviour = Behaviour.Attacking;
+                }
+                break;
+            case Behaviour.Attacking:
                 body.Attack(target);
+                break;
+            case Behaviour.CoolDown:
+                MoveToBottomOfQueue();
                 break;
         }
     }

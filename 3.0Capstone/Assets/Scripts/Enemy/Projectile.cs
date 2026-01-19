@@ -70,17 +70,17 @@ public class Projectile : MonoBehaviour, IDamageReceiver
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.name);
+        
 
-        if (collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); Debug.Log("triggered"); }
+        if (collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); }
         DisableProjectile();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
+        
 
-        if(collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); Debug.Log("hit"); }
+        if(collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource);  }
         DisableProjectile();
 
     }

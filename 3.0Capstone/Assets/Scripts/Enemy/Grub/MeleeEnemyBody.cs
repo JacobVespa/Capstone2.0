@@ -35,8 +35,6 @@ public class MeleeEnemyBody : EnemyBody
     {
         if (attackCooldown < attackRate) { return; }
 
-        
-        if (ai.agent != null && !ai.agent.CanDealDamage) { return; }
 
         base.Attack(target);
         StartCoroutine(GrubAttack());

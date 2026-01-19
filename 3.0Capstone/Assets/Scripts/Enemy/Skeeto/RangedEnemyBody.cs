@@ -32,8 +32,6 @@ public class RangedEnemyBody : EnemyBody
     {
         if (attackCooldown < attackRate) { return; }
 
-        
-        if (ai.agent != null && !ai.agent.CanDealDamage) { return; }
 
         base.Attack(target);
         StartCoroutine(SkeetoAttack());

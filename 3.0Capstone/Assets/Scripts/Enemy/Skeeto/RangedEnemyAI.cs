@@ -28,7 +28,17 @@ public class RangedEnemyAI : EnemyAI
         switch (behaviour)
         {
             case Behaviour.Ready:
+                if (agent.CanDealDamage)
+                {
+                    behaviour = Behaviour.Attacking;
+                }
+                break;
+            case Behaviour.Attacking:
                 body.Attack(target);
+                break;
+            case Behaviour.CoolDown:
+                MoveToBottomOfQueue();
+                
                 break;
         }
        

@@ -88,7 +88,8 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private void UpdateCooldown()
     {
-        if(attackCooldown >= attackRate || ai.behaviour != EnemyAI.Behaviour.Ready) { return; }
+        if(attackCooldown >= attackRate || ai.behaviour != EnemyAI.Behaviour.Attacking) { return; }
+        if (ai.agent != null && !ai.agent.CanDealDamage) { return; }
 
         attackCooldown += 1 * Time.fixedDeltaTime;
         if(attackNotif.activeSelf == false  && attackCooldown >= attackRate/2) { attackNotif.SetActive(true); }
@@ -99,6 +100,8 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     {
         attackCooldown = 0;
         attackNotif.SetActive(false);
+        
+        ai.behaviour = EnemyAI.Behaviour.CoolDown;
     }
     
 
@@ -131,6 +134,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private IEnumerator Death()
     {
+        ai.RemoveFromAttackQueue();
         ai.behaviour = EnemyAI.Behaviour.Dead;
         Collider2D[] colliders = GetComponents<Collider2D>();
         foreach (Collider2D c in colliders) { c.enabled = false; }

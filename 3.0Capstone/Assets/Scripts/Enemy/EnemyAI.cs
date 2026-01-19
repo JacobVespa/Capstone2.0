@@ -17,7 +17,9 @@ public abstract class EnemyAI : MonoBehaviour
         None,
         Moving,     // enemy is moving toward rig(melee only)
         Ready,      // enemy is in range of the rig is able to attack but waiting for its turn in queue
+        //ChargeUp 
         Attacking,  // enemy is currently attacking the rig
+        CoolDown,
         Dead,       // enemy is dead/dying
         Spawning,   // enemy is spawning in
     }
@@ -51,5 +53,13 @@ public abstract class EnemyAI : MonoBehaviour
     public void RemoveFromAttackQueue()
     {
         agent.OnExitAttackZone();
+    }
+
+    public void MoveToBottomOfQueue()
+    {
+        RemoveFromAttackQueue();
+        AddToAttackQueue();
+
+        behaviour = Behaviour.Ready;
     }
 }

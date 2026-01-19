@@ -17,7 +17,7 @@ public class TickEnemyBody : EnemyBody
         base.Awake();
         if (rb == null) { rb = GetComponent<Rigidbody2D>(); }
         
-        if(notifPos == Vector2.zero) { notifPos = attackNotif.transform.position; Debug.Log("notif"); }
+        if(notifPos == Vector2.zero) { notifPos = attackNotif.transform.position; }
         
     }
 
@@ -29,9 +29,6 @@ public class TickEnemyBody : EnemyBody
     public override void Attack(GameObject target)
     {
         if (attackCooldown < attackRate) { return; }
-
-        
-        if (ai.agent != null && !ai.agent.CanDealDamage) { return; }
 
         base.Attack(target);
 

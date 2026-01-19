@@ -64,6 +64,7 @@ public class AttackQueueManager : MonoBehaviour
         {
             agent.SetCanDealDamage(false);
             DLog($"UNREGISTER: {agent.name} (removed from ACTIVE)");
+            FillSlots();
         }
 
         if (waiting.Remove(agent))

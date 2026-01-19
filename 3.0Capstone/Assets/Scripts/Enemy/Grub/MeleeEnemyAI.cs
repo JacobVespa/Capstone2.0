@@ -41,9 +41,17 @@ public class MeleeEnemyAI : EnemyAI
 
             case Behaviour.Ready:
                 moveInput = Vector2.zero;
+                if (agent.CanDealDamage)
+                {
+                    behaviour = Behaviour.Attacking;
+                }
+                break;
+            case Behaviour.Attacking:
                 TryAttackTarget();
                 break;
-            
+            case Behaviour.CoolDown:
+                MoveToBottomOfQueue();
+                break;
         }
 
     }
