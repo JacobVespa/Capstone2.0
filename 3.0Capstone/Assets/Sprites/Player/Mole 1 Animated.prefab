@@ -1675,6 +1675,7 @@ GameObject:
   - component: {fileID: 5983206722687901754}
   - component: {fileID: 289889045130227995}
   - component: {fileID: 8283445380295133481}
+  - component: {fileID: 3576902167212253606}
   m_Layer: 0
   m_Name: Hammer
   m_TagString: Untagged
@@ -1837,6 +1838,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &3576902167212253606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8984979118980391890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f8985a4141778c49af1f779a1c1d628, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageVal: 1
+  damageTarget: 1
 --- !u!1 &9001580704789880884
 GameObject:
   m_ObjectHideFlags: 0
