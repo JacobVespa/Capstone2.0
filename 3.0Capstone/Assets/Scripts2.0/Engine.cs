@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -9,16 +10,18 @@ public class Engine : MonoBehaviour
     [SerializeField] private float heatIncreaseRate = 0.02f; 
     [SerializeField] private float repairAmount = 0.05f;
     [SerializeField] private float lerpSpeed = 5f;
-    private WallMoving wallMove;
+    private WallMoving[] wallMove; //Disgusting, forgive me father
     private Color originalColor = Color.white;
     private Color heatColor = Color.red;
+
+    private bool tooHot = false;
 
     private float heat = 0f;        
     private float targetHeat = 0f;
 
     private void Start()
     {
-        wallMove = FindFirstObjectByType<WallMoving>();
+       wallMove = FindObjectsByType<WallMoving>(sortMode: FindObjectsSortMode.None);
     }
     // Update is called once per frame
     void Update()
@@ -29,13 +32,15 @@ public class Engine : MonoBehaviour
         heat = Mathf.Lerp(heat, targetHeat, Time.deltaTime * lerpSpeed);
 
         engineSprite.color = Color.Lerp(originalColor, heatColor, heat);
-        //EngineBreakdown();
+        EngineBreakdown();
+        EngineUpstart();
     }
 
     public void EngineRepair()
     {
         targetHeat -= repairAmount;
         targetHeat = Mathf.Clamp01(targetHeat);
+        Debug.Log("Here");
     }
 
     private void EngineBreakdown()
@@ -43,8 +48,11 @@ public class Engine : MonoBehaviour
         //stop all wall movement
         if (engineSprite.color == heatColor)
         {
-            wallMove.wallMoveSpeed = 0.0f;
-            wallMove.floorMoveSpeed = 0.0f;
+            for (int i = 0; i < wallMove.Length; i++)
+            {
+                wallMove[i].wallMoveSpeed = 0.0f;
+                wallMove[i].floorMoveSpeed = 0.0f;
+            }
             Debug.Log("HOT!!!!");
         }
     }
@@ -53,8 +61,12 @@ public class Engine : MonoBehaviour
     {
         if (engineSprite.color == originalColor)
         {
-            wallMove.wallMoveSpeed = 3.0f;
-            wallMove.floorMoveSpeed = 2.0f;
+            for (int i = 0; i < wallMove.Length; i++)
+            {
+                wallMove[i].wallMoveSpeed = 3.0f;
+                wallMove[i].floorMoveSpeed = 2.0f;
+            }
+            Debug.Log("WORKS!");
         }
     }
 }

@@ -682,7 +682,7 @@ GameObject:
   - component: {fileID: 543979936}
   m_Layer: 0
   m_Name: Background_Floor_0
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -700,7 +700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallMoveSpeed: 2
-  floorMoveSpeed: 0
+  floorMoveSpeed: 2
   gems: []
 --- !u!95 &543979937
 Animator:
@@ -808,7 +808,7 @@ GameObject:
   - component: {fileID: 628331146}
   m_Layer: 0
   m_Name: Background_Floor_0 (1)
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -826,7 +826,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallMoveSpeed: 2
-  floorMoveSpeed: 0
+  floorMoveSpeed: 2
   gems: []
 --- !u!95 &628331147
 Animator:
@@ -1144,6 +1144,10 @@ PrefabInstance:
     - target: {fileID: 757119073889907447, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
       propertyPath: m_Name
       value: Walls
+      objectReference: {fileID: 0}
+    - target: {fileID: 757119073889907447, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2000442594627648211, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
       propertyPath: m_LocalScale.x
@@ -1572,6 +1576,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 5667774021608583184, guid: 59327c81da5e56e49927981e4c1badcd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6683792236657010445, guid: 59327c81da5e56e49927981e4c1badcd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.3
@@ -1748,6 +1756,10 @@ PrefabInstance:
     - target: {fileID: 757119073889907447, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
       propertyPath: m_Name
       value: Walls (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 757119073889907447, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2511785196411175654, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
       propertyPath: m_LocalScale.x
