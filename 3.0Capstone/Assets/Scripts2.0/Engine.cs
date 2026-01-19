@@ -6,50 +6,55 @@ using UnityEngine.Rendering;
 public class Engine : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer engineSprite;
-    [SerializeField] private WallMoving wallMove;
-    private Color originalColor;
-    private Color heatColor;
+    [SerializeField] private float heatIncreaseRate = 0.02f; 
+    [SerializeField] private float repairAmount = 0.05f;
+    [SerializeField] private float lerpSpeed = 5f;
+    private WallMoving wallMove;
+    private Color originalColor = Color.white;
+    private Color heatColor = Color.red;
+
+    private float heat = 0f;        
+    private float targetHeat = 0f;
 
     private void Start()
     {
-        originalColor = Color.white;
-        heatColor = new Color(1.0f, 0.0f, 0.0f, 1.0f);
+        wallMove = FindFirstObjectByType<WallMoving>();
     }
     // Update is called once per frame
     void Update()
     {
-        EngineOverheat();
-    }
+        targetHeat += heatIncreaseRate * Time.deltaTime;
+        targetHeat = Mathf.Clamp01(targetHeat);
 
-    private void EngineOverheat()
-    {
-        StartCoroutine(LerpColor(originalColor, heatColor, 100.0f));
+        heat = Mathf.Lerp(heat, targetHeat, Time.deltaTime * lerpSpeed);
+
+        engineSprite.color = Color.Lerp(originalColor, heatColor, heat);
+        //EngineBreakdown();
     }
 
     public void EngineRepair()
     {
-        Color currentColor = engineSprite.color;
-        Color newColor = new Color(currentColor.r -= 0.05f, 0.0f, 0.0f);
-
-        StartCoroutine(LerpColor(currentColor, newColor, 0.5f));
+        targetHeat -= repairAmount;
+        targetHeat = Mathf.Clamp01(targetHeat);
     }
 
     private void EngineBreakdown()
     {
         //stop all wall movement
-        
-    }
-
-    private IEnumerator LerpColor(Color startingColor, Color endingColor, float time)
-    {
-        float inversedTime = 1 / time; // Compute this value **once**
-        for (float step = 0.0f; step < 1.0f; step += Time.deltaTime * inversedTime)
+        if (engineSprite.color == heatColor)
         {
-            engineSprite.color = Color.Lerp(startingColor, endingColor, step);
- 
-            yield return null;
+            wallMove.wallMoveSpeed = 0.0f;
+            wallMove.floorMoveSpeed = 0.0f;
+            Debug.Log("HOT!!!!");
         }
     }
 
-
+    private void EngineUpstart()
+    {
+        if (engineSprite.color == originalColor)
+        {
+            wallMove.wallMoveSpeed = 3.0f;
+            wallMove.floorMoveSpeed = 2.0f;
+        }
+    }
 }

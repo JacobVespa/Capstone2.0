@@ -6,6 +6,7 @@ public class PlayerInteract : MonoBehaviour
     public bool canMount = false;
     public bool canPickup = false;
     public bool canRepair = false;
+    public bool canEngine = false;
 
     [SerializeField] private float interactRange = 1.2f;
     private SphereCollider interactCollider;
@@ -79,6 +80,7 @@ public class PlayerInteract : MonoBehaviour
         }
         else if (other.CompareTag("Engine"))
         {
+            canEngine = true;
             currentInteractObject = other.gameObject;
         }
     }
