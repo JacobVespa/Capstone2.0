@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -36,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
         interactor = GetComponentInChildren<PlayerInteract>();
         inputControlManager = InputControlManager.Instance;
         rigHealth = FindFirstObjectByType<RigHealth>();
+        engine = FindFirstObjectByType<Engine>();
 
         // Get the index for this player instance
         playerIndex = inputControlManager.GetCurrentPlayerIndex();
@@ -132,6 +134,10 @@ public class PlayerMovement : MonoBehaviour
             {
                 HandleRepair();
             }
+            else if (interactor.canEngine)
+            {
+                HandleEngine();
+            }
         }
         else if (playerControls.controlEvent.HasDisengaged)
         {
@@ -142,6 +148,14 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Tried to swing the hammer...");
             playerAnimator.SetTrigger("HammerSwing");
+        }
+    }
+
+    private void HandleEngine()
+    {
+        if (interactor.currentInteractObject.CompareTag("Engine"))
+        {
+            engine.EngineRepair();
         }
     }
 
