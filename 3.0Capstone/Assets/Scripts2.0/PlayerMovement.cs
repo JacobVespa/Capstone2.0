@@ -68,11 +68,6 @@ public class PlayerMovement : MonoBehaviour
         {
             HandleMovement();
         }
-        else
-        {
-            // Stop walk animation when can't move
-            //playerAnimator.SetBool("WalkBool", false);
-        }
         
         HandleInput();
     }
@@ -84,9 +79,16 @@ public class PlayerMovement : MonoBehaviour
         
         // Only set walk animation to true if actually moving
         //bool isMoving = moveDirection.magnitude > 0.1f;
-        //playerAnimator.SetBool("IdleBool", !isMoving);
+        if(moveDirection.magnitude > 0)
+        {
+            playerAnimator.SetBool("MoleWalk", true);
+        }
+        else
+        {
+            playerAnimator.SetBool("MoleWalk", false);
+        }
 
-        HandleRotation(moveDirection);
+            HandleRotation(moveDirection);
     }
 
     private Quaternion rotateTo = Quaternion.Euler(0, 0, 0);
@@ -139,7 +141,6 @@ public class PlayerMovement : MonoBehaviour
         else if(playerControls.controlEvent.HasSwungHammer)
         {
             Debug.Log("Tried to swing the hammer...");
-            //StartCoroutine(HammerSwing());
             playerAnimator.SetTrigger("HammerSwing");
         }
     }
