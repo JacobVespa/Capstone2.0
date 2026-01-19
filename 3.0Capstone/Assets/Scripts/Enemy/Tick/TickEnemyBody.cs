@@ -28,7 +28,7 @@ public class TickEnemyBody : EnemyBody
 
     public override void Attack(GameObject target)
     {
-        if (attackCooldown < attackRate) { return; }
+        if (attackTimer < attackStartUp) { return; }
 
         base.Attack(target);
 

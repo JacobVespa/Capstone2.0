@@ -52,11 +52,14 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [SerializeField] protected float health = 3;
     public float Health {  get { return health; } set {  health = value; } }
 
-    [SerializeField] protected float attackRate = 3;
-    public float AttackRate { get {  return attackRate; } set { attackRate = value; } }
+    [SerializeField] protected float attackStartUp = 3;
+    public float AttackStartUp { get {  return attackStartUp; } set { attackStartUp = value; } }
 
-    protected float attackCooldown = 0;
-    public float AttackCooldown { get { return attackCooldown; } set { attackCooldown = value; } }
+    [SerializeField] protected float attackCoolDown = 3;
+    public float AttackCoolDown { get { return attackCoolDown; } set { attackCoolDown = value; } }
+
+    protected float attackTimer = 0;
+    public float AttackTimer { get { return AttackTimer; } set { AttackTimer = value; } }
 
     [Header("Animator")]
     [SerializeField] private Animator enemyAnims;
@@ -67,7 +70,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     {
         
         attackNotif.SetActive(false);
-        attackCooldown = 0;
+        attackTimer = 0;
         
         if(damageSource == null)
         {
@@ -88,17 +91,18 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private void UpdateCooldown()
     {
-        if(attackCooldown >= attackRate || ai.behaviour != EnemyAI.Behaviour.Attacking) { return; }
-        if (ai.agent != null && !ai.agent.CanDealDamage) { return; }
+        if(ai.behaviour != EnemyAI.Behaviour.Attacking && ai.behaviour != EnemyAI.Behaviour.CoolDown) { return; }
+        if(attackTimer >= attackStartUp || attackTimer >= attackCoolDown) { return; }
+        //if (ai.agent != null && !ai.agent.CanDealDamage) { return; }
 
-        attackCooldown += 1 * Time.fixedDeltaTime;
-        if(attackNotif.activeSelf == false  && attackCooldown >= attackRate/2) { attackNotif.SetActive(true); }
+        attackTimer += 1 * Time.fixedDeltaTime;
+        if(attackNotif.activeSelf == false  && attackTimer >= AttackStartUp/2) { attackNotif.SetActive(true); }
           
     }
 
     public virtual void Attack(GameObject target) 
     {
-        attackCooldown = 0;
+        attackTimer = 0;
         attackNotif.SetActive(false);
         
         ai.behaviour = EnemyAI.Behaviour.CoolDown;
