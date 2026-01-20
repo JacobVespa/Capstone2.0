@@ -163,6 +163,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (interactor.currentInteractObject.CompareTag("Repair"))
         {
+            interactor.currentInteractObject.GetComponent<RepairStation>().PlayPickupSound();
             heldRepair.SetActive(true);
             isHoldingRepair = true;
         }
@@ -184,6 +185,7 @@ public class PlayerMovement : MonoBehaviour
         isMounted = true;
         canMove = false;
         interactor.currentInteractObject.GetComponent<Turret>().Mount(this.gameObject);
+        playerAnimator.SetBool("MoleWalk", false);
     }
 
     private void HandlePickup()
@@ -226,12 +228,5 @@ public class PlayerMovement : MonoBehaviour
         this.transform.position = location.position;
         player.enabled = true;
         yield return null;
-    }
-
-    private IEnumerator HammerSwing()
-    {
-        playerAnimator.SetBool("HammerSwing", true);
-        yield return new WaitForSeconds(1);
-        playerAnimator.SetBool("HammerSwing", false);
     }
 }
