@@ -13,6 +13,9 @@ public class Resource : MonoBehaviour
     [SerializeField] private ParticleSystem crystalCrack;
     [SerializeField] private ParticleSystem shardScatter;
 
+    [SerializeField] AudioClip resource;
+    [SerializeField] AudioSource audioSource;
+
     void Start()
     {
         originalPosition = transform.localPosition;
@@ -23,6 +26,7 @@ public class Resource : MonoBehaviour
     {
         int previousHP = currentHP;
         crystalCrack.Play();
+        audioSource.Play();
         //shardScatter.Play();
         StartCoroutine(Shake());
         currentHP--;
