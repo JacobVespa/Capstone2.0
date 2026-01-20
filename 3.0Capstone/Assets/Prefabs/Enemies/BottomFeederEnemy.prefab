@@ -151,7 +151,8 @@ MonoBehaviour:
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 7
-  attackRate: 5
+  attackStartUp: 3
+  attackCoolDown: 3
   enemyAnims: {fileID: 0}
   attackRange: {fileID: 3615466318253175549}
   attackRangeVal: 3.75
@@ -184,7 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8985a4141778c49af1f779a1c1d628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageVal: 5
+  damageVal: 2
   damageTarget: 2
 --- !u!114 &2787765467413566754
 MonoBehaviour:

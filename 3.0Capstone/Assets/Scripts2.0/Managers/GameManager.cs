@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float gameTime;
     public float GameTime => gameTime;
 
+    public PlayerMovement[] playerMovement;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        playerMovement = FindObjectsByType<PlayerMovement>(sortMode: FindObjectsSortMode.None);
     }
 
     private void Start()
@@ -82,6 +85,13 @@ public class GameManager : MonoBehaviour
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         gameflowManager.WindDownLevel();
 
+        //TEMP: THIS SHIT DIDN'T EVEN WORK
+        for (int i = 0; i < playerMovement.Length; i++)
+        {
+            playerMovement[i].canMove = false;
+            playerMovement[i].canInteract = false;
+        }
+
         PauseGameTime();
         StopGameTime();
         SoundManager.Instance.PlayBGM("Navigation");
@@ -92,6 +102,13 @@ public class GameManager : MonoBehaviour
     {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         gameflowManager.WindDownLevel();
+
+        //TEMP: THIS SHIT DIDN'T EVEN WORK
+        for (int i = 0; i < playerMovement.Length; i++)
+        {
+            playerMovement[i].canMove = false;
+            playerMovement[i].canInteract = false;
+        }
 
         PauseGameTime();
         StopGameTime();

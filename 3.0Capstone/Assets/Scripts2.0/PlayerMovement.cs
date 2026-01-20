@@ -26,7 +26,8 @@ public class PlayerMovement : MonoBehaviour
     [Header("Debug Values")]
     [SerializeField] private bool isMounted = false;
     [SerializeField] private bool isHolding = false;
-    [SerializeField] private bool canMove = true;
+    public bool canMove = true;
+    public bool canInteract = true;
 
     private int playerIndex; // Which player this is (0 or 1)
 
@@ -120,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleInput()
     {
-        if (playerControls.controlEvent.HasInteracted)
+        if (canInteract && playerControls.controlEvent.HasInteracted)
         {
             if (interactor.canMount)
             {
