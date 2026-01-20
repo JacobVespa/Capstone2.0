@@ -40,8 +40,7 @@ public class Turret : MonoBehaviour
         aimPos = transform.position;
         audioSource.clip = shootClip;
         currentDamage = GetComponent<DamageSource>();
-        string ammoCount = maxAmmo.ToString();
-        ammoCountText.text = ammoCount;
+        ammoCountText.text = maxAmmo.ToString();
     }
 
     private void Update()
@@ -76,6 +75,7 @@ public class Turret : MonoBehaviour
         if (currentAmmo > 0)
         {
             currentAmmo--;
+            ammoCountText.text = currentAmmo.ToString();
             if (currentAmmo ==0)
             {
                 reloadNotif.SetActive(true);
@@ -150,6 +150,7 @@ public class Turret : MonoBehaviour
     {
         currentAmmo = maxAmmo;
         reloadNotif.SetActive(false);
+        ammoCountText.text = maxAmmo.ToString();
     }
 
     IEnumerator HitMarker(Color hitMarkerColor)
