@@ -75,13 +75,23 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator WindDownRoutine(Level level)
     {
-        WaveSpawner spawner = Object.FindFirstObjectByType<WaveSpawner>();
-        if (spawner != null)
-            spawner.enabled = false;
+        GameObject[] spawners;
+        spawners = GameObject.FindGameObjectsWithTag("Spawner");
+
+        foreach (GameObject spawn in spawners)
+        {
+            spawn.SetActive(false);
+        }
+
+        GameObject[] enemies;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in enemies)
+        {
+            enemy.SetActive(false);
+        }
 
         yield return new WaitForSecondsRealtime(1f);
-
-        level.EndLevel();
     }
 
     public void ShowEndScreen(int screenSceneIndex)

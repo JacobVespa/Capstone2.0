@@ -79,6 +79,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
+        gameflowManager.WindDownLevel();
+
         PauseGameTime();
         StopGameTime();
         SoundManager.Instance.PlayBGM("Navigation");
@@ -87,6 +90,9 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
+        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
+        gameflowManager.WindDownLevel();
+
         PauseGameTime();
         StopGameTime();
         SoundManager.Instance.PlayBGM("Navigation");
