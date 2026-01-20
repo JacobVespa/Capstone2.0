@@ -13,6 +13,12 @@ public class RangedEnemyBody : EnemyBody
     private List<Projectile> bullets = new List<Projectile>();
     [SerializeField] private Transform fireLocation;
 
+    [Header("Movement Stats")]
+    [SerializeField] private float moveSpeed = 5;
+    private Vector3 motion = Vector2.zero;
+    private Vector2 inputDir = Vector2.zero;
+    public Vector2 InputDir { get { return inputDir; } set { inputDir = value; } }
+
     private Animator skeetoAnims;
     
 
@@ -26,6 +32,7 @@ public class RangedEnemyBody : EnemyBody
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        UpdateMovemnet();
     }
 
     public override void Attack(GameObject target)
@@ -118,4 +125,20 @@ public class RangedEnemyBody : EnemyBody
     }
 
     
+
+    private void UpdateMovemnet()
+    {
+        HandleMovement();
+        transform.position = (transform.position + (motion * Time.fixedDeltaTime));
+    }
+
+    private void HandleMovement()
+    {
+        if (inputDir == Vector2.zero) { motion = Vector2.zero; return; }
+
+        motion = transform.TransformDirection(inputDir) * moveSpeed;
+        inputDir = Vector2.zero;
+
+    }
+
 }

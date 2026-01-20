@@ -12,15 +12,11 @@ public class MeleeEnemyBody : EnemyBody
 
     [Header("Movement Stats")]
     [SerializeField] private float moveSpeed = 5;
-
-    private Animator grubAnims;
-    
-    
-
     private Vector3 motion = Vector2.zero;
-
     private Vector2 inputDir = Vector2.zero;
     public Vector2 InputDir { get { return inputDir; } set { inputDir = value; } }
+
+    private Animator grubAnims;
 
     protected override void Awake()
     {

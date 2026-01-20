@@ -153,12 +153,14 @@ MonoBehaviour:
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 3
-  attackRate: 3
+  attackStartUp: 3
+  attackCoolDown: 3
   enemyAnims: {fileID: 6670448430118926155}
   projSpeed: 3
   bulletPrefab: {fileID: 6735711473433599987, guid: 9bc8267722b991a4b9837db225663d7e, type: 3}
   objectPool: {fileID: 2200124775379224295}
   fireLocation: {fileID: 7576113355717440580}
+  moveSpeed: 5
 --- !u!114 &2633591487707297084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,6 +177,7 @@ MonoBehaviour:
   hasTarget: 0
   agent: {fileID: 0}
   behaviour: 0
+  AttackRange: 27
 --- !u!114 &1503413796833272081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,7 +248,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
