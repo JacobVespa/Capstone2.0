@@ -58,7 +58,7 @@ public class PlayerInteract : MonoBehaviour
             canMount = true;
             currentInteractObject = other.gameObject;
             //testing reload
-            if(playerMove.isHoldingAmmo && turret.needsReload)
+            if(playerMove.isHoldingAmmo)
             {
                 turret.RefillAmmo();
                 playerMove.HandleDrop();

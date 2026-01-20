@@ -27,6 +27,7 @@ public class GameflowManager : MonoBehaviour
         float currentDuration = 60f;
         
         CurrentLevel = new ScrollerLevel(currentSceneIndex, currentDuration);
+        GameManager.Instance.LevelDuration = currentDuration;
         BeginLevel();
     }
 

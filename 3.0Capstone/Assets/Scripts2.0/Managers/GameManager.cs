@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     private bool gameOver = false;
     public bool GameOverStatus {get { return gameOver; } set { gameOver = value; } }
 
+    private float levelDuration;
+    public float LevelDuration { get { return levelDuration; } set { levelDuration = value; } }
+
     private int shards;
     public int Shards => shards;
 
