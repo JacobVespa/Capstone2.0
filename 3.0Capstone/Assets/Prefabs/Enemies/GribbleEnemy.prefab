@@ -301,12 +301,14 @@ MonoBehaviour:
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 5
-  attackRate: 20
+  attackStartUp: 3
+  attackCoolDown: 3
   enemyAnims: {fileID: 0}
   projSpeed: 5
   bulletPrefab: {fileID: 6735711473433599987, guid: 9bc8267722b991a4b9837db225663d7e, type: 3}
   objectPool: {fileID: 4123940007936774137}
   fireLocation: {fileID: 6108955117209251020}
+  moveSpeed: 5
 --- !u!114 &7708585933460996079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -323,6 +325,7 @@ MonoBehaviour:
   hasTarget: 0
   agent: {fileID: 0}
   behaviour: 0
+  AttackRange: 25
 --- !u!114 &2136788478825979421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8985a4141778c49af1f779a1c1d628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageVal: 5
+  damageVal: 3
   damageTarget: 2
 --- !u!114 &7931192781087365118
 MonoBehaviour:
@@ -393,7 +396,7 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
