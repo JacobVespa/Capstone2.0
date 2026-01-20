@@ -10,11 +10,18 @@ public class Engine : MonoBehaviour
     [SerializeField] private float heatIncreaseRate = 0.02f; 
     [SerializeField] private float repairAmount = 0.05f;
     [SerializeField] private float lerpSpeed = 5f;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] engineRepairClips;
+
     private WallMoving[] wallMove; //Disgusting, forgive me father
     private Color originalColor = Color.white;
     private Color heatColor = Color.red;
 
+    private const float OVERHEAT_THRESHOLD = 0.99f;
+    private const float REPAIR_THRESHOLD = 0.01f;
     private bool tooHot = false;
+    
 
     private float heat = 0f;        
     private float targetHeat = 0f;
@@ -32,6 +39,8 @@ public class Engine : MonoBehaviour
         heat = Mathf.Lerp(heat, targetHeat, Time.deltaTime * lerpSpeed);
 
         engineSprite.color = Color.Lerp(originalColor, heatColor, heat);
+        //Debug.Log("Heat: " + heat);
+
         EngineBreakdown();
         EngineUpstart();
     }
@@ -40,33 +49,47 @@ public class Engine : MonoBehaviour
     {
         targetHeat -= repairAmount;
         targetHeat = Mathf.Clamp01(targetHeat);
-        Debug.Log("Here");
+        EngineRepairSFX();
+        //Debug.Log("Here");
+    }
+
+    //Might be a better way to do this
+    public void EngineRepairSFX()
+    {
+        int clipIndex = Random.Range(0, engineRepairClips.Length);
+        audioSource.clip = engineRepairClips[clipIndex];
+        audioSource.Play();
     }
 
     private void EngineBreakdown()
     {
-        //stop all wall movement
-        if (engineSprite.color == heatColor)
+        if (!tooHot && heat >= OVERHEAT_THRESHOLD)
         {
+            tooHot = true;
+
             for (int i = 0; i < wallMove.Length; i++)
             {
                 wallMove[i].wallMoveSpeed = 0.0f;
                 wallMove[i].floorMoveSpeed = 0.0f;
             }
-            Debug.Log("HOT!!!!");
+
+            //Debug.Log("ENGINE HOT!!!!");
         }
     }
 
     private void EngineUpstart()
     {
-        if (engineSprite.color == originalColor)
+        if (tooHot && heat <= REPAIR_THRESHOLD)
         {
+            tooHot = false;
+
             for (int i = 0; i < wallMove.Length; i++)
             {
                 wallMove[i].wallMoveSpeed = 3.0f;
                 wallMove[i].floorMoveSpeed = 2.0f;
             }
-            Debug.Log("WORKS!");
+
+            //Debug.Log("ENGINE REPAIRED!");
         }
     }
 }
