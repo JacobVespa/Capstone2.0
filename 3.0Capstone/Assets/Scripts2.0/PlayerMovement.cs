@@ -174,7 +174,7 @@ public class PlayerMovement : MonoBehaviour
             interactor.canRepair = false;
             isHoldingRepair = false;
             heldRepair.SetActive(false);
-            rigHealth.HealDamage(5);
+            rigHealth.HealDamage(2);
         }
     }
 
