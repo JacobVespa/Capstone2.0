@@ -9,7 +9,7 @@ public class ResultMenu_UI : MonoBehaviour
     [SerializeField] private TMP_Text killsText;
 
     [Header("Messages")]
-    private string winMessage = "Expidition Complete!";
+    private string winMessage = "Expedition Complete!";
     private string loseMessage = "Cave CRASHED!";
 
     private void OnEnable()
