@@ -75,20 +75,25 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator WindDownRoutine(Level level)
     {
-        GameObject[] spawners;
-        spawners = GameObject.FindGameObjectsWithTag("Spawner");
+        //GameObject levelObject = GameObject.FindGameObjectWithTag("LevelObject");
+        //levelObject.SetActive(false);
 
-        foreach (GameObject spawn in spawners)
+        //GameObject[] enemies;
+        //enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        //foreach (GameObject enemy in enemies)
+        //{
+        //enemy.SetActive(false);
+        //}
+
+        GameObject[] obs = (GameObject[])FindObjectsByType(typeof(GameObject), FindObjectsSortMode.None);
+
+        foreach (GameObject go in obs)
         {
-            spawn.SetActive(false);
-        }
+            if (go.CompareTag("GameManager") || go.CompareTag("MainCamera")) continue;
 
-        GameObject[] enemies;
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            go.SetActive(false);
 
-        foreach (GameObject enemy in enemies)
-        {
-            enemy.SetActive(false);
         }
 
         yield return new WaitForSecondsRealtime(1f);

@@ -85,13 +85,6 @@ public class GameManager : MonoBehaviour
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         gameflowManager.WindDownLevel();
 
-        //TEMP: THIS SHIT DIDN'T EVEN WORK
-        for (int i = 0; i < playerMovement.Length; i++)
-        {
-            playerMovement[i].canMove = false;
-            playerMovement[i].canInteract = false;
-        }
-
         PauseGameTime();
         StopGameTime();
         SoundManager.Instance.PlayBGM("Navigation");
@@ -102,13 +95,6 @@ public class GameManager : MonoBehaviour
     {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         gameflowManager.WindDownLevel();
-
-        //TEMP: THIS SHIT DIDN'T EVEN WORK
-        for (int i = 0; i < playerMovement.Length; i++)
-        {
-            playerMovement[i].canMove = false;
-            playerMovement[i].canInteract = false;
-        }
 
         PauseGameTime();
         StopGameTime();
