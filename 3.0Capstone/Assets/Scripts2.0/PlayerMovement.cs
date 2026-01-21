@@ -67,22 +67,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        Vector2 moveDirection = playerControls.controlEvent.MoveDirection;
         if (canMove)
         {
-            HandleMovement();
+            HandleMovement(moveDirection);
         }
-        
+
+        HandleRotation(moveDirection);
         HandleInput();
     }
 
-    private void HandleMovement()
+    private void HandleMovement(Vector2 direction)
     {
-        Vector2 moveDirection = playerControls.controlEvent.MoveDirection;
-        player.Move((moveDirection * movementSpeed) * Time.deltaTime);
+        player.Move((direction * movementSpeed) * Time.deltaTime);
         
         // Only set walk animation to true if actually moving
         //bool isMoving = moveDirection.magnitude > 0.1f;
-        if(moveDirection.magnitude > 0)
+        if(direction.magnitude > 0)
         {
             playerAnimator.SetBool("MoleWalk", true);
         }
@@ -90,8 +91,6 @@ public class PlayerMovement : MonoBehaviour
         {
             playerAnimator.SetBool("MoleWalk", false);
         }
-
-            HandleRotation(moveDirection);
     }
 
     private Quaternion rotateTo = Quaternion.Euler(0, 0, 0);

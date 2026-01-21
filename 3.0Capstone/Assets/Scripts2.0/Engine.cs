@@ -66,6 +66,7 @@ public class Engine : MonoBehaviour
         if (!tooHot && heat >= OVERHEAT_THRESHOLD)
         {
             tooHot = true;
+            GameManager.Instance.StopGameTime();
 
             for (int i = 0; i < wallMove.Length; i++)
             {
@@ -82,6 +83,7 @@ public class Engine : MonoBehaviour
         if (tooHot && heat <= REPAIR_THRESHOLD)
         {
             tooHot = false;
+            GameManager.Instance.StartGameTime();
 
             for (int i = 0; i < wallMove.Length; i++)
             {
