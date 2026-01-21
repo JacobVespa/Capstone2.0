@@ -1,5 +1,6 @@
 
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
@@ -9,13 +10,16 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [SerializeField] private float currentHealth;
     [SerializeField] private float lastHealthStep;
     [SerializeField] private GameObject[] damagedAreas;
+    [SerializeField] private Image healthBarFill;
     
     
     public float Health { get { return currentHealth; } set {  currentHealth = value; } }
 
-    private void Start()
+    private void Awake()
     {
         
+        healthBarFill.fillAmount = health;
+        healthBarFill.color = Color.green;
 
         //Set areaOccupied to false, as to indicate a damagedAreaSpawn area is not occupied
         for(int i = 0; i < damagedAreas.Length; i++)
@@ -39,6 +43,12 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     private void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        healthBarFill.fillAmount -= 1.0f / currentHealth;
+        Color newcolor = new Color();
+        newcolor.a = 1;
+        newcolor.r = 1 - (1 / currentHealth);
+        newcolor.g = 1 / currentHealth;
+        healthBarFill.color = Color.Lerp(healthBarFill.color, newcolor, 1.0f / currentHealth);
 
         float currentStep = currentHealth / 5;
 
@@ -59,6 +69,8 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     public void HealDamage(float healed)
     {
         currentHealth += healed;
+        healthBarFill.fillAmount += 1.0f / currentHealth;
+        
 
         if (currentHealth >= 30)
         {
