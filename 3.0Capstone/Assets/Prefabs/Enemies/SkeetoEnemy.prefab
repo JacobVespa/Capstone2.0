@@ -144,23 +144,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 2633591487707297084}
-  damageSource: {fileID: 1503413796833272081}
+  animator: {fileID: 6670448430118926155}
   sprite: {fileID: 1503045953572898300}
-  animator: {fileID: 0}
+  damageSource: {fileID: 1503413796833272081}
   attackNotif: {fileID: 4836865024657577240}
   comicHurt: {fileID: 2213592736336454901}
   comicDeath: {fileID: 1375778713665985699}
+  moveSpeed: 5
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 3
   attackStartUp: 3
   attackCoolDown: 3
-  enemyAnims: {fileID: 6670448430118926155}
   projSpeed: 3
   bulletPrefab: {fileID: 6735711473433599987, guid: 9bc8267722b991a4b9837db225663d7e, type: 3}
   objectPool: {fileID: 2200124775379224295}
   fireLocation: {fileID: 7576113355717440580}
-  moveSpeed: 5
 --- !u!114 &2633591487707297084
 MonoBehaviour:
   m_ObjectHideFlags: 0

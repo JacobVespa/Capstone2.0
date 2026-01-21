@@ -5,14 +5,11 @@ public class RangedEnemyAI : EnemyAI
 {
     protected RangedEnemyBody body;
 
-    private Vector2 targetDist = Vector3.zero;
-    private float totalDist = 0;
+    
     [SerializeField] float AttackRange = 10;
 
 
-    private bool inRange = false;
-
-    private Vector2 moveInput;
+    
 
     protected override void Awake()
     {
@@ -51,30 +48,24 @@ public class RangedEnemyAI : EnemyAI
                 break;
             case Behaviour.CoolDown:
                 MoveToBottomOfQueue();
-                
                 break;
         }
-       
-        
     }
 
-    private void ApproachTarget()
+    protected override void ApproachTarget()
     {
-        if (!hasTarget) { moveInput = Vector2.zero; return; }
+        base.ApproachTarget();
 
-        targetDist = target.transform.position - transform.position;
-
-        totalDist = targetDist.magnitude;
-
-        
-
-        moveInput = new Vector2(targetDist.x, targetDist.y);
-        moveInput = moveInput.normalized;
+        Debug.Log(moveInput);
 
         body.InputDir = moveInput;
 
+        if(moveInput == Vector2.zero) { return; }
+        totalDist = targetDist.magnitude;
+
         if (totalDist <= AttackRange) 
-        { 
+        {
+            Debug.Log("lmao");
             behaviour = Behaviour.Ready; 
             moveInput = Vector2.zero;
 
