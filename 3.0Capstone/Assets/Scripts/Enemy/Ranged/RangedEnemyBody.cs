@@ -12,21 +12,18 @@ public class RangedEnemyBody : EnemyBody
     [SerializeField] private Transform objectPool;
     private List<Projectile> bullets = new List<Projectile>();
     [SerializeField] private Transform fireLocation;
-
-    
+    private Animator skeetoAnims;
     
 
     protected override void Awake()
     {
         base.Awake();
-        
     }
 
 
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-
     }
 
     public override void Attack(GameObject target)
@@ -108,5 +105,4 @@ public class RangedEnemyBody : EnemyBody
 
         return dir;
     }
-
 }

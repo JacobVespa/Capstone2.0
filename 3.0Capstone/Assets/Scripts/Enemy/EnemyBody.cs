@@ -16,11 +16,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [SerializeField] protected GameObject sprite;
     [SerializeField] protected DamageSource damageSource;
 
-    [HeaderAttribute("Visual Effect Components")]
+    [Header("Visual Effect Componenets")]
     [SerializeField] protected GameObject attackNotif;
     [SerializeField] private ParticleSystem comicHurt;
     [SerializeField] private ParticleSystem comicDeath;
-
+    
     [Header("Movement Stats")]
     [SerializeField] protected float moveSpeed = 5;
     protected Vector3 motion = Vector2.zero;
@@ -45,8 +45,6 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     protected float attackTimer = 0;
     public float AttackTimer { get { return AttackTimer; } set { AttackTimer = value; } }
 
-    
-
     public enum EnemyMoveType
     {
         NUll = 0,
@@ -61,7 +59,6 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         Melee = 1,
         Ranged = 2,
     }
-
 
     protected virtual void Awake()
     {
@@ -85,6 +82,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     {
         UpdateMovemnet();
         UpdateCooldown();
+        UpdateMovement();
     }
 
     private void UpdateCooldown()
@@ -113,6 +111,23 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         animator.SetBool("Attack", false);
     }
 
+    #region Handle Movement
+    protected virtual void UpdateMovement()
+    {
+        
+        HandleMovement();
+        transform.position = (transform.position + (motion * Time.fixedDeltaTime));
+    }
+
+    protected virtual void HandleMovement()
+    {
+        if (inputDir == Vector2.zero) { motion = Vector2.zero; return; }
+
+        motion = transform.TransformDirection(inputDir) * moveSpeed;
+        inputDir = Vector2.zero;
+    }
+    #endregion
+
     #region Handle Attacked
     public void Attacked(DamageSource d)
     {
@@ -124,8 +139,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             originalPosition = transform.position;
             
             StartCoroutine(Shake());
-        }
-        
+        } 
     }
 
     private void TakeDamage(float damage)
@@ -206,7 +220,5 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
         spritePos.transform.position = originalPosition;
     }
-
-
 
 }
