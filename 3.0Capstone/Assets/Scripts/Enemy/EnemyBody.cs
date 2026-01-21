@@ -77,7 +77,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         {
             animator = sprite.GetComponent<Animator>();
         }
-        else { Debug.LogError("Animator not set in code becuase Sprite was not set manually"); }
+        
         
     }
 
@@ -110,7 +110,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     {
         animator.SetBool("Attack", true);
         yield return new WaitForSeconds(waitTime);
-        animator.SetBool("Attack", true);
+        animator.SetBool("Attack", false);
     }
 
     #region Handle Attacked

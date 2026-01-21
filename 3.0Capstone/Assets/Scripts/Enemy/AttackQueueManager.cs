@@ -77,6 +77,7 @@ public class AttackQueueManager : MonoBehaviour
         if (active.Count >= maxAttackers) return;
 
         // Sort waiting by priority: closest first, then longest waiting
+
         waiting.Sort((a, b) =>
         {
             if (a == null || b == null) return 0;

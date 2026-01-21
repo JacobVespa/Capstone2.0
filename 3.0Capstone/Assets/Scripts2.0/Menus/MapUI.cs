@@ -7,6 +7,7 @@ public class MapUI : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance == null) { return; }
         GetLevelDuration();
         progressBar.value = GameManager.Instance.GameTime;
         if (progressBar.value == progressBar.maxValue) progressBar.enabled = false;
@@ -14,6 +15,7 @@ public class MapUI : MonoBehaviour
 
     private void GetLevelDuration()
     {
+        
         float levelDurration = GameManager.Instance.LevelDuration;
         if (levelDurration == 0 || progressBar.maxValue == levelDurration) return;
 

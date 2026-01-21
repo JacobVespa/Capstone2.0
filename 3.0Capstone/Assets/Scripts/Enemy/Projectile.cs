@@ -72,15 +72,15 @@ public class Projectile : MonoBehaviour, IDamageReceiver
     {
         
 
-        if (collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); }
+        if (collision.transform.root.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); }
         DisableProjectile();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-
-        if(collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource);  }
+        
+        if(collision.transform.root.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource);  }
         DisableProjectile();
 
     }

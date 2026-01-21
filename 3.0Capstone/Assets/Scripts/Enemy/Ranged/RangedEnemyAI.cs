@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.U2D;
 
@@ -56,16 +57,22 @@ public class RangedEnemyAI : EnemyAI
     {
         base.ApproachTarget();
 
-        Debug.Log(moveInput);
 
         body.InputDir = moveInput;
 
         if(moveInput == Vector2.zero) { return; }
+
+        RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, moveInput);
+
+        foreach(RaycastHit2D h in r)
+        {
+            //if(h.collider.gameObject = target)
+        }
+
         totalDist = targetDist.magnitude;
 
         if (totalDist <= AttackRange) 
         {
-            Debug.Log("lmao");
             behaviour = Behaviour.Ready; 
             moveInput = Vector2.zero;
 
