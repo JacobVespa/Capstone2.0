@@ -1,3 +1,4 @@
+
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -11,14 +12,40 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 {
     [Header("Required Components")]
     [SerializeField] protected EnemyAI ai;
-    [SerializeField] protected DamageSource damageSource;
-    [SerializeField] protected GameObject sprite;
     [SerializeField] protected Animator animator;
-    [SerializeField] protected GameObject attackNotif;
+    [SerializeField] protected GameObject sprite;
+    [SerializeField] protected DamageSource damageSource;
 
+    [HeaderAttribute("Visual Effect Components")]
+    [SerializeField] protected GameObject attackNotif;
     [SerializeField] private ParticleSystem comicHurt;
     [SerializeField] private ParticleSystem comicDeath;
 
+    [Header("Movement Stats")]
+    [SerializeField] protected float moveSpeed = 5;
+    protected Vector3 motion = Vector2.zero;
+    protected Vector2 inputDir = Vector2.zero;
+    public Vector2 InputDir { get { return inputDir; } set { inputDir = value; } }
+
+    [Header("Shake Stats")]
+    public float shakeDuration = 0.3f;   // how long the shake lasts
+    public float shakeStrength = 0.1f;    // how strong the shake is
+    private Vector3 originalPosition;
+
+    [Header("Combat Stats")]
+    [SerializeField] protected float health = 3;
+    public float Health {  get { return health; } set {  health = value; } }
+
+    [SerializeField] protected float attackStartUp = 3;
+    public float AttackStartUp { get {  return attackStartUp; } set { attackStartUp = value; } }
+
+    [SerializeField] protected float attackCoolDown = 3;
+    public float AttackCoolDown { get { return attackCoolDown; } set { attackCoolDown = value; } }
+
+    protected float attackTimer = 0;
+    public float AttackTimer { get { return AttackTimer; } set { AttackTimer = value; } }
+
+    
 
     public enum EnemyMoveType
     {
@@ -35,36 +62,6 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         Ranged = 2,
     }
 
-    //[Header("Enemy Type")]
-    //protected EnemyMoveType moveType;
-    //protected EnemyAttackType attackType;
-
-
-    [Header("Shake Stats")]
-    public float shakeDuration = 0.3f;   // how long the shake lasts
-    public float shakeStrength = 0.1f;    // how strong the shake is
-    private Vector3 originalPosition;
-
-
-
-
-    [Header("Combat Stats")]
-    [SerializeField] protected float health = 3;
-    public float Health {  get { return health; } set {  health = value; } }
-
-    [SerializeField] protected float attackStartUp = 3;
-    public float AttackStartUp { get {  return attackStartUp; } set { attackStartUp = value; } }
-
-    [SerializeField] protected float attackCoolDown = 3;
-    public float AttackCoolDown { get { return attackCoolDown; } set { attackCoolDown = value; } }
-
-    protected float attackTimer = 0;
-    public float AttackTimer { get { return AttackTimer; } set { AttackTimer = value; } }
-
-    [Header("Animator")]
-    [SerializeField] private Animator enemyAnims;
-
-    
 
     protected virtual void Awake()
     {
@@ -86,6 +83,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     protected virtual void FixedUpdate()
     {
+        UpdateMovemnet();
         UpdateCooldown();
     }
 
@@ -108,8 +106,12 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         ai.behaviour = EnemyAI.Behaviour.CoolDown;
     }
     
-
-    
+    protected virtual IEnumerator AttackAnim(float waitTime)
+    {
+        animator.SetBool("Attack", true);
+        yield return new WaitForSeconds(waitTime);
+        animator.SetBool("Attack", true);
+    }
 
     #region Handle Attacked
     public void Attacked(DamageSource d)
@@ -128,7 +130,6 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private void TakeDamage(float damage)
     {
-        
         health -= damage;
         if(health <= 0)
         {
@@ -153,18 +154,39 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             Destroy(comicDeath2, 5);
         }
 
-        if (enemyAnims != null) //if enemy has animations, play them before triggering death
+        if (animator != null) //if enemy has animations, play them before triggering death
         {
-            enemyAnims.SetBool("Death", true); //MAKE DEATH ANIM PARAMETER THE SAME NAME FOR ALL ENEMIES
+            animator.SetBool("Death", true); //MAKE DEATH ANIM PARAMETER THE SAME NAME FOR ALL ENEMIES
             yield return new WaitForSeconds(1);
-            enemyAnims.SetBool("Death", false);
+            animator.SetBool("Death", false);
         }
         
-        
+
         GameManager.Instance.AddKills(1);
         Destroy(this.gameObject);
     }
-    
+
+    #endregion
+
+    #region Handle Movement
+
+    private void UpdateMovemnet()
+    {
+        HandleMovement();
+        transform.position = (transform.position + (motion * Time.fixedDeltaTime));
+    }
+
+    private void HandleMovement()
+    {
+        if (inputDir == Vector2.zero) { motion = Vector2.zero; return; }
+
+        motion = transform.TransformDirection(inputDir) * moveSpeed;
+        inputDir = Vector2.zero;
+
+    }
+
+    #endregion
+
     IEnumerator Shake()
     {
         float elapsed = 0f;
@@ -184,8 +206,6 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
         spritePos.transform.position = originalPosition;
     }
-    #endregion
-
 
 
 
