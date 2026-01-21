@@ -18,6 +18,9 @@ public class Turret : MonoBehaviour
 
     private bool playerMounted = false;
 
+    [SerializeField] private float shootingCD = 1f;
+    bool canShoot = true;
+
     Vector2 aimPos;
     RaycastHit2D hit;
     DamageSource currentDamage;
@@ -72,7 +75,7 @@ public class Turret : MonoBehaviour
     {
         if (player == null || currentControls == null) return;
         if (!currentControls.controlEvent.HasAttacked) return;
-        if (currentAmmo > 0)
+        if (currentAmmo > 0 && canShoot)
         {
             currentAmmo--;
             ammoCountText.text = currentAmmo.ToString();
@@ -83,6 +86,7 @@ public class Turret : MonoBehaviour
             }
 
             StartCoroutine(ShootingVFX());
+            StartCoroutine(CoolDown());
 
             Vector3 origin = transform.position;
             Vector3 direction = (aimPos - (Vector2)origin).normalized;
@@ -144,6 +148,13 @@ public class Turret : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSeconds(0.1f);
         muzzleFlash.SetActive(false);
+    }
+
+    IEnumerator CoolDown()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(shootingCD);
+        canShoot = true;
     }
 
     public void RefillAmmo()
