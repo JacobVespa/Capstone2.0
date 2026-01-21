@@ -91,7 +91,7 @@ public class PlayerMovement : MonoBehaviour
             playerAnimator.SetBool("MoleWalk", false);
         }
 
-        HandleRotation(moveDirection);
+            HandleRotation(moveDirection);
     }
 
     private Quaternion rotateTo = Quaternion.Euler(0, 0, 0);
