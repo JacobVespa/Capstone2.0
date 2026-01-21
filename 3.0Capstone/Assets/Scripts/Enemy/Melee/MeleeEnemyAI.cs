@@ -6,12 +6,6 @@ public class MeleeEnemyAI : EnemyAI
 {
     protected MeleeEnemyBody body;
 
-    private Vector2 targetDist = Vector3.zero;
-    private float totalDist = 0;
-
-    private bool inRange = false;
-
-    private Vector2 moveInput;
     
 
     protected override void Awake()
@@ -19,7 +13,7 @@ public class MeleeEnemyAI : EnemyAI
         base.Awake();
         if (body == null) { body = GetComponent<MeleeEnemyBody>(); }
         
-        if (hasTarget == true){ targetDist = transform.position - target.transform.position; totalDist = targetDist.magnitude; }
+        
         behaviour = Behaviour.Moving;
     }
 
@@ -47,7 +41,7 @@ public class MeleeEnemyAI : EnemyAI
                 }
                 break;
             case Behaviour.Attacking:
-                TryAttackTarget();
+                body.Attack(target);
                 break;
             case Behaviour.CoolDown:
                 MoveToBottomOfQueue();
@@ -56,37 +50,14 @@ public class MeleeEnemyAI : EnemyAI
 
     }
 
-    private void ApproachTarget()
+    protected override void ApproachTarget()
     {
-        if (!hasTarget) { moveInput = Vector2.zero; return; }
-
-        targetDist = target.transform.position - transform.position;
-
-        totalDist = targetDist.magnitude;
-
-        moveInput = new Vector2(targetDist.x, targetDist.y);
-        moveInput = moveInput.normalized;
-
+        base.ApproachTarget();
         body.InputDir = moveInput;
     }
 
-    private void TryAttackTarget()
-    {
-        if (!hasTarget) { return; }
-
-        body.Attack(target);
-        
-    }
-
-    public void CheckIfTarget()
-    {
-        if (target == null) { hasTarget = false; }
-        else { hasTarget = true; }
-    }
-
-
-
     
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
