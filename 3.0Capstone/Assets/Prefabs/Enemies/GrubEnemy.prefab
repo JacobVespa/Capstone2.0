@@ -57,21 +57,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 6726628139389650614}
-  damageSource: {fileID: 3739521471955693038}
+  animator: {fileID: 2714447845760821111}
   sprite: {fileID: 6800617680777049114}
-  animator: {fileID: 0}
+  damageSource: {fileID: 3739521471955693038}
   attackNotif: {fileID: 5151522712046799291}
   comicHurt: {fileID: 10622166586988311}
   comicDeath: {fileID: 8088068495395112198}
+  moveSpeed: 3
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 3
   attackStartUp: 3
   attackCoolDown: 3
-  enemyAnims: {fileID: 2714447845760821111}
   attackRange: {fileID: 1215407965381333140}
   attackRangeVal: 2
-  moveSpeed: 3
 --- !u!114 &6726628139389650614
 MonoBehaviour:
   m_ObjectHideFlags: 0
