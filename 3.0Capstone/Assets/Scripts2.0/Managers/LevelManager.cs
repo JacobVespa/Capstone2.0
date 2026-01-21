@@ -1,12 +1,17 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
 
     private bool isLoading = false;
+
+    [SerializeField] private float fadeTime = 2.0f;
+    [SerializeField] private GameObject fadeOut;
 
     private void Awake()
     {
@@ -75,18 +80,10 @@ public class LevelManager : MonoBehaviour
 
     private IEnumerator WindDownRoutine(Level level)
     {
-        //GameObject levelObject = GameObject.FindGameObjectWithTag("LevelObject");
-        //levelObject.SetActive(false);
-
-        //GameObject[] enemies;
-        //enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        //foreach (GameObject enemy in enemies)
-        //{
-        //enemy.SetActive(false);
-        //}
-
         GameObject[] obs = (GameObject[])FindObjectsByType(typeof(GameObject), FindObjectsSortMode.None);
+
+        //FadeImage(1f);
+        yield return new WaitForSecondsRealtime(fadeTime + 0.1f);
 
         foreach (GameObject go in obs)
         {
@@ -96,8 +93,25 @@ public class LevelManager : MonoBehaviour
 
         }
 
-        yield return new WaitForSecondsRealtime(1f);
+        //FadeImage(0f);
+        yield return new WaitForSecondsRealtime(fadeTime + 0.1f);
     }
+
+    //private IEnumerator FadeImage(float target)
+    //{
+        //SpriteRenderer renderer = fadeOut.transform.GetComponent<SpriteRenderer>();
+        //float startValue = renderer.color.a;
+
+        //float elapsedTime = 0f;
+
+        //while (elapsedTime < fadeTime)
+        //{
+            //elapsedTime += Time.deltaTime;
+            //float newAlpha = Mathf.Lerp(startValue, target, elapsedTime/fadeTime);
+            //renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, newAlpha);
+            //yield return null;
+        //}
+    //}
 
     public void ShowEndScreen(int screenSceneIndex)
     {
