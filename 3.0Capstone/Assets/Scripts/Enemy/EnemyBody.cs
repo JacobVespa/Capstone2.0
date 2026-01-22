@@ -1,4 +1,3 @@
-
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -21,6 +20,16 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [SerializeField] private ParticleSystem comicHurt;
     [SerializeField] private ParticleSystem comicDeath;
     
+
+    
+
+    //[Header("Enemy Type")]
+    //protected EnemyMoveType moveType;
+    //protected EnemyAttackType attackType;
+
+
+    
+
     [Header("Movement Stats")]
     [SerializeField] protected float moveSpeed = 5;
     protected Vector3 motion = Vector2.zero;
@@ -60,6 +69,8 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         Ranged = 2,
     }
 
+
+
     protected virtual void Awake()
     {
         
@@ -74,13 +85,12 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         {
             animator = sprite.GetComponent<Animator>();
         }
-        
+        else { Debug.LogError("Animator not set in code becuase Sprite was not set manually"); }
         
     }
 
     protected virtual void FixedUpdate()
     {
-        UpdateMovemnet();
         UpdateCooldown();
         UpdateMovement();
     }
@@ -102,13 +112,6 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         attackNotif.SetActive(false);
         
         ai.behaviour = EnemyAI.Behaviour.CoolDown;
-    }
-    
-    protected virtual IEnumerator AttackAnim(float waitTime)
-    {
-        animator.SetBool("Attack", true);
-        yield return new WaitForSeconds(waitTime);
-        animator.SetBool("Attack", false);
     }
 
     #region Handle Movement
@@ -144,6 +147,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     private void TakeDamage(float damage)
     {
+        
         health -= damage;
         if(health <= 0)
         {
@@ -175,32 +179,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             animator.SetBool("Death", false);
         }
         
-
+        
         GameManager.Instance.AddKills(1);
         Destroy(this.gameObject);
     }
-
-    #endregion
-
-    #region Handle Movement
-
-    private void UpdateMovemnet()
-    {
-        HandleMovement();
-        transform.position = (transform.position + (motion * Time.fixedDeltaTime));
-    }
-
-    private void HandleMovement()
-    {
-        if (inputDir == Vector2.zero) { motion = Vector2.zero; return; }
-
-        motion = transform.TransformDirection(inputDir) * moveSpeed;
-        inputDir = Vector2.zero;
-
-    }
-
-    #endregion
-
+    
     IEnumerator Shake()
     {
         float elapsed = 0f;
@@ -220,5 +203,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
         spritePos.transform.position = originalPosition;
     }
+    #endregion
+
 
 }

@@ -30,9 +30,8 @@ public class RangedEnemyBody : EnemyBody
     {
         if (attackTimer < attackStartUp) { return; }
 
-
         base.Attack(target);
-        StartCoroutine(AttackAnim(2.5f));
+        StartCoroutine(SkeetoAttack());
 
         Projectile bullet = GetProjectile();
 
@@ -43,7 +42,15 @@ public class RangedEnemyBody : EnemyBody
         bullet.Fire(projSpeed, projDir);
     }
 
-    
+    private IEnumerator SkeetoAttack()
+    {
+        if (skeetoAnims != null) 
+        {
+            skeetoAnims.SetBool("Attack", true);
+            yield return new WaitForSeconds(0.25f);
+            skeetoAnims.SetBool("Attack", false);
+        }
+    }
 
     private Projectile GetProjectile()
     {
@@ -57,7 +64,6 @@ public class RangedEnemyBody : EnemyBody
         return CreateProjectile();
     }
 
-    
     private Projectile CreateProjectile()
     {
         GameObject bulletObj = Instantiate(bulletPrefab, objectPool);
@@ -70,35 +76,10 @@ public class RangedEnemyBody : EnemyBody
         return bulletScript;
     }
 
-    /*
-    protected override IEnumerator DestroyObject()
-    {
-        while (true)
-        {
-            int inactiveProj = 0;
-            foreach(Projectile b in bullets)
-            {
-                if (!b.active)
-                {
-                    inactiveProj++;
-                }
-            }
-            if(inactiveProj == bullets.Count)
-            {
-                break;
-            }
-
-            yield return null;
-        }
-
-        
-    }
-    */
-
     private Vector2 SetBloom(Vector2 dir)
     {
-        float xChange = Random.Range(0.9f, 1.1f); ;
-        float yChange = Random.Range(0.9f, 1.1f); ;
+        float xChange = Random.Range(0.9f, 1.1f);
+        float yChange = Random.Range(0.9f, 1.1f);
 
         dir.x = dir.x * xChange;
         dir.y = dir.y * yChange;

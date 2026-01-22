@@ -6,13 +6,15 @@ public class MeleeEnemyAI : EnemyAI
 {
     protected MeleeEnemyBody body;
 
-    
-
     protected override void Awake()
     {
         base.Awake();
-        if (body == null) { body = GetComponent<MeleeEnemyBody>(); }
+        body = GetComponent<MeleeEnemyBody>();
         
+        if (body == null)
+        {
+            Debug.LogError("MeleeEnemyBody component not found!", this);
+        }
         
         behaviour = Behaviour.Moving;
     }
@@ -24,7 +26,6 @@ public class MeleeEnemyAI : EnemyAI
 
     protected override void AIFlowChart()
     {
-        
         if (!hasTarget) return;
 
         switch (behaviour)
@@ -41,66 +42,52 @@ public class MeleeEnemyAI : EnemyAI
                 }
                 break;
             case Behaviour.Attacking:
-                body.Attack(target);
+                TryAttackTarget();
                 break;
             case Behaviour.CoolDown:
                 MoveToBottomOfQueue();
                 break;
         }
-
     }
 
     protected override void ApproachTarget()
     {
         base.ApproachTarget();
-        body.InputDir = moveInput;
+        
+        if (body != null)
+        {
+            body.InputDir = moveInput;
+        }
     }
 
-    
+    private void TryAttackTarget()
+    {
+        if (!hasTarget || body == null || target == null) return;
 
+        body.Attack(target);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (behaviour == Behaviour.Dead) return;
         if (collision.isTrigger) return;
-        /*
-        if (collision.gameObject == target)
-        {
-            behaviour = Behaviour.Attack;
-            inRange = true;
-        }
-        */
 
         if (target != null && collision.transform.root == target.transform)
         {
             behaviour = Behaviour.Ready;
-            inRange = true;
             AddToAttackQueue();
         }
-
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (behaviour == Behaviour.Dead) return;
         if (collision.isTrigger) return;
-        /*
-        if (collision.gameObject == target)
-        {
-            behaviour = Behaviour.None;
-            inRange = false;
-            
-        }
-        */
 
-        if (target != null && collision.transform.root == target.transform )
+        if (target != null && collision.transform.root == target.transform)
         {
-            
             behaviour = Behaviour.None;
-            inRange = false;
             RemoveFromAttackQueue();
         }
-        
-
     }
 }
-
