@@ -14,7 +14,7 @@ public class TickEnemyAI : EnemyAI
         behaviour = Behaviour.Spawning;
         
         if(body == null) { body = GetComponent<TickEnemyBody>(); }
-        if(dropPos == null) { dropPos = transform.position;}
+        if(dropPos == Vector2.zero) { dropPos = gameObject.transform.position;  }
     }
 
     protected override void FixedUpdate()
@@ -28,6 +28,7 @@ public class TickEnemyAI : EnemyAI
         switch(behaviour)
         {
             case Behaviour.Spawning:
+                Debug.Log(dropPos);
                 if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos)); }
                 break;
             case Behaviour.Ready:

@@ -83,9 +83,12 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         }
         if(animator == null && sprite != null)
         {
-            animator = sprite.GetComponent<Animator>();
+            sprite.TryGetComponent<Animator>(out Animator a);
+            {
+                animator = a;
+            }
         }
-        else { Debug.LogError("Animator not set in code becuase Sprite was not set manually"); }
+        
         
     }
 
@@ -162,7 +165,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         Collider2D[] colliders = GetComponents<Collider2D>();
         foreach (Collider2D c in colliders) { c.enabled = false; }
         attackNotif.SetActive(false);
-
+        Debug.Log("Start");
 
         if (comicDeath != null)
         {
@@ -178,9 +181,15 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             yield return new WaitForSeconds(1);
             animator.SetBool("Death", false);
         }
+        Debug.Log("end");
+
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.AddKills(1);
+        }
         
         
-        GameManager.Instance.AddKills(1);
+        
         Destroy(this.gameObject);
     }
     

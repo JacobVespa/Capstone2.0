@@ -45,7 +45,8 @@ public class TickEnemyBody : EnemyBody
         dropping = true;
         transform.position = new Vector2(targetPos.x, targetPos.y + 75);
         rb.gravityScale = 1;
-
+        Collider2D colliders = GetComponent<Collider2D>();
+        colliders.enabled = false;
         attackNotif.transform.position = notifPos;
         
 
@@ -74,6 +75,7 @@ public class TickEnemyBody : EnemyBody
         rb.linearVelocityY = 0;
 
         dropping = false;
+        colliders.enabled = true;
         ai.behaviour = EnemyAI.Behaviour.Ready;
         ai.AddToAttackQueue();
     }
