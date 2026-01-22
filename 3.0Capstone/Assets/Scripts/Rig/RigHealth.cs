@@ -1,4 +1,5 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,7 +11,11 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [SerializeField] private float currentHealth;
     [SerializeField] private float lastHealthStep;
     [SerializeField] private GameObject[] damagedAreas;
+
+    //Health bar slop or whatever
     [SerializeField] private Image healthBarFill;
+    [SerializeField] private Image vignette;
+
     
     
     public float Health { get { return currentHealth; } set {  currentHealth = value; } }
@@ -50,6 +55,8 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         newcolor.g = 1 / currentHealth;
         healthBarFill.color = Color.Lerp(healthBarFill.color, newcolor, 1.0f / currentHealth);
 
+        StartCoroutine(Vignette(Color.red));
+
         float currentStep = currentHealth / 5;
 
         if (currentHealth <= 0)
@@ -70,6 +77,9 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     {
         currentHealth += healed;
         healthBarFill.fillAmount += 1.0f / currentHealth;
+
+        //change vignette color
+        StartCoroutine(Vignette(Color.green));
         
 
         if (currentHealth >= 30)
@@ -112,4 +122,37 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         GameManager.Instance.GameOverStatus = true;
         //this.gameObject.SetActive(false);
     }
+
+    IEnumerator Vignette(Color vigColor)
+    {
+        vigColor.a = 0f;
+        vignette.color = vigColor;
+        vignette.gameObject.SetActive(true);
+        float alphaEnd = 100f / 255f;
+        float alpha = 0.0f;
+
+        while (alpha < alphaEnd)
+        {
+            alpha += 2.0f * Time.deltaTime;
+            vigColor.a = alpha;
+            vignette.color = vigColor;
+            yield return null;
+        }
+
+        vigColor.a = alphaEnd;
+        vignette.color = vigColor;
+
+        yield return new WaitForSeconds(0.2f);
+
+        while (alpha > 0.0f)
+        {
+            alpha -= 2.0f * Time.deltaTime;
+            vigColor.a = alpha;
+            vignette.color = vigColor;
+            yield return null;
+        }
+
+        vignette.gameObject.SetActive(false);
+    }
+
 }
