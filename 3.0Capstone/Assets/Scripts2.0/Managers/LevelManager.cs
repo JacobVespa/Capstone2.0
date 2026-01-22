@@ -82,36 +82,45 @@ public class LevelManager : MonoBehaviour
     {
         GameObject[] obs = (GameObject[])FindObjectsByType(typeof(GameObject), FindObjectsSortMode.None);
 
-        //FadeImage(1f);
-        yield return new WaitForSecondsRealtime(fadeTime + 0.1f);
+        // Fade to black
+        yield return StartCoroutine(FadeImage(1f));
 
+        // Disable all objects except GameManager and MainCamera
         foreach (GameObject go in obs)
         {
             if (go.CompareTag("GameManager") || go.CompareTag("MainCamera")) continue;
-
             go.SetActive(false);
-
         }
 
-        //FadeImage(0f);
-        yield return new WaitForSecondsRealtime(fadeTime + 0.1f);
+        SoundManager.Instance.PlayBGM("Navigation");
+        ShowEndScreen(GameManager.Instance.ResultScreenIndex);
+
+        // Fade back in
+        yield return StartCoroutine(FadeImage(0f));
     }
 
-    //private IEnumerator FadeImage(float target)
-    //{
-        //SpriteRenderer renderer = fadeOut.transform.GetComponent<SpriteRenderer>();
-        //float startValue = renderer.color.a;
+    private IEnumerator FadeImage(float targetAlpha)
+    {
+        // Make sure fadeOut is active
+        if (!fadeOut.activeSelf)
+            fadeOut.SetActive(true);
 
-        //float elapsedTime = 0f;
+        SpriteRenderer renderer = fadeOut.GetComponent<SpriteRenderer>();
 
-        //while (elapsedTime < fadeTime)
-        //{
-            //elapsedTime += Time.deltaTime;
-            //float newAlpha = Mathf.Lerp(startValue, target, elapsedTime/fadeTime);
-            //renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, newAlpha);
-            //yield return null;
-        //}
-    //}
+        float startAlpha = renderer.color.a;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < fadeTime)
+        {
+            elapsedTime += Time.unscaledDeltaTime; // Use unscaledDeltaTime in case time is paused
+            float newAlpha = Mathf.Lerp(startAlpha, targetAlpha, elapsedTime / fadeTime);
+            renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, newAlpha);
+            yield return null;
+        }
+
+        // Ensure we reach the exact target value
+        renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, targetAlpha);
+    }
 
     public void ShowEndScreen(int screenSceneIndex)
     {

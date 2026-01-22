@@ -14,14 +14,23 @@ public class Level
     protected LevelType levelType;
     protected int sceneIndex;
     protected float duration; // in seconds
+    protected int waves;
 
     public float Duration => duration;
+    public float Waves => waves;
 
     public Level(LevelType type, int index, float durationSeconds)
     {
         this.levelType = type;
         this.sceneIndex = index;
         this.duration = durationSeconds;
+    }
+
+    public Level(LevelType type, int index, int waves)
+    {
+        this.levelType = type;
+        this.sceneIndex = index;
+        this.duration = waves;
     }
 
     public virtual void StartLevel() // Menu -> Level

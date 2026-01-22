@@ -87,8 +87,6 @@ public class GameManager : MonoBehaviour
 
         PauseGameTime();
         StopGameTime();
-        SoundManager.Instance.PlayBGM("Navigation");
-        LevelManager.Instance.ShowEndScreen(resultScreenIndex);
     }
 
     public void Victory()
@@ -98,7 +96,5 @@ public class GameManager : MonoBehaviour
 
         PauseGameTime();
         StopGameTime();
-        SoundManager.Instance.PlayBGM("Navigation");
-        LevelManager.Instance.ShowEndScreen(resultScreenIndex);
     }
 }
