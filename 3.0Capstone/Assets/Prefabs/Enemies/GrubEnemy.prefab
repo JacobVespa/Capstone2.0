@@ -9,14 +9,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6181852771610103027}
-  - component: {fileID: 8242955958413940642}
-  - component: {fileID: 6726628139389650614}
   - component: {fileID: 3739521471955693038}
-  - component: {fileID: 6002745671595500572}
   - component: {fileID: 375707694229889882}
   - component: {fileID: 3611787792641163113}
   - component: {fileID: 1215407965381333140}
   - component: {fileID: -5853465667177244834}
+  - component: {fileID: 1434104982452655612}
+  - component: {fileID: 5314007174558124751}
+  - component: {fileID: 5810221720297493789}
   m_Layer: 6
   m_Name: GrubEnemy
   m_TagString: Enemy
@@ -44,49 +44,6 @@ Transform:
   - {fileID: 3027939764926341433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8242955958413940642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369488387364779184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9b4dd99fe0672548a206974b2b8844c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ai: {fileID: 6726628139389650614}
-  animator: {fileID: 2714447845760821111}
-  sprite: {fileID: 6800617680777049114}
-  damageSource: {fileID: 3739521471955693038}
-  attackNotif: {fileID: 5151522712046799291}
-  comicHurt: {fileID: 10622166586988311}
-  comicDeath: {fileID: 8088068495395112198}
-  moveSpeed: 3
-  shakeDuration: 0.3
-  shakeStrength: 0.1
-  health: 3
-  attackStartUp: 3
-  attackCoolDown: 3
-  attackRange: {fileID: 1215407965381333140}
-  attackRangeVal: 2
---- !u!114 &6726628139389650614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369488387364779184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc192980f48a52a4c953bc63da4f4bed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  hasTarget: 0
-  agent: {fileID: 0}
-  behaviour: 0
 --- !u!114 &3739521471955693038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,19 +58,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageVal: 1
   damageTarget: 2
---- !u!114 &6002745671595500572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369488387364779184}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  body: {fileID: 8242955958413940642}
 --- !u!50 &375707694229889882
 Rigidbody2D:
   serializedVersion: 5
@@ -310,6 +254,62 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1434104982452655612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369488387364779184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72734b76ccf4329429a863adfcb17785, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ai: {fileID: 5314007174558124751}
+  animator: {fileID: 2714447845760821111}
+  sprite: {fileID: 6800617680777049114}
+  damageSource: {fileID: 3739521471955693038}
+  attackNotif: {fileID: 5151522712046799291}
+  comicHurt: {fileID: 10622166586988311}
+  comicDeath: {fileID: 8088068495395112198}
+  moveSpeed: 5
+  shakeDuration: 0.3
+  shakeStrength: 0.1
+  health: 3
+  attackStartUp: 3
+  attackCoolDown: 3
+  attackRange: {fileID: 3611787792641163113}
+  attackRangeVal: 2
+--- !u!114 &5314007174558124751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369488387364779184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc192980f48a52a4c953bc63da4f4bed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  hasTarget: 0
+  agent: {fileID: 5810221720297493789}
+  behaviour: 0
+--- !u!114 &5810221720297493789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369488387364779184}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 1434104982452655612}
 --- !u!1 &2120958408404255510
 GameObject:
   m_ObjectHideFlags: 0

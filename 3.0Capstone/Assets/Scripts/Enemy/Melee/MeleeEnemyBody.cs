@@ -7,24 +7,17 @@ namespace YourNamespace // Add this if you're using namespaces elsewhere
     {
         [SerializeField] private CircleCollider2D attackRange;
         [SerializeField] private float attackRangeVal = 2;
-        
-        public float AttackRangeVal 
-        { 
-            get { return attackRangeVal; } 
-            set 
-            {  
-                attackRangeVal = value; 
-                attackRange.radius = attackRangeVal; 
-            } 
-        }
+        public float AttackRangeVal { get { return attackRangeVal; } set { attackRangeVal = value; attackRange.radius = attackRangeVal; } }
+
+
+
+
+
 
         protected override void Awake()
         {
             base.Awake();
-            if (attackRange != null)
-            {
-                attackRange.radius = attackRangeVal;
-            }
+            attackRange.radius = attackRangeVal;
         }
 
         protected override void FixedUpdate()
@@ -36,6 +29,7 @@ namespace YourNamespace // Add this if you're using namespaces elsewhere
         {
             if (attackTimer < attackStartUp) { return; }
 
+
             base.Attack(target);
             StartCoroutine(GrubAttack());
 
@@ -43,20 +37,20 @@ namespace YourNamespace // Add this if you're using namespaces elsewhere
             {
                 damageTarget.Attacked(damageSource);
             }
-            else 
-            { 
-                Debug.LogError("no IDamageReceiver found on target");
-            }
+            else { Debug.LogError("no IDamage Receiver found on target"); }
+
         }
 
-        private IEnumerator GrubAttack()
+        IEnumerator GrubAttack()
         {
             if (animator != null)
             {
                 animator.SetBool("Attack", true);
-                yield return new WaitForSeconds(0.25f);
+                yield return new WaitForSeconds(0.25f); //can adjust the time on this
                 animator.SetBool("Attack", false);
             }
+
         }
+
     }
 }
