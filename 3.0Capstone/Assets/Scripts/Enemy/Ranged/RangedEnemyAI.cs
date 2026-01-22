@@ -7,7 +7,7 @@ public class RangedEnemyAI : EnemyAI
     protected RangedEnemyBody body;
 
     
-    [SerializeField] float AttackRange = 10;
+    [SerializeField] private float AttackRange = 10;
 
 
     
@@ -62,20 +62,18 @@ public class RangedEnemyAI : EnemyAI
 
         if(moveInput == Vector2.zero) { return; }
 
-        RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, moveInput);
+        RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, moveInput,100,1);
 
         foreach(RaycastHit2D h in r)
         {
-            //if(h.collider.gameObject = target)
-        }
-
-        totalDist = targetDist.magnitude;
-
-        if (totalDist <= AttackRange) 
-        {
-            behaviour = Behaviour.Ready; 
-            moveInput = Vector2.zero;
-
+            if (h.collider.gameObject == target)
+            {
+                if(h.distance <= AttackRange)
+                {
+                    behaviour = Behaviour.Ready;
+                    moveInput = Vector2.zero;
+                }
+            }
         }
     }
 }

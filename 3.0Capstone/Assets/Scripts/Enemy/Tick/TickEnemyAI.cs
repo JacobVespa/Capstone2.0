@@ -28,7 +28,6 @@ public class TickEnemyAI : EnemyAI
         switch(behaviour)
         {
             case Behaviour.Spawning:
-                Debug.Log(dropPos);
                 if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos)); }
                 break;
             case Behaviour.Ready:

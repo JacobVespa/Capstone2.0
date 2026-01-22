@@ -292,23 +292,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 7708585933460996079}
-  damageSource: {fileID: 2136788478825979421}
-  sprite: {fileID: 5509699016841819461}
   animator: {fileID: 0}
+  sprite: {fileID: 5509699016841819461}
+  damageSource: {fileID: 2136788478825979421}
   attackNotif: {fileID: 1890810218810033128}
   comicHurt: {fileID: 8036523748669703191}
   comicDeath: {fileID: 8418658996730869995}
+  moveSpeed: 5
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 5
   attackStartUp: 3
   attackCoolDown: 3
-  enemyAnims: {fileID: 0}
   projSpeed: 5
   bulletPrefab: {fileID: 6735711473433599987, guid: 9bc8267722b991a4b9837db225663d7e, type: 3}
   objectPool: {fileID: 4123940007936774137}
   fireLocation: {fileID: 6108955117209251020}
-  moveSpeed: 5
 --- !u!114 &7708585933460996079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -325,7 +324,7 @@ MonoBehaviour:
   hasTarget: 0
   agent: {fileID: 0}
   behaviour: 0
-  AttackRange: 25
+  AttackRange: 14
 --- !u!114 &2136788478825979421
 MonoBehaviour:
   m_ObjectHideFlags: 0
