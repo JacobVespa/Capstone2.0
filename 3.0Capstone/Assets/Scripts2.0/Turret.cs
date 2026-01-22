@@ -35,6 +35,9 @@ public class Turret : MonoBehaviour
     public GameObject muzzleFlash;
     [SerializeField] private ParticleSystem comicShot;
 
+    //Line Renderer for raycast on screen
+    private LineRenderer lineRenderer;
+
     private void Start()
     {
         reloadNotif.SetActive(false);
@@ -44,6 +47,9 @@ public class Turret : MonoBehaviour
         audioSource.clip = shootClip;
         currentDamage = GetComponent<DamageSource>();
         ammoCountText.text = maxAmmo.ToString();
+
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
     }
 
     private void Update()
@@ -52,6 +58,10 @@ public class Turret : MonoBehaviour
         {
             Aim();
             Shoot();
+        }
+        else
+        {
+            lineRenderer.enabled = false; //probably a better way to do this
         }
     }
 
@@ -138,6 +148,9 @@ public class Turret : MonoBehaviour
             crosshair.transform.position = aimPos;
             transform.LookAt(transform.position + Vector3.forward, crosshair.transform.position - transform.position); //maybe?
             transform.Rotate(new Vector3(0, 0, -90));
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, aimPos);
         }
     }
 
