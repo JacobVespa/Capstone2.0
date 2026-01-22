@@ -1,6 +1,7 @@
 
 using System.Collections;
 using UnityEngine;
+using UnityEngine.U2D;
 using UnityEngine.UI;
 
 
@@ -16,8 +17,15 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [SerializeField] private Image healthBarFill;
     [SerializeField] private Image vignette;
 
-    
-    
+    //Rig Shake
+    [Header("Cam Shake Stats")]
+    [SerializeField] public Camera mainCam;
+    public float camShakeDur = 0.3f;   // how long the shake lasts
+    public float camShakeStr = 0.1f;    // how strong the shake is
+    private Vector3 originalPosition;
+
+
+
     public float Health { get { return currentHealth; } set {  currentHealth = value; } }
 
     private void Awake()
@@ -55,6 +63,8 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         newcolor.g = 1 / currentHealth;
         healthBarFill.color = Color.Lerp(healthBarFill.color, newcolor, 1.0f / currentHealth);
 
+
+        StartCoroutine(Shake());
         StartCoroutine(Vignette(Color.red));
 
         float currentStep = currentHealth / 5;
@@ -153,6 +163,26 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         }
 
         vignette.gameObject.SetActive(false);
+    }
+    IEnumerator Shake()
+    {
+        float elapsed = 0f;
+        originalPosition = mainCam.transform.position;
+
+        //mainCam = gameObject.transform.parent.gameObject;
+
+        while (elapsed < camShakeDur)
+        {
+            float x = Random.Range(-1f, 1f) * camShakeStr;
+            float y = Random.Range(-1f, 1f) * camShakeStr;
+
+            mainCam.transform.position = originalPosition + new Vector3(x, y, 0);
+
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        mainCam.transform.position = originalPosition;
     }
 
 }
