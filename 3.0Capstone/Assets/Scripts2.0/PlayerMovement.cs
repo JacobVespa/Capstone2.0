@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator;
     private RigHealth rigHealth;
     private Engine engine;
+    private AudioSource playerAudioSource;
+
+    [SerializeField] private AudioClip hammerMiss;
 
     [Header("Sprites")]
     [SerializeField] private GameObject heldAmmo;
@@ -19,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Booleans")]
     public bool isHoldingAmmo;
     private bool isHoldingRepair;
+    private bool canAttack = true;
 
     [Header("Custom Variables")]
     [SerializeField] private float movementSpeed = 5.0f;
@@ -28,6 +32,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isHolding = false;
     public bool canMove = true;
     public bool canInteract = true;
+    [SerializeField] float attackCooldown = 1.0f;
+
 
     private int playerIndex; // Which player this is (0 or 1)
 
@@ -39,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
         inputControlManager = InputControlManager.Instance;
         rigHealth = FindFirstObjectByType<RigHealth>();
         engine = FindFirstObjectByType<Engine>();
+        playerAudioSource = GetComponent<AudioSource>();
 
         // Get the index for this player instance
         playerIndex = inputControlManager.GetCurrentPlayerIndex();
@@ -144,10 +151,11 @@ public class PlayerMovement : MonoBehaviour
             HandleDismounting();
             HandleDrop();
         }
-        else if(playerControls.controlEvent.HasSwungHammer)
+        else if(playerControls.controlEvent.HasSwungHammer && canAttack)
         {
-            Debug.Log("Tried to swing the hammer...");
-            playerAnimator.SetTrigger("HammerSwing");
+            
+            StartCoroutine(HammerSwing());
+            
         }
     }
 
@@ -228,5 +236,16 @@ public class PlayerMovement : MonoBehaviour
         this.transform.position = location.position;
         player.enabled = true;
         yield return null;
+    }
+
+    IEnumerator HammerSwing()
+    {
+        canAttack = false;
+        playerAudioSource.clip = hammerMiss;
+        playerAudioSource.Play();
+        Debug.Log("Tried to swing the hammer...");
+        playerAnimator.SetTrigger("HammerSwing");
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
     }
 }
