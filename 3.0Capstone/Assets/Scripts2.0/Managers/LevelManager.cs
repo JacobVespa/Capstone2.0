@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
     {
         // Reset the loading flag whenever a scene finishes loading
         isLoading = false;
-        GameManager.Instance.ResumeGameTime();
+        if (GameManager.Instance != null) GameManager.Instance.ResumeGameTime();
     }
 
     public void LoadScene(int index)
@@ -73,12 +73,12 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void StartWindDownLevel(Level level)
+    public void StartWindDownLevel(bool goNext)
     {
-        StartCoroutine(WindDownRoutine(level));
+        StartCoroutine(WindDownRoutine(goNext));
     }
 
-    private IEnumerator WindDownRoutine(Level level)
+    private IEnumerator WindDownRoutine(bool goNext)
     {
         GameObject[] obs = (GameObject[])FindObjectsByType(typeof(GameObject), FindObjectsSortMode.None);
 
@@ -92,8 +92,16 @@ public class LevelManager : MonoBehaviour
             go.SetActive(false);
         }
 
-        SoundManager.Instance.PlayBGM("Navigation");
-        ShowEndScreen(GameManager.Instance.ResultScreenIndex);
+        if (goNext)
+        {
+            SoundManager.Instance.PlayBGM("Navigation");
+            ShowEndScreen(GameManager.Instance.NavigationScreenIndex);
+        }
+        else
+        {
+            SoundManager.Instance.PlayBGM("Navigation");
+            ShowEndScreen(GameManager.Instance.ResultScreenIndex);
+        }
 
         // Fade back in
         yield return StartCoroutine(FadeImage(0f));

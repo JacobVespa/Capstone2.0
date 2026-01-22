@@ -7,6 +7,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int resultScreenIndex = 2;
     public int ResultScreenIndex => resultScreenIndex;
+    [SerializeField] private int navigationScreenIndex  = 3;
+    public int NavigationScreenIndex => navigationScreenIndex;
+
+
     private bool timeActive;
 
     private bool gameOverTriggered = false;
@@ -14,9 +18,6 @@ public class GameManager : MonoBehaviour
 
     private bool gameOver = false;
     public bool GameOverStatus {get { return gameOver; } set { gameOver = value; } }
-
-    private float levelDuration;
-    public float LevelDuration { get { return levelDuration; } set { levelDuration = value; } }
 
     private int shards;
     public int Shards => shards;
@@ -46,7 +47,8 @@ public class GameManager : MonoBehaviour
     {
         shards = 0;
         timeActive = false;
-        SoundManager.Instance.PlayBGM("CaveFight");
+        if (SoundManager.Instance != null) 
+            SoundManager.Instance.PlayBGM("CaveFight");
     }
 
     private void Update()
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        gameflowManager.WindDownLevel();
+        if (gameflowManager != null) gameflowManager.WindDownLevel(false);
 
         PauseGameTime();
         StopGameTime();
@@ -92,7 +94,7 @@ public class GameManager : MonoBehaviour
     public void Victory()
     {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        gameflowManager.WindDownLevel();
+        if (gameflowManager != null) gameflowManager.WindDownLevel(true);
 
         PauseGameTime();
         StopGameTime();

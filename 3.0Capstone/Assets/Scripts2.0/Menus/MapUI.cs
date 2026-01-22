@@ -15,10 +15,12 @@ public class MapUI : MonoBehaviour
 
     private void GetLevelDuration()
     {
+        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
+        if (gameflowManager == null || gameflowManager.CurrentLevel == null) return;
         
-        float levelDurration = GameManager.Instance.LevelDuration;
+        float levelDurration = gameflowManager.CurrentLevel.Duration;
         if (levelDurration == 0 || progressBar.maxValue == levelDurration) return;
 
-        progressBar.maxValue = GameManager.Instance.LevelDuration;
+        progressBar.maxValue = levelDurration;
     }
 }
