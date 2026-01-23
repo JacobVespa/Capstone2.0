@@ -12,7 +12,7 @@ public class RangedEnemyBody : EnemyBody
     [SerializeField] private Transform objectPool;
     private List<Projectile> bullets = new List<Projectile>();
     [SerializeField] private Transform fireLocation;
-    private Animator skeetoAnims;
+    
     
 
     protected override void Awake()
@@ -28,9 +28,11 @@ public class RangedEnemyBody : EnemyBody
 
     public override void Attack(GameObject target)
     {
-        if (attackTimer < attackStartUp) { return; }
-
+        
+        if (attackTimer <= attackStartUp) { return; }
+        
         base.Attack(target);
+        
         StartCoroutine(SkeetoAttack());
 
         Projectile bullet = GetProjectile();
@@ -44,11 +46,11 @@ public class RangedEnemyBody : EnemyBody
 
     private IEnumerator SkeetoAttack()
     {
-        if (skeetoAnims != null) 
+        if (animator != null) 
         {
-            skeetoAnims.SetBool("Attack", true);
+            animator.SetBool("Attack", true);
             yield return new WaitForSeconds(0.25f);
-            skeetoAnims.SetBool("Attack", false);
+            animator.SetBool("Attack", false);
         }
     }
 

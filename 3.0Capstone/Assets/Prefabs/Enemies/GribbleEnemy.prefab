@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 100
   m_Sprite: {fileID: -7197147881584039178, guid: e9aa6e22566b01e4dabfb0897117bdc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -302,7 +302,7 @@ MonoBehaviour:
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 5
-  attackStartUp: 3
+  attackStartUp: 5
   attackCoolDown: 3
   projSpeed: 5
   bulletPrefab: {fileID: 6735711473433599987, guid: 9bc8267722b991a4b9837db225663d7e, type: 3}
@@ -324,7 +324,7 @@ MonoBehaviour:
   hasTarget: 0
   agent: {fileID: 0}
   behaviour: 0
-  AttackRange: 14
+  AttackRange: 13
 --- !u!114 &2136788478825979421
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,6 +37,7 @@ public class TickEnemyAI : EnemyAI
                 }
                 break;
             case Behaviour.Attacking:
+                body.attackNotif.SetActive(true);
                 body.Attack(target);
                 break;
             case Behaviour.CoolDown:

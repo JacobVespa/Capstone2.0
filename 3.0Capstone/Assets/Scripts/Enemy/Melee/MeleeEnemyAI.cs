@@ -42,6 +42,7 @@ public class MeleeEnemyAI : EnemyAI
                 }
                 break;
             case Behaviour.Attacking:
+                body.attackNotif.SetActive(true);
                 TryAttackTarget();
                 break;
             case Behaviour.CoolDown:
@@ -86,7 +87,7 @@ public class MeleeEnemyAI : EnemyAI
 
         if (target != null && collision.transform.root == target.transform)
         {
-            behaviour = Behaviour.None;
+            behaviour = Behaviour.Moving;
             RemoveFromAttackQueue();
         }
     }

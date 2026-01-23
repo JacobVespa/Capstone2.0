@@ -16,7 +16,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [SerializeField] protected DamageSource damageSource;
 
     [Header("Visual Effect Componenets")]
-    [SerializeField] protected GameObject attackNotif;
+    [SerializeField] public GameObject attackNotif;
     [SerializeField] private ParticleSystem comicHurt;
     [SerializeField] private ParticleSystem comicDeath;
     
@@ -103,9 +103,9 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         if(ai.behaviour != EnemyAI.Behaviour.Attacking && ai.behaviour != EnemyAI.Behaviour.CoolDown) { return; }
         if(attackTimer >= attackStartUp || attackTimer >= attackCoolDown) { return; }
         //if (ai.agent != null && !ai.agent.CanDealDamage) { return; }
-
+        
         attackTimer += 1 * Time.fixedDeltaTime;
-        if(attackNotif.activeSelf == false  && attackTimer >= AttackStartUp/2) { attackNotif.SetActive(true); }
+        //if(attackNotif.activeSelf == false  && attackTimer >= AttackStartUp/2) {  }
           
     }
 
@@ -165,7 +165,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         Collider2D[] colliders = GetComponents<Collider2D>();
         foreach (Collider2D c in colliders) { c.enabled = false; }
         attackNotif.SetActive(false);
-        Debug.Log("Start");
+        
 
         if (comicDeath != null)
         {
@@ -181,7 +181,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             yield return new WaitForSeconds(1);
             animator.SetBool("Death", false);
         }
-        Debug.Log("end");
+        
 
         if(GameManager.Instance != null)
         {
@@ -196,7 +196,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     IEnumerator Shake()
     {
         float elapsed = 0f;
-
+        
         GameObject spritePos = sprite.transform.parent.gameObject;
 
         while (elapsed < shakeDuration)

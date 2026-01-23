@@ -5,8 +5,7 @@ public class AttackQueueManager : MonoBehaviour
 {
     public static AttackQueueManager instance {  get; private set; }
 
-    [Header("Debug")]
-    [SerializeField] private bool debugLogs = false;
+    
 
     [Header("Runtime (Read Only)")]
     [SerializeField] private List<string> activeNames = new List<string>();
@@ -51,8 +50,11 @@ public class AttackQueueManager : MonoBehaviour
     {
         if (agent == null) return;
         if (!waiting.Contains(agent) && !active.Contains(agent))
+        {
             waiting.Add(agent);
-        DLog($"REGISTER: {agent.name} (waiting={waiting.Count}, active={active.Count})");
+        }
+            
+        
     }
 
     public void Unregister(AttackQueueAgent agent)
@@ -63,12 +65,10 @@ public class AttackQueueManager : MonoBehaviour
         if (wasActive)
         {
             agent.SetCanDealDamage(false);
-            DLog($"UNREGISTER: {agent.name} (removed from ACTIVE)");
             FillSlots();
         }
 
-        if (waiting.Remove(agent))
-            DLog($"UNREGISTER: {agent.name} (removed from WAITING)");
+        
     }
 
     private void FillSlots()
@@ -80,12 +80,14 @@ public class AttackQueueManager : MonoBehaviour
 
         waiting.Sort((a, b) =>
         {
+            /*
             if (a == null || b == null) return 0;
             float da = a.DistanceToRig;
             float db = b.DistanceToRig;
 
             int distCompare = da.CompareTo(db);
             if (distCompare != 0) return distCompare;
+            */
 
             // Older waiting gets priority if distances are equal-ish
             return a.TimeEnteredQueue.CompareTo(b.TimeEnteredQueue);
@@ -100,7 +102,7 @@ public class AttackQueueManager : MonoBehaviour
 
             active.Add(next);
             next.SetCanDealDamage(true);
-            DLog($"SLOT GRANTED: {next.name} -> ACTIVE (active={active.Count}, waiting={waiting.Count})");
+            
         }
     }
 
@@ -119,17 +121,13 @@ public class AttackQueueManager : MonoBehaviour
             {
                 if (active[i] != null) active[i].SetCanDealDamage(false);
                 active.RemoveAt(i);
-                DLog($"ACTIVE LOST: {active[i].name} (became ineligible)");
+                
 
             }
         }
     }
 
-    private void DLog(string msg)
-    {
-        if (!debugLogs) return;
-        Debug.Log($"[AttackQueue] {msg}", this);
-    }
+
 
 
 }
