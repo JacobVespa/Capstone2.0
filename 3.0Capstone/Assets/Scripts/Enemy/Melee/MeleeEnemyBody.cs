@@ -8,8 +8,8 @@ using UnityEngine;
  *  - a method to initiate an attack on a game object
  */
 
-//namespace YourNamespace // Add this if you're using namespaces elsewhere
-//{
+namespace YourNamespace // Add this if you're using namespaces elsewhere
+{
 public class MeleeEnemyBody : EnemyBody
 {
     [SerializeField] private CircleCollider2D attackRange;
@@ -55,4 +55,4 @@ public class MeleeEnemyBody : EnemyBody
     }
 
 }
-//}
+}

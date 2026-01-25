@@ -58,7 +58,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     protected virtual void Awake()
     {
-        attackNotif.SetActive(false);
+        if(attackNotif != null)
+        {
+            attackNotif.SetActive(false);
+        }
+        
         attackTimer = 0;
         
         if(damageSource == null)

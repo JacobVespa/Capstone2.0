@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6181852771610103027}
-  - component: {fileID: 1434104982452655612}
+  - component: {fileID: 1819607150089767085}
   - component: {fileID: 5314007174558124751}
   - component: {fileID: 3739521471955693038}
   - component: {fileID: 5810221720297493789}
@@ -44,7 +44,7 @@ Transform:
   - {fileID: 3027939764926341433}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1434104982452655612
+--- !u!114 &1819607150089767085
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 369488387364779184}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72734b76ccf4329429a863adfcb17785, type: 3}
+  m_Script: {fileID: 11500000, guid: f9b4dd99fe0672548a206974b2b8844c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 5314007174558124751}
@@ -69,7 +69,7 @@ MonoBehaviour:
   health: 3
   attackStartUp: 3
   attackCoolDown: 3
-  attackRange: {fileID: 3611787792641163113}
+  attackRange: {fileID: 1215407965381333140}
   attackRangeVal: 2
 --- !u!114 &5314007174558124751
 MonoBehaviour:
@@ -83,10 +83,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc192980f48a52a4c953bc63da4f4bed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  behaviour: 0
+  agent: {fileID: 5810221720297493789}
   target: {fileID: 0}
   hasTarget: 0
-  agent: {fileID: 5810221720297493789}
-  behaviour: 0
 --- !u!114 &3739521471955693038
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 1434104982452655612}
+  body: {fileID: 0}
 --- !u!50 &375707694229889882
 Rigidbody2D:
   serializedVersion: 5

@@ -1,7 +1,7 @@
 using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
-//using YourNamespace;
+using YourNamespace;
 
 /*  MeleeEnemyAI determines the actions of melee enemies takes, what state they are in and hwo they transition states
  * 
