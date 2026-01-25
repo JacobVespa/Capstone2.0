@@ -50,7 +50,7 @@ public class Projectile : MonoBehaviour, IDamageReceiver
         float offset = 90;
 
         transform.rotation = Quaternion.Euler(Vector3.forward * (rotatation + offset));
-        Debug.Log("Fire");
+        
     }
 
     public void Attacked(DamageSource d)

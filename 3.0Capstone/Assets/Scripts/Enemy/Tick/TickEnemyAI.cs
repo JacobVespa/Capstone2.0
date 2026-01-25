@@ -1,12 +1,17 @@
 using UnityEngine;
 
+/*  TickEnemyAI determiens what actiosn the body takes depending on the state
+ * 
+ *  contains;
+ *  - varibles for TickEnemyBody and intial position for it to land from
+ *  - AIFlowCHart to determine its actiosn dpeending on its state
+ */
+
 public class TickEnemyAI : EnemyAI
 {
     protected TickEnemyBody body;
 
     private Vector2 dropPos;
-
-    
 
     protected override void Awake()
     {
@@ -37,13 +42,19 @@ public class TickEnemyAI : EnemyAI
                 }
                 break;
             case Behaviour.Attacking:
-                body.attackNotif.SetActive(true);
-                body.Attack(target);
+                TryAttackTarget();
                 break;
             case Behaviour.CoolDown:
                 MoveToBottomOfQueue();
                 break;
         }
+    }
+
+    private void TryAttackTarget()
+    {
+        if (!hasTarget) { return; }
+        if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
+        body.Attack(target);
     }
 
 }

@@ -3,6 +3,13 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 
+/*  RangedEnemyBody is mainly for allowing ranged enemies to shoot projectiles
+ * 
+ *  contains
+ *  - varibles needed instantiating and handling projectiles
+ *  - methods for attacking, spawning projectiles, handling projectile object pool
+ */
+
 public class RangedEnemyBody : EnemyBody
 {
     [SerializeField] private float projSpeed;
@@ -12,8 +19,7 @@ public class RangedEnemyBody : EnemyBody
     [SerializeField] private Transform objectPool;
     private List<Projectile> bullets = new List<Projectile>();
     [SerializeField] private Transform fireLocation;
-    
-    
+
 
     protected override void Awake()
     {
@@ -26,9 +32,9 @@ public class RangedEnemyBody : EnemyBody
         base.FixedUpdate();
     }
 
+    // shoots out a bullet at the target
     public override void Attack(GameObject target)
     {
-        
         if (attackTimer <= attackStartUp) { return; }
         
         base.Attack(target);
@@ -54,6 +60,9 @@ public class RangedEnemyBody : EnemyBody
         }
     }
 
+    // return an inactive bulelt from the object pool
+    // if there are no bullets or inactive bulelts int he object pool
+    // than create a new one and return that 
     private Projectile GetProjectile()
     {
         foreach(Projectile b in bullets)
@@ -66,6 +75,7 @@ public class RangedEnemyBody : EnemyBody
         return CreateProjectile();
     }
 
+    // creates a bulelt prefab in the object pool 
     private Projectile CreateProjectile()
     {
         GameObject bulletObj = Instantiate(bulletPrefab, objectPool);
@@ -78,6 +88,7 @@ public class RangedEnemyBody : EnemyBody
         return bulletScript;
     }
 
+    // sets bloom on projectiel so they don't always travel in the exact same direction
     private Vector2 SetBloom(Vector2 dir)
     {
         float xChange = Random.Range(0.9f, 1.1f);

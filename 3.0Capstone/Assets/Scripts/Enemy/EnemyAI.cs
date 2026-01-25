@@ -1,17 +1,42 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
+/*  EnemyAI is a base class with varibles and methods that all or most enemyAI will need and tells the enemyBody what actions to perform.
+ *  
+ * 
+ *  contains:
+ *  - varible to for what the enemies current state is 
+ *  - varibles for target
+ *  - virtual method of lifetime or event methods(fixed updated, awake)
+ *  - method for finding the direction of the target and setting the target
+ *  - method for adding, removing, or moving to the bottome of the attack queue
+ *  
+ *  no enemyBody varible since it could only be for the base enemyBody class 
+ */
+
 [RequireComponent(typeof(EnemyBody))]
 public abstract class EnemyAI : MonoBehaviour
 {
-    
-     
+
+    public Behaviour behaviour;
+
+    public enum Behaviour
+    {
+        None,
+        Moving,     // enemy is moving toward rig(melee only)
+        Ready,      // enemy is in range of the rig is able to attack but waiting for its turn in queue
+        //ChargeUp  
+        Attacking,  // enemy is currently attacking the rig
+        CoolDown,
+        Dead,       // enemy is dead/dying
+        Spawning,   // enemy is spawning in
+    }
+
+    [SerializeField] public AttackQueueAgent agent;
 
     [SerializeField] protected GameObject target;
     [SerializeField] protected bool hasTarget;
-    [SerializeField] public AttackQueueAgent agent;
-    public Behaviour behaviour;
-
     
     protected Vector2 targetDist = Vector3.zero;
     protected float totalDist;
@@ -19,17 +44,7 @@ public abstract class EnemyAI : MonoBehaviour
     protected Vector2 moveInput;
 
 
-    public enum Behaviour
-    {
-        None,
-        Moving,     // enemy is moving toward rig(melee only)
-        Ready,      // enemy is in range of the rig is able to attack but waiting for its turn in queue
-        //ChargeUp 
-        Attacking,  // enemy is currently attacking the rig
-        CoolDown,
-        Dead,       // enemy is dead/dying
-        Spawning,   // enemy is spawning in
-    }
+    
 
     protected virtual void FixedUpdate()
     {
@@ -45,6 +60,7 @@ public abstract class EnemyAI : MonoBehaviour
         if (agent == null) { agent = GetComponent<AttackQueueAgent>(); }
     }
 
+    //  method all EnemyAI need to implement which determines the enemyBody's action depending on the current state
     protected abstract void AIFlowChart();
 
     public void SetTarget(GameObject newTarget)
@@ -53,6 +69,8 @@ public abstract class EnemyAI : MonoBehaviour
         hasTarget = (target != null);
     }
 
+    //  find the direction between the enemy and the target
+    //  can't send the direction to the body since the body is only implemnted in the enemy specific AI script
     protected virtual void ApproachTarget()
     {
         if (!hasTarget) { moveInput = Vector2.zero; return; }
@@ -63,7 +81,7 @@ public abstract class EnemyAI : MonoBehaviour
         moveInput = moveInput.normalized;
     }
 
-
+    // adds, removes or moves the enemy to the back fo the attack queue
     public void AddToAttackQueue()
     {
         agent.OnEnterAttackZone(AttackQueueManager.instance, AttackQueueManager.instance.transform);
