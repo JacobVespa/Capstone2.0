@@ -25,11 +25,8 @@ public class Turret : MonoBehaviour
     RaycastHit2D hit;
     DamageSource currentDamage;
 
-    [SerializeField] float aimSpeed = 20.0f;
-
-    //cooldown between shots
-    //[SerializeField] float fireRate = 10f;
-    //float shotCooldown;
+    [SerializeField] float aimSpeed = 10.0f;
+    [SerializeField] bool autoTarget = true;
 
     //reference to the muzzle flash vfx
     public GameObject muzzleFlash;
@@ -58,6 +55,10 @@ public class Turret : MonoBehaviour
         {
             Aim();
             Shoot();
+            if (autoTarget)
+                DetermineTarget();
+            else
+                ManualTarget();
         }
         else
         {
@@ -144,14 +145,50 @@ public class Turret : MonoBehaviour
     {
         if (player != null && currentControls != null)
         {
-            aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
-            crosshair.transform.position = aimPos;
             transform.LookAt(transform.position + Vector3.forward, crosshair.transform.position - transform.position); //maybe?
             transform.Rotate(new Vector3(0, 0, -90));
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, aimPos);
         }
+    }
+
+    private void DetermineTarget()
+    {
+        Vector2 currentPos = transform.position; // Cache position
+        Vector2 closestPos = currentPos;
+        float closestDistanceSqr = Mathf.Infinity; // Initialize to Infinity
+
+        var attackers = AttackQueueManager.instance.ActiveAttackers;
+        if (attackers == null) return;
+
+        foreach (var enemy in attackers)
+        {
+            if (enemy == null || enemy.gameObject.layer != 6) continue;
+
+            // Use subtraction + sqrMagnitude
+            Vector2 offset = (Vector2)enemy.transform.position - currentPos;
+            float currentDistanceSqr = offset.sqrMagnitude;
+
+            if (currentDistanceSqr < closestDistanceSqr)
+            {
+                closestDistanceSqr = currentDistanceSqr;
+                closestPos = enemy.transform.position;
+            }
+        }
+
+        // Only update if a valid target was found
+        if (closestDistanceSqr < Mathf.Infinity)
+        {
+            aimPos = closestPos;
+            crosshair.transform.position = aimPos;
+        }
+    }
+
+    private void ManualTarget()
+    {
+        aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
+        crosshair.transform.position = aimPos;
     }
 
     IEnumerator ShootingVFX()

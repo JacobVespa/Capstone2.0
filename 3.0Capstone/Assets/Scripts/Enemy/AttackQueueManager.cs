@@ -17,6 +17,7 @@ public class AttackQueueManager : MonoBehaviour
 
     // Active attackers currently allowed to deal damage
     private readonly List<AttackQueueAgent> active = new List<AttackQueueAgent>();
+    public List<AttackQueueAgent> ActiveAttackers { get { return active; }}
 
     // Candidates in range who want a slot
     private readonly List<AttackQueueAgent> waiting = new List<AttackQueueAgent>();
