@@ -8,24 +8,14 @@ public class GameflowManager : MonoBehaviour
 
     private void Update()
     {
-        if (!levelRunning || CurrentLevel == null || GameManager.Instance.GameOverStatus)
+        if (!levelRunning || CurrentLevel == null)
             return;
 
-        if (CurrentLevel is ScrollerLevel scrollerLevel)
+        if (GameManager.Instance.GameTime >= CurrentLevel.Duration && GameManager.Instance.GameOverStatus == false)
         {
-            if (GameManager.Instance.GameTime >= scrollerLevel.Duration)
-            {
-                levelRunning = false;
-                GameManager.Instance.Victory();
-            }
-        }
-        else if (CurrentLevel is DefenceLevel defenceLevel)
-        {
-            if (defenceLevel.WavesCompleted >= defenceLevel.FinalWave)
-            {
-                levelRunning = false;
-                GameManager.Instance.Victory();
-            }
+            levelRunning = false;
+            //WindDownLevel();
+            GameManager.Instance.Victory();
         }
     }
 
@@ -37,15 +27,7 @@ public class GameflowManager : MonoBehaviour
         float currentDuration = 60f;
         
         CurrentLevel = new ScrollerLevel(currentSceneIndex, currentDuration);
-        BeginLevel();
-    }
-
-    public void StartDefenseLevel()
-    {
-        int currentSceneIndex = 4;
-        int currentWaves = 5;
-        
-        CurrentLevel = new DefenceLevel(currentSceneIndex, currentWaves);
+        GameManager.Instance.LevelDuration = currentDuration;
         BeginLevel();
     }
 
@@ -74,14 +56,14 @@ public class GameflowManager : MonoBehaviour
         CurrentLevel?.RestartLevel();
     }
 
-    public void WindDownLevel(bool goNext)
+    public void WindDownLevel()
     {
         if (CurrentLevel == null) return;
 
         GameManager.Instance.PauseGameTime();
         GameManager.Instance.ResetGameTime();
         levelRunning = false;
-        CurrentLevel?.WindDownLevel(goNext);
+        CurrentLevel?.WindDownLevel();
     }
 
     // -------- Utility --------

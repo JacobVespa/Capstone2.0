@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8676192084164539587}
   - component: {fileID: 7800479865931061153}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 1926179241513098203}
   - component: {fileID: 569287320527668088}
   - component: {fileID: 8581929505525562313}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: TickEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -141,18 +141,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ai: {fileID: 2830340047023057878}
-  animator: {fileID: 0}
-  sprite: {fileID: 1230291262372992781}
   damageSource: {fileID: 1426932880656027853}
+  sprite: {fileID: 1230291262372992781}
+  animator: {fileID: 0}
   attackNotif: {fileID: 5083942795406288887}
   comicHurt: {fileID: 7942022794436582569}
   comicDeath: {fileID: 8449306675412832433}
-  moveSpeed: 5
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 2
-  attackStartUp: 3
-  attackCoolDown: 3
+  attackRate: 3
+  enemyAnims: {fileID: 0}
   dropping: 0
 --- !u!114 &2830340047023057878
 MonoBehaviour:
@@ -166,10 +165,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77a85d40154807748be0a11df348fe1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  behaviour: 0
-  agent: {fileID: 0}
   target: {fileID: 0}
   hasTarget: 0
+  agent: {fileID: 0}
+  behaviour: 0
 --- !u!114 &1426932880656027853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3480037557908152143}
   - component: {fileID: 2656939342306112946}
-  m_Layer: 8
+  m_Layer: 6
   m_Name: AttackNotif
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +344,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 100
+  m_SortingOrder: 6
   m_Sprite: {fileID: -7197147881584039178, guid: e9aa6e22566b01e4dabfb0897117bdc7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -367,7 +366,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1016367919184229419, guid: 6a719dd6c9109c340b4650a9482faafc, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5901061349335996294, guid: 6a719dd6c9109c340b4650a9482faafc, type: 3}
       propertyPath: m_Name
@@ -375,7 +374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5901061349335996294, guid: 6a719dd6c9109c340b4650a9482faafc, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8532664798115923394, guid: 6a719dd6c9109c340b4650a9482faafc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -442,7 +441,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1016367919184229419, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5901061349335996294, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
       propertyPath: m_Name
@@ -450,7 +449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5901061349335996294, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8532664798115923394, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
       propertyPath: m_LocalPosition.x

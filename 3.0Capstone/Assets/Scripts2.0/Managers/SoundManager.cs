@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
         SpawnBGMRoot();
     }
 
-    private void SpawnBGMRoot() // Add dynamic tagging for other bgm so they do not get disabled when a level is finished
+    private void SpawnBGMRoot()
     {
         if (bgmSourcePrefab == null)
         {

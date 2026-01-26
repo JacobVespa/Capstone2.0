@@ -7,10 +7,6 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int resultScreenIndex = 2;
     public int ResultScreenIndex => resultScreenIndex;
-    [SerializeField] private int navigationScreenIndex  = 3;
-    public int NavigationScreenIndex => navigationScreenIndex;
-
-
     private bool timeActive;
 
     private bool gameOverTriggered = false;
@@ -18,6 +14,9 @@ public class GameManager : MonoBehaviour
 
     private bool gameOver = false;
     public bool GameOverStatus {get { return gameOver; } set { gameOver = value; } }
+
+    private float levelDuration;
+    public float LevelDuration { get { return levelDuration; } set { levelDuration = value; } }
 
     private int shards;
     public int Shards => shards;
@@ -47,8 +46,7 @@ public class GameManager : MonoBehaviour
     {
         shards = 0;
         timeActive = false;
-        if (SoundManager.Instance != null) 
-            SoundManager.Instance.PlayBGM("CaveFight");
+        SoundManager.Instance.PlayBGM("CaveFight");
     }
 
     private void Update()
@@ -85,18 +83,36 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        if (gameflowManager != null) gameflowManager.WindDownLevel(false);
+        gameflowManager.WindDownLevel();
+
+        //TEMP: THIS SHIT DIDN'T EVEN WORK
+        for (int i = 0; i < playerMovement.Length; i++)
+        {
+            playerMovement[i].canMove = false;
+            playerMovement[i].canInteract = false;
+        }
 
         PauseGameTime();
         StopGameTime();
+        SoundManager.Instance.PlayBGM("Navigation");
+        LevelManager.Instance.ShowEndScreen(resultScreenIndex);
     }
 
     public void Victory()
     {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        if (gameflowManager != null) gameflowManager.WindDownLevel(true);
+        gameflowManager.WindDownLevel();
+
+        //TEMP: THIS SHIT DIDN'T EVEN WORK
+        for (int i = 0; i < playerMovement.Length; i++)
+        {
+            playerMovement[i].canMove = false;
+            playerMovement[i].canInteract = false;
+        }
 
         PauseGameTime();
         StopGameTime();
+        SoundManager.Instance.PlayBGM("Navigation");
+        LevelManager.Instance.ShowEndScreen(resultScreenIndex);
     }
 }

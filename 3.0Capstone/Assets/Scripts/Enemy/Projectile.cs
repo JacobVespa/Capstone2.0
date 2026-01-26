@@ -38,7 +38,6 @@ public class Projectile : MonoBehaviour, IDamageReceiver
 
     public void Fire(float spd, Vector2 Dir)
     {
-        this.spawnTime = Time.time;
         gameObject.SetActive(true);
         active = true;
 
@@ -50,12 +49,12 @@ public class Projectile : MonoBehaviour, IDamageReceiver
         float offset = 90;
 
         transform.rotation = Quaternion.Euler(Vector3.forward * (rotatation + offset));
-        
+
     }
 
     public void Attacked(DamageSource d)
     {
-        if (!Destructable || !(d.DamageTarget == DamageSource.DamageType.Enemy) ) { return ; }
+        if (!Destructable || !((int)d.DamageTarget == 1) ) { return ; }
         
         DisableProjectile();
     }
@@ -66,22 +65,22 @@ public class Projectile : MonoBehaviour, IDamageReceiver
         active = false;
         speed = 0f;
         direction = Vector2.zero;
-        
+        this.spawnTime = Time.time;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         
 
-        if (collision.transform.root.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); }
+        if (collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); }
         DisableProjectile();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        
-        if(collision.transform.root.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource);  }
+
+        if(collision.gameObject.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource);  }
         DisableProjectile();
 
     }

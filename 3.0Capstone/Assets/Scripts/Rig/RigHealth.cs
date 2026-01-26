@@ -1,7 +1,5 @@
 
-using System.Collections;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
 
 
@@ -12,30 +10,16 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [SerializeField] private float currentHealth;
     [SerializeField] private float lastHealthStep;
     [SerializeField] private GameObject[] damagedAreas;
-
-    //Health bar slop or whatever
     [SerializeField] private Image healthBarFill;
-    [SerializeField] private Image vignette;
-
-    //Rig Shake
-    [Header("Cam Shake Stats")]
-    [SerializeField] public Camera mainCam;
-    public float camShakeDur = 0.3f;   // how long the shake lasts
-    public float camShakeStr = 0.1f;    // how strong the shake is
-    private Vector3 originalPosition;
-
-
-
+    
+    
     public float Health { get { return currentHealth; } set {  currentHealth = value; } }
 
     private void Awake()
     {
-        if(healthBarFill  != null)
-        {
-            healthBarFill.fillAmount = health;
-            healthBarFill.color = Color.green;
-        }
         
+        healthBarFill.fillAmount = health;
+        healthBarFill.color = Color.green;
 
         //Set areaOccupied to false, as to indicate a damagedAreaSpawn area is not occupied
         for(int i = 0; i < damagedAreas.Length; i++)
@@ -59,24 +43,12 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     private void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        if(healthBarFill != null)
-        {
-            healthBarFill.fillAmount -= 1.0f / currentHealth;
-            Color newcolor = new Color();
-            newcolor.a = 1;
-            newcolor.r = 1 - (1 / currentHealth);
-            newcolor.g = 1 / currentHealth;
-            healthBarFill.color = Color.Lerp(healthBarFill.color, newcolor, 1.0f / currentHealth);
-        }
-        
-
-
-        StartCoroutine(Shake());
-        if(vignette != null)
-        {
-            StartCoroutine(Vignette(Color.red));
-        }
-        
+        healthBarFill.fillAmount -= 1.0f / currentHealth;
+        Color newcolor = new Color();
+        newcolor.a = 1;
+        newcolor.r = 1 - (1 / currentHealth);
+        newcolor.g = 1 / currentHealth;
+        healthBarFill.color = Color.Lerp(healthBarFill.color, newcolor, 1.0f / currentHealth);
 
         float currentStep = currentHealth / 5;
 
@@ -98,9 +70,6 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     {
         currentHealth += healed;
         healthBarFill.fillAmount += 1.0f / currentHealth;
-
-        //change vignette color
-        StartCoroutine(Vignette(Color.green));
         
 
         if (currentHealth >= 30)
@@ -143,57 +112,4 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         GameManager.Instance.GameOverStatus = true;
         //this.gameObject.SetActive(false);
     }
-
-    IEnumerator Vignette(Color vigColor)
-    {
-        vigColor.a = 0f;
-        vignette.color = vigColor;
-        vignette.gameObject.SetActive(true);
-        float alphaEnd = 100f / 255f;
-        float alpha = 0.0f;
-
-        while (alpha < alphaEnd)
-        {
-            alpha += 2.0f * Time.deltaTime;
-            vigColor.a = alpha;
-            vignette.color = vigColor;
-            yield return null;
-        }
-
-        vigColor.a = alphaEnd;
-        vignette.color = vigColor;
-
-        yield return new WaitForSeconds(0.2f);
-
-        while (alpha > 0.0f)
-        {
-            alpha -= 2.0f * Time.deltaTime;
-            vigColor.a = alpha;
-            vignette.color = vigColor;
-            yield return null;
-        }
-
-        vignette.gameObject.SetActive(false);
-    }
-    IEnumerator Shake()
-    {
-        float elapsed = 0f;
-        originalPosition = mainCam.transform.position;
-
-        //mainCam = gameObject.transform.parent.gameObject;
-
-        while (elapsed < camShakeDur)
-        {
-            float x = Random.Range(-1f, 1f) * camShakeStr;
-            float y = Random.Range(-1f, 1f) * camShakeStr;
-
-            mainCam.transform.position = originalPosition + new Vector3(x, y, 0);
-
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        mainCam.transform.position = originalPosition;
-    }
-
 }
