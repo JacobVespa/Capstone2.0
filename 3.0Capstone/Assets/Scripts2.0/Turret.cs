@@ -18,19 +18,27 @@ public class Turret : MonoBehaviour
 
     private bool playerMounted = false;
 
+    [SerializeField] private float shootingCD = 1f;
+    bool canShoot = true;
+
     Vector2 aimPos;
     RaycastHit2D hit;
     DamageSource currentDamage;
 
-    [SerializeField] float aimSpeed = 20.0f;
-
-    //cooldown between shots
-    //[SerializeField] float fireRate = 10f;
-    //float shotCooldown;
+    [SerializeField] float aimSpeed = 10.0f;
+    [SerializeField] bool autoTarget = true;
 
     //reference to the muzzle flash vfx
     public GameObject muzzleFlash;
     [SerializeField] private ParticleSystem comicShot;
+
+    //Line Renderer for raycast on screen
+    private LineRenderer lineRenderer;
+
+    //BULLET STUFF
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletSpawnLocation;
+    private float bulletSpeed = 50f;
 
     private void Start()
     {
@@ -41,6 +49,9 @@ public class Turret : MonoBehaviour
         audioSource.clip = shootClip;
         currentDamage = GetComponent<DamageSource>();
         ammoCountText.text = maxAmmo.ToString();
+
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 2;
     }
 
     private void Update()
@@ -49,6 +60,14 @@ public class Turret : MonoBehaviour
         {
             Aim();
             Shoot();
+            if (autoTarget)
+                DetermineTarget();
+            else
+                ManualTarget();
+        }
+        else
+        {
+            lineRenderer.enabled = false; //probably a better way to do this
         }
     }
 
@@ -72,8 +91,9 @@ public class Turret : MonoBehaviour
     {
         if (player == null || currentControls == null) return;
         if (!currentControls.controlEvent.HasAttacked) return;
-        if (currentAmmo > 0)
+        if (currentAmmo > 0 && canShoot)
         {
+            ShootBullet();
             currentAmmo--;
             ammoCountText.text = currentAmmo.ToString();
             if (currentAmmo ==0)
@@ -83,6 +103,7 @@ public class Turret : MonoBehaviour
             }
 
             StartCoroutine(ShootingVFX());
+            StartCoroutine(CoolDown());
 
             Vector3 origin = transform.position;
             Vector3 direction = (aimPos - (Vector2)origin).normalized;
@@ -126,15 +147,63 @@ public class Turret : MonoBehaviour
         
     }
 
+    private void ShootBullet()
+    {
+        GameObject spawnedBullet = Instantiate(bullet, bulletSpawnLocation.transform.position, bulletSpawnLocation.transform.rotation);
+        Debug.Log("Spawned a bullet.");
+
+        Rigidbody2D rb = spawnedBullet.GetComponent<Rigidbody2D>();
+        rb.AddForce(-spawnedBullet.transform.right * bulletSpeed, ForceMode2D.Impulse);
+    }
+
     private void Aim()
     {
         if (player != null && currentControls != null)
         {
-            aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
-            crosshair.transform.position = aimPos;
             transform.LookAt(transform.position + Vector3.forward, crosshair.transform.position - transform.position); //maybe?
             transform.Rotate(new Vector3(0, 0, -90));
+            lineRenderer.enabled = true;
+            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(1, aimPos);
         }
+    }
+
+    private void DetermineTarget()
+    {
+        Vector2 currentPos = transform.position; // Cache position
+        Vector2 closestPos = currentPos;
+        float closestDistanceSqr = Mathf.Infinity; // Initialize to Infinity
+
+        var attackers = AttackQueueManager.instance.ActiveAttackers;
+        if (attackers == null) return;
+
+        foreach (var enemy in attackers)
+        {
+            if (enemy == null || enemy.gameObject.layer != 6) continue;
+
+            // Use subtraction + sqrMagnitude
+            Vector2 offset = (Vector2)enemy.transform.position - currentPos;
+            float currentDistanceSqr = offset.sqrMagnitude;
+
+            if (currentDistanceSqr < closestDistanceSqr)
+            {
+                closestDistanceSqr = currentDistanceSqr;
+                closestPos = enemy.transform.position;
+            }
+        }
+
+        // Only update if a valid target was found
+        if (closestDistanceSqr < Mathf.Infinity)
+        {
+            aimPos = closestPos;
+            crosshair.transform.position = aimPos;
+        }
+    }
+
+    private void ManualTarget()
+    {
+        aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
+        crosshair.transform.position = aimPos;
     }
 
     IEnumerator ShootingVFX()
@@ -144,6 +213,13 @@ public class Turret : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSeconds(0.1f);
         muzzleFlash.SetActive(false);
+    }
+
+    IEnumerator CoolDown()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(shootingCD);
+        canShoot = true;
     }
 
     public void RefillAmmo()
