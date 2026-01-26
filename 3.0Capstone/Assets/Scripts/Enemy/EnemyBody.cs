@@ -3,32 +3,33 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-//[RequireComponent(typeof(EnemyAI))]
-//[RequireComponent(typeof(CharacterController))]
-[RequireComponent(typeof(DamageSource))]
 
+
+
+/*  EnemyBody is a base class that holds varibles and methods that lets enemy perform actions(move, attack ,etc) that all or most enemies will need
+ *  
+ *  contains:
+ *  - instances of key varibles that will be used in all or most enemy body implementation
+ *  - virtual method of lifetime method and event method (fixed update, awake)
+ *  - methods all enemies will need or need ot implement(attack, attacked, death, etc)
+ */
+
+//[RequireComponent(typeof(EnemyAI))]
+[RequireComponent(typeof(DamageSource))]
 public class EnemyBody : MonoBehaviour, IDamageReceiver
 {
     [Header("Required Components")]
-    [SerializeField] protected EnemyAI ai;
+    [SerializeField] protected EnemyAI ai;  // only the base class of enemyAI, methods in enemy spcific AI scripts can't be called, must implemneted in the base class
     [SerializeField] protected Animator animator;
     [SerializeField] protected GameObject sprite;
     [SerializeField] protected DamageSource damageSource;
 
     [Header("Visual Effect Componenets")]
-    [SerializeField] protected GameObject attackNotif;
+    [SerializeField] public GameObject attackNotif;
     [SerializeField] private ParticleSystem comicHurt;
     [SerializeField] private ParticleSystem comicDeath;
     
 
-    
-
-    //[Header("Enemy Type")]
-    //protected EnemyMoveType moveType;
-    //protected EnemyAttackType attackType;
-
-
-    
 
     [Header("Movement Stats")]
     [SerializeField] protected float moveSpeed = 5;
@@ -54,27 +55,14 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     protected float attackTimer = 0;
     public float AttackTimer { get { return AttackTimer; } set { AttackTimer = value; } }
 
-    public enum EnemyMoveType
-    {
-        NUll = 0,
-        Crawler = 1,
-        Flyer = 2,
-        Hopper = 3,
-    }
-
-    public enum EnemyAttackType
-    {
-        NULL = 0,
-        Melee = 1,
-        Ranged = 2,
-    }
-
-
 
     protected virtual void Awake()
     {
+        if(attackNotif != null)
+        {
+            attackNotif.SetActive(false);
+        }
         
-        attackNotif.SetActive(false);
         attackTimer = 0;
         
         if(damageSource == null)
@@ -83,29 +71,33 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         }
         if(animator == null && sprite != null)
         {
-            animator = sprite.GetComponent<Animator>();
-        }
-        else { Debug.LogError("Animator not set in code becuase Sprite was not set manually"); }
-        
+            sprite.TryGetComponent<Animator>(out Animator a);
+            {
+                animator = a;
+            }
+        }   
     }
 
     protected virtual void FixedUpdate()
     {
-        UpdateCooldown();
+        UpdateStartUp();
         UpdateMovement();
     }
 
-    private void UpdateCooldown()
+    //  attackTimer increases only if the enemy is in attacking state or in the cooldown state
+    //  or if attackTimer value is less than the attackStartUp or attackCoolDown values
+    private void UpdateStartUp()
     {
         if(ai.behaviour != EnemyAI.Behaviour.Attacking && ai.behaviour != EnemyAI.Behaviour.CoolDown) { return; }
         if(attackTimer >= attackStartUp || attackTimer >= attackCoolDown) { return; }
         //if (ai.agent != null && !ai.agent.CanDealDamage) { return; }
-
+        
         attackTimer += 1 * Time.fixedDeltaTime;
-        if(attackNotif.activeSelf == false  && attackTimer >= AttackStartUp/2) { attackNotif.SetActive(true); }
+        //if(attackNotif.activeSelf == false  && attackTimer >= AttackStartUp/2) {  }
           
     }
 
+    //  all enemy attacks should reset the attack timer, turn off the attack notif and switch behaviour to cooldown
     public virtual void Attack(GameObject target) 
     {
         attackTimer = 0;
@@ -115,14 +107,14 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     }
 
     #region Handle Movement
+    //  takes a directional input given from the ai script and moves in that directions based on its moveSpeed value
     protected virtual void UpdateMovement()
     {
-        
-        HandleMovement();
+        ReceiveDirection();
         transform.position = (transform.position + (motion * Time.fixedDeltaTime));
     }
 
-    protected virtual void HandleMovement()
+    protected virtual void ReceiveDirection()
     {
         if (inputDir == Vector2.zero) { motion = Vector2.zero; return; }
 
@@ -132,22 +124,24 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     #endregion
 
     #region Handle Attacked
+
+    //  IdamageReceiver method, needs a damage source as a parameter
+    //  takes damage, shakes, and plays the damage particle effect
+    //  check if the damage source targeting an enemy, otherwise does nothing
     public void Attacked(DamageSource d)
     {
-        if(d.DamageTarget == DamageSource.DamageType.Enemy)
-        {
-            TakeDamage(d.DamageVal);
-            comicHurt.Play();
-            //originalPosition = transform.position;
-            originalPosition = transform.position;
-            
-            StartCoroutine(Shake());
-        } 
+        if(d.DamageTarget != DamageSource.DamageType.Enemy) { return; }
+
+        TakeDamage(d.DamageVal);
+        comicHurt.Play();
+        //originalPosition = transform.position;
+        originalPosition = transform.position;
+
+        StartCoroutine(Shake());
     }
 
     private void TakeDamage(float damage)
     {
-        
         health -= damage;
         if(health <= 0)
         {
@@ -155,6 +149,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         }
     }
 
+
+    //  Death Coroutine 
+    //  - sets ai state to death, turns off colldiers on enemy, removes it from the attack queue
+    //  - plays comic death and death animation if they aren't null
+    //  - after a second the gameobject is destroyed
     private IEnumerator Death()
     {
         ai.RemoveFromAttackQueue();
@@ -162,7 +161,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         Collider2D[] colliders = GetComponents<Collider2D>();
         foreach (Collider2D c in colliders) { c.enabled = false; }
         attackNotif.SetActive(false);
-
+        
 
         if (comicDeath != null)
         {
@@ -174,20 +173,30 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
         if (animator != null) //if enemy has animations, play them before triggering death
         {
-            animator.SetBool("Death", true); //MAKE DEATH ANIM PARAMETER THE SAME NAME FOR ALL ENEMIES
+            animator.SetBool("Death", true); // couldn't this just be done with a trigger instead of a bool?
             yield return new WaitForSeconds(1);
             animator.SetBool("Death", false);
         }
         
-        
-        GameManager.Instance.AddKills(1);
-        Destroy(this.gameObject);
+
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.AddKills(1);
+        }
+
+        //  this will probably have to be changed since having the game object being destroyed after an arbitrary 
+        //  period of time for all enemy bodies is messy (particualry for ranged enemies since their projectiles will despawn as well).
+        //  probably best to set this up in the ai death state and check if the death aniamtion is doen playing(and all projectiles are gone for ranged enemies)
+        Destroy(this.gameObject); 
     }
-    
+
+    //  shakes the parent of the sprite object
+    //  please put the animated sprite under a blank game object 
+    //  otherwise it shakes the root and messes with the colliders as well
     IEnumerator Shake()
     {
         float elapsed = 0f;
-
+        
         GameObject spritePos = sprite.transform.parent.gameObject;
 
         while (elapsed < shakeDuration)

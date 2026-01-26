@@ -3,6 +3,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/*  TickEnemyBody is used mainly for dropping the tick on the rig and attacking
+ * 
+ *  contains:
+ *  - varibles for rigidbody, dropping boolean, and position the attack notifcation should be
+ *  - Coroutine for dropping the tick on the ship
+ *  - method for attacking
+ */
+
 public class TickEnemyBody : EnemyBody
 {
 
@@ -26,6 +34,7 @@ public class TickEnemyBody : EnemyBody
         base.FixedUpdate();
     }
 
+    // same implementation as the melee enemy
     public override void Attack(GameObject target)
     {
         if (attackTimer < attackStartUp) { return; }
@@ -39,19 +48,27 @@ public class TickEnemyBody : EnemyBody
         else { Debug.LogError("No damage receiver found on target"); }
     }
 
+    //  sets tick postiion to above its intial placement then drops it 
+    //  it will bounce until it loses enough speed than transition to its next state
+    //  note:   current implementation is pretty shaky since i just decided 75 was a good heigth
+    //          to drop it from and then fine tuned the varibles so it would bounce in a way i personally liked
+    //          
     public IEnumerator DropOnRig(Vector2 targetPos)
     {
         
         dropping = true;
-        transform.position = new Vector2(targetPos.x, targetPos.y + 75);
+        transform.position = new Vector2(targetPos.x, targetPos.y + 75);    
         rb.gravityScale = 1;
-
+        Collider2D colliders = GetComponent<Collider2D>();  // turn off colliders when dropping 
+        colliders.enabled = false;
         attackNotif.transform.position = notifPos;
         
 
         attackNotif.SetActive(true);
-
-        while (true)
+        // continually increase gravity on tick,
+        // when it passes the position in will land at its vertical velocity is halved and reversed(bouncing)
+        // once its vertical velocity is low enough it will stop bouncing and land in position
+        while (true)  
         {
 
             yield return null;
@@ -74,6 +91,7 @@ public class TickEnemyBody : EnemyBody
         rb.linearVelocityY = 0;
 
         dropping = false;
+        colliders.enabled = true;
         ai.behaviour = EnemyAI.Behaviour.Ready;
         ai.AddToAttackQueue();
     }
