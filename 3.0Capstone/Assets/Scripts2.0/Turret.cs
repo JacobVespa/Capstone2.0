@@ -35,6 +35,11 @@ public class Turret : MonoBehaviour
     //Line Renderer for raycast on screen
     private LineRenderer lineRenderer;
 
+    //BULLET STUFF
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletSpawnLocation;
+    private float bulletSpeed = 50f;
+
     private void Start()
     {
         reloadNotif.SetActive(false);
@@ -88,6 +93,7 @@ public class Turret : MonoBehaviour
         if (!currentControls.controlEvent.HasAttacked) return;
         if (currentAmmo > 0 && canShoot)
         {
+            ShootBullet();
             currentAmmo--;
             ammoCountText.text = currentAmmo.ToString();
             if (currentAmmo ==0)
@@ -139,6 +145,15 @@ public class Turret : MonoBehaviour
             }
         }
         
+    }
+
+    private void ShootBullet()
+    {
+        GameObject spawnedBullet = Instantiate(bullet, bulletSpawnLocation.transform.position, bulletSpawnLocation.transform.rotation);
+        Debug.Log("Spawned a bullet.");
+
+        Rigidbody2D rb = spawnedBullet.GetComponent<Rigidbody2D>();
+        rb.AddForce(-spawnedBullet.transform.right * bulletSpeed, ForceMode2D.Impulse);
     }
 
     private void Aim()
