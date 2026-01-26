@@ -10,21 +10,21 @@ public class ScrollerLevel : Level
     public override void StartLevel()
     {
         Debug.Log("Starting Scroller Level");
-        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("CaveFight");
+        SoundManager.Instance.PlayBGM("CaveFight");
         base.StartLevel();
     }
 
     public override void RestartLevel()
     {
         Debug.Log("Restarting Scroller Level");
-        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("CaveFight");
+        SoundManager.Instance.PlayBGM("CaveFight");
         base.RestartLevel();
     }
 
-    public override void WindDownLevel(bool goNext)
+    public override void WindDownLevel()
     {
         Debug.Log("Scroller Level Complete!");
-        base.WindDownLevel(goNext);
+        base.WindDownLevel();
     }
 
     public override void EndLevel()

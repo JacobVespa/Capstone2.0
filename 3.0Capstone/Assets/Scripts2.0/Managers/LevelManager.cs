@@ -1,17 +1,12 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.UI;
-using Unity.VisualScripting;
 
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager Instance { get; private set; }
 
     private bool isLoading = false;
-
-    [SerializeField] private float fadeTime = 2.0f;
-    [SerializeField] private GameObject fadeOut;
 
     private void Awake()
     {
@@ -42,7 +37,7 @@ public class LevelManager : MonoBehaviour
     {
         // Reset the loading flag whenever a scene finishes loading
         isLoading = false;
-        if (GameManager.Instance != null) GameManager.Instance.ResumeGameTime();
+        GameManager.Instance.ResumeGameTime();
     }
 
     public void LoadScene(int index)
@@ -73,61 +68,30 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public void StartWindDownLevel(bool goNext)
+    public void StartWindDownLevel(Level level)
     {
-        StartCoroutine(WindDownRoutine(goNext));
+        StartCoroutine(WindDownRoutine(level));
     }
 
-    private IEnumerator WindDownRoutine(bool goNext)
+    private IEnumerator WindDownRoutine(Level level)
     {
-        GameObject[] obs = (GameObject[])FindObjectsByType(typeof(GameObject), FindObjectsSortMode.None);
+        GameObject[] spawners;
+        spawners = GameObject.FindGameObjectsWithTag("Spawner");
 
-        // Fade to black
-        yield return StartCoroutine(FadeImage(1f));
-
-        // Disable all objects except GameManager and MainCamera
-        foreach (GameObject go in obs)
+        foreach (GameObject spawn in spawners)
         {
-            if (go.CompareTag("GameManager") || go.CompareTag("MainCamera")) continue;
-            go.SetActive(false);
+            spawn.SetActive(false);
         }
 
-        if (goNext)
+        GameObject[] enemies;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in enemies)
         {
-            SoundManager.Instance.PlayBGM("Navigation");
-            ShowEndScreen(GameManager.Instance.NavigationScreenIndex);
-        }
-        else
-        {
-            SoundManager.Instance.PlayBGM("Navigation");
-            ShowEndScreen(GameManager.Instance.ResultScreenIndex);
+            enemy.SetActive(false);
         }
 
-        // Fade back in
-        yield return StartCoroutine(FadeImage(0f));
-    }
-
-    private IEnumerator FadeImage(float targetAlpha)
-    {
-        // Make sure fadeOut is active
-        if (!fadeOut.activeSelf)
-            fadeOut.SetActive(true);
-
-        SpriteRenderer renderer = fadeOut.GetComponent<SpriteRenderer>();
-
-        float startAlpha = renderer.color.a;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < fadeTime)
-        {
-            elapsedTime += Time.unscaledDeltaTime; // Use unscaledDeltaTime in case time is paused
-            float newAlpha = Mathf.Lerp(startAlpha, targetAlpha, elapsedTime / fadeTime);
-            renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, newAlpha);
-            yield return null;
-        }
-
-        // Ensure we reach the exact target value
-        renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, targetAlpha);
+        yield return new WaitForSecondsRealtime(1f);
     }
 
     public void ShowEndScreen(int screenSceneIndex)

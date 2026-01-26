@@ -63,13 +63,7 @@ public class InputControlManager : MonoBehaviour
         for (int i = 0; i < devices.Count && playersSpawned < numberOfPlayers; i++)
         {
             // Only use Gamepad or Keyboard devices
-            //if (devices[i] is Gamepad || devices[i] is Keyboard)
-            //{
-            //    playerInputManager.JoinPlayer(playersSpawned, -1, null, devices[i]);
-            //    playersSpawned++;
-            //}
-
-            if (devices[i] is Gamepad)
+            if (devices[i] is Gamepad || devices[i] is Keyboard)
             {
                 playerInputManager.JoinPlayer(playersSpawned, -1, null, devices[i]);
                 playersSpawned++;
