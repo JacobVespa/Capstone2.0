@@ -172,10 +172,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10bf967c5ab8c63488c3b53a23e99095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  behaviour: 0
+  agent: {fileID: 0}
   target: {fileID: 0}
   hasTarget: 0
-  agent: {fileID: 0}
-  behaviour: 0
   AttackRange: 10
 --- !u!114 &1503413796833272081
 MonoBehaviour:
@@ -261,7 +261,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0

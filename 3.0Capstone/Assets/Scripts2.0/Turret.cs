@@ -104,47 +104,38 @@ public class Turret : MonoBehaviour
 
             StartCoroutine(ShootingVFX());
             StartCoroutine(CoolDown());
-
-            Vector3 origin = transform.position;
-            Vector3 direction = (aimPos - (Vector2)origin).normalized;
-
-            hit = Physics2D.Raycast(origin, direction, 100f, 64);
-            
-            if (hit) //layer 6 is enemy layer
-            {
-                Debug.Log("Hit: " + hit.collider.name);
-
-                if (hit.collider.CompareTag("Enemy"))
-                {
-                    var body = hit.collider.GetComponent<EnemyBody>();
-                    if (body != null)
-                    {
-                        StartCoroutine(HitMarker(Color.red));
-                        body.Attacked(currentDamage);
-                    }
-                }
-
-                if (hit.collider.CompareTag("Gem"))
-                {
-                    var gem = hit.collider.GetComponent<Resource>();
-                    if (gem != null)
-                    {
-                        StartCoroutine(HitMarker(Color.blue));
-                        gem.Damage();
-                    }
-                }
-
-                if (hit.collider.CompareTag("Projectile")){
-                    var proj = hit.collider.GetComponent<Projectile>();
-                    if(proj != null)
-                    {
-                        StartCoroutine(HitMarker(Color.yellow));
-                        proj.Attacked(currentDamage);
-                    }
-                }
-            }
         }
         
+    }
+
+    public void HitEnemy(Collider2D col)
+    {
+        var body = col.GetComponent<EnemyBody>();
+        if (body != null)
+        {
+            StartCoroutine(HitMarker(Color.red));
+            body.Attacked(currentDamage);
+        }
+    }
+
+    public void HitGem(Collider2D col)
+    {
+        var gem = col.GetComponent<Resource>();
+        if (gem != null)
+        {
+            StartCoroutine(HitMarker(Color.blue));
+            gem.Damage();
+        }
+    }
+
+    public void HitProjectile(Collider2D col)
+    {
+        var proj = col.GetComponent<Projectile>();
+        if (proj != null)
+        {
+            StartCoroutine(HitMarker(Color.yellow));
+            proj.Attacked(currentDamage);
+        }
     }
 
     private void ShootBullet()
