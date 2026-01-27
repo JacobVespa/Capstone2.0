@@ -23,11 +23,13 @@ public class TickEnemyBody : EnemyBody
     protected override void Awake()
     {
         base.Awake();
+        
         if (rb == null) { rb = GetComponent<Rigidbody2D>(); }
         
         if(notifPos == Vector2.zero) { notifPos = attackNotif.transform.position; }
         
     }
+
 
     protected override void FixedUpdate()
     {
@@ -51,13 +53,14 @@ public class TickEnemyBody : EnemyBody
     //  sets tick postiion to above its intial placement then drops it 
     //  it will bounce until it loses enough speed than transition to its next state
     //  note:   current implementation is pretty shaky since i just decided 75 was a good heigth
-    //          to drop it from and then fine tuned the varibles so it would bounce in a way i personally liked
+    //          to drop it from and then fine tuned the varibles so it would bounce in a way I personally liked
     //          
     public IEnumerator DropOnRig(Vector2 targetPos)
     {
         
         dropping = true;
-        transform.position = new Vector2(targetPos.x, targetPos.y + 75);    
+        transform.position = new Vector2(targetPos.x, targetPos.y + 75); 
+        sprite.SetActive(true);
         rb.gravityScale = 1;
         Collider2D colliders = GetComponent<Collider2D>();  // turn off colliders when dropping 
         colliders.enabled = false;

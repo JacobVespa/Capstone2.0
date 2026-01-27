@@ -10,13 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8676192084164539587}
   - component: {fileID: 7800479865931061153}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8676192084164539587
 Transform:
   m_ObjectHideFlags: 0
@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 1926179241513098203}
   - component: {fileID: 569287320527668088}
   - component: {fileID: 8581929505525562313}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: TickEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 0
-  agent: {fileID: 0}
+  agent: {fileID: 1926179241513098203}
   target: {fileID: 0}
   hasTarget: 0
 --- !u!114 &1426932880656027853
@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3480037557908152143}
   - component: {fileID: 2656939342306112946}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: AttackNotif
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1016367919184229419, guid: 6a719dd6c9109c340b4650a9482faafc, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5901061349335996294, guid: 6a719dd6c9109c340b4650a9482faafc, type: 3}
       propertyPath: m_Name
@@ -375,7 +375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5901061349335996294, guid: 6a719dd6c9109c340b4650a9482faafc, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8532664798115923394, guid: 6a719dd6c9109c340b4650a9482faafc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -442,7 +442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1016367919184229419, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5901061349335996294, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
       propertyPath: m_Name
@@ -450,7 +450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5901061349335996294, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8532664798115923394, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
       propertyPath: m_LocalPosition.x

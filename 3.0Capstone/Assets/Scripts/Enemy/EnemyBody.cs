@@ -21,7 +21,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [Header("Required Components")]
     [SerializeField] protected EnemyAI ai;  // only the base class of enemyAI, methods in enemy spcific AI scripts can't be called, must implemneted in the base class
     [SerializeField] protected Animator animator;
-    [SerializeField] protected GameObject sprite;
+    [SerializeField] public GameObject sprite;
     [SerializeField] protected DamageSource damageSource;
 
     [Header("Visual Effect Componenets")]

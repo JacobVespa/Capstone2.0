@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using UnityEditor.Experimental.GraphView;
 
 
 /*
@@ -146,8 +147,29 @@ public class WaveSpawner : MonoBehaviour
             prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
 
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
+        Vector2 spawnPos= spawnPoint.position;
+        if (prefab.layer == 7)
+        {
+            EnemyBody body = prefab.GetComponent<EnemyBody>();
+            body.sprite.SetActive(false);
 
-        GameObject enemy = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
+            spawnPos = rigTarget.transform.position;
+
+            float yRange = Random.Range(-5,8); // change later if can since it was set up my eye balling shit
+            float xRange = 0;
+
+            if (yRange > 0) {  xRange = Random.Range(-8, 8); }
+            else if(yRange <= 0) { xRange = Random.Range(-10, 10); }
+            
+            spawnPos.x += xRange;
+            spawnPos.y += yRange;
+
+            
+        }
+        
+        
+
+        GameObject enemy = Instantiate(prefab, spawnPos, spawnPoint.rotation);
         trackedEnemies.Add(enemy);
 
         // Assign target if possible

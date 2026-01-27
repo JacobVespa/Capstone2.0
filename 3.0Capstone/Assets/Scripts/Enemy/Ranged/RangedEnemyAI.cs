@@ -16,11 +16,14 @@ public class RangedEnemyAI : EnemyAI
 
     [SerializeField] private float AttackRange = 10;
 
+    int layer_mask;
+
     protected override void Awake()
     {
         base.Awake();
         if (body == null) { body = GetComponent<RangedEnemyBody>(); }
         behaviour = Behaviour.Moving;
+        layer_mask = LayerMask.GetMask("RIG");
     }
 
     protected override void FixedUpdate()
@@ -72,12 +75,16 @@ public class RangedEnemyAI : EnemyAI
     // if it is in range added to the attack queue and behaviour set to ready
     private void CheckTargetDist()
     {
-        RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, moveInput, 100, 1);
 
+        
+        RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, moveInput, 100, layer_mask);
+
+        
         foreach (RaycastHit2D h in r)
         {
             if (h.collider.gameObject == target)
             {
+                
                 if (h.distance <= AttackRange)
                 {
                     behaviour = Behaviour.Ready;

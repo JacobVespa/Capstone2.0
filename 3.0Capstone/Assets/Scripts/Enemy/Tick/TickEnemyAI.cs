@@ -16,6 +16,7 @@ public class TickEnemyAI : EnemyAI
     protected override void Awake()
     {
         base.Awake();
+        
         behaviour = Behaviour.Spawning;
         
         if(body == null) { body = GetComponent<TickEnemyBody>(); }
