@@ -16,7 +16,7 @@ public class Turret : MonoBehaviour
     public bool needsReload = false;
     [SerializeField] public TextMeshPro ammoCountText;
 
-    [SerializeField] private GameObject buttonPromptXB;
+    [SerializeField] public GameObject buttonPromptXB;
 
     private bool playerMounted = false;
 
@@ -44,7 +44,9 @@ public class Turret : MonoBehaviour
 
     private void Start()
     {
+        
         reloadNotif.SetActive(false);
+        buttonPromptXB.SetActive(false);
         currentAmmo = maxAmmo;
 
         aimPos = transform.position;
@@ -78,6 +80,7 @@ public class Turret : MonoBehaviour
         player = p;
         currentControls = player.GetComponent<PlayerControls>();
         crosshair.SetActive(true);
+        buttonPromptXB.SetActive(false);
         playerMounted = true;
     }
 

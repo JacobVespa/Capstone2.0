@@ -55,6 +55,7 @@ public class PlayerInteract : MonoBehaviour
         if (other.CompareTag("Turret"))
         {
             turret = other.GetComponent<Turret>();
+            turret.buttonPromptXB.SetActive(true);
             canMount = true;
             currentInteractObject = other.gameObject;
             //testing reload
@@ -98,6 +99,8 @@ public class PlayerInteract : MonoBehaviour
     {
         if (other.CompareTag("Turret"))
         {
+            turret = other.GetComponent<Turret>();
+            turret.buttonPromptXB.SetActive(false);
             canMount = false;
             currentInteractObject = other.gameObject;
         }

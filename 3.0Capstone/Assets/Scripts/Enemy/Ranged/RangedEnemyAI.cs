@@ -48,6 +48,9 @@ public class RangedEnemyAI : EnemyAI
             case Behaviour.CoolDown:
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
                 break;
+            case Behaviour.Dead:
+
+                break;
         }
     }
 

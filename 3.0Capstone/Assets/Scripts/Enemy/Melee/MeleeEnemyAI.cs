@@ -52,6 +52,9 @@ public class MeleeEnemyAI : EnemyAI
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue();}
                 
                 break;
+            case Behaviour.Dead:
+
+                break;
         }
     }
 
