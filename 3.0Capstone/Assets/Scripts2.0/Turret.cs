@@ -42,9 +42,16 @@ public class Turret : MonoBehaviour
     [SerializeField] private GameObject bulletSpawnLocation;
     private float bulletSpeed = 50f;
 
+    private Vector2 screenBounds;
+    private float objectWidth;
+    private float objectHeight;
+
     private void Start()
     {
-        
+        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        objectWidth = crosshair.transform.GetComponent<SpriteRenderer>().bounds.extents.x;
+        objectHeight = crosshair.transform.GetComponent<SpriteRenderer>().bounds.extents.y;
+
         reloadNotif.SetActive(false);
         buttonPromptXB.SetActive(false);
         currentAmmo = maxAmmo;
@@ -68,11 +75,13 @@ public class Turret : MonoBehaviour
                 DetermineTarget();
             else
                 ManualTarget();
+            //ClampCrosshair();
         }
         else
         {
             lineRenderer.enabled = false; //probably a better way to do this
         }
+
     }
 
     public void Mount(GameObject p)
@@ -101,7 +110,7 @@ public class Turret : MonoBehaviour
             ShootBullet();
             currentAmmo--;
             ammoCountText.text = currentAmmo.ToString();
-            if (currentAmmo ==0)
+            if (currentAmmo == 0)
             {
                 reloadNotif.SetActive(true);
                 needsReload = true; //test
@@ -110,7 +119,7 @@ public class Turret : MonoBehaviour
             StartCoroutine(ShootingVFX());
             StartCoroutine(CoolDown());
         }
-        
+
     }
 
     public void HitEnemy(Collider2D col)
@@ -199,7 +208,26 @@ public class Turret : MonoBehaviour
     private void ManualTarget()
     {
         aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
-        crosshair.transform.position = aimPos;
+        if (aimPos.x >= (screenBounds.x))
+        {
+            aimPos.x = screenBounds.x - objectWidth;
+        }
+        else if (aimPos.x <= (-screenBounds.x))
+        {
+            aimPos.x = -screenBounds.x + objectWidth;
+        }
+        else if (aimPos.y >= (screenBounds.y))
+        {
+            aimPos.y = screenBounds.y - objectHeight;
+        }
+        else if (aimPos.y <= (-screenBounds.y))
+        {
+            aimPos.y = -screenBounds.y + objectHeight;
+        }
+        else
+        {
+            crosshair.transform.position = aimPos;
+        }
     }
 
     IEnumerator ShootingVFX()
