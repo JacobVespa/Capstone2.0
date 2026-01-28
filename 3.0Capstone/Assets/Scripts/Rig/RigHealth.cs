@@ -1,4 +1,5 @@
 
+using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 
 public class RigHealth : MonoBehaviour, IDamageReceiver
 {
-    [SerializeField] private float health = 100;
+    [SerializeField] private float maxHealth = 10;
     [SerializeField] private float currentHealth;
     [SerializeField] private float lastHealthStep;
     [SerializeField] private GameObject[] damagedAreas;
@@ -32,7 +33,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     {
         if(healthBarFill  != null)
         {
-            healthBarFill.fillAmount = health;
+            healthBarFill.fillAmount = maxHealth;
             healthBarFill.color = Color.green;
         }
         
@@ -44,7 +45,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             
         }
 
-        currentHealth = health;
+        currentHealth = maxHealth;
         lastHealthStep = currentHealth / 5;
     }
 
@@ -86,12 +87,16 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             Death();
         }
 
-        if (currentStep < lastHealthStep)
+        if(currentHealth % 2 == 0)
         {
-            
             EnableDamagedArea();
-            lastHealthStep = currentStep;
         }
+
+        //if (currentStep < lastHealthStep)
+        //{
+        //    EnableDamagedArea();
+        //    lastHealthStep = currentStep;
+        //}
     }
 
     public void HealDamage(float healed)
@@ -105,7 +110,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
         if (currentHealth >= 30)
         {
-            currentHealth = health;
+            currentHealth = maxHealth;
         }
     }
 
