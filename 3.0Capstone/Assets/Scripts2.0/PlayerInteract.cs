@@ -17,6 +17,9 @@ public class PlayerInteract : MonoBehaviour
 
     private PlayerMovement playerMove;
     private Turret turret;
+    private RepairStation repairBox;
+    private AmmoBox ammoBox;
+    private Engine engine;
 
     //temp
     private bool canSpawnWall = true;
@@ -67,11 +70,15 @@ public class PlayerInteract : MonoBehaviour
         }
         else if (other.CompareTag("Ammo"))
         {
+            ammoBox = other.GetComponent<AmmoBox>();
+            ammoBox.buttonPromptXB.SetActive(true);
             canPickup = true;
             currentInteractObject = other.gameObject;
         }
         else if (other.CompareTag("Repair"))
         {
+            repairBox = other.GetComponent<RepairStation>();
+            repairBox.buttonPromptXB.SetActive(true);
             canRepair = true;
             currentInteractObject = other.gameObject;
         }
@@ -81,6 +88,8 @@ public class PlayerInteract : MonoBehaviour
         }
         else if (other.CompareTag("Engine"))
         {
+            engine = other.GetComponent<Engine>();
+            engine.buttonPromptXB.SetActive(true);
             canEngine = true;
             currentInteractObject = other.gameObject;
         }
@@ -106,9 +115,21 @@ public class PlayerInteract : MonoBehaviour
         }
         else if (other.CompareTag("Ammo"))
         {
+            ammoBox = other.GetComponent<AmmoBox>();
+            ammoBox.buttonPromptXB.SetActive(false);
             canPickup = false;
             currentInteractObject = other.gameObject;
-        }  
+        }
+        else if(other.CompareTag("Repair"))
+        {
+            repairBox = other.GetComponent<RepairStation>();
+            repairBox.buttonPromptXB.SetActive(false);
+        }
+        else if(other.CompareTag("Engine"))
+        {
+            engine = other.GetComponent<Engine>();
+            engine.buttonPromptXB.SetActive(false);
+        }
     }
 
 

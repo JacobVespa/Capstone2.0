@@ -26,8 +26,11 @@ public class Engine : MonoBehaviour
     private float heat = 0f;        
     private float targetHeat = 0f;
 
+    [SerializeField] public GameObject buttonPromptXB;
+
     private void Start()
     {
+       buttonPromptXB.SetActive(false);
        wallMove = FindObjectsByType<WallMoving>(sortMode: FindObjectsSortMode.None);
     }
     // Update is called once per frame

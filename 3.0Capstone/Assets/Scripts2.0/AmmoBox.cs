@@ -6,6 +6,12 @@ public class AmmoBox : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     //reference to the ammo round
     public GameObject ammoRound;
+    [SerializeField] public GameObject buttonPromptXB;
+
+    private void Start()
+    {
+        buttonPromptXB.SetActive(false);
+    }
 
     //instantiating the ammo round
     public void SpawnAmmo()
