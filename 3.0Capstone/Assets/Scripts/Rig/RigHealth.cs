@@ -91,12 +91,6 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         {
             EnableDamagedArea();
         }
-
-        //if (currentStep < lastHealthStep)
-        //{
-        //    EnableDamagedArea();
-        //    lastHealthStep = currentStep;
-        //}
     }
 
     public void HealDamage(float healed)

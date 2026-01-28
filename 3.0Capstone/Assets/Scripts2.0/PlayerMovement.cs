@@ -178,7 +178,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (isHoldingRepair && interactor.currentInteractObject.CompareTag("Damaged"))
         {
-            interactor.currentInteractObject.SetActive(false);
+            RepairPatch repair = interactor.currentInteractObject.GetComponentInChildren<RepairPatch>();
+            repair.Activate();
+            interactor.currentInteractObject.GetComponent<SpriteRenderer>().enabled = false;
             interactor.canRepair = false;
             isHoldingRepair = false;
             heldRepair.SetActive(false);
