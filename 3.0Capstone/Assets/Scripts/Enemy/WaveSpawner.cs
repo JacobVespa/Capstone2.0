@@ -151,7 +151,7 @@ public class WaveSpawner : MonoBehaviour
         if (prefab.layer == 7)
         {
             EnemyBody body = prefab.GetComponent<EnemyBody>();
-            body.sprite.SetActive(false);
+            body.Sprite.SetActive(false);
 
             spawnPos = rigTarget.transform.position;
 

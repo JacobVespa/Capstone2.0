@@ -49,7 +49,7 @@ public class TickEnemyAI : EnemyAI
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
                 break;
             case Behaviour.Dead:
-
+                if (CheckDeathPlayed()) { DestroyEnemy(); }
                 break;
         }
     }

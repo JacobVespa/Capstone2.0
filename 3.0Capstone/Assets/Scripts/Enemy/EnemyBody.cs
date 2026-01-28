@@ -21,8 +21,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [Header("Required Components")]
     [SerializeField] protected EnemyAI ai;  // only the base class of enemyAI, methods in enemy spcific AI scripts can't be called, must implemneted in the base class
     [SerializeField] protected Animator animator;
-    [SerializeField] public GameObject sprite;
+    [SerializeField] protected GameObject sprite;
     [SerializeField] protected DamageSource damageSource;
+
+    public Animator Animator { get { return animator; } }
+    public GameObject Sprite { get { return sprite; } }
 
     [Header("Visual Effect Componenets")]
     [SerializeField] public GameObject attackNotif;
@@ -155,7 +158,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         health -= damage;
         if(health <= 0)
         {
-            StartCoroutine(Death());
+            StartCoroutine(StartDeath());
         }
     }
 
@@ -164,7 +167,8 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     //  - sets ai state to death, turns off colldiers on enemy, removes it from the attack queue
     //  - plays comic death and death animation if they aren't null
     //  - after a second the gameobject is destroyed
-    private IEnumerator Death()
+    // NOTE: this coroutine does nto actual delete the game object, that is dealt with in the enemy ai 
+    private IEnumerator StartDeath()
     {
         ai.RemoveFromAttackQueue();
         ai.behaviour = EnemyAI.Behaviour.Dead;
@@ -178,7 +182,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             ParticleSystem comicDeath2 = Instantiate(comicDeath);
             comicDeath2.transform.parent = null;
             comicDeath2.Play();
-            Destroy(comicDeath2, 5);
+            Destroy(comicDeath2, 3);
         }
 
         if (animator != null) //if enemy has animations, play them before triggering death
@@ -187,17 +191,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             yield return new WaitForSeconds(1);
             animator.SetBool("Death", false);
         }
-        
 
-        if(GameManager.Instance != null)
-        {
-            GameManager.Instance.AddKills(1);
-        }
-
-        //  this will probably have to be changed since having the game object being destroyed after an arbitrary 
-        //  period of time for all enemy bodies is messy (particualry for ranged enemies since their projectiles will despawn as well).
-        //  probably best to set this up in the ai death state and check if the death aniamtion is doen playing(and all projectiles are gone for ranged enemies)
-        Destroy(this.gameObject); 
     }
 
     //  shakes the parent of the sprite object

@@ -53,7 +53,7 @@ public class MeleeEnemyAI : EnemyAI
                 
                 break;
             case Behaviour.Dead:
-
+                if (CheckDeathPlayed()) { DestroyEnemy(); }
                 break;
         }
     }

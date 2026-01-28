@@ -75,6 +75,19 @@ public class RangedEnemyBody : EnemyBody
         return CreateProjectile();
     }
 
+    
+    public bool CheckProjectiles()
+    {
+        foreach(Projectile b in bullets)
+        {
+            if (b.active)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // creates a bulelt prefab in the object pool 
     private Projectile CreateProjectile()
     {

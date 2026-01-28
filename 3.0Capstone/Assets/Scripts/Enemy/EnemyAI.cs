@@ -18,7 +18,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(EnemyBody))]
 public abstract class EnemyAI : MonoBehaviour
 {
-
+    private EnemyBody baseBody;
     public Behaviour behaviour;
 
     public enum Behaviour
@@ -53,7 +53,7 @@ public abstract class EnemyAI : MonoBehaviour
 
     protected virtual void Awake()
     {
-        
+        if (baseBody == null) { baseBody = GetComponent<EnemyBody>(); }
         if (target == null) { hasTarget = false; }
         else { hasTarget = true; }
         if (hasTarget == true) { targetDist = transform.position - target.transform.position; }
@@ -98,5 +98,29 @@ public abstract class EnemyAI : MonoBehaviour
         AddToAttackQueue();
 
         behaviour = Behaviour.Ready;
+    }
+
+    // checks if the animation being played is death and if its done then returns true or false
+    // NOTE: aniamtion state must have a tag called "Death" for this function to work
+    protected bool CheckDeathPlayed()
+    {
+        if (baseBody.Animator == null) { return true; }
+        
+            AnimatorStateInfo state = baseBody.Animator.GetCurrentAnimatorStateInfo(0);
+        
+        if (state.IsTag("Death") && state.normalizedTime >= 1)
+        {
+            return true;
+        }
+        else { return false; }
+    }
+
+    protected void DestroyEnemy()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.AddKills(1);
+        }
+        Destroy(this.gameObject);
     }
 }
