@@ -10,6 +10,14 @@ public class WallMoving : MonoBehaviour
     //offset wall position for despawning
     private float offsetPos = -43.5f;
 
+    //random spawn rate
+    private float spawnRate = 0.2f; //20%
+
+    private void Start()
+    {
+        SpawnGems();
+    }
+
     void Update()
     {
         if(gameObject.CompareTag("Wall"))
@@ -26,10 +34,23 @@ public class WallMoving : MonoBehaviour
         {
             //Destroy(gameObject);
             transform.position = new Vector3(0, 43.5f, 0);
-            foreach (GameObject gem in gems)
+            //foreach (GameObject gem in gems)
+            //{
+            //    Resource resource = gem.GetComponent<Resource>();
+            //    resource.Respawn();
+            //}
+            SpawnGems();
+        }
+    }
+
+    private void SpawnGems()
+    {
+        foreach(GameObject gem in gems)
+        {
+            float randChance = Random.value; //generates value between 0.0 and 1.0
+            if(randChance <= spawnRate && !gem.activeSelf)
             {
-                Resource resource = gem.GetComponent<Resource>();
-                resource.Respawn();
+                gem.SetActive(true);
             }
         }
     }
