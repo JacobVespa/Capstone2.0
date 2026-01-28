@@ -70,7 +70,7 @@ public class RangedEnemyAI : EnemyAI
     {
         if (!hasTarget) { return; }
         if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
-        body.Attack(target);
+        body.Attack(targetLoc);
     }
 
     // shoots out a raycast on the default layers and checks if anyhit by them are the target 
@@ -85,7 +85,7 @@ public class RangedEnemyAI : EnemyAI
         
         foreach (RaycastHit2D h in r)
         {
-            if (h.collider.gameObject == target)
+            if (h.collider.gameObject == attackTarget)
             {
                 
                 if (h.distance <= AttackRange)

@@ -72,7 +72,7 @@ public class MeleeEnemyAI : EnemyAI
     {
         if (!hasTarget) { return; }
         if(body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
-        body.Attack(target);
+        body.Attack(attackTarget);
         
     }
 
@@ -82,7 +82,9 @@ public class MeleeEnemyAI : EnemyAI
         if (behaviour == Behaviour.Dead) return;
         if (collision.isTrigger) return;
 
-        if (target != null && collision.transform.root == target.transform)
+        
+
+        if (attackTarget != null && collision.transform.root == targetLoc.transform.root)
         {
             behaviour = Behaviour.Ready;
             AddToAttackQueue();
@@ -95,7 +97,7 @@ public class MeleeEnemyAI : EnemyAI
         if (behaviour == Behaviour.Dead) return;
         if (collision.isTrigger) return;
 
-        if (target != null && collision.transform.root == target.transform)
+        if (attackTarget != null && collision.transform.root == targetLoc.transform.root)
         {
             behaviour = Behaviour.Moving;
             RemoveFromAttackQueue();

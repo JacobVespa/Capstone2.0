@@ -35,7 +35,9 @@ public abstract class EnemyAI : MonoBehaviour
 
     [SerializeField] public AttackQueueAgent agent;
 
-    [SerializeField] protected GameObject target;
+    [SerializeField] protected GameObject attackTarget;
+    [SerializeField] protected GameObject targetLoc;
+    
     [SerializeField] protected bool hasTarget;
     
     protected Vector2 targetDist = Vector3.zero;
@@ -54,19 +56,20 @@ public abstract class EnemyAI : MonoBehaviour
     protected virtual void Awake()
     {
         if (baseBody == null) { baseBody = GetComponent<EnemyBody>(); }
-        if (target == null) { hasTarget = false; }
+        if (attackTarget == null) { hasTarget = false; }
         else { hasTarget = true; }
-        if (hasTarget == true) { targetDist = transform.position - target.transform.position; }
+        if (targetLoc != null) { targetDist = transform.position - targetLoc.transform.position; }
         if (agent == null) { agent = GetComponent<AttackQueueAgent>(); }
     }
 
     //  method all EnemyAI need to implement which determines the enemyBody's action depending on the current state
     protected abstract void AIFlowChart();
 
-    public void SetTarget(GameObject newTarget)
+    public void SetTarget(GameObject attack, GameObject loc)
     {
-        target = newTarget;
-        hasTarget = (target != null);
+        attackTarget = attack;
+        targetLoc = loc;
+        hasTarget = (attackTarget != null);
     }
 
     //  find the direction between the enemy and the target
@@ -75,7 +78,7 @@ public abstract class EnemyAI : MonoBehaviour
     {
         if (!hasTarget) { moveInput = Vector2.zero; return; }
 
-        targetDist = target.transform.position - transform.position;
+        targetDist = targetLoc.transform.position - transform.position;
 
         moveInput = new Vector2(targetDist.x, targetDist.y);
         moveInput = moveInput.normalized;

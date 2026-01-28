@@ -58,7 +58,7 @@ public class TickEnemyAI : EnemyAI
     {
         if (!hasTarget) { return; }
         if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
-        body.Attack(target);
+        body.Attack(attackTarget);
     }
 
 }

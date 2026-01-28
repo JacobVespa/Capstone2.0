@@ -176,7 +176,7 @@ public class WaveSpawner : MonoBehaviour
         EnemyAI ai = enemy.GetComponent<EnemyAI>();
         if (ai != null && rigTarget != null)
         {
-            ai.SetTarget(rigTarget);
+            ai.SetTarget(rigTarget, rigTarget);
         }
     }
     private int GetAliveCount()

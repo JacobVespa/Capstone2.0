@@ -86,7 +86,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behaviour: 0
   agent: {fileID: 5810221720297493789}
-  target: {fileID: 0}
+  attackTarget: {fileID: 0}
+  targetLoc: {fileID: 0}
   hasTarget: 0
 --- !u!114 &3739521471955693038
 MonoBehaviour:
@@ -114,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad3a8812346807b4ebfd3500c877a3cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 0}
+  body: {fileID: 1819607150089767085}
 --- !u!50 &375707694229889882
 Rigidbody2D:
   serializedVersion: 5
