@@ -35,7 +35,7 @@ public class RangedEnemyBody : EnemyBody
     // shoots out a bullet at the target
     public override void Attack(GameObject target)
     {
-        if (attackTimer <= attackStartUp) { return; }
+        if (attackTimer < attackStartUp) { return; }
         
         base.Attack(target);
         

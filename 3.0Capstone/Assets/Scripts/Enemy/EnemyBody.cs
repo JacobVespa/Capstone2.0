@@ -89,7 +89,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     private void UpdateStartUp()
     {
         if(ai.behaviour != EnemyAI.Behaviour.Attacking && ai.behaviour != EnemyAI.Behaviour.CoolDown) { return; }
-        if(attackTimer >= attackStartUp || attackTimer >= attackCoolDown) { return; }
+        if(attackTimer >= attackStartUp && attackTimer >= attackCoolDown) { return; }
         //if (ai.agent != null && !ai.agent.CanDealDamage) { return; }
         
         attackTimer += 1 * Time.fixedDeltaTime;
@@ -104,6 +104,16 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         attackNotif.SetActive(false);
         
         ai.behaviour = EnemyAI.Behaviour.CoolDown;
+    }
+
+    public virtual bool CheckCoolDown()
+    {
+        if( attackTimer >= attackCoolDown)
+        {
+            attackTimer = 0;
+            return true;
+        }
+        else { return false; }
     }
 
     #region Handle Movement

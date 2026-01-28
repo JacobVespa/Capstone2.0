@@ -49,7 +49,8 @@ public class MeleeEnemyAI : EnemyAI
                 TryAttackTarget();
                 break;
             case Behaviour.CoolDown:    // change so that it starts a cooldown timer and only goes to back of queue once the timer is done
-                MoveToBottomOfQueue();
+                if (body.CheckCoolDown()) { MoveToBottomOfQueue();}
+                
                 break;
         }
     }
