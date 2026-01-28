@@ -16,6 +16,8 @@ public class Turret : MonoBehaviour
     public bool needsReload = false;
     [SerializeField] public TextMeshPro ammoCountText;
 
+    [SerializeField] private GameObject buttonPromptXB;
+
     private bool playerMounted = false;
 
     [SerializeField] private float shootingCD = 1f;

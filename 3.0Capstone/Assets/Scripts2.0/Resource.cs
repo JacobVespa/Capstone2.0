@@ -26,6 +26,7 @@ public class Resource : MonoBehaviour
     {
         int previousHP = currentHP;
         crystalCrack.Play();
+        shardScatter.Play();
         audioSource.Play();
         //shardScatter.Play();
         StartCoroutine(Shake());
