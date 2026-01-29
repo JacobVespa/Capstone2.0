@@ -5,7 +5,10 @@ public class WallMoving : MonoBehaviour
 {
     [SerializeField] public float wallMoveSpeed;
     [SerializeField] public float floorMoveSpeed;
-    [SerializeField] private GameObject[] gems;
+    [SerializeField] private bool isLooping = true;
+    
+    private bool hasFinished = false;
+    private Vector3 startPosition;
 
     //offset wall position for despawning
     private float offsetPos = -43.5f;
@@ -13,12 +16,35 @@ public class WallMoving : MonoBehaviour
     //random spawn rate
     private float spawnRate = 0.2f; //20%
 
+    [SerializeField] private GameObject[] gems;
+
     private void Start()
     {
+        startPosition = transform.position;
         SpawnGems();
     }
 
     void Update()
+    {
+        if (isLooping)
+        {
+            WallMovement();
+        }
+        else if (!hasFinished)
+        {
+            WallMovement();
+            
+            // Calculate total distance traveled from start position
+            float distanceTraveled = startPosition.y - transform.position.y;
+            
+            if(distanceTraveled >= Mathf.Abs(offsetPos))
+            {
+                hasFinished = true;
+            }
+        }
+    }
+
+    private void WallMovement()
     {
         if(gameObject.CompareTag("Wall"))
         {
@@ -30,9 +56,8 @@ public class WallMoving : MonoBehaviour
         }
 
         //check if destroy based on offset
-        if(transform.position.y <= offsetPos)
-        {
-            //Destroy(gameObject);
+        if(isLooping && transform.position.y <= offsetPos)
+        {  
             transform.position = new Vector3(0, 43.5f, 0);
             SpawnGems();
         }
@@ -50,4 +75,14 @@ public class WallMoving : MonoBehaviour
         }
     }
 
+    // Public method to toggle looping at runtime
+    public void SetLooping(bool looping)
+    {
+        isLooping = looping;
+        if(!looping)
+        {
+            hasFinished = false;
+            startPosition = transform.position; // Reset start position when disabling looping
+        }
+    }
 }
