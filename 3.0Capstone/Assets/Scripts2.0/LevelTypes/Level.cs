@@ -1,10 +1,11 @@
 using UnityEngine;
+using System;
 
 public class Level
 {
     protected LevelManager levelManager => LevelManager.Instance;
 
-    public enum LevelType // Temp boss types for now
+    public enum LevelType
     {
         SCROLLER = 1,
         DEFENCE = 2,
@@ -13,7 +14,7 @@ public class Level
 
     protected LevelType levelType;
     protected int sceneIndex;
-    protected float duration; // in seconds
+    protected float duration;
     protected int finalWave;
     protected int waves;
 
@@ -34,33 +35,45 @@ public class Level
         this.finalWave = TotalWaves;
     }
 
-    public virtual void StartLevel() // Menu -> Level
+    public virtual void StartLevel()
     {
         if (levelManager == null) return;
 
-        levelManager.LoadScene(sceneIndex);
+        levelManager.LoadScene(sceneIndex, OnSceneLoaded);
     }
 
-    public virtual void WindDownLevel(bool goNext) // Level -> Level Transition
+    // This is called automatically when the scene finishes loading
+    protected virtual void OnSceneLoaded()
+    {
+        MonoStart();
+    }
+
+    // Override this in child classes for MonoBehaviour-like initialization
+    public virtual void MonoStart()
+    {
+        // Base implementation - override in child classes
+    }
+
+    public virtual void WindDownLevel(bool goNext)
     {
         if (levelManager == null) return;
 
         levelManager.StartWindDownLevel(goNext);
     }
 
-    public virtual void EndLevel() // Level -> Menu  | OR | Level -> End Game
+    public virtual void EndLevel()
     {
         if (levelManager == null) return;
 
-        levelManager.LoadScene(0); //Loops to menu for now, add logic to determine othe levels later
+        levelManager.LoadScene(0);
         SoundManager.Instance.PlayBGM("CaveFight");
     }
 
-    public virtual void RestartLevel() // Level -> Level
+    public virtual void RestartLevel()
     {
         if (levelManager == null) return;
 
-        levelManager.LoadScene(sceneIndex);
+        levelManager.LoadScene(sceneIndex, OnSceneLoaded);
     }
 
     public LevelType GetLevelType()

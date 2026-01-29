@@ -6,10 +6,8 @@ public class CameraCinematic : MonoBehaviour
     private Camera mainCamera;
 
     [Header("Movement Settings")]
-    [SerializeField] private Transform targetTransform;
     [SerializeField] private Vector3 targetPosition;
     [SerializeField] private float moveSpeed = 5f;
-    [SerializeField] private bool useTransform = true; // Use transform or direct Vector3
     [SerializeField] private bool maintainZPosition = true;
     [SerializeField] private bool useSmoothDamp = false; // Use SmoothDamp instead of Lerp
 
@@ -49,12 +47,6 @@ public class CameraCinematic : MonoBehaviour
     // Start moving the camera
     public void MoveCamera()
     {
-        if (useTransform && targetTransform == null)
-        {
-            Debug.LogWarning("Target Transform is not assigned!");
-            return;
-        }
-
         isMoving = true;
     }
 
@@ -69,19 +61,11 @@ public class CameraCinematic : MonoBehaviour
     public void SetTargetPosition(Vector3 newTarget)
     {
         targetPosition = newTarget;
-        useTransform = false;
-    }
-
-    // Set a new target transform
-    public void SetTargetTransform(Transform newTarget)
-    {
-        targetTransform = newTarget;
-        useTransform = true;
     }
 
     private void UpdateCameraMovement()
     {
-        Vector3 target = GetTargetPosition();
+        Vector3 target = targetPosition;
 
         if (maintainZPosition)
         {
@@ -115,15 +99,6 @@ public class CameraCinematic : MonoBehaviour
         }
     }
 
-    private Vector3 GetTargetPosition()
-    {
-        if (useTransform && targetTransform != null)
-        {
-            return targetTransform.position;
-        }
-        return targetPosition;
-    }
-
     // Move to position with custom speed (one-shot)
     public void MoveCameraTo(Vector3 destination, float customSpeed = -1f)
     {
@@ -134,7 +109,6 @@ public class CameraCinematic : MonoBehaviour
         else
         {
             targetPosition = destination;
-            useTransform = false;
             MoveCamera();
         }
     }
@@ -183,12 +157,19 @@ public class CameraCinematic : MonoBehaviour
     // Instantly snap to target
     public void SnapToTarget()
     {
-        Vector3 target = GetTargetPosition();
+        Vector3 target = targetPosition;
         if (maintainZPosition)
         {
             target.z = originalZ;
         }
         mainCamera.transform.position = target;
         isMoving = false;
+    }
+
+    // Move to position and start immediately (convenience method)
+    public void MoveCameraToPosition(Vector3 newTarget)
+    {
+        SetTargetPosition(newTarget);
+        MoveCamera();
     }
 }
