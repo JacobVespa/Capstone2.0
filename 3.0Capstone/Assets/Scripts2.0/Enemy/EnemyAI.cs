@@ -55,6 +55,7 @@ public abstract class EnemyAI : MonoBehaviour
 
     protected virtual void Awake()
     {
+        if (targetLoc == null) { targetLoc = attackTarget; }
         if (baseBody == null) { baseBody = GetComponent<EnemyBody>(); }
         if (attackTarget == null) { hasTarget = false; }
         else { hasTarget = true; }

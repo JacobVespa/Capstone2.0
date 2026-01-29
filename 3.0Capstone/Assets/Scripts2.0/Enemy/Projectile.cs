@@ -55,6 +55,7 @@ public class Projectile : MonoBehaviour, IDamageReceiver
 
     public void Attacked(DamageSource d)
     {
+        Debug.Log(Destructable);
         if (!Destructable || !(d.DamageTarget == DamageSource.DamageType.Enemy) ) { return ; }
         
         DisableProjectile();
@@ -73,16 +74,16 @@ public class Projectile : MonoBehaviour, IDamageReceiver
     {
         
 
-        if (collision.transform.root.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); }
-        DisableProjectile();
+        if (collision.transform.root.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); DisableProjectile(); }
+        
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
         
-        if(collision.transform.root.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource);  }
-        DisableProjectile();
+        if(collision.transform.root.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr)) { dr.Attacked(damageSource); DisableProjectile(); }
+        
 
     }
 }
