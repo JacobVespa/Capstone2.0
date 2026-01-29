@@ -39,6 +39,7 @@ public class DefenceLevel : Level
     private WaveSpawner[] spawnsers;
     private CameraCinematic cinematic;
     private bool hasStarted = false;
+    [SerializeField] private float startTime = 5f;
 
     void Start()
     {
@@ -56,7 +57,7 @@ public class DefenceLevel : Level
     {
         if (spawnsers == null || spawnsers.Length == 0) return;
 
-        if (!hasStarted && cinematic != null)
+        if (!hasStarted && cinematic != null && GameManager.Instance.GameTime >= startTime)
         {
             cinematic.MoveCamera();
             hasStarted = true;

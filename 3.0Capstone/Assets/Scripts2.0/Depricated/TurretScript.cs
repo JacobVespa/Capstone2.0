@@ -14,7 +14,7 @@ public class TurretScript : MonoBehaviour
     private GameObject mountedPlayer;
     
     private CharacterController controller;
-    private PlayerBody body;
+    //private PlayerBody body;
     private PlayerInput input;
 
     [SerializeField] private Transform turretTransformOrigin;
@@ -59,10 +59,10 @@ public class TurretScript : MonoBehaviour
         if (input != null)
         {
             Vector2 lookInput = input.actions["Look"].ReadValue<Vector2>();
-            float sensitivity = body.LookSensitivity;
+            //float sensitivity = body.LookSensitivity;
 
-            yaw += lookInput.x * sensitivity;
-            pitch -= lookInput.y * sensitivity;
+            //yaw += lookInput.x * sensitivity;
+            //pitch -= lookInput.y * sensitivity;
 
             pitch = Mathf.Clamp(pitch, -20f, 80f);
             yaw = Mathf.Clamp(yaw, -80f, 80f);
@@ -103,14 +103,14 @@ public class TurretScript : MonoBehaviour
 
         mountedPlayer = player;
         controller = player.GetComponent<CharacterController>();
-        body = player.GetComponent<PlayerBody>();
+        //body = player.GetComponent<PlayerBody>();
         input = player.GetComponent<PlayerInput>();
         
         // Stop player movement but allow looking
-        if (body != null)
-        {
-            body.EnterStation();
-        }
+        //if (body != null)
+        //{
+            //body.EnterStation();
+        //}
 
         // Parent player to turret
         player.transform.SetParent(turretTransform);
@@ -135,10 +135,10 @@ public class TurretScript : MonoBehaviour
         }
         
         // Re-enable player movement before clearing reference
-        if (body != null)
-        {
-            body.ExitStation();
-        }
+        //if (body != null)
+        //{
+            //body.ExitStation();
+        //}
 
         // Unparent player
         if (mountedPlayer != null)
@@ -148,7 +148,7 @@ public class TurretScript : MonoBehaviour
 
         mountedPlayer = null;
         controller = null;
-        body = null;
+        //body = null;
         input = null;
         turretTransform = turretTransformOrigin;
     }
@@ -181,15 +181,15 @@ public class TurretScript : MonoBehaviour
 
     private IEnumerator Teleport(GameObject player, Transform location, bool gravity)
     {
-        if (controller == null || player == null || body == null)
-            yield break;
+        //if (controller == null || player == null || body == null)
+            //yield break;
 
         controller.enabled = false;
 
         // Move player to the location
         player.transform.position = location.position;
         player.transform.rotation = location.rotation;
-        body.EnableGravity(gravity);
+        //body.EnableGravity(gravity);
 
         yield return null;
 

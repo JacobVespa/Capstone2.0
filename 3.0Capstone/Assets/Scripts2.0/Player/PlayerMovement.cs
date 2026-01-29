@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInteract interactor;
     private InputControlManager inputControlManager;
     private Animator playerAnimator;
-    private RigHealth rigHealth;
+    //private RigHealth rigHealth;
     private Engine engine;
     private AudioSource playerAudioSource;
 
@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         player = GetComponent<CharacterController>();
         interactor = GetComponentInChildren<PlayerInteract>();
         inputControlManager = InputControlManager.Instance;
-        rigHealth = FindFirstObjectByType<RigHealth>();
+        //rigHealth = FindFirstObjectByType<RigHealth>();
         engine = FindFirstObjectByType<Engine>();
         playerAudioSource = GetComponent<AudioSource>();
 
@@ -184,7 +184,7 @@ public class PlayerMovement : MonoBehaviour
             interactor.canRepair = false;
             isHoldingRepair = false;
             heldRepair.SetActive(false);
-            rigHealth.HealDamage(1); //testing something
+            //rigHealth.HealDamage(1); //testing something
         }
     }
 
