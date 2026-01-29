@@ -172,11 +172,20 @@ public class WaveSpawner : MonoBehaviour
         GameObject enemy = Instantiate(prefab, spawnPos, spawnPoint.rotation);
         trackedEnemies.Add(enemy);
 
+        GameObject attackPoint = rigTarget;
+
+        if(spawnPoint.TryGetComponent<SpawnPoint>(out SpawnPoint sp))
+        {
+            if(sp.ReturnTargetPoint() != null) { attackPoint = sp.ReturnTargetPoint(); }
+            
+        }
+        
         // Assign target if possible
         EnemyAI ai = enemy.GetComponent<EnemyAI>();
         if (ai != null && rigTarget != null)
         {
-            ai.SetTarget(rigTarget, rigTarget);
+            
+            ai.SetTarget(rigTarget, attackPoint);
         }
     }
     private int GetAliveCount()

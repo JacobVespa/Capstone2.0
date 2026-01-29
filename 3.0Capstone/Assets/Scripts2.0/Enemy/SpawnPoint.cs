@@ -7,8 +7,9 @@ public class SpawnPoint : MonoBehaviour
 {
     [SerializeField] private List<GameObject> targetPoints = new List<GameObject>();
 
-    public GameObject returnTargetPoint()
+    public GameObject ReturnTargetPoint()
     {
+        if (targetPoints.Count == 0) { return null; }
         return targetPoints[Random.Range(0,targetPoints.Count)];
     }
 }
