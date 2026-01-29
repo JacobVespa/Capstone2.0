@@ -21,6 +21,8 @@ public class GameflowManager : MonoBehaviour
         }
         else if (CurrentLevel is DefenceLevel defenceLevel)
         {
+            defenceLevel.UpdateLevel();
+
             if (defenceLevel.WavesCompleted > defenceLevel.FinalWave)
             {
                 levelRunning = false;

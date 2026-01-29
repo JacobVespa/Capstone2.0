@@ -8,7 +8,13 @@ public class DefenceLevel : Level
     }
 
     private int wavesCompleted = 0;
-    public int WavesCompleted {get { return wavesCompleted; } }
+    public int WavesCompleted { get { return wavesCompleted; } }
+
+    private WaveSpawner[] spawners;
+    private CameraCinematic cinematic;
+    private bool hasStarted = false;
+    private bool initialized = false;
+    private float startTime = 10f;
 
     public override void StartLevel()
     {
@@ -17,10 +23,31 @@ public class DefenceLevel : Level
         base.StartLevel();
     }
 
+    public override void MonoStart()
+    {
+        // This is called automatically after the scene loads
+        cinematic = GameObject.FindObjectsByType<CameraCinematic>(FindObjectsSortMode.None)[0];
+        spawners = GameObject.FindObjectsByType<WaveSpawner>(FindObjectsSortMode.None);
+
+        foreach (WaveSpawner spawner in spawners)
+        {
+            spawner.CurrentWave = 0;
+            spawner.enabled = false;
+        }
+
+        initialized = true;
+        Debug.Log("Defence Level MonoStart completed");
+    }
+
     public override void RestartLevel()
     {
         Debug.Log("Restarting Defence Level");
         if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("CaveFight");
+        
+        hasStarted = false;
+        wavesCompleted = 0;
+        initialized = false;
+        
         base.RestartLevel();
     }
 
@@ -32,40 +59,24 @@ public class DefenceLevel : Level
 
     public override void EndLevel()
     {
-        Debug.Log("Ending Scroller Level");
+        Debug.Log("Ending Defence Level");
         base.EndLevel();
     }
 
-    private WaveSpawner[] spawnsers;
-    private CameraCinematic cinematic;
-    private bool hasStarted = false;
-    [SerializeField] private float startTime = 5f;
-
-    void Start()
+    public void UpdateLevel()
     {
-        cinematic = GameObject.FindObjectsByType<CameraCinematic>(FindObjectsSortMode.None)[0];
-        spawnsers = GameObject.FindObjectsByType<WaveSpawner>(FindObjectsSortMode.None);
-
-        foreach (WaveSpawner spawner in spawnsers)
-        {
-            spawner.CurrentWave = 0;
-            spawner.enabled = false;
-        }
-    }
-
-    void Update()
-    {
-        if (spawnsers == null || spawnsers.Length == 0) return;
+        if (!initialized || spawners == null) return;
 
         if (!hasStarted && cinematic != null && GameManager.Instance.GameTime >= startTime)
         {
             cinematic.MoveCamera();
             hasStarted = true;
+            Debug.Log("Starting Waves");
         }
 
         bool canStart = false;
 
-        foreach (WaveSpawner spawner in spawnsers)
+        foreach (WaveSpawner spawner in spawners)
         {
             if (!spawner.WaveComplete())
             {
@@ -90,12 +101,11 @@ public class DefenceLevel : Level
             return;
         }
         StartWave();
-
     }
 
     private void StartWave()
     {
-        foreach (WaveSpawner spawner in spawnsers)
+        foreach (WaveSpawner spawner in spawners)
         {
             spawner.enabled = true;
             spawner.CurrentWave = 0;

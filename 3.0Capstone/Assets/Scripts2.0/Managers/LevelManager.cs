@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class LevelManager : MonoBehaviour
     public static LevelManager Instance { get; private set; }
 
     private bool isLoading = false;
+    private Action onSceneLoadedCallback;
 
     [SerializeField] private float fadeTime = 2.0f;
     [SerializeField] private GameObject fadeOut;
@@ -43,11 +45,16 @@ public class LevelManager : MonoBehaviour
         // Reset the loading flag whenever a scene finishes loading
         isLoading = false;
         if (GameManager.Instance != null) GameManager.Instance.ResumeGameTime();
+        
+        // Invoke callback if set
+        onSceneLoadedCallback?.Invoke();
+        onSceneLoadedCallback = null; // Clear after invoking
     }
 
-    public void LoadScene(int index)
+    public void LoadScene(int index, Action onLoadComplete = null)
     {
         if (isLoading) return;
+        onSceneLoadedCallback = onLoadComplete;
         StartCoroutine(LoadSceneAsync(index));
     }
 
