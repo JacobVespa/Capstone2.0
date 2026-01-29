@@ -80,7 +80,7 @@ public class RangedEnemyAI : EnemyAI
     {
 
         
-        RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, moveInput, 100, layer_mask);
+        RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, attackTarget.transform.position - transform.position , 100, layer_mask);
 
         
         foreach (RaycastHit2D h in r)
