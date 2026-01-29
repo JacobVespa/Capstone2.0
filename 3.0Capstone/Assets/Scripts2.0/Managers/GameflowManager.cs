@@ -21,7 +21,7 @@ public class GameflowManager : MonoBehaviour
         }
         else if (CurrentLevel is DefenceLevel defenceLevel)
         {
-            if (defenceLevel.WavesCompleted >= defenceLevel.FinalWave)
+            if (defenceLevel.WavesCompleted > defenceLevel.FinalWave)
             {
                 levelRunning = false;
                 GameManager.Instance.Victory();
@@ -43,9 +43,9 @@ public class GameflowManager : MonoBehaviour
     public void StartDefenseLevel()
     {
         int currentSceneIndex = 4;
-        int currentWaves = 5;
+        int finalWave = 3;
         
-        CurrentLevel = new DefenceLevel(currentSceneIndex, currentWaves);
+        CurrentLevel = new DefenceLevel(currentSceneIndex, finalWave);
         BeginLevel();
     }
 

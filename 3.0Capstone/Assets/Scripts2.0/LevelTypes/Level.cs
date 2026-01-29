@@ -32,7 +32,6 @@ public class Level
         this.levelType = type;
         this.sceneIndex = index;
         this.finalWave = TotalWaves;
-        //this.waves = 0;
     }
 
     public virtual void StartLevel() // Menu -> Level

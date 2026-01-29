@@ -103,7 +103,7 @@ public class WaveSpawner : MonoBehaviour
     {
         while (true)
         {
-            if (finiteWaves && currentWave >= totalWaves)
+            if (WaveComplete())
                 yield break;
 
             currentWave++;
@@ -201,6 +201,11 @@ public class WaveSpawner : MonoBehaviour
     }
 
     // Some stuff for debugging
-    public int CurrentWave => currentWave;
+    public int CurrentWave { set { currentWave = value; } }
     public int AliveEnemies => GetAliveCount();
+
+    public bool WaveComplete()
+    {
+        return finiteWaves && currentWave >= totalWaves;
+    }
 }
