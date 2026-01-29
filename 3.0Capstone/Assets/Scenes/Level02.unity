@@ -677,8 +677,9 @@ GameObject:
   - component: {fileID: 1117950277}
   - component: {fileID: 1117950276}
   - component: {fileID: 1117950275}
+  - component: {fileID: 1117950279}
   m_Layer: 0
-  m_Name: Main Camera (1)
+  m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -802,6 +803,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1117950279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1117950274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 630cd710ed0ae3a49ac303c3e9ef881e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetTransform: {fileID: 0}
+  targetPosition: {x: 0, y: -28, z: 0}
+  moveSpeed: 5
+  useTransform: 1
+  maintainZPosition: 1
+  useSmoothDamp: 0
+  arrivalThreshold: 0.1
+  autoMove: 0
 --- !u!1001 &1146485742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1279,7 +1300,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 6854b780e7ab520488931ca0fdbe15db, type: 3}
   m_Color: {r: 0.053800307, g: 0.18486224, b: 0.8773585, a: 1}
   m_FlipX: 0
