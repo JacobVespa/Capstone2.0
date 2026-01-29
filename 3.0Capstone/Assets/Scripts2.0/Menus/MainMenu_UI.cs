@@ -3,16 +3,10 @@ using UnityEngine.UI;
 
 public class MainMenu_UI : MonoBehaviour
 {
-    [SerializeField] private Button startButton;
-    [SerializeField] private Button optionsButton;
-    [SerializeField] private Button creditsButton;
+    [SerializeField] private GameObject options;
+    [SerializeField] private GameObject menu;
 
-    private void Awake()
-    {
-        startButton.onClick.AddListener(OnStartButtonClicked);
-    }
-
-    private void OnStartButtonClicked()
+    public void StartButtonClicked()
     {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         if (gameflowManager != null)
@@ -25,9 +19,16 @@ public class MainMenu_UI : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    public void OptionButtonClicked()
     {
-        startButton.onClick.RemoveListener(OnStartButtonClicked);
+        menu.SetActive(false);
+        options.SetActive(true);
+    }
+
+    public void BackButtonClicked()
+    {
+        menu.SetActive(true);
+        options.SetActive(false);
     }
 
 }
