@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public class MainMenu_UI : MonoBehaviour
 {
-    [SerializeField] private GameObject options;
-    [SerializeField] private GameObject menu;
+    [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject optionsMenu;
 
     public void StartButtonClicked()
     {
@@ -21,14 +21,13 @@ public class MainMenu_UI : MonoBehaviour
 
     public void OptionButtonClicked()
     {
-        menu.SetActive(false);
-        options.SetActive(true);
+        mainMenu.SetActive(false);
+        optionsMenu.SetActive(true);
     }
 
     public void BackButtonClicked()
     {
-        menu.SetActive(true);
-        options.SetActive(false);
+        mainMenu.SetActive(true);
+        optionsMenu.SetActive(false);
     }
-
 }
