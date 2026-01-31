@@ -75,6 +75,12 @@ public class Engine : MonoBehaviour
             {
                 wallMove[i].wallMoveSpeed = 0.0f;
                 wallMove[i].floorMoveSpeed = 0.0f;
+
+                GameflowManager flowManager = FindFirstObjectByType<GameflowManager>();
+                if (flowManager != null)
+                {
+                    //flowManager.CurrentLevel.Cinematic.ShakeCamera(1.0f, 0.3f);
+                }
             }
 
             //Debug.Log("ENGINE HOT!!!!");

@@ -11,7 +11,6 @@ public class DefenceLevel : Level
     public int WavesCompleted { get { return wavesCompleted; } }
 
     private WaveSpawner[] spawners;
-    private CameraCinematic cinematic;
     private bool hasStarted = false;
     private bool initialized = false;
     private float startTime = 10f;
@@ -67,9 +66,9 @@ public class DefenceLevel : Level
     {
         if (!initialized || spawners == null) return;
 
-        if (!hasStarted && cinematic != null && GameManager.Instance.GameTime >= startTime)
+        if (!hasStarted && this.cinematic != null && GameManager.Instance.GameTime >= startTime)
         {
-            cinematic.MoveCamera();
+            this.cinematic.MoveCamera();
             hasStarted = true;
             Debug.Log("Starting Waves");
         }

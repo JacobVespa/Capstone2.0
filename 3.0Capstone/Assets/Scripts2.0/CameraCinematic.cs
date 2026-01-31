@@ -17,6 +17,7 @@ public class CameraCinematic : MonoBehaviour
     
     private bool isMoving = false;
     private Vector3 velocity = Vector3.zero; // For SmoothDamp
+    private Vector3 originalPosition;
     private float originalZ;
 
     private void Start()
@@ -29,6 +30,7 @@ public class CameraCinematic : MonoBehaviour
         }
 
         originalZ = mainCamera.transform.position.z;
+        originalPosition = mainCamera.transform.position;
 
         if (autoMove)
         {
@@ -164,6 +166,30 @@ public class CameraCinematic : MonoBehaviour
         }
         mainCamera.transform.position = target;
         isMoving = false;
+    }
+
+    public void ShakeCamera(float duration, float magnitude)
+    {
+        StartCoroutine(Shake(duration, magnitude));
+    }
+
+    private IEnumerator Shake(float duration, float magnitude)
+    {
+        float elapsed = 0.0f;
+
+        while (elapsed < duration)
+        {
+            float offsetX = Random.Range(-1f, 1f) * magnitude;
+            float offsetY = Random.Range(-1f, 1f) * magnitude;
+
+            mainCamera.transform.position = new Vector3(originalPosition.x + offsetX, originalPosition.y + offsetY, originalPosition.z);
+
+            elapsed += Time.deltaTime;
+
+            yield return null;
+        }
+
+        mainCamera.transform.position = originalPosition;
     }
 
     // Move to position and start immediately (convenience method)

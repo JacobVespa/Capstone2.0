@@ -13,6 +13,7 @@ public class Level
     }
 
     protected LevelType levelType;
+    protected CameraCinematic cinematic;
     protected int sceneIndex;
     protected float duration;
     protected int finalWave;
@@ -20,6 +21,7 @@ public class Level
 
     public float Duration => duration;
     public int FinalWave => finalWave;
+    public CameraCinematic Cinematic => cinematic;
 
     public Level(LevelType type, int index, float durationSeconds)
     {
