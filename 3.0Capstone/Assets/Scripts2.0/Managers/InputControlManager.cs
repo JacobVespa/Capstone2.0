@@ -16,9 +16,6 @@ public class InputControlManager : MonoBehaviour
         {
             Instance = this;
         }
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Confined;
         playerInputManager = GetComponent<PlayerInputManager>();
     }
 

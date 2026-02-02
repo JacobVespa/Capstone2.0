@@ -14,7 +14,6 @@ public class MainMenu_UI : MonoBehaviour
         if (gameflowManager != null)
         {
             gameflowManager.StartScrollerLevel();
-            soundManager.StopBGM();
         }
         else
         {

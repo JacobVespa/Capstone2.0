@@ -55,6 +55,7 @@ public class GameflowManager : MonoBehaviour
     {
         ResetValues();
         levelRunning = true;
+        CursorHidden(true);
         CurrentLevel?.StartLevel();
     }
 
@@ -64,6 +65,7 @@ public class GameflowManager : MonoBehaviour
 
         GameManager.Instance.ResetGameTime();
         levelRunning = false;
+        CursorHidden(false);
         CurrentLevel?.EndLevel();
     }
 
@@ -73,6 +75,7 @@ public class GameflowManager : MonoBehaviour
 
         ResetValues();
         levelRunning = true;
+        CursorHidden(true);
         CurrentLevel?.RestartLevel();
     }
 
@@ -83,6 +86,7 @@ public class GameflowManager : MonoBehaviour
         GameManager.Instance.PauseGameTime();
         GameManager.Instance.ResetGameTime();
         levelRunning = false;
+        CursorHidden(false);
         CurrentLevel?.WindDownLevel(goNext);
     }
 
@@ -94,5 +98,11 @@ public class GameflowManager : MonoBehaviour
         GameManager.Instance.GameOverTriggered = false;
         GameManager.Instance.ResetGameTime();
         GameManager.Instance.StartGameTime();
+    }
+
+    public void CursorHidden(bool isHidden)
+    {
+        Cursor.visible = !isHidden;
+        Cursor.lockState = isHidden ? CursorLockMode.Confined : CursorLockMode.None;
     }
 }
