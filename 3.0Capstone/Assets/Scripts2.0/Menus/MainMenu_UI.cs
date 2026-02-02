@@ -1,12 +1,21 @@
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.EventSystems;
+//using UnityEngine.UI;
 
 public class MainMenu_UI : MonoBehaviour
 {
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject startButton;
+    [SerializeField] private GameObject optionsTabButton;
 
     [SerializeField] SoundManager soundManager;
+
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(startButton);
+    }
 
     public void StartButtonClicked()
     {
