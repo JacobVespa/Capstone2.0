@@ -6,12 +6,15 @@ public class MainMenu_UI : MonoBehaviour
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
 
+    [SerializeField] SoundManager soundManager;
+
     public void StartButtonClicked()
     {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         if (gameflowManager != null)
         {
             gameflowManager.StartScrollerLevel();
+            soundManager.StopBGM();
         }
         else
         {
