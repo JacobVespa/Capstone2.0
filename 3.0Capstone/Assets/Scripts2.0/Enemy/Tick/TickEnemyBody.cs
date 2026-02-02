@@ -14,9 +14,9 @@ using UnityEngine.UIElements;
 public class TickEnemyBody : EnemyBody
 {
 
-    private Rigidbody2D rb;
+    protected Rigidbody2D rb;
 
-    private Vector2 notifPos;
+    protected Vector2 notifPos;
 
     public bool dropping = false;
 

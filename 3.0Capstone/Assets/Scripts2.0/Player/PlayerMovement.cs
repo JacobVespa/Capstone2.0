@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls playerControls;
-    private CharacterController player;
+    
     private PlayerInteract interactor;
     private InputControlManager inputControlManager;
     private Animator playerAnimator;
@@ -40,7 +41,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         playerControls = GetComponent<PlayerControls>();
-        player = GetComponent<CharacterController>();
         interactor = GetComponentInChildren<PlayerInteract>();
         inputControlManager = InputControlManager.Instance;
         rigHealth = FindFirstObjectByType<RigHealth>();
@@ -84,13 +84,13 @@ public class PlayerMovement : MonoBehaviour
         HandleInput();
     }
 
-    private void HandleMovement(Vector2 direction)
+    private void HandleMovement(Vector3 direction)
     {
-        player.Move((direction * movementSpeed) * Time.deltaTime);
         
+        transform.position = (transform.position + (direction * movementSpeed * Time.deltaTime));
         // Only set walk animation to true if actually moving
         //bool isMoving = moveDirection.magnitude > 0.1f;
-        if(direction.magnitude > 0)
+        if (direction.magnitude > 0)
         {
             playerAnimator.SetBool("MoleWalk", true);
         }
@@ -234,9 +234,8 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Teleport(Transform location)
     {
-        player.enabled = false;
+        
         this.transform.position = location.position;
-        player.enabled = true;
         yield return null;
     }
 

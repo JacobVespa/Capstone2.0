@@ -9,7 +9,7 @@ public class PlayerInteract : MonoBehaviour
     public bool canEngine = false;
 
     [SerializeField] private float interactRange = 1.2f;
-    private SphereCollider interactCollider;
+    private CircleCollider2D interactCollider;
 
     public GameObject currentInteractObject;
 
@@ -35,7 +35,7 @@ public class PlayerInteract : MonoBehaviour
 
     private void Start()
     {
-        interactCollider = GetComponent<SphereCollider>();
+        interactCollider = GetComponent<CircleCollider2D>();
         interactCollider.radius = interactRange;
         playerMove = GetComponentInParent<PlayerMovement>();
     }
@@ -53,7 +53,7 @@ public class PlayerInteract : MonoBehaviour
      * Object( currentInteractObject ) --> tracks which object collider the player is currently inside
      */
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Turret"))
         {
@@ -62,7 +62,7 @@ public class PlayerInteract : MonoBehaviour
             canMount = true;
             currentInteractObject = other.gameObject;
             //testing reload
-            if(playerMove.isHoldingAmmo)
+            if (playerMove.isHoldingAmmo)
             {
                 turret.RefillAmmo();
                 playerMove.HandleDrop();
@@ -95,6 +95,8 @@ public class PlayerInteract : MonoBehaviour
         }
     }
 
+
+
     /*
      * Method that determines when a player exits a collider, setting proper parameters to flase
      * 
@@ -104,7 +106,7 @@ public class PlayerInteract : MonoBehaviour
      * 
      */
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Turret"))
         {
@@ -120,12 +122,12 @@ public class PlayerInteract : MonoBehaviour
             canPickup = false;
             currentInteractObject = other.gameObject;
         }
-        else if(other.CompareTag("Repair"))
+        else if (other.CompareTag("Repair"))
         {
             repairBox = other.GetComponent<RepairStation>();
             repairBox.buttonPromptXB.SetActive(false);
         }
-        else if(other.CompareTag("Engine"))
+        else if (other.CompareTag("Engine"))
         {
             engine = other.GetComponent<Engine>();
             engine.buttonPromptXB.SetActive(false);

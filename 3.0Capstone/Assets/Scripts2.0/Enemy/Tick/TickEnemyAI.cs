@@ -11,7 +11,7 @@ public class TickEnemyAI : EnemyAI
 {
     protected TickEnemyBody body;
 
-    private Vector2 dropPos;
+    protected Vector2 dropPos;
 
     protected override void Awake()
     {
@@ -54,7 +54,7 @@ public class TickEnemyAI : EnemyAI
         }
     }
 
-    private void TryAttackTarget()
+    protected void TryAttackTarget()
     {
         if (!hasTarget) { return; }
         if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
