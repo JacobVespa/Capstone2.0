@@ -41,4 +41,9 @@ public class MainMenu_UI : MonoBehaviour
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
     }
+
+    public void QuitButtonClicked()
+    {
+        Application.Quit();
+    }
 }
