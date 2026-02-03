@@ -92,7 +92,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             Die();
     }
 
-    public void HealDamage()
+    public void HealDamage() //TODO make sure the player cannot heal a patched hole!
     {
         if (currentHealth <= 0f) return;
 
