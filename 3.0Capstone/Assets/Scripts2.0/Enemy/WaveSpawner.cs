@@ -99,6 +99,20 @@ public class WaveSpawner : MonoBehaviour
             Debug.LogWarning("[WaveSpawner] No enemy prefabs assigned.");
 
         // Don't start automatically - wait for external trigger
+
+        if (finiteWaves == false)
+        {
+            StartNewWave();
+        }
+    }
+
+    private void Update()
+    {
+        if (!waveActive && !finiteWaves)
+        {
+            StartNewWave();
+            return;
+        }
     }
 
     public void StartNewWave()
