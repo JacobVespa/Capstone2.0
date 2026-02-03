@@ -58,16 +58,6 @@ public class MeleeEnemyAI : EnemyAI
         }
     }
 
-    protected override void ApproachTarget()
-    {
-        base.ApproachTarget();
-        
-        if (body != null)
-        {
-            body.InputDir = moveInput;
-        }
-    }
-
     private void TryAttackTarget()
     {
         if (!hasTarget) { return; }
