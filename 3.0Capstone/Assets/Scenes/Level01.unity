@@ -571,7 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallMoveSpeed: 2
-  floorMoveSpeed: 3
+  floorMoveSpeed: 4
   isLooping: 1
   gems: []
 --- !u!95 &543979937
@@ -773,7 +773,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallMoveSpeed: 2
-  floorMoveSpeed: 3
+  floorMoveSpeed: 4
   isLooping: 1
   gems: []
 --- !u!95 &628331147
@@ -1931,6 +1931,10 @@ PrefabInstance:
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[9].y
       value: 5.1871705
       objectReference: {fileID: 0}
+    - target: {fileID: 3262591110869973579, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3686836771572647104, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: m_Name
       value: RIG 1
@@ -1973,6 +1977,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5549594053007277627, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6960641949364750900, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8150358986223529605, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
