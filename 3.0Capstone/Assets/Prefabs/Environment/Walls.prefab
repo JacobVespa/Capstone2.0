@@ -50,6 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wallMoveSpeed: 3
   floorMoveSpeed: 2
+  isLooping: 1
   gems:
   - {fileID: 1492813518965167239}
   - {fileID: 6523769654135355234}
@@ -193,7 +194,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -7908060902378338669, guid: 0341b234ec558e7428478f176a20b335, type: 3}
+  m_Sprite: {fileID: -2227539361268478049, guid: be372d8dbd769bf41b82e710270fd550, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -229,13 +230,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8491379538968054312}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 37.71554, y: -0.10125306, z: 0.15743439}
   m_LocalScale: {x: 4.056777, y: 4.056777, z: 4.056777}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8404779495572291077}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1194201018092787727
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -280,7 +281,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -7908060902378338669, guid: 0341b234ec558e7428478f176a20b335, type: 3}
+  m_Sprite: {fileID: -3372088736135789423, guid: aff37b219f6f7734298e62b8f98fbc4e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
