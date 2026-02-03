@@ -47,6 +47,7 @@ using UnityEngine;
  * - Enemies automatically target the RIG on spawn
  * - Uses activeSelf to track alive enemies
  * - Suitable for all rooms
+ * - Controlled externally by DefenceLevel for gameplay waves
  */
 
 
@@ -79,6 +80,8 @@ public class WaveSpawner : MonoBehaviour
     // Runtime
     private int currentWave = 0;
     private int spawnedThisWave = 0;
+    private bool waveActive = false;
+    private bool waveSpawningComplete = false;
 
     private readonly List<GameObject> trackedEnemies = new List<GameObject>();
 
@@ -95,47 +98,64 @@ public class WaveSpawner : MonoBehaviour
         if (enemyPrefabs.Count == 0)
             Debug.LogWarning("[WaveSpawner] No enemy prefabs assigned.");
 
-        waveRoutine = StartCoroutine(RunWaves());
+        // Don't start automatically - wait for external trigger
     }
 
-
-    private IEnumerator RunWaves()
+    public void StartNewWave()
     {
-        while (true)
+        if (waveActive)
         {
-            if (WaveComplete())
-                yield break;
+            Debug.LogWarning("[WaveSpawner] Trying to start a new wave while one is already active!");
+            return;
+        }
 
-            currentWave++;
-            spawnedThisWave = 0;
+        currentWave++;
+        spawnedThisWave = 0;
+        waveActive = true;
+        waveSpawningComplete = false;
 
-            // Spawn enemies for this wave
-            while (spawnedThisWave < enemiesPerWave)
+        if (waveRoutine != null)
+            StopCoroutine(waveRoutine);
+
+        waveRoutine = StartCoroutine(RunSingleWave());
+        Debug.Log($"[WaveSpawner] Started wave {currentWave}");
+    }
+
+    private IEnumerator RunSingleWave()
+    {
+        // Spawn enemies for this wave
+        while (spawnedThisWave < enemiesPerWave)
+        {
+            CleanupTrackedList();
+
+            // Enforce alive cap
+            if (GetAliveCount() >= maxAliveEnemies)
             {
-                CleanupTrackedList();
-
-                // Enforce alive cap
-                if (GetAliveCount() >= maxAliveEnemies)
-                {
-                    yield return null;
-                    continue;
-                }
-
-                SpawnOneEnemy();
-                spawnedThisWave++;
-
-                yield return new WaitForSeconds(spawnInterval);
+                yield return null;
+                continue;
             }
 
-            // Wave spawned fully
-            if (requireWaveClearToAdvance)
+            SpawnOneEnemy();
+            spawnedThisWave++;
+
+            yield return new WaitForSeconds(spawnInterval);
+        }
+
+        waveSpawningComplete = true;
+        Debug.Log($"[WaveSpawner] Wave {currentWave} spawning complete");
+
+        // Wave spawned fully - wait for clear if required
+        if (requireWaveClearToAdvance)
+        {
+            while (GetAliveCount() > 0)
             {
-                while (GetAliveCount() > 0)
-                {
-                    yield return null;
-                }
+                yield return null;
             }
         }
+
+        // Wave fully complete
+        waveActive = false;
+        Debug.Log($"[WaveSpawner] Wave {currentWave} fully complete");
     }
 
     private void SpawnOneEnemy()
@@ -188,6 +208,7 @@ public class WaveSpawner : MonoBehaviour
             ai.SetTarget(rigTarget, attackPoint);
         }
     }
+
     private int GetAliveCount()
     {
         int alive = 0;
@@ -209,12 +230,28 @@ public class WaveSpawner : MonoBehaviour
         }
     }
 
-    // Some stuff for debugging
-    public int CurrentWave { set { currentWave = value; } }
-    public int AliveEnemies => GetAliveCount();
-
-    public bool WaveComplete()
+    public void ResetSpawner()
     {
-        return finiteWaves && currentWave >= totalWaves;
+        if (waveRoutine != null)
+            StopCoroutine(waveRoutine);
+
+        currentWave = 0;
+        spawnedThisWave = 0;
+        waveActive = false;
+        waveSpawningComplete = false;
+
+        // Clean up all tracked enemies
+        foreach (GameObject enemy in trackedEnemies)
+        {
+            if (enemy != null)
+                Destroy(enemy);
+        }
+        trackedEnemies.Clear();
     }
+
+    // Public accessors for DefenceLevel
+    public bool IsWaveActive => waveActive;
+    public bool IsWaveComplete => !waveActive && waveSpawningComplete;
+    public int CurrentWave => currentWave;
+    public int AliveEnemies => GetAliveCount();
 }

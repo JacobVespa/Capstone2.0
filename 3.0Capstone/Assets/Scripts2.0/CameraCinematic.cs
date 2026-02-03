@@ -9,20 +9,20 @@ public class CameraCinematic : MonoBehaviour
     [SerializeField] private Vector3 targetPosition;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private bool maintainZPosition = true;
-    [SerializeField] private bool useSmoothDamp = false; // Use SmoothDamp instead of Lerp
+    [SerializeField] private bool useSmoothDamp = false;
 
     [Header("Completion Settings")]
-    [SerializeField] private float arrivalThreshold = 0.1f; // How close to consider "arrived"
-    [SerializeField] private bool autoMove = false; // Automatically move on Start
-    
+    [SerializeField] private float arrivalThreshold = 0.1f;
+    [SerializeField] private bool autoMove = false;
+
     private bool isMoving = false;
-    private Vector3 velocity = Vector3.zero; // For SmoothDamp
-    private Vector3 originalPosition;
+    private Vector3 velocity = Vector3.zero;
     private float originalZ;
+
+    private Coroutine shakeCoroutine;
 
     private void Start()
     {
-        // Cache the main camera
         mainCamera = Camera.main;
         if (mainCamera == null)
         {
@@ -30,7 +30,6 @@ public class CameraCinematic : MonoBehaviour
         }
 
         originalZ = mainCamera.transform.position.z;
-        originalPosition = mainCamera.transform.position;
 
         if (autoMove)
         {
@@ -46,20 +45,17 @@ public class CameraCinematic : MonoBehaviour
         }
     }
 
-    // Start moving the camera
     public void MoveCamera()
     {
         isMoving = true;
     }
 
-    // Stop the camera movement
     public void StopCamera()
     {
         isMoving = false;
         velocity = Vector3.zero;
     }
 
-    // Set a new target position directly
     public void SetTargetPosition(Vector3 newTarget)
     {
         targetPosition = newTarget;
@@ -74,26 +70,24 @@ public class CameraCinematic : MonoBehaviour
             target.z = originalZ;
         }
 
-        // Choose movement method
         if (useSmoothDamp)
         {
             mainCamera.transform.position = Vector3.SmoothDamp(
-                mainCamera.transform.position, 
-                target, 
-                ref velocity, 
+                mainCamera.transform.position,
+                target,
+                ref velocity,
                 1f / moveSpeed
             );
         }
         else
         {
             mainCamera.transform.position = Vector3.Lerp(
-                mainCamera.transform.position, 
-                target, 
+                mainCamera.transform.position,
+                target,
                 moveSpeed * Time.deltaTime
             );
         }
 
-        // Check if arrived
         if (Vector3.Distance(mainCamera.transform.position, target) < arrivalThreshold)
         {
             mainCamera.transform.position = target;
@@ -101,7 +95,6 @@ public class CameraCinematic : MonoBehaviour
         }
     }
 
-    // Move to position with custom speed (one-shot)
     public void MoveCameraTo(Vector3 destination, float customSpeed = -1f)
     {
         if (customSpeed > 0)
@@ -129,17 +122,17 @@ public class CameraCinematic : MonoBehaviour
             if (useSmoothDamp)
             {
                 mainCamera.transform.position = Vector3.SmoothDamp(
-                    mainCamera.transform.position, 
-                    destination, 
-                    ref localVelocity, 
+                    mainCamera.transform.position,
+                    destination,
+                    ref localVelocity,
                     1f / speed
                 );
             }
             else
             {
                 mainCamera.transform.position = Vector3.Lerp(
-                    mainCamera.transform.position, 
-                    destination, 
+                    mainCamera.transform.position,
+                    destination,
                     speed * Time.deltaTime
                 );
             }
@@ -150,13 +143,11 @@ public class CameraCinematic : MonoBehaviour
         mainCamera.transform.position = destination;
     }
 
-    // Check if camera is currently moving
     public bool IsMoving()
     {
         return isMoving;
     }
 
-    // Instantly snap to target
     public void SnapToTarget()
     {
         Vector3 target = targetPosition;
@@ -164,35 +155,47 @@ public class CameraCinematic : MonoBehaviour
         {
             target.z = originalZ;
         }
+
         mainCamera.transform.position = target;
         isMoving = false;
     }
 
     public void ShakeCamera(float duration, float magnitude)
     {
-        StartCoroutine(Shake(duration, magnitude));
+        if (shakeCoroutine != null)
+        {
+            StopCoroutine(shakeCoroutine);
+        }
+
+        shakeCoroutine = StartCoroutine(Shake(duration, magnitude));
     }
 
     private IEnumerator Shake(float duration, float magnitude)
     {
-        float elapsed = 0.0f;
+        float elapsed = 0f;
+
+        Vector3 shakeOrigin = mainCamera.transform.position;
 
         while (elapsed < duration)
         {
             float offsetX = Random.Range(-1f, 1f) * magnitude;
             float offsetY = Random.Range(-1f, 1f) * magnitude;
 
-            mainCamera.transform.position = new Vector3(originalPosition.x + offsetX, originalPosition.y + offsetY, originalPosition.z);
+            mainCamera.transform.position = new Vector3(
+                shakeOrigin.x + offsetX,
+                shakeOrigin.y + offsetY,
+                shakeOrigin.z
+            );
 
             elapsed += Time.deltaTime;
-
             yield return null;
         }
 
-        mainCamera.transform.position = originalPosition;
+        // Restore to where the camera actually was
+        mainCamera.transform.position = shakeOrigin;
+        shakeCoroutine = null;
     }
 
-    // Move to position and start immediately (convenience method)
     public void MoveCameraToPosition(Vector3 newTarget)
     {
         SetTargetPosition(newTarget);
