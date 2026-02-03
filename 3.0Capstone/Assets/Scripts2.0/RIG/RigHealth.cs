@@ -1,198 +1,175 @@
-
-using JetBrains.Annotations;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.U2D;
 using UnityEngine.UI;
-
-
 
 public class RigHealth : MonoBehaviour, IDamageReceiver
 {
-    [SerializeField] private float maxHealth = 10;
+    [Header("Health")]
+    [SerializeField] private float maxHealth = 10f;
     [SerializeField] private float currentHealth;
-    [SerializeField] private float lastHealthStep;
+
+    [Tooltip("How many visual damage stages exist")]
+    private int damageStages;
     [SerializeField] private GameObject[] damagedAreas;
 
-    //Health bar slop or whatever
+    [Header("UI")]
     [SerializeField] private Image healthBarFill;
     [SerializeField] private Image vignette;
 
-    //Rig Shake
-    [Header("Cam Shake Stats")]
-    [SerializeField] public Camera mainCam;
-    public float camShakeDur = 0.3f;   // how long the shake lasts
-    public float camShakeStr = 0.1f;    // how strong the shake is
-    private Vector3 originalPosition;
+    [Header("Camera Shake")]
+    [SerializeField] private Camera mainCam;
+    [SerializeField] private float camShakeDur = 0.3f;
+    [SerializeField] private float camShakeStr = 0.1f;
 
+    private Vector3 originalCamPos;
+    private int lastDamageStage = 0;
 
-
-    public float Health { get { return currentHealth; } set {  currentHealth = value; } }
+    public float Health => currentHealth;
+    public float HealthNormalized => currentHealth / maxHealth;
 
     private void Awake()
     {
-        if(healthBarFill  != null)
+        currentHealth = maxHealth;
+
+        if (healthBarFill != null)
         {
-            healthBarFill.fillAmount = maxHealth;
+            healthBarFill.fillAmount = 1f;
             healthBarFill.color = Color.green;
         }
-        
 
-        //Set areaOccupied to false, as to indicate a damagedAreaSpawn area is not occupied
-        for(int i = 0; i < damagedAreas.Length; i++)
-        {
-            damagedAreas[i].SetActive(false);
-            
-        }
+        damageStages = damagedAreas.Length;
 
-        currentHealth = maxHealth;
-        lastHealthStep = currentHealth / 5;
+        foreach (var area in damagedAreas)
+            area.SetActive(false);
+
+        if (mainCam != null)
+            originalCamPos = mainCam.transform.position;
     }
 
     public void Attacked(DamageSource d)
     {
         if (d.DamageTarget == DamageSource.DamageType.Player)
-        {
-            TakeDamage(d.DamageVal);
-        }
+            ApplyDamage(d.DamageVal);
     }
 
-    private void TakeDamage(float damage)
+    private void ApplyDamage(float damage)
     {
-        currentHealth -= damage;
-        if(healthBarFill != null)
-        {
-            healthBarFill.fillAmount -= 1.0f / currentHealth;
-            Color newcolor = new Color();
-            newcolor.a = 1;
-            newcolor.r = 1 - (1 / currentHealth);
-            newcolor.g = 1 / currentHealth;
-            healthBarFill.color = Color.Lerp(healthBarFill.color, newcolor, 1.0f / currentHealth);
-        }
-        
+        if (currentHealth <= 0f) return;
 
+        currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
+
+        UpdateHealthUI();
+        UpdateDamageStages();
 
         StartCoroutine(Shake());
-        if(vignette != null)
-        {
-            StartCoroutine(Vignette(Color.red));
-        }
-        
+        StartCoroutine(Vignette(Color.red));
 
-        float currentStep = currentHealth / 5;
-
-        if (currentHealth <= 0)
-        {
-            //Debug.Log("Here");
-            Death();
-        }
-
-        if(currentHealth % 2 == 0)
-        {
-            EnableDamagedArea();
-        }
+        if (currentHealth <= 0f)
+            Die();
     }
 
-    public void HealDamage(float healed)
+    public void HealDamage(float amount)
     {
-        currentHealth += healed;
-        healthBarFill.fillAmount += 1.0f / currentHealth;
+        if (currentHealth <= 0f) return;
 
-        //change vignette color
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHealth);
+
+        UpdateHealthUI();
+        UpdateDamageStages();
+
         StartCoroutine(Vignette(Color.green));
-        
-
-        if (currentHealth >= 30)
-        {
-            currentHealth = maxHealth;
-        }
     }
 
-    private void EnableDamagedArea()
+    private void UpdateHealthUI()
     {
-        if (CheckDamagedArea()) { return; }
-        int spawnIndex = Random.Range(0, damagedAreas.Length);
+        if (healthBarFill == null) return;
 
-        while (true)
+        float t = HealthNormalized;
+        healthBarFill.fillAmount = t;
+        healthBarFill.color = Color.Lerp(Color.red, Color.green, t);
+    }
+
+    private void UpdateDamageStages()
+    {
+        if (damagedAreas == null || damagedAreas.Length == 0) return;
+
+        int currentStage = Mathf.FloorToInt((1f - HealthNormalized) * damageStages);
+
+        if (currentStage <= lastDamageStage)
+            return;
+
+        lastDamageStage = currentStage;
+
+        EnableNextDamagedArea();
+    }
+
+    private void EnableNextDamagedArea()
+    {
+        foreach (var area in damagedAreas)
         {
-            if (damagedAreas[spawnIndex].activeSelf == false)
+            if (!area.activeSelf)
             {
-                damagedAreas[spawnIndex].SetActive(true);
-                break;
+                area.SetActive(true);
+                return;
             }
-
-            spawnIndex = Random.Range(0, damagedAreas.Length);
         }
-
     }
 
-    private bool CheckDamagedArea()
-    {
-
-        foreach (GameObject da in damagedAreas)
-        {
-            if(da.activeSelf == false) { return false; }
-        }
-
-        return true;
-    }
-
-    private void Death()
+    private void Die()
     {
         GameManager.Instance.GameOverStatus = true;
-        //this.gameObject.SetActive(false);
     }
 
-    IEnumerator Vignette(Color vigColor)
+    private IEnumerator Vignette(Color color)
     {
-        vigColor.a = 0f;
-        vignette.color = vigColor;
-        vignette.gameObject.SetActive(true);
-        float alphaEnd = 100f / 255f;
-        float alpha = 0.0f;
+        if (vignette == null) yield break;
 
-        while (alpha < alphaEnd)
+        color.a = 0f;
+        vignette.color = color;
+        vignette.gameObject.SetActive(true);
+
+        float alphaTarget = 100f / 255f;
+        float alpha = 0f;
+
+        while (alpha < alphaTarget)
         {
-            alpha += 2.0f * Time.deltaTime;
-            vigColor.a = alpha;
-            vignette.color = vigColor;
+            alpha += 2f * Time.deltaTime;
+            color.a = alpha;
+            vignette.color = color;
             yield return null;
         }
 
-        vigColor.a = alphaEnd;
-        vignette.color = vigColor;
-
         yield return new WaitForSeconds(0.2f);
 
-        while (alpha > 0.0f)
+        while (alpha > 0f)
         {
-            alpha -= 2.0f * Time.deltaTime;
-            vigColor.a = alpha;
-            vignette.color = vigColor;
+            alpha -= 2f * Time.deltaTime;
+            color.a = alpha;
+            vignette.color = color;
             yield return null;
         }
 
         vignette.gameObject.SetActive(false);
     }
-    IEnumerator Shake()
-    {
-        float elapsed = 0f;
-        originalPosition = mainCam.transform.position;
 
-        //mainCam = gameObject.transform.parent.gameObject;
+    private IEnumerator Shake()
+    {
+        if (mainCam == null) yield break;
+
+        float elapsed = 0f;
+        Vector3 startPos = originalCamPos;
 
         while (elapsed < camShakeDur)
         {
             float x = Random.Range(-1f, 1f) * camShakeStr;
             float y = Random.Range(-1f, 1f) * camShakeStr;
 
-            mainCam.transform.position = originalPosition + new Vector3(x, y, 0);
+            mainCam.transform.position = startPos + new Vector3(x, y, 0f);
 
             elapsed += Time.deltaTime;
             yield return null;
         }
 
-        mainCam.transform.position = originalPosition;
+        mainCam.transform.position = startPos;
     }
-
 }
