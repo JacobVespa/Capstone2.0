@@ -1,4 +1,8 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +11,13 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [Header("Health")]
     [SerializeField] private float maxHealth = 10f;
     [SerializeField] private float currentHealth;
+    private float nextThreshold;
 
     [Tooltip("How many visual damage stages exist")]
     private int damageStages;
     [SerializeField] private GameObject[] damagedAreas; // Max Health / damageAreas == health per stage. This is the required damage to create a damage spot, and can be referenced to heal damage spot
+    private List<GameObject> active;
+    private List<GameObject> nonActive;
 
     [Header("UI")]
     [SerializeField] private Image healthBarFill;
@@ -27,6 +34,8 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     public float Health => currentHealth;
     public float HealthNormalized => currentHealth / maxHealth;
 
+    public float DamageThreshold => maxHealth / damagedAreas.Length;
+
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -39,11 +48,25 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
         damageStages = damagedAreas.Length;
 
-        foreach (var area in damagedAreas)
-            area.SetActive(false);
+        //foreach (var area in damagedAreas)
+        //    area.SetActive(false);
+
+        active = new List<GameObject>();
+        nonActive = new List<GameObject>();
+
+        for (int i = 0; i < damagedAreas.Length; i++)
+        {
+            active.Add(damagedAreas[i]);
+            active[i].SetActive(false);
+        }
 
         if (mainCam != null)
             originalCamPos = mainCam.transform.position;
+
+        nextThreshold = maxHealth - DamageThreshold;
+
+        
+        
     }
 
     public void Attacked(DamageSource d)
@@ -54,7 +77,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
     private void ApplyDamage(float damage)
     {
-        if (currentHealth <= 0f) return;
+        //if (currentHealth <= 0f) return;
 
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
 
@@ -69,11 +92,12 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             Die();
     }
 
-    public void HealDamage(float amount)
+    public void HealDamage()
     {
         if (currentHealth <= 0f) return;
 
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0f, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth + (DamageThreshold), 0f, maxHealth);
+        nextThreshold += DamageThreshold;
 
         UpdateHealthUI();
         UpdateDamageStages();
@@ -94,26 +118,36 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     {
         if (damagedAreas == null || damagedAreas.Length == 0) return;
 
-        int currentStage = Mathf.FloorToInt((1f - HealthNormalized) * damageStages);
+        //int currentStage = Mathf.FloorToInt((1f - HealthNormalized) * damageStages);
 
-        if (currentStage <= lastDamageStage)
-            return;
-
-        lastDamageStage = currentStage;
-
-        EnableNextDamagedArea();
+        if (currentHealth <= nextThreshold)
+        {
+            nextThreshold -= DamageThreshold;
+            EnableNextDamagedArea();
+        }            
     }
 
     private void EnableNextDamagedArea()
     {
-        foreach (var area in damagedAreas)
+        if (active.Count == 0)
         {
-            if (!area.activeSelf)
-            {
-                area.SetActive(true);
-                return;
-            }
+            active = new List<GameObject>(nonActive);
+            nonActive.Clear();
         }
+
+        int rng = Random.Range(0, active.Count);
+
+        if (!active[rng].activeSelf)
+        {
+            active[rng].SetActive(true);
+        }
+        else
+        {
+            active[rng].GetComponentInChildren<RepairPatch>().DeactivatePatch();
+        }
+
+        nonActive.Add(active[rng]);
+        active.RemoveAt(rng);
     }
 
     private void Die()

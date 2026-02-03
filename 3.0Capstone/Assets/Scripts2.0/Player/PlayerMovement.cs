@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -179,12 +180,12 @@ public class PlayerMovement : MonoBehaviour
         if (isHoldingRepair && interactor.currentInteractObject.CompareTag("Damaged"))
         {
             RepairPatch repair = interactor.currentInteractObject.GetComponentInChildren<RepairPatch>();
-            repair.Activate();
-            interactor.currentInteractObject.GetComponent<SpriteRenderer>().enabled = false;
+            repair.ActivatePatch();
+            //interactor.currentInteractObject.GetComponent<SpriteRenderer>().enabled = false;
             interactor.canRepair = false;
             isHoldingRepair = false;
             heldRepair.SetActive(false);
-            rigHealth.HealDamage(1);
+            rigHealth.HealDamage();
         }
     }
 

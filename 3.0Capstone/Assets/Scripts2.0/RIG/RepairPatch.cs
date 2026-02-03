@@ -2,15 +2,26 @@ using UnityEngine;
 
 public class RepairPatch : MonoBehaviour
 {
+    public bool isPatched = false;
+    [SerializeField] private SpriteRenderer renderer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        if (renderer == null) Debug.Log("Patch has no renderer");
+
+        renderer.enabled = false;
     }
 
-    public void Activate()
+    public void ActivatePatch()
     {
-        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        renderer.enabled = true;
+        isPatched = true;
+    }
+
+    public void DeactivatePatch()
+    {
+        renderer.enabled = false;
+        isPatched = false;
     }
 
     
