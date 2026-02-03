@@ -60,6 +60,8 @@ public class GameManager : MonoBehaviour
             gameOverTriggered = true;
             GameOver();
         }
+
+        TogglePauseMenu();
     }
 
     public void AddShards(int amount)
@@ -80,6 +82,15 @@ public class GameManager : MonoBehaviour
     public void ResetGameTime()
     {
         gameTime = 0f;
+    }
+
+    public void TogglePauseMenu()
+    {
+        PlayerControls controls = FindFirstObjectByType<PlayerControls>();
+        if (controls != null && controls.controlEvent.HasEscaped)
+        {
+            //Add pause menu here!
+        }
     }
 
     public void GameOver()

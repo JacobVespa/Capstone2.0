@@ -27,6 +27,9 @@ public class PlayerControls : MonoBehaviour
         private bool hasSwungHammer;
         public bool HasSwungHammer { get { return hasSwungHammer; } set { hasSwungHammer = value; } }
 
+        private bool hasEscaped;
+        public bool HasEscaped { get { return hasEscaped; } set { hasEscaped = value; } }
+
         // Method to reset all button states
         public void ResetButtons()
         {
@@ -34,6 +37,7 @@ public class PlayerControls : MonoBehaviour
             hasInteracted = false;
             hasDisengaged = false;
             heldInteracted = false; // MIGHT have to remove this line!
+            hasEscaped = false;
         }
 
     }
@@ -88,6 +92,11 @@ public class PlayerControls : MonoBehaviour
     public void SwingHammer(InputAction.CallbackContext context)
     {
         controlEvent.HasSwungHammer = context.action.WasPressedThisFrame();
+    }
+
+    public void Escaped(InputAction.CallbackContext context)
+    {
+        controlEvent.HasEscaped = context.action.WasPressedThisFrame();
     }
 
 }

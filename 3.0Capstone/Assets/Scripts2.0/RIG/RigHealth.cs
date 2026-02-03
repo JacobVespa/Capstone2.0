@@ -10,7 +10,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
     [Tooltip("How many visual damage stages exist")]
     private int damageStages;
-    [SerializeField] private GameObject[] damagedAreas;
+    [SerializeField] private GameObject[] damagedAreas; // Max Health / damageAreas == health per stage. This is the required damage to create a damage spot, and can be referenced to heal damage spot
 
     [Header("UI")]
     [SerializeField] private Image healthBarFill;
