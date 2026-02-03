@@ -77,12 +77,18 @@ public abstract class EnemyAI : MonoBehaviour
     //  can't send the direction to the body since the body is only implemnted in the enemy specific AI script
     protected virtual void ApproachTarget()
     {
+        
         if (!hasTarget) { moveInput = Vector2.zero; return; }
+        
 
         targetDist = targetLoc.transform.position - transform.position;
 
         moveInput = new Vector2(targetDist.x, targetDist.y);
         moveInput = moveInput.normalized;
+        if (baseBody != null)
+        {
+            baseBody.InputDir = moveInput;
+        }
     }
 
     // adds, removes or moves the enemy to the back fo the attack queue

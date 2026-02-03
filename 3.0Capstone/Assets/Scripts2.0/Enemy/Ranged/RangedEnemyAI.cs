@@ -58,9 +58,6 @@ public class RangedEnemyAI : EnemyAI
     {
         base.ApproachTarget();
 
-
-        body.InputDir = moveInput;
-
         if(moveInput == Vector2.zero) { return; }
 
         CheckTargetDist();

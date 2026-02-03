@@ -20,6 +20,8 @@ public class TickEnemyBody : EnemyBody
 
     public bool dropping = false;
 
+   
+
     protected override void Awake()
     {
         base.Awake();
@@ -62,8 +64,9 @@ public class TickEnemyBody : EnemyBody
         transform.position = new Vector2(targetPos.x, targetPos.y + 75); 
         sprite.SetActive(true);
         rb.gravityScale = 1;
-        Collider2D colliders = GetComponent<Collider2D>();  // turn off colliders when dropping 
-        colliders.enabled = false;
+        Collider2D[] colliders = GetComponents<Collider2D>();  // turn off colliders when dropping 
+        foreach(Collider2D c in colliders) { c.enabled = false; }
+        
         attackNotif.transform.position = notifPos;
         
 
@@ -94,7 +97,7 @@ public class TickEnemyBody : EnemyBody
         rb.linearVelocityY = 0;
 
         dropping = false;
-        colliders.enabled = true;
+        foreach (Collider2D c in colliders) { c.enabled = true; }
         ai.behaviour = EnemyAI.Behaviour.Ready;
         ai.AddToAttackQueue();
     }
