@@ -21,9 +21,6 @@ public class PlayerInteract : MonoBehaviour
     private AmmoBox ammoBox;
     private Engine engine;
 
-    //temp
-    private bool canSpawnWall = true;
-
     /*
      * Method that grabs a collider from the player that determines collisions
      * 

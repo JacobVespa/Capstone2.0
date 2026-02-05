@@ -146,17 +146,18 @@ public class PlayerMovement : MonoBehaviour
             {
                 HandleEngine();
             }
+            else if(isHolding)
+            {
+                HandleDrop();
+            }
         }
-        else if (playerControls.controlEvent.HasDisengaged)
+        else if(!canInteract && playerControls.controlEvent.HasInteracted)
         {
             HandleDismounting();
-            HandleDrop();
         }
-        else if(playerControls.controlEvent.HasSwungHammer && canAttack)
+        else if (playerControls.controlEvent.HasAttacked && canAttack && !isMounted)
         {
-            
             StartCoroutine(HammerSwing());
-            
         }
     }
 
@@ -194,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isHolding) HandleDrop();
 
+        canInteract = false; //TESTING
         isMounted = true;
         canMove = false;
         interactor.currentInteractObject.GetComponent<Turret>().Mount(this.gameObject);
@@ -217,7 +219,8 @@ public class PlayerMovement : MonoBehaviour
     private void HandleDismounting()
     {
         if (!isMounted) return;
-        
+
+        canInteract = true;
         isMounted = false;
         canMove = true;
         interactor.currentInteractObject.GetComponent<Turret>().Dismount();

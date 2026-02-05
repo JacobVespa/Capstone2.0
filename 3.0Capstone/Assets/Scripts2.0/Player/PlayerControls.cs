@@ -24,9 +24,6 @@ public class PlayerControls : MonoBehaviour
         private bool heldInteracted;
         public bool HeldInteracted { get { return heldInteracted; } set { heldInteracted = value; } }
 
-        private bool hasSwungHammer;
-        public bool HasSwungHammer { get { return hasSwungHammer; } set { hasSwungHammer = value; } }
-
         private bool hasEscaped;
         public bool HasEscaped { get { return hasEscaped; } set { hasEscaped = value; } }
 
@@ -87,11 +84,6 @@ public class PlayerControls : MonoBehaviour
     public void Disengaged(InputAction.CallbackContext context)
     {
         controlEvent.HasDisengaged = context.action.WasPressedThisFrame();
-    }
-
-    public void SwingHammer(InputAction.CallbackContext context)
-    {
-        controlEvent.HasSwungHammer = context.action.WasPressedThisFrame();
     }
 
     public void Escaped(InputAction.CallbackContext context)
