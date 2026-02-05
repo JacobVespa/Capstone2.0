@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Booleans")]
     public bool isHoldingAmmo;
-    private bool isHoldingRepair;
+    public bool isHoldingRepair;
     private bool canAttack = true;
 
     [Header("Custom Variables")]
@@ -170,6 +170,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleRepair()
     {
+        RepairPatch repair = interactor.currentInteractObject.GetComponentInChildren<RepairPatch>();
+       
         if (interactor.currentInteractObject.CompareTag("Repair"))
         {
             interactor.currentInteractObject.GetComponent<RepairStation>().PlayPickupSound();
@@ -177,9 +179,8 @@ public class PlayerMovement : MonoBehaviour
             isHoldingRepair = true;
         }
 
-        if (isHoldingRepair && interactor.currentInteractObject.CompareTag("Damaged"))
+        if (!repair.isPatched && isHoldingRepair && interactor.currentInteractObject.CompareTag("Damaged"))
         {
-            RepairPatch repair = interactor.currentInteractObject.GetComponentInChildren<RepairPatch>();
             repair.ActivatePatch();
             //interactor.currentInteractObject.GetComponent<SpriteRenderer>().enabled = false;
             interactor.canRepair = false;
