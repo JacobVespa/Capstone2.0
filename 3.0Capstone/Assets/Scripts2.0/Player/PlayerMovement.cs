@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator playerAnimator;
     private RigHealth rigHealth;
     private Engine engine;
+    private Turret turret;
     private AudioSource playerAudioSource;
 
     [SerializeField] private AudioClip hammerMiss;
@@ -193,6 +194,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMounting()
     {
+        if (isHoldingAmmo)
+        {
+            interactor.currentInteractObject.GetComponent<Turret>().RefillAmmo();
+        }
+
         if (isHolding) HandleDrop();
 
         canInteract = false; //TESTING

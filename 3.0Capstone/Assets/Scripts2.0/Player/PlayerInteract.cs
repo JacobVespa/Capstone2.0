@@ -58,12 +58,6 @@ public class PlayerInteract : MonoBehaviour
             turret.buttonPromptXB.SetActive(true);
             canMount = true;
             currentInteractObject = other.gameObject;
-            //testing reload
-            if (playerMove.isHoldingAmmo)
-            {
-                turret.RefillAmmo();
-                playerMove.HandleDrop();
-            }
         }
         else if (other.CompareTag("Ammo"))
         {
@@ -82,6 +76,7 @@ public class PlayerInteract : MonoBehaviour
         else if (other.CompareTag("Damaged"))
         {
             currentInteractObject = other.gameObject;
+  
         }
         else if (other.CompareTag("Engine"))
         {
