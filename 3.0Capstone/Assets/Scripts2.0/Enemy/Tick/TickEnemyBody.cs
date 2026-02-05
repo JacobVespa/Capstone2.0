@@ -67,10 +67,7 @@ public class TickEnemyBody : EnemyBody
         Collider2D[] colliders = GetComponents<Collider2D>();  // turn off colliders when dropping 
         foreach(Collider2D c in colliders) { c.enabled = false; }
         
-        attackNotif.transform.position = notifPos;
         
-
-        attackNotif.SetActive(true);
         // continually increase gravity on tick,
         // when it passes the position in will land at its vertical velocity is halved and reversed(bouncing)
         // once its vertical velocity is low enough it will stop bouncing and land in position
@@ -83,7 +80,7 @@ public class TickEnemyBody : EnemyBody
             
             if (transform.position.y < targetPos.y ) 
             {
-                rb.linearVelocityY *= -0.5f;
+                rb.linearVelocityY *= -0.2f;
                 
                 if(rb.linearVelocityY <= 10){ break; }
                 transform.position = targetPos;
