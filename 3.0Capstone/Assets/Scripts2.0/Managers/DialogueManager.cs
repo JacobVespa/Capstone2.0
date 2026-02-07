@@ -4,6 +4,7 @@ using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
+    private int charTalking;
     public bool isTalking = false;
     public string currentDialogue;
 
@@ -37,4 +38,7 @@ public class DialogueManager : MonoBehaviour
         }
         isTalking = false;
     }
+
+    //Go ahead and grab some of those bug repellant pellets.
+    //They are totally non-harmful and just scare off the bugs.
 }
