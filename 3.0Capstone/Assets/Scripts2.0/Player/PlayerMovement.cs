@@ -1,7 +1,4 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Search;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour

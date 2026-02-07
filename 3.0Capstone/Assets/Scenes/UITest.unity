@@ -678,7 +678,7 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 1
     m_SelectOnUp: {fileID: 1604215522}
-    m_SelectOnDown: {fileID: 865386583}
+    m_SelectOnDown: {fileID: 1604215522}
     m_SelectOnLeft: {fileID: 989582760}
     m_SelectOnRight: {fileID: 865386583}
   m_Transition: 1
@@ -8354,8 +8354,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 6.72, z: 0.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1354489201}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &675879147
@@ -8933,7 +8932,7 @@ MonoBehaviour:
     m_SelectOnUp: {fileID: 865386583}
     m_SelectOnDown: {fileID: 865386583}
     m_SelectOnLeft: {fileID: 268638423}
-    m_SelectOnRight: {fileID: 0}
+    m_SelectOnRight: {fileID: 989582760}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
@@ -9545,7 +9544,7 @@ MonoBehaviour:
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 1139437451}
     m_SelectOnDown: {fileID: 989582760}
-    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnLeft: {fileID: 865386583}
     m_SelectOnRight: {fileID: 268638423}
   m_Transition: 1
   m_Colors:
@@ -11043,8 +11042,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 1
-    m_SelectOnUp: {fileID: 1139437451}
-    m_SelectOnDown: {fileID: 1604215522}
+    m_SelectOnUp: {fileID: 989582760}
+    m_SelectOnDown: {fileID: 989582760}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -12629,7 +12628,7 @@ RectTransform:
   - {fileID: 70387658}
   - {fileID: 290329392}
   - {fileID: 989582759}
-  m_Father: {fileID: 666822132}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -14565,7 +14564,7 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 1
-    m_SelectOnUp: {fileID: 1604215522}
+    m_SelectOnUp: {fileID: 268638423}
     m_SelectOnDown: {fileID: 268638423}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
@@ -18057,6 +18056,7 @@ SceneRoots:
   - {fileID: 1076286458}
   - {fileID: 1717644979}
   - {fileID: 1234841072}
+  - {fileID: 1354489201}
   - {fileID: 1659408070}
   - {fileID: 666822132}
   - {fileID: 374057422}
