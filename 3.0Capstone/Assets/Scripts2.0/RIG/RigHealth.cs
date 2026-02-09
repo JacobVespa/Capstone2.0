@@ -28,6 +28,8 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [SerializeField] private float camShakeDur = 0.3f;
     [SerializeField] private float camShakeStr = 0.1f;
 
+    [SerializeField] private GameObject rigDeath;
+
     private Vector3 originalCamPos;
     private int lastDamageStage = 0;
 
@@ -89,7 +91,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         StartCoroutine(Vignette(Color.red));
 
         if (currentHealth <= 0f)
-            Die();
+            StartCoroutine(Die());
     }
 
     public void HealDamage() //TODO make sure the player cannot heal a patched hole!
@@ -150,9 +152,13 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         active.RemoveAt(rng);
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
+        var rigLossAnim = rigDeath.GetComponent<Animator>();
+        rigLossAnim.SetTrigger("PDeath");
+        new WaitForSeconds(2.0f);
         GameManager.Instance.GameOverStatus = true;
+        yield return null;
     }
 
     private IEnumerator Vignette(Color color)
