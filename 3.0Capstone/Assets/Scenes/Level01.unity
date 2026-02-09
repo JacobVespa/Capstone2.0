@@ -692,7 +692,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallMoveSpeed: 2
-  floorMoveSpeed: 4
+  floorMoveSpeed: 2
   isLooping: 1
   gems: []
 --- !u!95 &543979937
@@ -894,7 +894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallMoveSpeed: 2
-  floorMoveSpeed: 4
+  floorMoveSpeed: 2
   isLooping: 1
   gems: []
 --- !u!95 &628331147
@@ -1959,7 +1959,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4424808045193721349, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
       propertyPath: wallMoveSpeed
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5700714085462892165, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
       propertyPath: m_Color.b
@@ -3892,7 +3892,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4424808045193721349, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
       propertyPath: wallMoveSpeed
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5700714085462892165, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
       propertyPath: m_Color.b
