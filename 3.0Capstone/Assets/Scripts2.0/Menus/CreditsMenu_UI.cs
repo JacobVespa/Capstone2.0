@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class OptionsMenu_UI : MonoBehaviour
+public class CreditsMenu_UI : MonoBehaviour
 {
     [SerializeField] private GameObject backButton;
 
@@ -10,5 +10,4 @@ public class OptionsMenu_UI : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(backButton);
     }
-
 }

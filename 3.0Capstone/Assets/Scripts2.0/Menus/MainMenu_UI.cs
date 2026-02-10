@@ -1,13 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 //using UnityEngine.UI;
 
 public class MainMenu_UI : MonoBehaviour
 {
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
+    [SerializeField] private GameObject controlsMenu;
+    [SerializeField] private GameObject creditsMenu;
     [SerializeField] private GameObject startButton;
-    [SerializeField] private GameObject optionsTabButton;
 
     [SerializeField] SoundManager soundManager;
 
@@ -33,13 +35,32 @@ public class MainMenu_UI : MonoBehaviour
     public void OptionButtonClicked()
     {
         mainMenu.SetActive(false);
+        controlsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
         optionsMenu.SetActive(true);
     }
 
+    public void ControlButtonClicked()
+    {
+        mainMenu.SetActive(false);
+        optionsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
+        controlsMenu.SetActive(true);
+    }
+
+    public void CreditsButtonClicked()
+    {
+        optionsMenu.SetActive(false);
+        controlsMenu.SetActive(false);
+        mainMenu.SetActive(false);
+        creditsMenu.SetActive(true);
+    }
     public void BackButtonClicked()
     {
-        mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
+        controlsMenu.SetActive(false);
+        creditsMenu.SetActive(false);
+        mainMenu.SetActive(true);
     }
 
     public void QuitButtonClicked()
