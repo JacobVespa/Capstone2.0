@@ -66,8 +66,6 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             originalCamPos = mainCam.transform.position;
 
         nextThreshold = maxHealth - DamageThreshold;
-
-        
         
     }
 
@@ -154,11 +152,12 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
     private IEnumerator Die()
     {
+        Debug.Log("Rig ded");
+        rigDeath.SetActive(true);
         var rigLossAnim = rigDeath.GetComponent<Animator>();
         rigLossAnim.SetTrigger("PDeath");
-        new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.0f);
         GameManager.Instance.GameOverStatus = true;
-        yield return null;
     }
 
     private IEnumerator Vignette(Color color)

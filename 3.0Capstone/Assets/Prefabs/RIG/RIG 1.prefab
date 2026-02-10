@@ -106,7 +106,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 3311858562674976643, guid: de62fc126fe1a2548845c7f88ad87635, type: 3}
   m_Color: {r: 0.6603774, g: 0.5700427, b: 0.5700427, a: 1}
   m_FlipX: 0
@@ -6397,7 +6397,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -1228961644024211726, guid: 6931bc496937b0b4e8fc5387750fc39f, type: 3}
   m_Color: {r: 0.6603774, g: 0.5700427, b: 0.5700427, a: 1}
   m_FlipX: 0
@@ -12467,7 +12467,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -5227407911839812570, guid: 94461ae663544634db680ae11cd5990e, type: 3}
   m_Color: {r: 0.6603774, g: 0.5700427, b: 0.5700427, a: 1}
   m_FlipX: 0
@@ -12763,6 +12763,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5549594053007277627}
     m_Modifications:
+    - target: {fileID: 151860687900462920, guid: aa405672ee3a1db4fb3ee7187a9eb5b1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 1487078062578723427, guid: aa405672ee3a1db4fb3ee7187a9eb5b1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339309107805236054, guid: aa405672ee3a1db4fb3ee7187a9eb5b1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 111
+      objectReference: {fileID: 0}
     - target: {fileID: 4436883082770963468, guid: aa405672ee3a1db4fb3ee7187a9eb5b1, type: 3}
       propertyPath: m_Name
       value: Rig Death Parent
