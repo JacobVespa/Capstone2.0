@@ -369,38 +369,6 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2506961191395098456}
         m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
-        m_MethodName: Disengaged
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3dd99718-f07b-4010-815d-c4064b768bdd
-    m_ActionName: 'Player/Disengage[/Keyboard/q]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2506961191395098456}
-        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
-        m_MethodName: SwingHammer
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: c2f1c7cc-c6c6-4058-9264-eaeecb76d553
-    m_ActionName: 'Player/HammerSwing[/Keyboard/f]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2506961191395098456}
-        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
         m_MethodName: Escaped
         m_Mode: 0
         m_Arguments:
@@ -413,6 +381,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 97f08594-8072-4f4e-b6c3-94c88ca1d6ce
     m_ActionName: 'Player/Escape[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2506961191395098456}
+        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
+        m_MethodName: Attacking
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b84bf6c5-d735-4233-b65e-9efa42491072
+    m_ActionName: 'Player/Attacking[/Mouse/leftButton,/XInputControllerWindows/rightTrigger]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -446,6 +430,7 @@ MonoBehaviour:
   heldAmmo: {fileID: 8709191247872423162}
   heldRepair: {fileID: 5584584525575227812}
   isHoldingAmmo: 0
+  isHoldingRepair: 0
   movementSpeed: 10
   isMounted: 0
   isHolding: 0

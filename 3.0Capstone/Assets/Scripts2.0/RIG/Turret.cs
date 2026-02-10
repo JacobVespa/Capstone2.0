@@ -104,22 +104,24 @@ public class Turret : MonoBehaviour
     private void Shoot()
     {
         if (player == null || currentControls == null) return;
-        if (!currentControls.controlEvent.HasAttacked) return;
-        if (currentAmmo > 0 && canShoot)
+
+        if (currentControls.controlEvent.IsAttacking)
         {
-            ShootBullet();
-            currentAmmo--;
-            ammoCountText.text = currentAmmo.ToString();
-            if (currentAmmo == 0)
+            if (currentAmmo > 0 && canShoot)
             {
-                reloadNotif.SetActive(true);
-                needsReload = true; //test
+                ShootBullet();
+                currentAmmo--;
+                ammoCountText.text = currentAmmo.ToString();
+                if (currentAmmo == 0)
+                {
+                    reloadNotif.SetActive(true);
+                    needsReload = true; //test
+                }
+
+                StartCoroutine(ShootingVFX());
+                StartCoroutine(CoolDown());
             }
-
-            StartCoroutine(ShootingVFX());
-            StartCoroutine(CoolDown());
         }
-
     }
 
     public void HitEnemy(Collider2D col)

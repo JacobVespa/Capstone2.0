@@ -15,6 +15,9 @@ public class PlayerControls : MonoBehaviour
         private bool hasAttacked;
         public bool HasAttacked { get { return hasAttacked; } set { hasAttacked = value; } }
 
+        private bool isAttacking;
+        public bool IsAttacking { get { return isAttacking; } set { isAttacking = value; } }
+
         private bool hasInteracted;
         public bool HasInteracted { get { return hasInteracted; } set { hasInteracted = value; } }
 
@@ -35,6 +38,7 @@ public class PlayerControls : MonoBehaviour
             hasDisengaged = false;
             heldInteracted = false; // MIGHT have to remove this line!
             hasEscaped = false;
+            //isAttacking = false;
         }
 
     }
@@ -66,6 +70,11 @@ public class PlayerControls : MonoBehaviour
     public void Attacked(InputAction.CallbackContext context)
     {
         controlEvent.HasAttacked = context.action.WasPressedThisFrame();
+    }
+
+    public void Attacking(InputAction.CallbackContext context)
+    {
+        controlEvent.IsAttacking = context.action.WasPressedThisFrame();
     }
 
     // Method that tracks when the interact button is pressed
