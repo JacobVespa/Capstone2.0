@@ -4,53 +4,52 @@ using TMPro;
 
 public class Turret : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] AudioClip shootClip;
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject crosshair;
-    private GameObject player;
-    private PlayerControls currentControls;
-
-    [SerializeField] public int maxAmmo = 10;
-    public int currentAmmo;
     [SerializeField] private GameObject reloadNotif;
-    public bool needsReload = false;
-    [SerializeField] public TextMeshPro ammoCountText;
-
     [SerializeField] public GameObject buttonPromptXB;
+    [SerializeField] public TextMeshPro ammoCountText;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject bulletSpawnLocation;
 
-    private bool playerMounted = false;
-
-    [SerializeField] private float shootingCD = 1f;
-    bool canShoot = true;
-
-    Vector2 aimPos;
-    RaycastHit2D hit;
-    DamageSource currentDamage;
-
-    [SerializeField] float aimSpeed = 10.0f;
-    [SerializeField] bool autoTarget = true;
-
-    //reference to the muzzle flash vfx
+    [Header("VFX")]
     public GameObject muzzleFlash;
     [SerializeField] private ParticleSystem comicShot;
 
-    //Line Renderer for raycast on screen
-    private LineRenderer lineRenderer;
+    [Header("Settings")]
+    [SerializeField] public int maxAmmo = 10;
+    [SerializeField] private float shootingCD = 1f;
+    [SerializeField] float aimSpeed = 10.0f;
+    [SerializeField] bool autoTarget = true;
+    [SerializeField] private float bulletSpeed = 50f;
 
-    //BULLET STUFF
-    [SerializeField] private GameObject bullet;
-    [SerializeField] private GameObject bulletSpawnLocation;
-    private float bulletSpeed = 50f;
-
-    private Vector2 screenBounds;
+    // Boundary Caching
+    private Rect camRect;
+    private float lastScreenWidth;
+    private float lastScreenHeight;
     private float objectWidth;
     private float objectHeight;
 
+    private GameObject player;
+    private PlayerControls currentControls;
+    public int currentAmmo;
+    public bool needsReload = false;
+    private bool playerMounted = false;
+    private bool canShoot = true;
+
+    Vector2 aimPos;
+    private LineRenderer lineRenderer;
+    private DamageSource currentDamage;
+
     private void Start()
     {
-        screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
+        // Calculate initial object size from SpriteRenderer
         objectWidth = crosshair.transform.GetComponent<SpriteRenderer>().bounds.extents.x;
         objectHeight = crosshair.transform.GetComponent<SpriteRenderer>().bounds.extents.y;
+
+        UpdateCameraBounds();
 
         reloadNotif.SetActive(false);
         buttonPromptXB.SetActive(false);
@@ -67,21 +66,54 @@ public class Turret : MonoBehaviour
 
     private void Update()
     {
+        // Check if resolution changed mid-game
+        if (Screen.width != lastScreenWidth || Screen.height != lastScreenHeight)
+        {
+            UpdateCameraBounds();
+        }
+
         if (playerMounted)
         {
             Aim();
             Shoot();
+
             if (autoTarget)
                 DetermineTarget();
             else
                 ManualTarget();
-            //ClampCrosshair();
         }
         else
         {
-            lineRenderer.enabled = false; //probably a better way to do this
+            lineRenderer.enabled = false;
         }
+    }
 
+    private void UpdateCameraBounds()
+    {
+        lastScreenWidth = Screen.width;
+        lastScreenHeight = Screen.height;
+
+        Camera cam = Camera.main;
+        // Use nearClipPlane to get accurate world points relative to the camera view
+        Vector3 min = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
+        Vector3 max = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
+
+        camRect = new Rect(min.x, min.y, max.x - min.x, max.y - min.y);
+    }
+
+    private void ManualTarget()
+    {
+        if (currentControls == null) return;
+
+        // Apply movement
+        aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
+
+        // Clamp to cached camera boundaries
+        aimPos.x = Mathf.Clamp(aimPos.x, camRect.xMin + objectWidth, camRect.xMax - objectWidth);
+        aimPos.y = Mathf.Clamp(aimPos.y, camRect.yMin + objectHeight, camRect.yMax - objectHeight);
+
+        // Update visual
+        crosshair.transform.position = aimPos;
     }
 
     public void Mount(GameObject p)
@@ -112,10 +144,11 @@ public class Turret : MonoBehaviour
                 ShootBullet();
                 currentAmmo--;
                 ammoCountText.text = currentAmmo.ToString();
+
                 if (currentAmmo == 0)
                 {
                     reloadNotif.SetActive(true);
-                    needsReload = true; //test
+                    needsReload = true;
                 }
 
                 StartCoroutine(ShootingVFX());
@@ -124,41 +157,9 @@ public class Turret : MonoBehaviour
         }
     }
 
-    public void HitEnemy(Collider2D col)
-    {
-        var body = col.GetComponent<EnemyBody>();
-        if (body != null)
-        {
-            StartCoroutine(HitMarker(Color.red));
-            body.Attacked(currentDamage);
-        }
-    }
-
-    public void HitGem(Collider2D col)
-    {
-        var gem = col.GetComponent<Resource>();
-        if (gem != null)
-        {
-            StartCoroutine(HitMarker(Color.blue));
-            gem.Damage();
-        }
-    }
-
-    public void HitProjectile(Collider2D col)
-    {
-        var proj = col.GetComponent<Projectile>();
-        if (proj != null)
-        {
-            StartCoroutine(HitMarker(Color.yellow));
-            proj.Attacked(currentDamage);
-        }
-    }
-
     private void ShootBullet()
     {
         GameObject spawnedBullet = Instantiate(bullet, bulletSpawnLocation.transform.position, bulletSpawnLocation.transform.rotation);
-        Debug.Log("Spawned a bullet.");
-
         Rigidbody2D rb = spawnedBullet.GetComponent<Rigidbody2D>();
         rb.AddForce(-spawnedBullet.transform.right * bulletSpeed, ForceMode2D.Impulse);
     }
@@ -167,7 +168,7 @@ public class Turret : MonoBehaviour
     {
         if (player != null && currentControls != null)
         {
-            transform.LookAt(transform.position + Vector3.forward, crosshair.transform.position - transform.position); //maybe?
+            transform.LookAt(transform.position + Vector3.forward, (Vector3)aimPos - transform.position);
             transform.Rotate(new Vector3(0, 0, -90));
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, transform.position);
@@ -177,9 +178,9 @@ public class Turret : MonoBehaviour
 
     private void DetermineTarget()
     {
-        Vector2 currentPos = transform.position; // Cache position
+        Vector2 currentPos = transform.position;
         Vector2 closestPos = currentPos;
-        float closestDistanceSqr = Mathf.Infinity; // Initialize to Infinity
+        float closestDistanceSqr = Mathf.Infinity;
 
         var attackers = AttackQueueManager.instance.ActiveAttackers;
         if (attackers == null) return;
@@ -188,7 +189,6 @@ public class Turret : MonoBehaviour
         {
             if (enemy == null || enemy.gameObject.layer != 6) continue;
 
-            // Use subtraction + sqrMagnitude
             Vector2 offset = (Vector2)enemy.transform.position - currentPos;
             float currentDistanceSqr = offset.sqrMagnitude;
 
@@ -199,7 +199,6 @@ public class Turret : MonoBehaviour
             }
         }
 
-        // Only update if a valid target was found
         if (closestDistanceSqr < Mathf.Infinity)
         {
             aimPos = closestPos;
@@ -207,29 +206,30 @@ public class Turret : MonoBehaviour
         }
     }
 
-    private void ManualTarget()
+    public void RefillAmmo()
     {
-        aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
-        if (aimPos.x >= (screenBounds.x))
-        {
-            aimPos.x = screenBounds.x - objectWidth;
-        }
-        else if (aimPos.x <= (-screenBounds.x))
-        {
-            aimPos.x = -screenBounds.x + objectWidth;
-        }
-        else if (aimPos.y >= (screenBounds.y))
-        {
-            aimPos.y = screenBounds.y - objectHeight;
-        }
-        else if (aimPos.y <= (-screenBounds.y))
-        {
-            aimPos.y = -screenBounds.y + objectHeight;
-        }
-        else
-        {
-            crosshair.transform.position = aimPos;
-        }
+        currentAmmo = maxAmmo;
+        reloadNotif.SetActive(false);
+        ammoCountText.text = maxAmmo.ToString();
+    }
+
+    // Helper Collision Methods
+    public void HitEnemy(Collider2D col)
+    {
+        var body = col.GetComponent<EnemyBody>();
+        if (body != null) { StartCoroutine(HitMarker(Color.red)); body.Attacked(currentDamage); }
+    }
+
+    public void HitGem(Collider2D col)
+    {
+        var gem = col.GetComponent<Resource>();
+        if (gem != null) { StartCoroutine(HitMarker(Color.blue)); gem.Damage(); }
+    }
+
+    public void HitProjectile(Collider2D col)
+    {
+        var proj = col.GetComponent<Projectile>();
+        if (proj != null) { StartCoroutine(HitMarker(Color.yellow)); proj.Attacked(currentDamage); }
     }
 
     IEnumerator ShootingVFX()
@@ -248,13 +248,6 @@ public class Turret : MonoBehaviour
         canShoot = true;
     }
 
-    public void RefillAmmo()
-    {
-        currentAmmo = maxAmmo;
-        reloadNotif.SetActive(false);
-        ammoCountText.text = maxAmmo.ToString();
-    }
-
     IEnumerator HitMarker(Color hitMarkerColor)
     {
         var crosshairSprite = crosshair.GetComponent<SpriteRenderer>();
@@ -262,5 +255,4 @@ public class Turret : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         crosshairSprite.color = Color.black;
     }
-
 }
