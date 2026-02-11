@@ -10,8 +10,9 @@ public class WallMoving : MonoBehaviour
     private bool hasFinished = false;
     private Vector3 startPosition;
 
-    //offset wall position for despawning
-    private float offsetPos = -43.5f;
+    //offset wall and floor position for despawning
+    private float wallOffsetPos = -43.5f;
+    private float floorOffsetPos = -47f;
 
     //random spawn rate
     private float spawnRate = 0.2f; //20%
@@ -34,13 +35,15 @@ public class WallMoving : MonoBehaviour
         {
             WallMovement();
             
-            // Calculate total distance traveled from start position
-            float distanceTraveled = startPosition.y - transform.position.y;
-            
-            if(distanceTraveled >= Mathf.Abs(offsetPos))
+            if(gameObject.CompareTag("Wall"))
             {
-                hasFinished = true;
+                HasFinishedCheck(wallOffsetPos);
             }
+            if(gameObject.CompareTag("floor"))
+            {
+                HasFinishedCheck(floorOffsetPos);
+            }
+            
         }
     }
 
@@ -49,17 +52,32 @@ public class WallMoving : MonoBehaviour
         if(gameObject.CompareTag("Wall"))
         {
             transform.position -= new Vector3(0, wallMoveSpeed, 0) * Time.deltaTime;
+            DistanceCheck(wallOffsetPos, 43.5f);
         }
         if(gameObject.CompareTag("Floor"))
         {
             transform.position -= new Vector3(0, floorMoveSpeed, 0) * Time.deltaTime;
+            DistanceCheck(floorOffsetPos, 47f);
         }
+    }
 
+    private void DistanceCheck(float offsetPos, float yPos)
+    {
         //check if destroy based on offset
-        if(isLooping && transform.position.y <= offsetPos)
-        {  
-            transform.position = new Vector3(0, 43.5f, 0);
+        if (isLooping && transform.position.y <= offsetPos)
+        {
+            transform.position = new Vector3(0, yPos, 0);
             SpawnGems();
+        }
+    }
+
+    private void HasFinishedCheck(float offsetPos)
+    {
+        // Calculate total distance traveled from start position
+        float distanceTraveled = startPosition.y - transform.position.y;
+        if (distanceTraveled >= Mathf.Abs(offsetPos))
+        {
+            hasFinished = true;
         }
     }
 
