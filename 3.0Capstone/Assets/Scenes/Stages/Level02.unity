@@ -473,6 +473,9 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8404779495572291077, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1905014527}
+    - targetCorrespondingSourceObject: {fileID: 8404779495572291077, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1572154296}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5780d0ae3fa2de4cbcf5cc29942dbe9, type: 3}
@@ -1520,14 +1523,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572154295}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.4572, y: 18.2, z: 0}
-  m_LocalScale: {x: 2.698207, y: 7.6481404, z: 1}
+  m_LocalRotation: {x: 0, y: -0, z: 0, w: -1}
+  m_LocalPosition: {x: -0.4572, y: 27.6, z: 0}
+  m_LocalScale: {x: 3.47, y: 3.8, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1905014527}
+  m_Children: []
   m_Father: {fileID: 1530834398}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 360}
 --- !u!212 &1572154297
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1572,7 +1574,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3372088736135789423, guid: aff37b219f6f7734298e62b8f98fbc4e, type: 3}
+  m_Sprite: {fileID: -1326626186765417360, guid: 4a4d84aee51b8124fab98c8bebf652c0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1832,12 +1834,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905014525}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.96, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.3, z: 0.1}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalPosition: {x: -0.45719975, y: 15.609722, z: 0}
+  m_LocalScale: {x: 0.7648143, y: 0.80946225, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1572154296}
+  m_Father: {fileID: 1530834398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!1001 &2106588611
 PrefabInstance:
