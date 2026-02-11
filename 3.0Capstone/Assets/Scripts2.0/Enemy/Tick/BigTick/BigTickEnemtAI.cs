@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static UnityEditor.PlayerSettings;
 
 public class BigTickEnemtAI : TickEnemyAI
 {
@@ -10,6 +11,8 @@ public class BigTickEnemtAI : TickEnemyAI
     public GameObject locationList;
 
     private List<Transform> moveLocations;
+
+    private Transform pastDest;
 
     private List<Transform> inRadius;
 
@@ -81,7 +84,7 @@ public class BigTickEnemtAI : TickEnemyAI
             if(behaviour != Behaviour.Moving) {
                 body.attackNotif.SetActive(false);
                 behaviour = Behaviour.Moving;
-                SelectNewTarget(collision.transform);
+                SelectNewTarget(detection.ClosestPoint(collision.transform.position));
             }
             
         }
@@ -100,8 +103,6 @@ public class BigTickEnemtAI : TickEnemyAI
     {
         base.ApproachTarget();
 
-        Debug.Log(Mathf.Abs(Vector2.Distance(transform.position, targetLoc.transform.position)));
-
         if (Mathf.Abs(Vector2.Distance(transform.position, targetLoc.transform.position)) <= 0.5)
         {
             //targetLoc = null;
@@ -109,36 +110,65 @@ public class BigTickEnemtAI : TickEnemyAI
         }
     }
 
-    private void SelectNewTarget(Transform pos)
+    private void SelectNewTarget(Vector2 player)
     {
-        List<Transform> dirOptions = new List<Transform>();
+        pastDest = targetLoc.transform;
+        List<Transform> dirOptions = GetTargetOptions(player);
 
-        Vector2 moveDir = new Vector2();
-        moveDir = (transform.position - pos.position).normalized;
-        moveDir.x = Mathf.Round(moveDir.x);
-        moveDir.y = Mathf.Round(moveDir.y);
-
-        foreach (Transform t in moveLocations)
-        {
-            if(t.gameObject == targetLoc) { continue; }
-            Vector2 pointDir = new Vector2();
-            pointDir = (transform.position - t.position).normalized;
-            pointDir.x = Mathf.Round(pointDir.x);
-            pointDir.y = Mathf.Round(pointDir.y);
-
-            if (moveDir.x != 0 && moveDir.x == pointDir.x && pointDir.x == 0) { continue; }
-            if (moveDir.y != 0 && moveDir.y == pointDir.y) { continue; }
-
-            dirOptions.Add(t);
-            
-        }
-
+        
 
         if (dirOptions.Count > 0)
         {
             targetLoc = dirOptions[Random.Range(0, dirOptions.Count)].gameObject;
         }
         else { targetLoc = moveLocations[Random.Range(0, moveLocations.Count)].gameObject; }
-        Debug.LogError(targetLoc.name);
+    }
+
+    private List<Transform> GetTargetOptions(Vector2 player)
+    {
+        List<Transform> targetOptions = new List<Transform>();
+
+        
+
+        return targetOptions;
     }
 }
+
+/*
+        /Debug.Log((Vector2)transform.position); 
+        Debug.Log(moveDir);
+        Debug.Log(transform.position.y + " " + moveDir.y);
+        //Vector2 moveDir = new Vector2();
+        moveDir = ((Vector2)transform.position - moveDir).normalized;
+        //moveDir = moveDir.normalized;
+        moveDir.x = Mathf.Round(moveDir.x);
+        moveDir.y = Mathf.Round(moveDir.y);
+        
+        Debug.LogError(moveDir);
+
+        foreach (Transform t in moveLocations)
+        {
+            
+            if (t.gameObject == targetLoc ) { continue; }
+            if(pastDest != null && t.gameObject == pastDest ) { continue; }
+
+            Vector2 pointDir = new Vector2();
+            pointDir = (transform.position - t.position).normalized;
+            pointDir.x = Mathf.Round(pointDir.x);
+            pointDir.y = Mathf.Round(pointDir.y);
+
+            Debug.Log("-");
+            Debug.Log(t.name);
+            Debug.Log(pointDir);
+            
+            if(moveDir.x == pointDir.x) { continue;  }
+            if (moveDir.y == pointDir.y) { continue; }
+            //if (moveDir.x != 0 || moveDir.x == pointDir.x) { continue; }
+            //if (moveDir.y == 0 || moveDir.y == pointDir.y) { continue; }
+
+            Debug.Log("added");
+
+            targetOptions.Add(t);
+        }
+
+        */

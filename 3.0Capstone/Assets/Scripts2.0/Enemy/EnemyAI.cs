@@ -18,7 +18,7 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(EnemyBody))]
 public abstract class EnemyAI : MonoBehaviour
 {
-    private EnemyBody baseBody;
+    protected EnemyBody baseBody;
     public Behaviour behaviour;
 
     public enum Behaviour

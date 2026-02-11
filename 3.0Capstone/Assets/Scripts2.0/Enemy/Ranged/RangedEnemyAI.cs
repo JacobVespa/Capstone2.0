@@ -14,6 +14,9 @@ public class RangedEnemyAI : EnemyAI
 {
     protected RangedEnemyBody body;
 
+    protected Vector2 stopPos;
+    protected Vector2 closestPoint;
+
     [SerializeField] private float AttackRange = 10;
 
     int layer_mask;
@@ -41,9 +44,11 @@ public class RangedEnemyAI : EnemyAI
                 break;
             case Behaviour.Ready:
                 if (agent.CanDealDamage) { behaviour = Behaviour.Attacking; }
+                Flutter();
                 break;
             case Behaviour.Attacking:
                 TryAttackTarget();
+                Flutter();
                 break;
             case Behaviour.CoolDown:
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
@@ -70,27 +75,45 @@ public class RangedEnemyAI : EnemyAI
         body.Attack(targetLoc);
     }
 
+    private void Flutter()
+    {
+        if(moveInput == Vector2.zero)
+        {
+            base.ApproachTarget();
+            if(Random.value > 0.5)
+            {
+                moveInput = Vector2.Perpendicular(moveInput);
+            }
+            else { moveInput = -Vector2.Perpendicular(moveInput); }
+            
+        }
+
+        if(transform.position.y >= stopPos.y+10 || transform.position.y <= stopPos.y-10) { moveInput *= -1; }
+        else if(transform.position.x >= stopPos.x+10 || transform.position.x <= stopPos.x - 10) {  moveInput *= -1; }
+        body.InputDir = moveInput;
+    }
+
     // shoots out a raycast on the default layers and checks if anyhit by them are the target 
     // than checks if its with in range based on where it hit
     // if it is in range added to the attack queue and behaviour set to ready
     private void CheckTargetDist()
     {
 
-        
         RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, attackTarget.transform.position - transform.position , 100, layer_mask);
 
         
+
         foreach (RaycastHit2D h in r)
         {
-            if (h.collider.gameObject == attackTarget)
+            if (h.collider.gameObject == attackTarget && h.distance <= AttackRange)
             {
-                
-                if (h.distance <= AttackRange)
-                {
-                    behaviour = Behaviour.Ready;
-                    moveInput = Vector2.zero;
-                    AddToAttackQueue();
-                }
+
+                behaviour = Behaviour.Ready;
+                moveInput = Vector2.zero;
+                stopPos = transform.position;
+                closestPoint = h.collider.ClosestPoint(transform.position);
+                AddToAttackQueue();
+
             }
         }
     }

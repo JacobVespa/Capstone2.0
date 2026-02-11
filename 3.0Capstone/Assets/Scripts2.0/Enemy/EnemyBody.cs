@@ -130,7 +130,6 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     protected virtual void ReceiveDirection()
     {
         if (inputDir == Vector2.zero) { motion = Vector2.zero; return; }
-
         motion = transform.TransformDirection(inputDir) * moveSpeed;
         inputDir = Vector2.zero;
     }
