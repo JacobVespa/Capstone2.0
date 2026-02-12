@@ -6181,9 +6181,6 @@ MonoBehaviour:
   - {fileID: 3931329001491568306}
   healthBarFill: {fileID: 0}
   vignette: {fileID: 0}
-  mainCam: {fileID: 0}
-  camShakeDur: 0.3
-  camShakeStr: 0.1
   rigDeath: {fileID: 2436525782096443507}
 --- !u!114 &242098411885642447
 MonoBehaviour:
@@ -7289,7 +7286,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 3be83146ee23eaf4a9ac3b26cf003bf1, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
