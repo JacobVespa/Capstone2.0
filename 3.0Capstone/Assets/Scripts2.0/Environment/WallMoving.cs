@@ -6,8 +6,10 @@ public class WallMoving : MonoBehaviour
     [SerializeField] public float wallMoveSpeed;
     [SerializeField] public float floorMoveSpeed;
     [SerializeField] private bool isLooping = true;
-    
+
     private bool hasFinished = false;
+    private bool isPaused = false;
+
     private Vector3 startPosition;
 
     //offset wall and floor position for despawning
@@ -27,6 +29,8 @@ public class WallMoving : MonoBehaviour
 
     void Update()
     {
+        if (isPaused) return;
+
         if (isLooping)
         {
             WallMovement();
@@ -34,27 +38,26 @@ public class WallMoving : MonoBehaviour
         else if (!hasFinished)
         {
             WallMovement();
-            
-            if(gameObject.CompareTag("Wall"))
+
+            if (gameObject.CompareTag("Wall"))
             {
                 HasFinishedCheck(wallOffsetPos);
             }
-            if(gameObject.CompareTag("floor"))
+            if (gameObject.CompareTag("Floor"))
             {
                 HasFinishedCheck(floorOffsetPos);
             }
-            
         }
     }
 
     private void WallMovement()
     {
-        if(gameObject.CompareTag("Wall"))
+        if (gameObject.CompareTag("Wall"))
         {
             transform.position -= new Vector3(0, wallMoveSpeed, 0) * Time.deltaTime;
             DistanceCheck(wallOffsetPos, 43.5f);
         }
-        if(gameObject.CompareTag("Floor"))
+        if (gameObject.CompareTag("Floor"))
         {
             transform.position -= new Vector3(0, floorMoveSpeed, 0) * Time.deltaTime;
             DistanceCheck(floorOffsetPos, 47f);
@@ -63,7 +66,6 @@ public class WallMoving : MonoBehaviour
 
     private void DistanceCheck(float offsetPos, float yPos)
     {
-        //check if destroy based on offset
         if (isLooping && transform.position.y <= offsetPos)
         {
             transform.position = new Vector3(0, yPos, 0);
@@ -73,7 +75,6 @@ public class WallMoving : MonoBehaviour
 
     private void HasFinishedCheck(float offsetPos)
     {
-        // Calculate total distance traveled from start position
         float distanceTraveled = startPosition.y - transform.position.y;
         if (distanceTraveled >= Mathf.Abs(offsetPos))
         {
@@ -83,24 +84,34 @@ public class WallMoving : MonoBehaviour
 
     private void SpawnGems()
     {
-        foreach(GameObject gem in gems)
+        foreach (GameObject gem in gems)
         {
-            float randChance = Random.value; //generates value between 0.0 and 1.0
-            if(randChance <= spawnRate && !gem.activeSelf)
+            float randChance = Random.value;
+            if (randChance <= spawnRate && !gem.activeSelf)
             {
                 gem.SetActive(true);
             }
         }
     }
 
-    // Public method to toggle looping at runtime
     public void SetLooping(bool looping)
     {
         isLooping = looping;
-        if(!looping)
+
+        if (!looping)
         {
             hasFinished = false;
-            startPosition = transform.position; // Reset start position when disabling looping
+            startPosition = transform.position;
         }
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+    }
+
+    public void Play()
+    {
+        isPaused = false;
     }
 }

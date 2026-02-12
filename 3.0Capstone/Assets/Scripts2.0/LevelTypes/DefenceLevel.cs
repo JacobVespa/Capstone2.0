@@ -82,6 +82,11 @@ public class DefenceLevel : Level
             GameManager.Instance.GameTime >= startTime)
         {
             cinematic.MoveCamera();
+            WallMoving[] walls = GameObject.FindObjectsByType<WallMoving>(FindObjectsSortMode.None);
+            foreach (WallMoving wall in walls)            
+            {
+                wall.Pause();
+            }
             hasStarted = true;
 
             StartNextWave();

@@ -25,10 +25,13 @@ public class Turret : MonoBehaviour
     [SerializeField] bool autoTarget = true;
     [SerializeField] private float bulletSpeed = 50f;
 
-    // Boundary Caching
-    private Rect camRect;
+    private Camera cam;
+    private float camHalfWidth;
+    private float camHalfHeight;
     private float lastScreenWidth;
     private float lastScreenHeight;
+
+    // Crosshair size (world units)
     private float objectWidth;
     private float objectHeight;
 
@@ -45,11 +48,19 @@ public class Turret : MonoBehaviour
 
     private void Start()
     {
-        // Calculate initial object size from SpriteRenderer
-        objectWidth = crosshair.transform.GetComponent<SpriteRenderer>().bounds.extents.x;
-        objectHeight = crosshair.transform.GetComponent<SpriteRenderer>().bounds.extents.y;
+        cam = Camera.main;
 
-        UpdateCameraBounds();
+        if (!cam.orthographic)
+        {
+            Debug.LogError("Turret requires an Orthographic camera.");
+        }
+
+        RecalculateCameraExtents();
+
+        // Calculate crosshair size properly in world space
+        SpriteRenderer sr = crosshair.GetComponent<SpriteRenderer>();
+        objectWidth = sr.sprite.bounds.extents.x * crosshair.transform.lossyScale.x;
+        objectHeight = sr.sprite.bounds.extents.y * crosshair.transform.lossyScale.y;
 
         reloadNotif.SetActive(false);
         buttonPromptXB.SetActive(false);
@@ -62,25 +73,30 @@ public class Turret : MonoBehaviour
 
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
+
+        lastScreenWidth = Screen.width;
+        lastScreenHeight = Screen.height;
     }
 
     private void Update()
     {
-        // Check if resolution changed mid-game
+        // Recalculate if resolution/aspect changes
         if (Screen.width != lastScreenWidth || Screen.height != lastScreenHeight)
         {
-            UpdateCameraBounds();
+            lastScreenWidth = Screen.width;
+            lastScreenHeight = Screen.height;
+            RecalculateCameraExtents();
         }
 
         if (playerMounted)
         {
-            Aim();
-            Shoot();
-
             if (autoTarget)
                 DetermineTarget();
             else
                 ManualTarget();
+
+            Aim();
+            Shoot();
         }
         else
         {
@@ -88,31 +104,32 @@ public class Turret : MonoBehaviour
         }
     }
 
-    private void UpdateCameraBounds()
+    private void RecalculateCameraExtents()
     {
-        lastScreenWidth = Screen.width;
-        lastScreenHeight = Screen.height;
+        camHalfHeight = cam.orthographicSize;
+        camHalfWidth = camHalfHeight * cam.aspect;
+    }
 
-        Camera cam = Camera.main;
-        // Use nearClipPlane to get accurate world points relative to the camera view
-        Vector3 min = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
-        Vector3 max = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
+    private void ClampAimToCamera()
+    {
+        Vector3 camPos = cam.transform.position;
 
-        camRect = new Rect(min.x, min.y, max.x - min.x, max.y - min.y);
+        float minX = camPos.x - camHalfWidth + objectWidth;
+        float maxX = camPos.x + camHalfWidth - objectWidth;
+        float minY = camPos.y - camHalfHeight + objectHeight;
+        float maxY = camPos.y + camHalfHeight - objectHeight;
+
+        aimPos.x = Mathf.Clamp(aimPos.x, minX, maxX);
+        aimPos.y = Mathf.Clamp(aimPos.y, minY, maxY);
     }
 
     private void ManualTarget()
     {
         if (currentControls == null) return;
 
-        // Apply movement
         aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
 
-        // Clamp to cached camera boundaries
-        aimPos.x = Mathf.Clamp(aimPos.x, camRect.xMin + objectWidth, camRect.xMax - objectWidth);
-        aimPos.y = Mathf.Clamp(aimPos.y, camRect.yMin + objectHeight, camRect.yMax - objectHeight);
-
-        // Update visual
+        ClampAimToCamera();
         crosshair.transform.position = aimPos;
     }
 
@@ -123,6 +140,8 @@ public class Turret : MonoBehaviour
         crosshair.SetActive(true);
         buttonPromptXB.SetActive(false);
         playerMounted = true;
+
+        aimPos = transform.position;
     }
 
     public void Dismount()
@@ -159,7 +178,11 @@ public class Turret : MonoBehaviour
 
     private void ShootBullet()
     {
-        GameObject spawnedBullet = Instantiate(bullet, bulletSpawnLocation.transform.position, bulletSpawnLocation.transform.rotation);
+        GameObject spawnedBullet = Instantiate(
+            bullet,
+            bulletSpawnLocation.transform.position,
+            bulletSpawnLocation.transform.rotation);
+
         Rigidbody2D rb = spawnedBullet.GetComponent<Rigidbody2D>();
         rb.AddForce(-spawnedBullet.transform.right * bulletSpeed, ForceMode2D.Impulse);
     }
@@ -170,6 +193,7 @@ public class Turret : MonoBehaviour
         {
             transform.LookAt(transform.position + Vector3.forward, (Vector3)aimPos - transform.position);
             transform.Rotate(new Vector3(0, 0, -90));
+
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, aimPos);
@@ -202,6 +226,7 @@ public class Turret : MonoBehaviour
         if (closestDistanceSqr < Mathf.Infinity)
         {
             aimPos = closestPos;
+            ClampAimToCamera();
             crosshair.transform.position = aimPos;
         }
     }
@@ -213,7 +238,7 @@ public class Turret : MonoBehaviour
         ammoCountText.text = maxAmmo.ToString();
     }
 
-    // Helper Collision Methods
+    // Helper Collision Methods (unchanged)
     public void HitEnemy(Collider2D col)
     {
         var body = col.GetComponent<EnemyBody>();

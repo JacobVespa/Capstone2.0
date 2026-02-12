@@ -489,7 +489,6 @@ GameObject:
   m_Component:
   - component: {fileID: 358601489}
   - component: {fileID: 358601488}
-  - component: {fileID: 358601487}
   - component: {fileID: 358601486}
   m_Layer: 0
   m_Name: Background_Floor_0
@@ -510,32 +509,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359887a154e113d42bc531a3221a62aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMoveSpeed: 5
-  floorMoveSpeed: 5
-  isLooping: 0
+  wallMoveSpeed: 2
+  floorMoveSpeed: 2
+  isLooping: 1
   gems: []
---- !u!95 &358601487
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 358601485}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ee6edc320de7bc940933b9187d77d4a9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &358601488
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1188,7 +1165,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1538496865}
   - component: {fileID: 1538496864}
-  - component: {fileID: 1538496863}
   - component: {fileID: 1538496862}
   m_Layer: 0
   m_Name: Background_Floor_0 (1)
@@ -1209,32 +1185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359887a154e113d42bc531a3221a62aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMoveSpeed: 5
-  floorMoveSpeed: 5
-  isLooping: 0
+  wallMoveSpeed: 2
+  floorMoveSpeed: 2
+  isLooping: 1
   gems: []
---- !u!95 &1538496863
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1538496861}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: ee6edc320de7bc940933b9187d77d4a9, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!212 &1538496864
 SpriteRenderer:
   m_ObjectHideFlags: 0

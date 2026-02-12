@@ -14,7 +14,6 @@ public class Engine : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip[] engineRepairClips;
 
-    private WallMoving[] wallMove; //Disgusting, forgive me father
     private Color originalColor = Color.white;
     private Color heatColor = Color.red;
 
@@ -31,7 +30,6 @@ public class Engine : MonoBehaviour
     private void Start()
     {
        buttonPromptXB.SetActive(false);
-       wallMove = FindObjectsByType<WallMoving>(sortMode: FindObjectsSortMode.None);
     }
     // Update is called once per frame
     void Update()
@@ -71,16 +69,10 @@ public class Engine : MonoBehaviour
             tooHot = true;
             GameManager.Instance.PauseGameTime();
 
-            for (int i = 0; i < wallMove.Length; i++)
+            WallMoving[] walls = GameObject.FindObjectsByType<WallMoving>(FindObjectsSortMode.None);
+            foreach (WallMoving wall in walls)            
             {
-                wallMove[i].wallMoveSpeed = 0.0f;
-                wallMove[i].floorMoveSpeed = 0.0f;
-
-                GameflowManager flowManager = FindFirstObjectByType<GameflowManager>();
-                if (flowManager != null)
-                {
-                    //flowManager.CurrentLevel.Cinematic.ShakeCamera(1.0f, 0.3f);
-                }
+                wall.Pause();
             }
 
             //Debug.Log("ENGINE HOT!!!!");
@@ -94,10 +86,10 @@ public class Engine : MonoBehaviour
             tooHot = false;
             GameManager.Instance.StartGameTime();
 
-            for (int i = 0; i < wallMove.Length; i++)
+            WallMoving[] walls = GameObject.FindObjectsByType<WallMoving>(FindObjectsSortMode.None);
+            foreach (WallMoving wall in walls)            
             {
-                wallMove[i].wallMoveSpeed = 3.0f;
-                wallMove[i].floorMoveSpeed = 2.0f;
+                wall.Play();
             }
 
             //Debug.Log("ENGINE REPAIRED!");

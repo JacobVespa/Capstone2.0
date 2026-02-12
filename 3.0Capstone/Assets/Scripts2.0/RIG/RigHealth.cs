@@ -23,10 +23,10 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [SerializeField] private Image healthBarFill;
     [SerializeField] private Image vignette;
 
-    [Header("Camera Shake")]
-    [SerializeField] private Camera mainCam;
-    [SerializeField] private float camShakeDur = 0.3f;
-    [SerializeField] private float camShakeStr = 0.1f;
+    //[Header("Camera Shake")]
+    //[SerializeField] private Camera mainCam;
+    //[SerializeField] private float camShakeDur = 0.3f;
+    //[SerializeField] private float camShakeStr = 0.1f;
 
     [SerializeField] private GameObject rigDeath;
 
@@ -62,8 +62,8 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             active[i].SetActive(false);
         }
 
-        if (mainCam != null)
-            originalCamPos = mainCam.transform.position;
+        //if (mainCam != null)
+            //originalCamPos = mainCam.transform.position;
 
         nextThreshold = maxHealth - DamageThreshold;
         
