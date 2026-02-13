@@ -20,6 +20,7 @@ public class Engine : MonoBehaviour
     private const float OVERHEAT_THRESHOLD = 0.99f;
     private const float REPAIR_THRESHOLD = 0.01f;
     private bool tooHot = false;
+    public bool TooHot => tooHot;
     
 
     private float heat = 0f;        
@@ -66,7 +67,7 @@ public class Engine : MonoBehaviour
     {
         if (!tooHot && heat >= OVERHEAT_THRESHOLD)
         {
-            tooHot = true;
+            IsOverheated(true);
             GameManager.Instance.PauseGameTime();
 
             WallMoving[] walls = GameObject.FindObjectsByType<WallMoving>(FindObjectsSortMode.None);
@@ -83,7 +84,7 @@ public class Engine : MonoBehaviour
     {
         if (tooHot && heat <= REPAIR_THRESHOLD)
         {
-            tooHot = false;
+            IsOverheated(false);
             GameManager.Instance.StartGameTime();
 
             WallMoving[] walls = GameObject.FindObjectsByType<WallMoving>(FindObjectsSortMode.None);
@@ -94,5 +95,10 @@ public class Engine : MonoBehaviour
 
             //Debug.Log("ENGINE REPAIRED!");
         }
+    }
+
+    public void IsOverheated(bool value)
+    {
+        tooHot = value;
     }
 }
