@@ -38,6 +38,13 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
     public float DamageThreshold => maxHealth / damagedAreas.Length;
 
+    private bool canTakeDamage = true;
+    public bool CanTakeDamage
+    {
+        get => canTakeDamage;
+        set => canTakeDamage = value;
+    }
+
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -77,7 +84,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
     private void ApplyDamage(float damage)
     {
-        //if (currentHealth <= 0f) return;
+        if (!canTakeDamage) return;
 
         currentHealth = Mathf.Clamp(currentHealth - damage, 0f, maxHealth);
 

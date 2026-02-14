@@ -1,44 +1,117 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
 public class DialogueManager : MonoBehaviour
 {
-    private int charTalking;
     public bool isTalking = false;
-    public string currentDialogue;
-
-    [SerializeField]
-    private TMP_Text dialogueBox;
+    public bool hasFinishedTalking = false; // New boolean for when dialogue completes
     
+    [SerializeField] private TMP_Text dialogueBox;
+    [SerializeField] private float typewriterSpeed = 0.05f;
+    [SerializeField] private float dialogueBufferTime = 1.0f; // Time to wait after dialogue finishes
+    
+    // Dictionary to store dialogue strings with keys for easy access
+    private Dictionary<string, string> dialogues = new Dictionary<string, string>();
+    
+    private Queue<string> dialogueQueue = new Queue<string>();
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentDialogue = "lol lmao";
+        InitializeDialogues();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void InitializeDialogues()
     {
-        if (Input.GetKey(KeyCode.R) && !isTalking)
+        // Placeholder text!
+        dialogues.Add("intro", "That last wave took a lot out of us. Get ready for the next wave with this downtime to prepare!");
+        dialogues.Add("engine", "The engine is overheating! Press ***** to cool it down.");
+        dialogues.Add("smallEnemy", "Enemies incoming! Use your turrets to defend.");
+        dialogues.Add("reload", "Your turrets are empty! Press ***** near them to reload.");
+        dialogues.Add("repair", "Damage detected! Use repair tools to fix your rig.");
+        dialogues.Add("hammer", "Grab the bug repellant pellets. They're totally non-harmful and just scare off the bugs.");
+        dialogues.Add("largeEnemy", "Watch out! A large enemy is approaching!");
+        dialogues.Add("tutorialComplete", "Great job! You've completed the tutorial. Get ready for the real challenge ahead!");
+    }
+
+    // Call this method from TutorialManager to show dialogue
+    public void ShowDialogue(string dialogueKey)
+    {
+        if (dialogues.ContainsKey(dialogueKey))
         {
-            StartCoroutine(Speak());
+            if (!isTalking)
+            {
+                hasFinishedTalking = false; // Reset the flag when starting new dialogue
+                StartCoroutine(TypeDialogue(dialogues[dialogueKey]));
+            }
+            else
+            {
+                // Queue dialogue if already talking
+                dialogueQueue.Enqueue(dialogueKey);
+            }
+        }
+        else
+        {
+            Debug.LogWarning($"Dialogue key '{dialogueKey}' not found!");
         }
     }
 
-    IEnumerator Speak()
+    // Overload to accept direct string
+    public void ShowDialogue(string dialogueKey, string customText)
+    {
+        if (!isTalking)
+        {
+            hasFinishedTalking = false; // Reset the flag when starting new dialogue
+            StartCoroutine(TypeDialogue(customText));
+        }
+    }
+
+    private IEnumerator TypeDialogue(string dialogue)
     {
         isTalking = true;
+        hasFinishedTalking = false;
         dialogueBox.text = "";
-        foreach (char c in currentDialogue)
+        
+        foreach (char c in dialogue)
         {
             dialogueBox.text += c;
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(typewriterSpeed);
         }
+        
         isTalking = false;
+
+        // Wait for buffer time before setting hasFinishedTalking to true
+        yield return new WaitForSeconds(dialogueBufferTime);
+        hasFinishedTalking = true;
+
+        // Process queued dialogues
+        if (dialogueQueue.Count > 0)
+        {
+            string nextDialogue = dialogueQueue.Dequeue();
+            ShowDialogue(nextDialogue);
+        }
     }
 
-    //Go ahead and grab some of those bug repellant pellets.
-    //They are totally non-harmful and just scare off the bugs.
+    // Skip typewriter effect
+    public void SkipTypewriter()
+    {
+        StopAllCoroutines();
+        isTalking = false;
+        hasFinishedTalking = true;
+        dialogueBox.text = "";
+    }
+
+    // Clear the dialogue box
+    public void ClearDialogue()
+    {
+        dialogueBox.text = "";
+        hasFinishedTalking = false;
+    }
+
+    // Reset the finished talking flag (useful for tutorial steps)
+    public void ResetFinishedFlag()
+    {
+        hasFinishedTalking = false;
+    }
 }

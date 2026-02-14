@@ -85,7 +85,10 @@ public class Engine : MonoBehaviour
         if (tooHot && heat <= REPAIR_THRESHOLD)
         {
             IsOverheated(false);
-            GameManager.Instance.StartGameTime();
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.StartGameTime();
+            }
 
             WallMoving[] walls = GameObject.FindObjectsByType<WallMoving>(FindObjectsSortMode.None);
             foreach (WallMoving wall in walls)            
