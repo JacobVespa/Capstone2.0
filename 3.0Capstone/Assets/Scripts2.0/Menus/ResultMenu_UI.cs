@@ -76,6 +76,7 @@ public class ResultMenu_UI : MonoBehaviour
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         if (gameflowManager != null)
         {
+            GameManager.Instance.ResetStats();
             gameflowManager.RestartLevel();
             LevelManager.Instance.HideEndScreen(GameManager.Instance.ResultScreenIndex);
         }
@@ -86,6 +87,7 @@ public class ResultMenu_UI : MonoBehaviour
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         if (gameflowManager != null)
         {
+            GameManager.Instance.ResetStats();
             gameflowManager.EndLevel();
             LevelManager.Instance.HideEndScreen(GameManager.Instance.ResultScreenIndex);
         }

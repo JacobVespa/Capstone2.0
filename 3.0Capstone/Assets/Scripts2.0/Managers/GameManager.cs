@@ -74,6 +74,12 @@ public class GameManager : MonoBehaviour
         kills += amount;
     }
 
+    public void ResetStats()
+    {
+        shards = 0;
+        kills = 0;
+    }
+
     public void StartGameTime() => timeActive = true;
     public void PauseGameTime() => timeActive = false;
     public void StopGameTime() => Time.timeScale = 0f;
