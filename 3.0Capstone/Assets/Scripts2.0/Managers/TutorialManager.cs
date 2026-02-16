@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,6 +50,7 @@ public class TutorialManager : MonoBehaviour
             foreach (var turret in turretScripts)
             {
                 turret.currentAmmo = 999;
+                turret.UpdateAmmoUI();
             }
         }
         else 
@@ -59,14 +61,18 @@ public class TutorialManager : MonoBehaviour
 
     void Update()
     {
-        if (tutorialSteps[0].Invoke())
+        if (tutorialSteps.Count > 0 && tutorialSteps[0].Invoke())
         {
             tutorialSteps.RemoveAt(0);
+        }
+        else if (tutorialSteps.Count == 0)
+        {
+            StartGame();
         }
 
         if (RIG != null && rigHealthScript.CanTakeDamage)
         {
-            if (rigHealthScript.HealthNormalized <= 0.8f)
+            if (rigHealthScript.HealthNormalized <= 0.6f)
             {
                 rigHealthScript.CanTakeDamage = false; // Prevent further damage during tutorial
             }
@@ -116,6 +122,7 @@ public class TutorialManager : MonoBehaviour
         {
             smallEnemyFlag = true;
             dialogueManager.ShowDialogue("smallEnemy");
+            smallEnemySpawner.StartNewWave();
         }
 
         if (smallEnemySpawner != null && smallEnemySpawner.IsWaveComplete)
@@ -133,6 +140,7 @@ public class TutorialManager : MonoBehaviour
         {
             largeEnemyFlag = true;
             dialogueManager.ShowDialogue("largeEnemy");
+            largeEnemySpawner.StartNewWave();
         }
 
         if (largeEnemySpawner != null && largeEnemySpawner.IsWaveComplete)
@@ -154,6 +162,7 @@ public class TutorialManager : MonoBehaviour
             foreach (var turret in turretScripts)
             {
                 turret.currentAmmo = 0;
+                turret.UpdateAmmoUI();
                 turret.needsReload = true;
             }
         }
@@ -176,6 +185,16 @@ public class TutorialManager : MonoBehaviour
         {
             repairFlag = true;
             dialogueManager.ShowDialogue("repair");
+            while (rigHealthScript.HealthNormalized >= 0.6f)
+            {
+                rigHealthScript.ApplyDamage(rigHealthScript.DamageThreshold); // Reduce health to trigger repair tutorial
+            }
+        }
+
+        if (RIG != null && rigHealthScript.HealthNormalized >= 0.8f)
+        {
+            dialogueManager.SkipTypewriter();
+            return true;
         }
 
         return false;
@@ -187,6 +206,7 @@ public class TutorialManager : MonoBehaviour
         {
             hammerFlag = true;
             dialogueManager.ShowDialogue("hammer");
+            tickEnemySpawner.StartNewWave();
         }
 
         if (tickEnemySpawner != null && tickEnemySpawner.IsWaveComplete)
@@ -217,4 +237,29 @@ public class TutorialManager : MonoBehaviour
     }
 
 #endregion
+
+#region Helper Methods
+
+    private void StartGame()
+    {
+        StartCoroutine(StartGame(4f)); // Delay to allow tutorial completion dialogue to finish
+    }
+
+    private IEnumerator StartGame(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
+        if (gameflowManager != null)
+        {
+            gameflowManager.StartScrollerLevel();
+        }
+        else
+        {
+            Debug.LogError("GameflowManager not found in the scene.");
+        }
+    }
+
+#endregion
+
 }

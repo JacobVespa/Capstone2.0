@@ -33,6 +33,14 @@ public class GameflowManager : MonoBehaviour
 
     // -------- Level Entry --------
 
+    public void StartTutorialLevel()
+    {
+        int currentSceneIndex = 5;
+        
+        CurrentLevel = new TutorialLevel(currentSceneIndex);
+        BeginLevel();
+    }
+
     public void StartScrollerLevel()
     {
         int currentSceneIndex = 1;

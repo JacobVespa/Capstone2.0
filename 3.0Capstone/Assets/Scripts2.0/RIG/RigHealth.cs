@@ -82,7 +82,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             ApplyDamage(d.DamageVal);
     }
 
-    private void ApplyDamage(float damage)
+    public void ApplyDamage(float damage)
     {
         if (!canTakeDamage) return;
 

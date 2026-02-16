@@ -28,11 +28,11 @@ public class DialogueManager : MonoBehaviour
         dialogues.Add("intro", "That last wave took a lot out of us. Get ready for the next wave with this downtime to prepare!");
         dialogues.Add("engine", "The engine is overheating! Press ***** to cool it down.");
         dialogues.Add("smallEnemy", "Enemies incoming! Use your turrets to defend.");
-        dialogues.Add("reload", "Your turrets are empty! Press ***** near them to reload.");
+        dialogues.Add("reload", "Your turrets are empty! Bring ammo from the crate and reload!");
         dialogues.Add("repair", "Damage detected! Use repair tools to fix your rig.");
-        dialogues.Add("hammer", "Grab the bug repellant pellets. They're totally non-harmful and just scare off the bugs.");
+        dialogues.Add("hammer", "Hitch hikers are invading the RIG! Grab your hammer and start swinging!");
         dialogues.Add("largeEnemy", "Watch out! A large enemy is approaching!");
-        dialogues.Add("tutorialComplete", "Great job! You've completed the tutorial. Get ready for the real challenge ahead!");
+        dialogues.Add("tutorialComplete", "The path ahead is clear!Get ready for the real challenge ahead!");
     }
 
     // Call this method from TutorialManager to show dialogue

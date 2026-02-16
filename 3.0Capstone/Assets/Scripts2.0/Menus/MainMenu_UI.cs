@@ -32,6 +32,19 @@ public class MainMenu_UI : MonoBehaviour
         }
     }
 
+    public void TutorialButtonClicked()
+    {
+        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
+        if (gameflowManager != null)
+        {
+            gameflowManager.StartTutorialLevel();
+        }
+        else
+        {
+            Debug.LogError("GameflowManager not found in the scene.");
+        }
+    }
+
     public void OptionButtonClicked()
     {
         mainMenu.SetActive(false);

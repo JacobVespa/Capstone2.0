@@ -234,6 +234,7 @@ public class Turret : MonoBehaviour
     public void RefillAmmo()
     {
         currentAmmo = maxAmmo;
+        needsReload = false;
         reloadNotif.SetActive(false);
         ammoCountText.text = maxAmmo.ToString();
     }
@@ -255,6 +256,11 @@ public class Turret : MonoBehaviour
     {
         var proj = col.GetComponent<Projectile>();
         if (proj != null) { StartCoroutine(HitMarker(Color.yellow)); proj.Attacked(currentDamage); }
+    }
+
+    public void UpdateAmmoUI()
+    {
+        ammoCountText.text = currentAmmo.ToString();
     }
 
     IEnumerator ShootingVFX()

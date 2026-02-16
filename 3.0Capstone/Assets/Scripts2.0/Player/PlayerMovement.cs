@@ -169,8 +169,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleRepair()
     {
-        RepairPatch repair = interactor.currentInteractObject.GetComponentInChildren<RepairPatch>();
-       
         if (interactor.currentInteractObject.CompareTag("Repair"))
         {
             interactor.currentInteractObject.GetComponent<RepairStation>().PlayPickupSound();
@@ -178,14 +176,20 @@ public class PlayerMovement : MonoBehaviour
             isHoldingRepair = true;
         }
 
-        if (!repair.isPatched && isHoldingRepair && interactor.currentInteractObject.CompareTag("Damaged"))
+        if (interactor.currentInteractObject.CompareTag("Damaged") && isHoldingRepair)
         {
-            repair.ActivatePatch();
-            //interactor.currentInteractObject.GetComponent<SpriteRenderer>().enabled = false;
-            interactor.canRepair = false;
-            isHoldingRepair = false;
-            heldRepair.SetActive(false);
-            rigHealth.HealDamage();
+            RepairPatch repair = interactor.currentInteractObject.GetComponentInChildren<RepairPatch>();
+            
+            // Null check before accessing repair
+            if (repair != null && !repair.isPatched)
+            {
+                repair.ActivatePatch();
+                //interactor.currentInteractObject.GetComponent<SpriteRenderer>().enabled = false;
+                interactor.canRepair = false;
+                isHoldingRepair = false;
+                heldRepair.SetActive(false);
+                rigHealth.HealDamage();
+            }
         }
     }
 
