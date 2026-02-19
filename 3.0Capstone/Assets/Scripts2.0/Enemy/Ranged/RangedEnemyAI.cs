@@ -17,6 +17,8 @@ public class RangedEnemyAI : EnemyAI
     protected Vector2 stopPos;
     protected Vector2 closestPoint;
 
+    public bool check = false;
+
     [SerializeField] private float AttackRange = 10;
 
     int layer_mask;
@@ -44,11 +46,11 @@ public class RangedEnemyAI : EnemyAI
                 break;
             case Behaviour.Ready:
                 if (agent.CanDealDamage) { behaviour = Behaviour.Attacking; }
-                Flutter();
+                //Flutter();
                 break;
             case Behaviour.Attacking:
                 TryAttackTarget();
-                Flutter();
+                //Flutter();
                 break;
             case Behaviour.CoolDown:
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
@@ -101,11 +103,13 @@ public class RangedEnemyAI : EnemyAI
 
         RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, attackTarget.transform.position - transform.position , 100, layer_mask);
 
+        check = CheckInView();
+
         
 
         foreach (RaycastHit2D h in r)
         {
-            if (h.collider.gameObject == attackTarget && h.distance <= AttackRange)
+            if (h.collider.gameObject == attackTarget && h.distance <= AttackRange && CheckInView())
             {
 
                 behaviour = Behaviour.Ready;

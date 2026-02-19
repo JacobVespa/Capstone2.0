@@ -39,7 +39,7 @@ public abstract class EnemyAI : MonoBehaviour
     [SerializeField] protected GameObject targetLoc;
     
     [SerializeField] protected bool hasTarget;
-    
+
     protected Vector2 targetDist = Vector3.zero;
     protected float totalDist;
     protected bool inRange = false;
@@ -61,6 +61,7 @@ public abstract class EnemyAI : MonoBehaviour
         else { hasTarget = true; }
         if (targetLoc != null) { targetDist = transform.position - targetLoc.transform.position; }
         if (agent == null) { agent = GetComponent<AttackQueueAgent>(); }
+        
     }
 
     //  method all EnemyAI need to implement which determines the enemyBody's action depending on the current state
@@ -89,6 +90,18 @@ public abstract class EnemyAI : MonoBehaviour
         {
             baseBody.InputDir = moveInput;
         }
+    }
+
+    protected bool CheckInView()
+    {
+        Vector3 vPos = Camera.main.WorldToViewportPoint(transform.position);
+
+        if(vPos.x < 0.99 && vPos.x > 0.01 && vPos.y < 0.99 && vPos.y > 0.01)
+        {
+            return true;
+        }
+        
+        else { return false; }
     }
 
     // adds, removes or moves the enemy to the back fo the attack queue

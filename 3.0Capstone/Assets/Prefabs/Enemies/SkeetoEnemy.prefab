@@ -177,6 +177,7 @@ MonoBehaviour:
   attackTarget: {fileID: 0}
   targetLoc: {fileID: 0}
   hasTarget: 0
+  check: 0
   AttackRange: 10
 --- !u!114 &1503413796833272081
 MonoBehaviour:
@@ -227,7 +228,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
