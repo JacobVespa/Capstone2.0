@@ -1030,8 +1030,8 @@ Transform:
   m_GameObject: {fileID: 1200281761}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0319, y: 0.0537, z: 0}
-  m_LocalScale: {x: 1.2107109, y: 0.81244296, z: 0.66413}
+  m_LocalPosition: {x: -0.1711, y: 0.0537, z: 0}
+  m_LocalScale: {x: 1.0910357, y: 0.81244296, z: 0.66413}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1117,8 +1117,8 @@ Transform:
   m_GameObject: {fileID: 1221942890}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2371, y: 0.0551, z: 0}
-  m_LocalScale: {x: 0.58293986, y: 0.87772113, z: 1}
+  m_LocalPosition: {x: -0.2105, y: 0.0728, z: 0}
+  m_LocalScale: {x: 0.5048127, y: 0.8809687, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1269,6 +1269,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1240742466}
   - component: {fileID: 1240742465}
+  - component: {fileID: 1240742467}
   m_Layer: 0
   m_Name: mole_2_final1768349814_0
   m_TagString: Untagged
@@ -1320,7 +1321,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: -3814789064798789691, guid: 383afdff74a8cba47bfd7deb52eb0d64, type: 3}
+  m_Sprite: {fileID: 631528033688020697, guid: cc42f09e58681bc43bbcce1d2d8fd2f3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1339,13 +1340,35 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1240742464}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.17219277, w: 0.9850633}
-  m_LocalPosition: {x: -9.26, y: 1.04, z: 0}
-  m_LocalScale: {x: 1.2475, y: 1.2475, z: 1.2475}
+  m_LocalRotation: {x: -0, y: -0, z: -0.010208822, w: 0.99994797}
+  m_LocalPosition: {x: -11.47, y: 0.93, z: 0}
+  m_LocalScale: {x: 0.3780604, y: 0.48768553, z: 0.4646189}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -19.831}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -1.17}
+--- !u!95 &1240742467
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240742464}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e7280dcb5dc629644bf14b5105a06f7d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1303085602
 GameObject:
   m_ObjectHideFlags: 0
@@ -2031,6 +2054,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2023771098}
   - component: {fileID: 2023771097}
+  - component: {fileID: 2023771099}
   m_Layer: 0
   m_Name: mole_final_0
   m_TagString: Untagged
@@ -2102,12 +2126,34 @@ Transform:
   m_GameObject: {fileID: 2023771096}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.21280546, w: 0.97709465}
-  m_LocalPosition: {x: 9.1956, y: 0.4426, z: 0}
-  m_LocalScale: {x: -0.45001078, y: 0.5324566, z: 0.61109}
+  m_LocalPosition: {x: 12.01, y: 0.09, z: 0}
+  m_LocalScale: {x: -0.38239217, y: 0.45244968, z: 0.5192676}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 24.574}
+--- !u!95 &2023771099
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2023771096}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 56db4bcd740d44b40bf1fe8b4526c39d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2070533067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2118,6 +2164,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2070533069}
   - component: {fileID: 2070533068}
+  - component: {fileID: 2070533071}
+  - component: {fileID: 2070533070}
   m_Layer: 0
   m_Name: Leaderboard_0
   m_TagString: Untagged
@@ -2189,12 +2237,51 @@ Transform:
   m_GameObject: {fileID: 2070533067}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.025769692, w: 0.99966794}
-  m_LocalPosition: {x: -0.08, y: 4.04, z: 0}
-  m_LocalScale: {x: 0.5524, y: 0.4959825, z: 1}
+  m_LocalPosition: {x: -0.12, y: 3.83, z: 0}
+  m_LocalScale: {x: 0.4574901, y: 0.39432845, z: 0.85858}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2.953}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -11.513}
+--- !u!111 &2070533070
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070533067}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: 74399993f65fcab4b82f09d6bbf32cb0, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 74399993f65fcab4b82f09d6bbf32cb0, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0
+--- !u!95 &2070533071
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070533067}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
