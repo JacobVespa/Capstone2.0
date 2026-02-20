@@ -8,27 +8,16 @@ public class BigTickEnemtAI : TickEnemyAI
 {
     
 
-    public GameObject locationList;
-
-    private List<Transform> moveLocations;
-
-    private Transform pastDest;
-
-    private List<Transform> inRadius;
-
     [SerializeField] private CircleCollider2D detection;
 
-
+    public GameObject pointA;
+    public GameObject pointB;
 
     protected override void Awake()
     {
         
         base.Awake();
-        if(locationList != null)
-        {
-            moveLocations = new List<Transform>(locationList.GetComponentsInChildren<Transform>());
-
-        }
+       
         
         if(detection != null) { detection.enabled = false; }
     }
@@ -43,7 +32,7 @@ public class BigTickEnemtAI : TickEnemyAI
                 if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos));}
                 break;
             case Behaviour.Moving:
-                ApproachTarget();
+                //ApproachTarget();
                 if (targetLoc.transform == transform) { Debug.Log("there"); }
                 break;
             case Behaviour.Ready:
@@ -65,6 +54,66 @@ public class BigTickEnemtAI : TickEnemyAI
         }
     }
 
+    protected override void ApproachTarget()
+    {
+        base.ApproachTarget();
+
+        if (Mathf.Abs(Vector2.Distance(transform.position, targetLoc.transform.position)) <= 0.5)
+        {
+            //targetLoc = null;
+            behaviour = Behaviour.Ready;
+        }
+    }
+
+    private void FindEscapeDirection(Collider2D collision)
+    {
+        Vector2 pPos = Vector2.zero;
+        
+        if (collision.ClosestPoint(transform.position) != (Vector2)transform.position)
+        {
+            pPos = collision.ClosestPoint(transform.position);
+        }
+        else { pPos = collision.transform.position;}
+
+        float escapeAngle = GetOppositeAngle(pPos);
+
+        
+
+        CheckDirection(escapeAngle);
+
+        
+    }
+
+    private float GetOppositeAngle(Vector2 pPos)
+    {
+        Vector2 dirToPlay = (pPos - (Vector2)transform.position).normalized;
+
+        float angle = Mathf.Atan2(dirToPlay.y, dirToPlay.x);
+
+        float opposite = (((angle * Mathf.Rad2Deg) + 180f) % 360f) * Mathf.Deg2Rad;
+        
+        return opposite;
+    }
+
+    private void CheckDirection(float angle)
+    {
+        float posAngle = (((angle * Mathf.Rad2Deg) + 30f) % 360) * Mathf.Deg2Rad;
+        float negAngle = (((angle * Mathf.Rad2Deg) - 30f) % 360) * Mathf.Deg2Rad;
+        int layer = LayerMask.GetMask("Default");
+        Vector2 DV = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        Vector2 posDV = new Vector2(Mathf.Cos(posAngle), Mathf.Sin(posAngle));
+        Vector2 negDV = new Vector2(Mathf.Cos(negAngle), Mathf.Sin(negAngle));
+
+        RaycastHit2D posRay = Physics2D.Raycast(transform.position, posDV,layer);
+        RaycastHit2D negRay = Physics2D.Raycast(transform.position, negDV,layer);
+
+        Debug.Log(posRay.collider.name);
+        Debug.Log(negRay.collider.name);
+
+        Debug.DrawRay(transform.position, DV * 2, Color.black);
+        Debug.DrawRay(transform.position, posDV * 2, Color.blue);
+        Debug.DrawRay(transform.position, negDV * 2,  Color.magenta);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -80,11 +129,12 @@ public class BigTickEnemtAI : TickEnemyAI
     {
         if (collision.gameObject.layer == 8)
         {
+            FindEscapeDirection(collision);
 
-            if(behaviour != Behaviour.Moving) {
+            if (behaviour != Behaviour.Moving) {
                 body.attackNotif.SetActive(false);
                 behaviour = Behaviour.Moving;
-                SelectNewTarget(detection.ClosestPoint(collision.transform.position));
+                //FindEscapeDirection(detection.ClosestPoint(collision.transform.position));
             }
             
         }
@@ -99,39 +149,9 @@ public class BigTickEnemtAI : TickEnemyAI
         }
     }
 
-    protected override void ApproachTarget()
-    {
-        base.ApproachTarget();
+    
 
-        if (Mathf.Abs(Vector2.Distance(transform.position, targetLoc.transform.position)) <= 0.5)
-        {
-            //targetLoc = null;
-            behaviour = Behaviour.Ready;
-        }
-    }
-
-    private void SelectNewTarget(Vector2 player)
-    {
-        pastDest = targetLoc.transform;
-        List<Transform> dirOptions = GetTargetOptions(player);
-
-        
-
-        if (dirOptions.Count > 0)
-        {
-            targetLoc = dirOptions[Random.Range(0, dirOptions.Count)].gameObject;
-        }
-        else { targetLoc = moveLocations[Random.Range(0, moveLocations.Count)].gameObject; }
-    }
-
-    private List<Transform> GetTargetOptions(Vector2 player)
-    {
-        List<Transform> targetOptions = new List<Transform>();
-
-        
-
-        return targetOptions;
-    }
+    
 }
 
 /*
