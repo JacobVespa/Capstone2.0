@@ -98,7 +98,7 @@ public class BigTickEnemtAI : TickEnemyAI
         else  escapeAngle = Random.Range(angleA, angleB);
 
         escapeDir = GetDirFromAngle(escapeAngle);
-        Debug.DrawRay(transform.position, GetDirFromAngle(escapeAngle));
+        //Debug.DrawRay(transform.position, GetDirFromAngle(escapeAngle));
 
     }
 
@@ -139,23 +139,23 @@ public class BigTickEnemtAI : TickEnemyAI
 
         if(posRay.distance <= 2 && negRay.distance <= 2)
         {
-            Debug.Log("flip All");
+            //Debug.Log("flip All");
             (angleA, angleB) = GetOtherAngles(GetOppositeAngle(angle), 30);
         }
         else if (posRay.distance <= 2)
         {
-            Debug.Log("turn neg");
+            //Debug.Log("turn neg");
             (angleA, angleB) = GetOtherAngles(angleB, 30);
         }
         else if(negRay.distance <= 2)
         {
-            Debug.Log("turn pos");
+            //Debug.Log("turn pos");
             (angleA, angleB) = GetOtherAngles(angleA, 30);
         }
 
-        Debug.DrawRay(transform.position, DV * 2, Color.black);
-        Debug.DrawRay(transform.position, posDV * 2, Color.blue);
-        Debug.DrawRay(transform.position, negDV * 2, Color.magenta);
+        //Debug.DrawRay(transform.position, DV * 2, Color.black);
+        //Debug.DrawRay(transform.position, posDV * 2, Color.blue);
+        //Debug.DrawRay(transform.position, negDV * 2, Color.magenta);
 
         return (angleA, angleB);
 
