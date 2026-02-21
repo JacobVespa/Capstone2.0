@@ -184,7 +184,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8879956398455207792}
   - component: {fileID: 8407079647604781715}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,8 +328,9 @@ MonoBehaviour:
   attackTarget: {fileID: 0}
   targetLoc: {fileID: 0}
   hasTarget: 0
-  locationList: {fileID: 0}
   detection: {fileID: 8407079647604781715}
+  pointA: {fileID: 0}
+  pointB: {fileID: 0}
 --- !u!114 &2431459667625595386
 MonoBehaviour:
   m_ObjectHideFlags: 0

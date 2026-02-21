@@ -2,16 +2,14 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 using static UnityEditor.PlayerSettings;
 
 public class BigTickEnemtAI : TickEnemyAI
 {
-    
+    Vector2 escapeDir = Vector2.zero;
 
     [SerializeField] private CircleCollider2D detection;
-
-    public GameObject pointA;
-    public GameObject pointB;
 
     protected override void Awake()
     {
@@ -22,6 +20,15 @@ public class BigTickEnemtAI : TickEnemyAI
         if(detection != null) { detection.enabled = false; }
     }
 
+    protected override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        if(escapeDir != Vector2.zero)
+        {
+            
+            body.InputDir = escapeDir;
+        }
+    }
 
     protected override void AIFlowChart()
     {
@@ -29,10 +36,11 @@ public class BigTickEnemtAI : TickEnemyAI
         switch (behaviour)
         {
             case Behaviour.Spawning:
-                if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos));}
+                Debug.Log(body.dropping);
+                if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos));Debug.Log("start"); }
                 break;
             case Behaviour.Moving:
-                //ApproachTarget();
+                ApproachTarget();
                 if (targetLoc.transform == transform) { Debug.Log("there"); }
                 break;
             case Behaviour.Ready:
@@ -75,44 +83,83 @@ public class BigTickEnemtAI : TickEnemyAI
         }
         else { pPos = collision.transform.position;}
 
-        float escapeAngle = GetOppositeAngle(pPos);
-
-        
-
-        CheckDirection(escapeAngle);
-
-        
-    }
-
-    private float GetOppositeAngle(Vector2 pPos)
-    {
         Vector2 dirToPlay = (pPos - (Vector2)transform.position).normalized;
 
         float angle = Mathf.Atan2(dirToPlay.y, dirToPlay.x);
+
+        float escapeAngle = GetOppositeAngle(angle);
+
+        (float angleA, float angleB) = CheckDirection(escapeAngle);
+        
+        if(angleA < angleB)
+        {
+            escapeAngle = Random.Range(angleB, escapeAngle+angleA);
+        }
+        else  escapeAngle = Random.Range(angleA, angleB);
+
+        escapeDir = GetDirFromAngle(escapeAngle);
+        Debug.DrawRay(transform.position, GetDirFromAngle(escapeAngle));
+
+    }
+
+    private float GetOppositeAngle(float angle)
+    {
 
         float opposite = (((angle * Mathf.Rad2Deg) + 180f) % 360f) * Mathf.Deg2Rad;
         
         return opposite;
     }
 
-    private void CheckDirection(float angle)
+    private (float angleA, float angleB) GetOtherAngles(float angle, float offput)
     {
-        float posAngle = (((angle * Mathf.Rad2Deg) + 30f) % 360) * Mathf.Deg2Rad;
-        float negAngle = (((angle * Mathf.Rad2Deg) - 30f) % 360) * Mathf.Deg2Rad;
+        float posAngle = (((angle * Mathf.Rad2Deg) + offput) % 360) * Mathf.Deg2Rad;
+        float negAngle = (((angle * Mathf.Rad2Deg) - offput) % 360) * Mathf.Deg2Rad;
+
+        return (posAngle, negAngle);
+    }
+
+    private Vector2 GetDirFromAngle(float angle)
+    {
+        return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+    }
+
+    private (float angleA, float angleB) CheckDirection(float angle)
+    {
+
+        (float angleA, float angleB) = GetOtherAngles(angle, 30);
+
         int layer = LayerMask.GetMask("Default");
-        Vector2 DV = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
-        Vector2 posDV = new Vector2(Mathf.Cos(posAngle), Mathf.Sin(posAngle));
-        Vector2 negDV = new Vector2(Mathf.Cos(negAngle), Mathf.Sin(negAngle));
+        Vector2 DV = GetDirFromAngle(angle);
+        Vector2 posDV = GetDirFromAngle(angleA);
+        Vector2 negDV = GetDirFromAngle(angleB);
 
-        RaycastHit2D posRay = Physics2D.Raycast(transform.position, posDV,layer);
-        RaycastHit2D negRay = Physics2D.Raycast(transform.position, negDV,layer);
+        RaycastHit2D posRay = Physics2D.Raycast(transform.position, posDV,Mathf.Infinity,layer);
+        RaycastHit2D negRay = Physics2D.Raycast(transform.position, negDV,Mathf.Infinity,layer);
 
-        Debug.Log(posRay.collider.name);
-        Debug.Log(negRay.collider.name);
+
+        if(posRay.distance <= 2 && negRay.distance <= 2)
+        {
+            Debug.Log("flip All");
+            (angleA, angleB) = GetOtherAngles(GetOppositeAngle(angle), 30);
+        }
+        else if (posRay.distance <= 2)
+        {
+            Debug.Log("turn neg");
+            (angleA, angleB) = GetOtherAngles(angleB, 30);
+        }
+        else if(negRay.distance <= 2)
+        {
+            Debug.Log("turn pos");
+            (angleA, angleB) = GetOtherAngles(angleA, 30);
+        }
 
         Debug.DrawRay(transform.position, DV * 2, Color.black);
         Debug.DrawRay(transform.position, posDV * 2, Color.blue);
-        Debug.DrawRay(transform.position, negDV * 2,  Color.magenta);
+        Debug.DrawRay(transform.position, negDV * 2, Color.magenta);
+
+        return (angleA, angleB);
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -127,14 +174,17 @@ public class BigTickEnemtAI : TickEnemyAI
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.layer == 8)
+        if (collision.gameObject.layer == 8 && collision.TryGetComponent<PlayerInteract>(out PlayerInteract p))
         {
-            FindEscapeDirection(collision);
 
+            //Debug.LogError("check");
+
+            //FindEscapeDirection(collision);
             if (behaviour != Behaviour.Moving) {
                 body.attackNotif.SetActive(false);
                 behaviour = Behaviour.Moving;
-                //FindEscapeDirection(detection.ClosestPoint(collision.transform.position));
+
+                FindEscapeDirection(collision);
             }
             
         }
@@ -146,49 +196,9 @@ public class BigTickEnemtAI : TickEnemyAI
         {
             //targetLoc = null;
             behaviour = Behaviour.Ready;
+            escapeDir = Vector2.zero;
         }
     }
 
-    
-
-    
 }
 
-/*
-        /Debug.Log((Vector2)transform.position); 
-        Debug.Log(moveDir);
-        Debug.Log(transform.position.y + " " + moveDir.y);
-        //Vector2 moveDir = new Vector2();
-        moveDir = ((Vector2)transform.position - moveDir).normalized;
-        //moveDir = moveDir.normalized;
-        moveDir.x = Mathf.Round(moveDir.x);
-        moveDir.y = Mathf.Round(moveDir.y);
-        
-        Debug.LogError(moveDir);
-
-        foreach (Transform t in moveLocations)
-        {
-            
-            if (t.gameObject == targetLoc ) { continue; }
-            if(pastDest != null && t.gameObject == pastDest ) { continue; }
-
-            Vector2 pointDir = new Vector2();
-            pointDir = (transform.position - t.position).normalized;
-            pointDir.x = Mathf.Round(pointDir.x);
-            pointDir.y = Mathf.Round(pointDir.y);
-
-            Debug.Log("-");
-            Debug.Log(t.name);
-            Debug.Log(pointDir);
-            
-            if(moveDir.x == pointDir.x) { continue;  }
-            if (moveDir.y == pointDir.y) { continue; }
-            //if (moveDir.x != 0 || moveDir.x == pointDir.x) { continue; }
-            //if (moveDir.y == 0 || moveDir.y == pointDir.y) { continue; }
-
-            Debug.Log("added");
-
-            targetOptions.Add(t);
-        }
-
-        */
