@@ -19,6 +19,20 @@ public class CaveMap : MonoBehaviour
     private int levels = 3;
     private int depth = 3;
 
+    private static CaveMap instance;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     void Start()
     {
         CreateMap();
@@ -28,7 +42,6 @@ public class CaveMap : MonoBehaviour
     {
         levelTree = new List<List<Button>>();
 
-        // Create depth + 1 rows so the visited row is always visible at the bottom
         for (int i = 0; i < depth + 1; i++)
         {
             List<Button> levelButtons = new List<Button>();
@@ -45,17 +58,13 @@ public class CaveMap : MonoBehaviour
         UpdateButtonAccess();
     }
 
-    private void ProgressMap()
+    public void ProgressMap()
     {
-        // Drop the oldest row (now scrolled out of view)
         foreach (Button button in levelTree[0])
-        {
             Destroy(button.gameObject);
-        }
 
         levelTree.RemoveAt(0);
 
-        // Shift all remaining rows down by one step
         foreach (List<Button> row in levelTree)
         {
             foreach (Button button in row)
@@ -64,7 +73,6 @@ public class CaveMap : MonoBehaviour
             }
         }
 
-        // Add a new row at the top
         List<Button> newRow = new List<Button>();
 
         for (int j = 0; j < levels; j++)
@@ -92,18 +100,11 @@ public class CaveMap : MonoBehaviour
 
         MapButton mapButton = levelButton.GetComponent<MapButton>();
 
-        int rng = Random.Range(1, 3); // 1 or 2
-
-        if (rng == 1)
-        {
-            mapButton.SetLocation(searchSprite, "Search");
-            mapButton.LevelIndex = 0;
-        }
-        else if (rng == 2)
-        {
-            mapButton.SetLocation(extractSprite, "Extract");
-            mapButton.LevelIndex = 1;
-        }
+        Sprite[] sprites = { searchSprite, extractSprite };
+        string[] names = { "Search", "Extract" };
+        int rng = Random.Range(0, sprites.Length);
+        mapButton.SetLocation(sprites[rng], names[rng]);
+        mapButton.LevelIndex = rng;
 
         return levelButton;
     }
@@ -118,8 +119,6 @@ public class CaveMap : MonoBehaviour
             }
         }
 
-        // Row 0 is the last visited row (non-interactable, just visible)
-        // Row 1 is the current active row the player chooses from
         bool visitedRowExists = levelTree[0].Exists(b => b.GetComponent<MapButton>().Visited);
 
         if (visitedRowExists)
@@ -131,7 +130,6 @@ public class CaveMap : MonoBehaviour
         }
         else
         {
-            // Nothing visited yet, let the player pick from row 0
             foreach (Button button in levelTree[0])
             {
                 button.interactable = true;

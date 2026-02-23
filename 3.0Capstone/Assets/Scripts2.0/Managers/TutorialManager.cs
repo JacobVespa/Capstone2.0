@@ -16,6 +16,7 @@ public class TutorialManager : MonoBehaviour
     private bool repairFlag = false;
     private bool hammerFlag = false;
     private bool tutorialCompleteFlag = false;
+    private bool gameStartFlag = false;
 
     [SerializeField] private WaveSpawner smallEnemySpawner;
     [SerializeField] private WaveSpawner largeEnemySpawner;
@@ -65,8 +66,9 @@ public class TutorialManager : MonoBehaviour
         {
             tutorialSteps.RemoveAt(0);
         }
-        else if (tutorialSteps.Count == 0)
+        else if (tutorialSteps.Count == 0 && !gameStartFlag)
         {
+            gameStartFlag = true;
             StartGame();
         }
 
