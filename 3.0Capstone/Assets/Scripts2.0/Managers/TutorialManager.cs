@@ -251,14 +251,14 @@ public class TutorialManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         
-        //GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        if (LevelManager.Instance != null)
+        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
+        if (gameflowManager != null)
         {
-            LevelManager.Instance.StartWindDownLevel(true);
+            gameflowManager.WindDownLevel(true); // Transition to main game after tutorial
         }
         else
         {
-            Debug.LogError("LevelManager not found in the scene.");
+            Debug.LogError("GameflowManager not found in the scene.");
         }
     }
 

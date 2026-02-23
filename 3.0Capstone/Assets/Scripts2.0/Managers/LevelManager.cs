@@ -90,7 +90,7 @@ public class LevelManager : MonoBehaviour
         GameObject[] obs = (GameObject[])FindObjectsByType(typeof(GameObject), FindObjectsSortMode.None);
 
         // Fade to black
-        yield return StartCoroutine(FadeImage(0.5f));
+        yield return StartCoroutine(FadeImage(0.1f));
 
         // Disable all objects except GameManager and MainCamera
         foreach (GameObject go in obs)
@@ -118,7 +118,7 @@ public class LevelManager : MonoBehaviour
         }
 
         // Fade back in
-        yield return StartCoroutine(FadeImage(0.2f));
+        yield return StartCoroutine(FadeImage(0.1f));
     }
 
     private IEnumerator FadeImage(float targetAlpha)
