@@ -242,21 +242,21 @@ public class TutorialManager : MonoBehaviour
 
     private void StartGame()
     {
-        StartCoroutine(StartGame(4f)); // Delay to allow tutorial completion dialogue to finish
+        StartCoroutine(StartGame(1f)); // Delay to allow tutorial completion dialogue to finish
     }
 
     private IEnumerator StartGame(float delay)
     {
         yield return new WaitForSeconds(delay);
         
-        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        if (gameflowManager != null)
+        //GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
+        if (LevelManager.Instance != null)
         {
-            gameflowManager.StartScrollerLevel();
+            LevelManager.Instance.StartWindDownLevel(true);
         }
         else
         {
-            Debug.LogError("GameflowManager not found in the scene.");
+            Debug.LogError("LevelManager not found in the scene.");
         }
     }
 

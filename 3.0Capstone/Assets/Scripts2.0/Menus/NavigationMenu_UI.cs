@@ -3,11 +3,11 @@ using UnityEngine.EventSystems;
 
 public class NavigationMenu_UI : MonoBehaviour
 {
-    [SerializeField] private GameObject button;
+    //[SerializeField] private GameObject button;
     private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(button);
+        //EventSystem.current.SetSelectedGameObject(button);
     }
 
     public void OnContinueButton()

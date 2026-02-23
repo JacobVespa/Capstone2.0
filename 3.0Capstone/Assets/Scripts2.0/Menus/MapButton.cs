@@ -6,6 +6,11 @@ public class MapButton : MonoBehaviour
 {
     Image locationImage;
     TMP_Text locationText;
+    private int levelIndex;
+    public int LevelIndex
+    {
+        set => levelIndex = value;
+    }
 
     private bool visited = false;
     public bool Visited => visited;
@@ -36,5 +41,23 @@ public class MapButton : MonoBehaviour
 
         if (locationText != null)
             locationText.text = "Complete";
+    }
+
+    public void StartLevel()
+    {
+        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
+        if (gameflowManager != null)
+        {
+            if (levelIndex == 0)
+                gameflowManager.StartScrollerLevel();
+            else if (levelIndex == 1)
+                gameflowManager.StartDefenseLevel();
+            else
+                Debug.LogWarning("No level assigned to this button.");
+        }
+        else
+        {
+            Debug.LogError("GameflowManager not found in the scene.");
+        }
     }
 }

@@ -21,10 +21,11 @@ public class MainMenu_UI : MonoBehaviour
 
     public void StartButtonClicked()
     {
-        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        if (gameflowManager != null)
+        //GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
+        if (LevelManager.Instance != null)
         {
-            gameflowManager.StartScrollerLevel();
+            //gameflowManager.StartScrollerLevel();
+            LevelManager.Instance.StartWindDownLevel(true);
         }
         else
         {

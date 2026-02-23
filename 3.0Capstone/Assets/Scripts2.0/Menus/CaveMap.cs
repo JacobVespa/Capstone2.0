@@ -97,10 +97,12 @@ public class CaveMap : MonoBehaviour
         if (rng == 1)
         {
             mapButton.SetLocation(searchSprite, "Search");
+            mapButton.LevelIndex = 0;
         }
         else if (rng == 2)
         {
             mapButton.SetLocation(extractSprite, "Extract");
+            mapButton.LevelIndex = 1;
         }
 
         return levelButton;
