@@ -30,7 +30,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [Header("Visual Effect Componenets")]
     [SerializeField] public GameObject attackNotif;
     [SerializeField] private ParticleSystem comicHurt;
-    [SerializeField] private ParticleSystem comicDeath;
+    [SerializeField] private ParticleSystem bugGoo;
     
 
 
@@ -145,7 +145,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         if(d.DamageTarget != DamageSource.DamageType.Enemy) { return; }
 
         TakeDamage(d.DamageVal);
-        comicHurt.Play();
+        
         //originalPosition = transform.position;
         originalPosition = transform.position;
 
@@ -155,7 +155,8 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     private void TakeDamage(float damage)
     {
         health -= damage;
-        if(health <= 0)
+        comicHurt.Play();
+        if (health <= 0)
         {
             StartCoroutine(StartDeath());
         }
@@ -176,12 +177,13 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         attackNotif.SetActive(false);
         
 
-        if (comicDeath != null)
+        if (bugGoo != null)
         {
-            ParticleSystem comicDeath2 = Instantiate(comicDeath);
-            comicDeath2.transform.parent = null;
-            comicDeath2.Play();
-            Destroy(comicDeath2, 3);
+            Debug.Log("fuckle");
+            ParticleSystem bugDeath = Instantiate(bugGoo, transform);
+            bugDeath.transform.parent = null;
+            bugDeath.Play();
+            Destroy(bugDeath, 3);
         }
 
         if (animator != null) //if enemy has animations, play them before triggering death
