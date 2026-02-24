@@ -15,6 +15,8 @@ public class MapButton : MonoBehaviour
     private bool visited = false;
     public bool Visited => visited;
 
+    private static CaveMap caveMap;
+
     void Awake()
     {
         locationImage = GetComponent<Image>();
@@ -25,11 +27,15 @@ public class MapButton : MonoBehaviour
 
         if (locationText != null)
             locationText.text = "Unknown";
+
+        if (caveMap == null)
+            caveMap = FindFirstObjectByType<CaveMap>();
     }
 
     public void SetLocation(Sprite sprite, string title)
     {
-        locationImage.sprite = sprite;
+        if (locationImage != null)
+            locationImage.sprite = sprite;
 
         if (locationText != null)
             locationText.text = title;
@@ -37,10 +43,18 @@ public class MapButton : MonoBehaviour
 
     public void VisitLocation()
     {
+        if (visited) return;
+
         visited = true;
 
         if (locationText != null)
             locationText.text = "Complete";
+
+        if (caveMap != null)
+        {
+            caveMap.UpdateActiveLines(GetComponent<Button>());
+            caveMap.ProgressMap();
+        }
     }
 
     public void StartLevel()
