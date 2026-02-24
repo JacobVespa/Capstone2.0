@@ -24,21 +24,26 @@ public class Resource : MonoBehaviour
 
     public void Damage()
     {
-        int previousHP = currentHP;
-        crystalCrack.Play();
-        shardScatter.Play();
-        audioSource.Play();
-        //shardScatter.Play();
-        StartCoroutine(Shake());
-        currentHP--;
-        if (currentHP <= 0) gameObject.SetActive(false);
+        if (currentHP > 0)
+        {
+            int previousHP = currentHP;
+            crystalCrack.Play();
+            shardScatter.Play();
+            audioSource.Play();
+            //shardScatter.Play();
+            StartCoroutine(Shake());
+            currentHP--;
+            if (currentHP <= 0) GetComponentInChildren<SpriteRenderer>().enabled = false;
 
-        RewardShards(-(currentHP - previousHP), currentHP <= 0);
+            RewardShards(-(currentHP - previousHP), currentHP <= 0);
+        }
+        
+
     }
 
     public void Respawn()
     {
-        gameObject.SetActive(true);
+        gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
         currentHP = OriginalHP;
     }
 
