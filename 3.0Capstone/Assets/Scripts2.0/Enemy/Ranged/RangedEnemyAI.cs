@@ -19,7 +19,10 @@ public class RangedEnemyAI : EnemyAI
 
     public bool check = false;
 
-    [SerializeField] private float AttackRange = 10;
+    private float attackRange;
+
+    [SerializeField] private float minAttackRange = 12;
+    [SerializeField] private float maxAttackRange = 18;
 
     int layer_mask;
 
@@ -29,6 +32,7 @@ public class RangedEnemyAI : EnemyAI
         if (body == null) { body = GetComponent<RangedEnemyBody>(); }
         behaviour = Behaviour.Moving;
         layer_mask = LayerMask.GetMask("RIG");
+        attackRange = Random.Range(minAttackRange, maxAttackRange);
     }
 
     protected override void FixedUpdate()
@@ -109,7 +113,7 @@ public class RangedEnemyAI : EnemyAI
 
         foreach (RaycastHit2D h in r)
         {
-            if (h.collider.gameObject == attackTarget && h.distance <= AttackRange && CheckInView())
+            if (h.collider.gameObject == attackTarget && h.distance <= attackRange && CheckInView())
             {
 
                 behaviour = Behaviour.Ready;
