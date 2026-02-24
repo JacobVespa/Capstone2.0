@@ -3,11 +3,24 @@ using UnityEngine.EventSystems;
 
 public class NavigationMenu_UI : MonoBehaviour
 {
-    //[SerializeField] private GameObject button;
+    private GameObject levelButton;
+
+    public CaveMap caveMap;
+
     private void OnEnable()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        //EventSystem.current.SetSelectedGameObject(button);
+        //caveMap = GetComponent<CaveMap>();
+        //levelButton = caveMap.activeRow[0].gameObject;
+
+        //if (caveMap != null)
+        //{
+        //    Debug.Log("OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+        //    if (caveMap.activeRow.Count > 0)
+        //    {
+        //        EventSystem.current.SetSelectedGameObject(null);
+        //        EventSystem.current.SetSelectedGameObject(levelButton);
+        //    }
+        //}
     }
 
     public void OnContinueButton()

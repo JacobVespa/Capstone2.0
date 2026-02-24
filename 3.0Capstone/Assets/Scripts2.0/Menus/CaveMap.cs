@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Linq;
 
 public class CaveMap : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class CaveMap : MonoBehaviour
     [SerializeField] Sprite extractSprite;
 
     private List<List<Button>> levelTree;
+    public Button firstSelectedButton;
 
     private int levels = 3;
     private int depth = 3;
@@ -36,6 +39,12 @@ public class CaveMap : MonoBehaviour
     void Start()
     {
         CreateMap();
+
+        firstSelectedButton = levelTree[0].First(); //Might need to change this later to accomodate for progression?
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
+       
     }
 
     private void CreateMap()
