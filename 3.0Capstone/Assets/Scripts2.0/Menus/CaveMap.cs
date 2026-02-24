@@ -22,6 +22,8 @@ public class CaveMap : MonoBehaviour
     [SerializeField] private float lineThickness = 4f;
 
     private List<List<Button>> levelTree;
+    private List<int> rowWidths;
+    private List<List<List<Image>>> connectionLines;
 
     public Button firstSelectedButton;
     private List<int> rowWidths;
@@ -56,6 +58,12 @@ public class CaveMap : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
        
+    }
+
+    private int GetNodeCountForRow(int globalRow)
+    {
+        // Row 0 always equals base level count, then alternates +0 and +1
+        return globalRow == 0 ? levels : levels + (globalRow % 2 == 0 ? 0 : 1);
     }
 
     private int GetNodeCountForRow(int globalRow)
