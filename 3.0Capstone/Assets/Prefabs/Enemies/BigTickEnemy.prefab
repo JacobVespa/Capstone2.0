@@ -162,7 +162,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 15
   m_Sprite: {fileID: 1140546002669505283, guid: 08f85cc497da6254a9a891c858dcbb1a, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
@@ -329,8 +329,6 @@ MonoBehaviour:
   targetLoc: {fileID: 0}
   hasTarget: 0
   detection: {fileID: 8407079647604781715}
-  pointA: {fileID: 0}
-  pointB: {fileID: 0}
 --- !u!114 &2431459667625595386
 MonoBehaviour:
   m_ObjectHideFlags: 0
