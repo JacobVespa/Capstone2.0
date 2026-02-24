@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 
 public class Engine : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer engineSprite;
+    //[SerializeField] private SpriteRenderer engineSprite; WILL PROB NEED AGAIN LATER, maybe...
     [SerializeField] private float heatIncreaseRate = 0.02f; 
     [SerializeField] private float repairAmount = 0.05f;
     [SerializeField] private float lerpSpeed = 5f;
@@ -40,7 +40,7 @@ public class Engine : MonoBehaviour
 
         heat = Mathf.Lerp(heat, targetHeat, Time.deltaTime * lerpSpeed);
 
-        engineSprite.color = Color.Lerp(originalColor, heatColor, heat);
+        //engineSprite.color = Color.Lerp(originalColor, heatColor, heat); AGAIN WILL NEED THIS LATER
         //Debug.Log("Heat: " + heat);
 
         EngineBreakdown();
