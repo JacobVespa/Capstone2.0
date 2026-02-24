@@ -4901,7 +4901,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4652004922972337290}
   m_Layer: 0
-  m_Name: OutsideBloodVFX
+  m_Name: MovingFlierBugGoo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4966,7 +4966,7 @@ ParticleSystem:
   m_GameObject: {fileID: 8824454404788310740}
   serializedVersion: 8
   lengthInSec: 1
-  simulationSpeed: 10
+  simulationSpeed: 2
   stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
@@ -5040,7 +5040,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -5535,7 +5535,7 @@ ParticleSystem:
     gravityModifier:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -7119,7 +7119,7 @@ ParticleSystem:
     m_Curve:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 10
+      scalar: 1.2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
