@@ -614,19 +614,20 @@ MonoBehaviour:
   shootClip: {fileID: 8300000, guid: f58e039b2fb10ff4eb5ea10ba2d89c40, type: 3}
   audioSource: {fileID: 3066116944000947375}
   crosshair: {fileID: 6742024043990537490}
-  maxAmmo: 20
-  currentAmmo: 0
   reloadNotif: {fileID: 1801163192871751985}
-  needsReload: 0
-  ammoCountText: {fileID: 1757595078363539557}
   buttonPromptXB: {fileID: 3770931773985879243}
+  ammoCountText: {fileID: 1757595078363539557}
+  bullet: {fileID: 6741580282829468080, guid: d43695bdd1355e74480d0a56ca6f0a99, type: 3}
+  bulletSpawnLocation: {fileID: 7713008188368898086}
+  muzzleFlash: {fileID: 2576910162598993063}
+  comicShot: {fileID: 4905871742511444026}
+  maxAmmo: 20
   shootingCD: 0.3
   aimSpeed: 30
   autoTarget: 0
-  muzzleFlash: {fileID: 2576910162598993063}
-  comicShot: {fileID: 4905871742511444026}
-  bullet: {fileID: 6741580282829468080, guid: d43695bdd1355e74480d0a56ca6f0a99, type: 3}
-  bulletSpawnLocation: {fileID: 7713008188368898086}
+  bulletSpeed: 50
+  currentAmmo: 0
+  needsReload: 0
 --- !u!114 &6325703158096329179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,7 +732,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 50
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}
