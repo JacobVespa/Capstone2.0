@@ -15,6 +15,7 @@ public class CaveMap : MonoBehaviour
     [Header("Images")]
     [SerializeField] Sprite searchSprite;
     [SerializeField] Sprite extractSprite;
+    [SerializeField] Sprite bonusSprite;
 
     [Header("Lines")]
     [SerializeField] private Color defaultLineColor = Color.gray;
@@ -47,7 +48,7 @@ public class CaveMap : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    void Start()
+    void Start() // Button Selection is bugged sorry! fix later :)
     {
         CreateMap();
 
@@ -86,6 +87,7 @@ public class CaveMap : MonoBehaviour
             }
 
             levelTree.Add(levelButtons);
+            bonusCount = 0;
         }
 
         DrawAllConnections();
@@ -158,6 +160,8 @@ public class CaveMap : MonoBehaviour
         return new Vector2(x, y);
     }
 
+    int bonusCount = 0;
+
     private GameObject CreateLevel(int col, int row, int rowWidth)
     {
         GameObject levelButton = Instantiate(prefab, mapContainer);
@@ -166,9 +170,22 @@ public class CaveMap : MonoBehaviour
 
         MapButton mapButton = levelButton.GetComponent<MapButton>();
 
-        Sprite[] sprites = { searchSprite, extractSprite };
-        string[] names = { "Search", "Extract" };
-        int rng = Random.Range(0, sprites.Length);
+        Sprite[] sprites = { searchSprite, extractSprite, bonusSprite };
+        string[] names = { "Search", "Extract", "Bonus" };
+
+        int rng = 0;
+
+        if (row % 2 == 0)
+        {
+            rng = Random.Range(0, sprites.Length - 1);
+        }
+        else
+        {
+            if (bonusCount <= 1) rng = Random.Range(0, sprites.Length);
+
+            if (rng == 2) bonusCount++;
+        }
+
         mapButton.SetLocation(sprites[rng], names[rng]);
         mapButton.LevelIndex = rng;
 

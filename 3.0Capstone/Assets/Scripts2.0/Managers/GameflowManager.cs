@@ -60,6 +60,15 @@ public class GameflowManager : MonoBehaviour
         BeginLevel();
     }
 
+    public void StartGoldRushLevel()
+    {
+        int currentSceneIndex = 6;
+        float currentDuration = 30f;
+
+        CurrentLevel = new GoldRushLevel(currentSceneIndex, currentDuration);
+        BeginLevel();
+    }
+
     private void BeginLevel()
     {
         ResetValues();

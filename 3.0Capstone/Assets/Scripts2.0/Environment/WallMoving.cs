@@ -17,7 +17,7 @@ public class WallMoving : MonoBehaviour
     private float floorOffsetPos = -47f;
 
     //random spawn rate
-    private float spawnRate = 0.2f; //20%
+    [SerializeField] private float spawnRate = 0.2f; //20%
 
     [SerializeField] private GameObject[] gems;
 

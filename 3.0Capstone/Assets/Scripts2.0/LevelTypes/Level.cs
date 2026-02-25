@@ -9,7 +9,8 @@ public class Level
     {
         SCROLLER = 1,
         DEFENCE = 2,
-        TUTORIAL = 3
+        TUTORIAL = 3,
+        GOLDRUSH = 4
     }
 
     protected LevelType levelType;

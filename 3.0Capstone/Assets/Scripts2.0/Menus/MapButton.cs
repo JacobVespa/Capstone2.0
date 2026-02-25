@@ -66,6 +66,8 @@ public class MapButton : MonoBehaviour
                 gameflowManager.StartScrollerLevel();
             else if (levelIndex == 1)
                 gameflowManager.StartDefenseLevel();
+            else if (levelIndex == 2)
+                gameflowManager.StartGoldRushLevel();
             else
                 Debug.LogWarning("No level assigned to this button.");
         }
