@@ -663,6 +663,7 @@ MonoBehaviour:
   wallMoveSpeed: 2
   floorMoveSpeed: 2
   isLooping: 1
+  spawnRate: 0.2
   gems: []
 --- !u!95 &543979937
 Animator:
@@ -865,6 +866,7 @@ MonoBehaviour:
   wallMoveSpeed: 2
   floorMoveSpeed: 2
   isLooping: 1
+  spawnRate: 0.2
   gems: []
 --- !u!95 &628331147
 Animator:
@@ -5131,6 +5133,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1566388362339602960, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
+      propertyPath: playerOne
+      value: 
+      objectReference: {fileID: 8420302830569086633, guid: f75729ccb95249e4d9c1750727b8b864, type: 3}
     - target: {fileID: 3091867358989760700, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.44
