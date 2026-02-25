@@ -49,6 +49,7 @@ public class Resource : MonoBehaviour
 
     private void RewardShards(int shards, bool broken)
     {
+        if(GameManager.Instance == null) { return; }
         if (broken)
         {
             GameManager.Instance.AddShards(shards * breakMulitplier);
