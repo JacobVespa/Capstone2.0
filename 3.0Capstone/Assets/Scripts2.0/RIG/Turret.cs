@@ -8,6 +8,7 @@ public class Turret : MonoBehaviour
     [SerializeField] AudioClip shootClip;
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject crosshair;
+    [SerializeField] GameObject pivot;
     [SerializeField] private GameObject reloadNotif;
     [SerializeField] public GameObject buttonPromptXB;
     [SerializeField] public TextMeshPro ammoCountText;
@@ -191,8 +192,8 @@ public class Turret : MonoBehaviour
     {
         if (player != null && currentControls != null)
         {
-            transform.LookAt(transform.position + Vector3.forward, (Vector3)aimPos - transform.position);
-            transform.Rotate(new Vector3(0, 0, -90));
+            pivot.transform.LookAt(transform.position + Vector3.forward, (Vector3)aimPos - transform.position);
+            pivot.transform.Rotate(new Vector3(0, 0, 180));
 
             lineRenderer.enabled = true;
             lineRenderer.SetPosition(0, transform.position);
