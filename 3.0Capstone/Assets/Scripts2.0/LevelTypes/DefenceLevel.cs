@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class DefenceLevel : Level
@@ -118,6 +119,9 @@ public class DefenceLevel : Level
             if (wavesCompleted < FinalWave)
             {
                 StartNextWave();
+                Progress movement = new Progress(cinematic);
+                movement.ShowProgress();
+
                 Debug.Log($"Starting Wave {wavesCompleted + 1}");
             }
             else
@@ -125,6 +129,30 @@ public class DefenceLevel : Level
                 Debug.Log("All waves complete!");
                 // Victory will be triggered by GameflowManager checking WavesCompleted > FinalWave
             }
+        }
+    }
+
+    public class Progress : MonoBehaviour // Broken Need Fixing!
+    {
+        CameraCinematic cam;
+
+        public Progress(CameraCinematic cinematic)
+        {
+            cam = cinematic;
+        }
+
+        public void ShowProgress()
+        {
+            StartCoroutine(GemProgress(3));
+        }
+
+        private IEnumerator GemProgress(float duration)
+        {
+            cam.MoveCameraTo(new Vector3(0, 14, 0), 5);
+
+            yield return new WaitForSeconds(duration);
+
+            cam.MoveCamera();
         }
     }
 

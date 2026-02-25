@@ -500,6 +500,7 @@ MonoBehaviour:
   wallMoveSpeed: 2
   floorMoveSpeed: 2
   isLooping: 1
+  spawnRate: 0.2
   gems: []
 --- !u!212 &358601488
 SpriteRenderer:
@@ -1059,15 +1060,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4931645789116842197, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.45026422
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4931645789116842197, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.56319654
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4931645789116842197, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.031826735
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4931645789116842197, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1075,15 +1076,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4931645789116842197, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4931645789116842197, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4931645789116842197, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4931645789116842197, guid: 661034b28d64b5945bc42b56d8eed015, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1144,6 +1145,7 @@ MonoBehaviour:
   wallMoveSpeed: 2
   floorMoveSpeed: 2
   isLooping: 1
+  spawnRate: 0.2
   gems: []
 --- !u!212 &1538496864
 SpriteRenderer:
