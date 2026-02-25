@@ -1,5 +1,7 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static PlayerControls;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,17 +9,18 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int resultScreenIndex = 2;
     public int ResultScreenIndex => resultScreenIndex;
-    [SerializeField] private int navigationScreenIndex  = 3;
+    [SerializeField] private int navigationScreenIndex = 3;
     public int NavigationScreenIndex => navigationScreenIndex;
 
 
     private bool timeActive;
+    private bool isPaused;
 
     private bool gameOverTriggered = false;
     public bool GameOverTriggered { set { gameOverTriggered = value; } }
 
     private bool gameOver = false;
-    public bool GameOverStatus {get { return gameOver; } set { gameOver = value; } }
+    public bool GameOverStatus { get { return gameOver; } set { gameOver = value; } }
 
     private int shards;
     public int Shards => shards;
@@ -29,6 +32,8 @@ public class GameManager : MonoBehaviour
     public float GameTime => gameTime;
 
     public PlayerMovement[] playerMovement;
+    [SerializeField] private Canvas pauseCanvas;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -47,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         shards = 0;
         timeActive = false;
-        if (SoundManager.Instance != null) 
+        if (SoundManager.Instance != null)
             SoundManager.Instance.PlayBGM("CaveFight");
     }
 
@@ -55,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         if (timeActive) gameTime += Time.deltaTime;
 
-        if (gameOver && !gameOverTriggered) 
+        if (gameOver && !gameOverTriggered)
         {
             gameOverTriggered = true;
             GameOver();
@@ -93,10 +98,29 @@ public class GameManager : MonoBehaviour
     public void TogglePauseMenu()
     {
         PlayerControls controls = FindFirstObjectByType<PlayerControls>();
-        if (controls != null && controls.controlEvent.HasEscaped)
+        GameflowManager flow = FindFirstObjectByType<GameflowManager>();
+
+        if (!flow.LevelRunning || controls == null || flow == null) return;
+
+        if (controls.controlEvent.HasEscaped && !isPaused)
         {
-            //Add pause menu here!
+            PauseGameTime();
+            StopGameTime();
+            pauseCanvas.gameObject.SetActive(true);
         }
+        else if (controls.controlEvent.HasEscaped && isPaused)
+        {
+            pauseCanvas.gameObject.SetActive(false);
+            StartGameTime();
+            ResumeGameTime();
+        }
+    }
+
+    public void PauseButton()
+    {
+        pauseCanvas.gameObject.SetActive(false);
+        StartGameTime();
+        ResumeGameTime();
     }
 
     public void GameOver()

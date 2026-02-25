@@ -5,6 +5,7 @@ public class GameflowManager : MonoBehaviour
     public Level CurrentLevel { get; private set; }
 
     private bool levelRunning = false;
+    public bool LevelRunning => levelRunning;
 
     private void Update()
     {
