@@ -124,7 +124,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     protected virtual void UpdateMovement()
     {
         ReceiveDirection();
-        transform.position = (transform.position + (motion * Time.fixedDeltaTime));
+        transform.position = (transform.position + (SetMoveBloom(motion) * Time.fixedDeltaTime));
     }
 
     protected virtual void ReceiveDirection()
@@ -133,6 +133,18 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         motion = transform.TransformDirection(inputDir) * moveSpeed;
         inputDir = Vector2.zero;
     }
+
+    private Vector3 SetMoveBloom(Vector3 dir)
+    {
+        float xChange = Random.Range(0.8f, 1.2f);
+        float yChange = Random.Range(0.8f, 1.2f);
+
+        dir.x = dir.x * xChange;
+        dir.y = dir.y * yChange;
+
+        return dir;
+    }
+
     #endregion
 
     #region Handle Attacked

@@ -140,7 +140,7 @@ public class BigTickEnemtAI : TickEnemyAI
         if(posRay.distance <= 2 && negRay.distance <= 2)
         {
             //Debug.Log("flip All");
-            (angleA, angleB) = GetOtherAngles(GetOppositeAngle(angle), 30);
+            (angleA, angleB) = GetOtherAngles(GetOppositeAngle(angle), 45);
         }
         else if (posRay.distance <= 2)
         {
