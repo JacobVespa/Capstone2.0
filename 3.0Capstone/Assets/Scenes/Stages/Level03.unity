@@ -458,7 +458,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 00baa5d2fb3d05a4aac5b0cff8ac2ac7, type: 2}
+  - {fileID: 2100000, guid: 61c164a08ac60a74d8d2c0a264b6a80f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7384,6 +7384,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6078263119928562346, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
+    - {fileID: 5317191110114332263, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
@@ -7680,6 +7681,14 @@ PrefabInstance:
       propertyPath: healthBarFill
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 792838456775691453, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484709863243236531, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3686836771572647104, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: m_Name
       value: RIG 1
@@ -7731,6 +7740,10 @@ PrefabInstance:
     - target: {fileID: 5549594053007277627, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277403934696680054, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6791094950939494265, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: m_MaxParticleSize
