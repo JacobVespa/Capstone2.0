@@ -195,11 +195,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMounting()
     {
-        if (isHoldingAmmo)
-        {
-            interactor.currentInteractObject.GetComponent<Turret>().RefillAmmo();
-        }
-
         if (isHolding) HandleDrop();
 
         canInteract = false; //TESTING

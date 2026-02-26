@@ -9,9 +9,7 @@ public class Turret : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] GameObject crosshair;
     [SerializeField] GameObject pivot;
-    [SerializeField] private GameObject reloadNotif;
     [SerializeField] public GameObject buttonPromptXB;
-    [SerializeField] public TextMeshPro ammoCountText;
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject bulletSpawnLocation;
 
@@ -20,7 +18,6 @@ public class Turret : MonoBehaviour
     [SerializeField] private ParticleSystem comicShot;
 
     [Header("Settings")]
-    [SerializeField] public int maxAmmo = 10;
     [SerializeField] private float shootingCD = 1f;
     [SerializeField] float aimSpeed = 10.0f;
     [SerializeField] bool autoTarget = true;
@@ -63,14 +60,11 @@ public class Turret : MonoBehaviour
         objectWidth = sr.sprite.bounds.extents.x * crosshair.transform.lossyScale.x;
         objectHeight = sr.sprite.bounds.extents.y * crosshair.transform.lossyScale.y;
 
-        reloadNotif.SetActive(false);
         buttonPromptXB.SetActive(false);
-        currentAmmo = maxAmmo;
 
         aimPos = transform.position;
         audioSource.clip = shootClip;
         currentDamage = GetComponent<DamageSource>();
-        ammoCountText.text = maxAmmo.ToString();
 
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = 2;
@@ -157,23 +151,11 @@ public class Turret : MonoBehaviour
     {
         if (player == null || currentControls == null) return;
 
-        if (currentControls.controlEvent.IsAttacking)
+        if (currentControls.controlEvent.IsAttacking && canShoot)
         {
-            if (currentAmmo > 0 && canShoot)
-            {
-                ShootBullet();
-                currentAmmo--;
-                ammoCountText.text = currentAmmo.ToString();
-
-                if (currentAmmo == 0)
-                {
-                    reloadNotif.SetActive(true);
-                    needsReload = true;
-                }
-
-                StartCoroutine(ShootingVFX());
-                StartCoroutine(CoolDown());
-            }
+            ShootBullet();
+            StartCoroutine(ShootingVFX());
+            StartCoroutine(CoolDown());
         }
     }
 
@@ -232,14 +214,6 @@ public class Turret : MonoBehaviour
         }
     }
 
-    public void RefillAmmo()
-    {
-        currentAmmo = maxAmmo;
-        needsReload = false;
-        reloadNotif.SetActive(false);
-        ammoCountText.text = maxAmmo.ToString();
-    }
-
     // Helper Collision Methods (unchanged)
     public void HitEnemy(Collider2D col)
     {
@@ -257,11 +231,6 @@ public class Turret : MonoBehaviour
     {
         var proj = col.GetComponent<Projectile>();
         if (proj != null) { StartCoroutine(HitMarker(Color.yellow)); proj.Attacked(currentDamage); }
-    }
-
-    public void UpdateAmmoUI()
-    {
-        ammoCountText.text = currentAmmo.ToString();
     }
 
     IEnumerator ShootingVFX()

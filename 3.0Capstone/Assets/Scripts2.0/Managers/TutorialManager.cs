@@ -33,7 +33,6 @@ public class TutorialManager : MonoBehaviour
             TutorialIntroduction,
             TutorialEngine,
             TutorialEnemySmall,
-            TutorialReload,
             TutorialRepair,
             TutorialHammer,
             TutorialEnemyLarge,
@@ -47,12 +46,6 @@ public class TutorialManager : MonoBehaviour
             engineScript = RIG.GetComponentInChildren<Engine>();
             turretScripts = RIG.GetComponentsInChildren<Turret>();
             rigHealthScript = RIG.GetComponent<RigHealth>();
-
-            foreach (var turret in turretScripts)
-            {
-                turret.currentAmmo = 999;
-                turret.UpdateAmmoUI();
-            }
         }
         else 
         {
@@ -154,32 +147,32 @@ public class TutorialManager : MonoBehaviour
         return false;
     }
 
-    private bool TutorialReload()
-    {
-        if (!reloadFlag) // One time trigger for tutorial spawns and actions
-        {
-            reloadFlag = true;
-            dialogueManager.ShowDialogue("reload");
-
-            foreach (var turret in turretScripts)
-            {
-                turret.currentAmmo = 0;
-                turret.UpdateAmmoUI();
-                turret.needsReload = true;
-            }
-        }
-
-        foreach (var turret in turretScripts)
-        {
-            if (!turret.needsReload)
-            {
-                dialogueManager.SkipTypewriter();
-                return true;
-            }
-        }
-
-        return false;
-    }
+    //private bool TutorialReload()
+    //{
+    //    if (!reloadFlag) // One time trigger for tutorial spawns and actions
+    //    {
+    //        reloadFlag = true;
+    //        dialogueManager.ShowDialogue("reload");
+    //
+    //        foreach (var turret in turretScripts)
+    //        {
+    //            turret.currentAmmo = 0;
+    //            turret.UpdateAmmoUI();
+    //            turret.needsReload = true;
+    //        }
+    //    }
+    //
+    //    foreach (var turret in turretScripts)
+    //    {
+    //        if (!turret.needsReload)
+    //        {
+    //            dialogueManager.SkipTypewriter();
+    //            return true;
+    //        }
+    //    }
+    //
+    //    return false;
+    //}
 
     private bool TutorialRepair()
     {

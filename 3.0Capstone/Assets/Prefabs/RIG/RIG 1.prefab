@@ -16550,8 +16550,16 @@ PrefabInstance:
       value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: maxAmmo
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: aimSpeed
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: shootingCD
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 9160928724324260839, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: m_SortingOrder
@@ -17905,8 +17913,16 @@ PrefabInstance:
       value: 99
       objectReference: {fileID: 0}
     - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: maxAmmo
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: aimSpeed
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: shootingCD
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 9160928724324260839, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
