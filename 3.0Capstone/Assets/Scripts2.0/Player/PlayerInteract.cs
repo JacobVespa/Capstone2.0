@@ -66,7 +66,7 @@ public class PlayerInteract : MonoBehaviour
             canPickup = true;
             currentInteractObject = other.gameObject;
         }
-        else if (other.CompareTag("Repair"))
+        else if (other.CompareTag("Repair") && canMount != true)
         {
             repairBox = other.GetComponent<RepairStation>();
             repairBox.buttonPromptXB.SetActive(true);

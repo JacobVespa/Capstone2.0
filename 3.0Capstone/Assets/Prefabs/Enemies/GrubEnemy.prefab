@@ -987,6 +987,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8780791417386317707}
     m_Modifications:
+    - target: {fileID: 311853887015968188, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 909410832901938543, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011459079345425374, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2708255700286378002, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2757860423975955346, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2760422550567869456, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 3880874908920139637, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -994,6 +1018,26 @@ PrefabInstance:
     - target: {fileID: 3953643209775674673, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4012869276965775834, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286581290218038407, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5465513292505960597, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6572997126025625489, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6805412339402962844, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7066829607154858474, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
       propertyPath: m_LocalScale.x
@@ -1051,13 +1095,37 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7398694140497416016, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 8098477510721274194, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8159637478405833576, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 8275683125086874123, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8276056744856576393, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
       propertyPath: m_Name
       value: animated grub
+      objectReference: {fileID: 0}
+    - target: {fileID: 8524556815304024885, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8981000966788919387, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137786097164084934, guid: 0034e640ef5100e4985975e0c24adadb, type: 3}
+      propertyPath: m_SortingOrder
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
