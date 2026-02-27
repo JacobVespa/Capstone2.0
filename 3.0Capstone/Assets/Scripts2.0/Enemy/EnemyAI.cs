@@ -25,6 +25,7 @@ public abstract class EnemyAI : MonoBehaviour
     {
         None,
         Moving,     // enemy is moving toward rig(melee only)
+        Knockback,  // enemy is knockedback (melee only)
         Ready,      // enemy is in range of the rig is able to attack but waiting for its turn in queue
         //ChargeUp  
         Attacking,  // enemy is currently attacking the rig

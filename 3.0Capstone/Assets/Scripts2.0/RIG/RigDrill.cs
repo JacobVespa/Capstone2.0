@@ -5,10 +5,15 @@ using UnityEngine;
 public class RigDrill : MonoBehaviour
 {
     public Transform drillPoint;
-    public float knockbackForce = 50f;
+    public float knockbackForce = 5f;
+    public float stunTime = 0.5f;
     public float drillRadius = 1f;
     public LayerMask enemyLayer;
 
+    private void FixedUpdate()
+    {
+        KnockBackEnemies();
+    }
     public void KnockBackEnemies()
     {
         Debug.Log("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
@@ -18,7 +23,7 @@ public class RigDrill : MonoBehaviour
         {
             for (int i = 0; i < enemies.Length; i++)
             {
-                enemies[i].GetComponent<EnemyKnockBack>().KnockBack(transform, knockbackForce);
+                enemies[i].GetComponent<EnemyKnockBack>().KnockBack(transform, knockbackForce, stunTime);
             }
         }
     }
