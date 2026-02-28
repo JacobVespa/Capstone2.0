@@ -122,7 +122,7 @@ public class GameflowManager : MonoBehaviour
         CameraCinematic cam = GameObject.FindFirstObjectByType<CameraCinematic>();
         if (cam != null && goNext)
         {
-            cam.PanOver(20f, 4f, new Vector3(0, -60, 0));
+            cam.PanOver(20f, 0.1f, new Vector3(0, -60, 0));
             yield return new WaitForSecondsRealtime(4f); // match the PanOver duration
         }
 
