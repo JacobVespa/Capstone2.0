@@ -201,4 +201,21 @@ public class CameraCinematic : MonoBehaviour
         SetTargetPosition(newTarget);
         MoveCamera();
     }
+
+
+
+    public void PanOver(float pauseDuration, float speed, Vector3 location)
+    {
+        StartCoroutine(PanOverLocation(pauseDuration, speed, location));
+    }
+
+    private IEnumerator PanOverLocation(float duration, float speed, Vector3 location)
+    {
+        MoveCameraTo(location, speed);
+
+        yield return new WaitForSeconds(duration);
+
+        MoveCamera();
+    }
+
 }

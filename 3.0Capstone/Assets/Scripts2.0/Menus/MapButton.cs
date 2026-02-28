@@ -15,8 +15,6 @@ public class MapButton : MonoBehaviour
     private bool visited = false;
     public bool Visited => visited;
 
-    private static CaveMap caveMap;
-
     void Awake()
     {
         locationImage = GetComponent<Image>();
@@ -27,9 +25,6 @@ public class MapButton : MonoBehaviour
 
         if (locationText != null)
             locationText.text = "Unknown";
-
-        if (caveMap == null)
-            caveMap = FindFirstObjectByType<CaveMap>();
     }
 
     public void SetLocation(Sprite sprite, string title)
@@ -50,15 +45,27 @@ public class MapButton : MonoBehaviour
         if (locationText != null)
             locationText.text = "Complete";
 
-        if (caveMap != null)
-        {
-            caveMap.UpdateActiveLines(GetComponent<Button>());
-            caveMap.ProgressMap();
-        }
+        if (CaveMap.Instance != null)
+            CaveMap.Instance.OnNodeVisited(GetComponent<Button>());
     }
 
+    /// <summary>
+    /// Restores visited appearance without triggering map logic.
+    /// Used when restoring state after the scene reloads.
+    /// </summary>
+    public void ForceVisited()
+    {
+        visited = true;
+
+        if (locationText != null)
+            locationText.text = "Complete";
+    }
+
+    // Only wire this in the inspector OnClick
     public void StartLevel()
     {
+        VisitLocation(); // Save state before the scene changes
+
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         if (gameflowManager != null)
         {

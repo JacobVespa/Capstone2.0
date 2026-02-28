@@ -119,40 +119,16 @@ public class DefenceLevel : Level
             if (wavesCompleted < FinalWave)
             {
                 StartNextWave();
-                Progress movement = new Progress(cinematic);
-                movement.ShowProgress();
+                cinematic.PanOver(3f,4f, new Vector3(0,14,0));
 
                 Debug.Log($"Starting Wave {wavesCompleted + 1}");
             }
             else
             {
                 Debug.Log("All waves complete!");
+                cinematic.PanOver(3f,4f, new Vector3(0,14,0));
                 // Victory will be triggered by GameflowManager checking WavesCompleted > FinalWave
             }
-        }
-    }
-
-    public class Progress : MonoBehaviour // Broken Need Fixing!
-    {
-        CameraCinematic cam;
-
-        public Progress(CameraCinematic cinematic)
-        {
-            cam = cinematic;
-        }
-
-        public void ShowProgress()
-        {
-            StartCoroutine(GemProgress(3));
-        }
-
-        private IEnumerator GemProgress(float duration)
-        {
-            cam.MoveCameraTo(new Vector3(0, 14, 0), 5);
-
-            yield return new WaitForSeconds(duration);
-
-            cam.MoveCamera();
         }
     }
 

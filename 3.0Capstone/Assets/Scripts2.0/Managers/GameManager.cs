@@ -135,7 +135,6 @@ public class GameManager : MonoBehaviour
         if (gameflowManager != null) gameflowManager.WindDownLevel(false);
 
         PauseGameTime();
-        StopGameTime();
     }
 
     public void Victory()
@@ -144,6 +143,5 @@ public class GameManager : MonoBehaviour
         if (gameflowManager != null) gameflowManager.WindDownLevel(true);
 
         PauseGameTime();
-        StopGameTime();
     }
 }

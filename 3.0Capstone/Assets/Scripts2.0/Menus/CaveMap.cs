@@ -31,37 +31,130 @@ public class CaveMap : MonoBehaviour
     private int levels = 3;
     private int depth = 3;
 
-    // Tracks the global row index so alternating pattern is consistent across ProgressMap calls
-    private int globalRowIndex = 0;
-
-    private static CaveMap instance;
+    public static CaveMap Instance { get; private set; }
 
     void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        instance = this;
-        DontDestroyOnLoad(gameObject);
+        Instance = this;
     }
 
-    void Start() // Button Selection is bugged sorry! fix later :)
+    void Start()
     {
+        CaveMapState state = CaveMapState.Instance;
+
+        // Generate a new seed if this is a fresh map
+        if (state != null && state.MapSeed == -1)
+            state.GenerateNewSeed();
+
         CreateMap();
 
-        firstSelectedButton = levelTree[0].First(); //Might need to change this later to accomodate for progression?
+        if (state != null && state.HasVisitedNode)
+        {
+            RestoreState(state);
+        }
+        else
+        {
+            UpdateButtonAccess();
+            firstSelectedButton = levelTree[0].First();
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
+        }
+    }
 
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
-       
+    private void RestoreState(CaveMapState state)
+    {
+        // Replay the entire visited path to restore visuals
+        foreach (Vector2Int node in state.VisitedPath)
+        {
+            int row = node.y;
+            int col = node.x;
+
+            if (row < 0 || row >= levelTree.Count || col < 0 || col >= levelTree[row].Count)
+                continue;
+
+            Button visitedButton = levelTree[row][col];
+            visitedButton.GetComponent<MapButton>().ForceVisited();
+        }
+
+        // Draw green lines only between consecutive visited nodes
+        RestoreVisitedLines(state.VisitedPath);
+
+        // Unlock neighbours of the last visited node
+        UpdateButtonAccess();
+
+        // Select the first unlocked button in the next row
+        Vector2Int last = state.LastVisited;
+        int nextRow = last.y + 1;
+        if (nextRow < levelTree.Count)
+        {
+            Button firstUnlocked = levelTree[nextRow].FirstOrDefault(b => b.interactable);
+            if (firstUnlocked != null)
+            {
+                firstSelectedButton = firstUnlocked;
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
+            }
+        }
+    }
+
+    private void RestoreVisitedLines(List<Vector2Int> path)
+    {
+        // Colour lines between each consecutive pair of visited nodes
+        for (int i = 0; i < path.Count - 1; i++)
+        {
+            int fromRow = path[i].y;
+            int fromCol = path[i].x;
+            int toRow = path[i + 1].y;
+
+            if (fromRow < 0 || fromRow >= levelTree.Count || fromCol < 0 || fromCol >= levelTree[fromRow].Count)
+                continue;
+            if (toRow < 0 || toRow >= levelTree.Count || fromRow >= connectionLines.Count)
+                continue;
+
+            Button fromButton = levelTree[fromRow][fromCol];
+            ColourLinesFrom(fromRow, fromCol);
+        }
+
+        // Also colour lines from the last visited node
+        if (path.Count > 0)
+        {
+            Vector2Int last = path[path.Count - 1];
+            ColourLinesFrom(last.y, last.x);
+        }
+    }
+
+    private void ColourLinesFrom(int row, int col)
+    {
+        if (row < 0 || row >= connectionLines.Count) return;
+        if (col < 0 || col >= connectionLines[row].Count) return;
+
+        // Only colour lines that lead to a visited node
+        List<int> neighbours = GetNeighbourIndices(
+            col: col,
+            currentRow: row,
+            currentRowWidth: rowWidths[row],
+            nextRowWidth: rowWidths[row + 1]
+        );
+
+        for (int lineIdx = 0; lineIdx < connectionLines[row][col].Count; lineIdx++)
+        {
+            // Map line index to neighbour index
+            if (lineIdx >= neighbours.Count) break;
+            int neighbourCol = neighbours[lineIdx];
+
+            if (neighbourCol < 0 || neighbourCol >= levelTree[row + 1].Count) continue;
+
+            // Only colour if the neighbour was actually visited
+            bool neighbourVisited = levelTree[row + 1][neighbourCol].GetComponent<MapButton>().Visited;
+            if (neighbourVisited)
+            {
+                connectionLines[row][col][lineIdx].color = activeLineColor;
+            }
+        }
     }
 
     private int GetNodeCountForRow(int globalRow)
     {
-        // Row 0 always equals base level count, then alternates +0 and +1
         return globalRow == 0 ? levels : levels + (globalRow % 2 == 0 ? 0 : 1);
     }
 
@@ -70,14 +163,20 @@ public class CaveMap : MonoBehaviour
         levelTree = new List<List<Button>>();
         rowWidths = new List<int>();
         connectionLines = new List<List<List<Image>>>();
-        globalRowIndex = 0;
+
+        int localGlobalRow = CaveMapState.Instance != null ? CaveMapState.Instance.GlobalRowIndex : 0;
+
+        // Use saved seed so the map looks identical on reload
+        int seed = CaveMapState.Instance != null ? CaveMapState.Instance.MapSeed : 0;
+        Random.InitState(seed);
 
         for (int i = 0; i < depth + 1; i++)
         {
-            int nodeCount = GetNodeCountForRow(globalRowIndex);
+            int nodeCount = GetNodeCountForRow(localGlobalRow);
             rowWidths.Add(nodeCount);
-            globalRowIndex++;
+            localGlobalRow++;
 
+            bonusCount = 0;
             List<Button> levelButtons = new List<Button>();
 
             for (int j = 0; j < nodeCount; j++)
@@ -87,43 +186,97 @@ public class CaveMap : MonoBehaviour
             }
 
             levelTree.Add(levelButtons);
-            bonusCount = 0;
         }
 
         DrawAllConnections();
-        UpdateButtonAccess();
     }
 
-    public void ProgressMap()
+    public void OnNodeVisited(Button visitedButton)
     {
-        // Destroy lines for the oldest row
-        if (connectionLines.Count > 0)
-        {
-            foreach (List<Image> lineGroup in connectionLines[0])
-                foreach (Image line in lineGroup)
-                    if (line != null) Destroy(line.gameObject);
+        int visitedRow = -1;
+        int visitedCol = -1;
 
-            connectionLines.RemoveAt(0);
-        }
-
-        // Destroy oldest row of buttons
-        foreach (Button button in levelTree[0])
-            Destroy(button.gameObject);
-
-        levelTree.RemoveAt(0);
-        rowWidths.RemoveAt(0);
-
-        // Recalculate positions for remaining rows
         for (int i = 0; i < levelTree.Count; i++)
         {
-            int nodeCount = rowWidths[i];
             for (int j = 0; j < levelTree[i].Count; j++)
             {
-                levelTree[i][j].GetComponent<RectTransform>().anchoredPosition = GetNodePosition(col: j, row: i, rowWidth: nodeCount);
+                if (levelTree[i][j] == visitedButton)
+                {
+                    visitedRow = i;
+                    visitedCol = j;
+                    break;
+                }
+            }
+            if (visitedRow != -1) break;
+        }
+
+        if (visitedRow == -1) return;
+
+        // Save to persistent state before scene changes
+        if (CaveMapState.Instance != null)
+            CaveMapState.Instance.AddVisitedNode(visitedRow, visitedCol);
+
+        // Only colour lines leading to already-visited nodes (none yet going forward)
+        // Lines from this node forward will be coloured on next restore if the next node is visited
+        // For now just colour lines from previous node to this one
+        ColourLineToNode(visitedRow, visitedCol);
+
+        if (visitedRow == levelTree.Count - 1)
+        {
+            if (CaveMapState.Instance != null)
+                CaveMapState.Instance.ResetForNewMap(depth + 1);
+
+            ResetMap();
+        }
+        else
+        {
+            UpdateButtonAccess();
+        }
+    }
+
+    /// <summary>
+    /// Colours the line FROM the previous visited node TO this one.
+    /// </summary>
+    private void ColourLineToNode(int toRow, int toCol)
+    {
+        if (toRow == 0) return; // No previous row to colour from
+
+        int fromRow = toRow - 1;
+
+        // Find which node in the previous row was visited
+        int fromCol = -1;
+        for (int j = 0; j < levelTree[fromRow].Count; j++)
+        {
+            if (levelTree[fromRow][j].GetComponent<MapButton>().Visited)
+            {
+                fromCol = j;
+                break;
             }
         }
 
-        // Destroy remaining lines to redraw
+        if (fromCol == -1) return;
+        if (fromRow >= connectionLines.Count) return;
+        if (fromCol >= connectionLines[fromRow].Count) return;
+
+        List<int> neighbours = GetNeighbourIndices(
+            col: fromCol,
+            currentRow: fromRow,
+            currentRowWidth: rowWidths[fromRow],
+            nextRowWidth: rowWidths[toRow]
+        );
+
+        for (int lineIdx = 0; lineIdx < neighbours.Count; lineIdx++)
+        {
+            if (neighbours[lineIdx] == toCol && lineIdx < connectionLines[fromRow][fromCol].Count)
+            {
+                connectionLines[fromRow][fromCol][lineIdx].color = activeLineColor;
+                break;
+            }
+        }
+    }
+
+    private void ResetMap()
+    {
         foreach (List<List<Image>> rowLines in connectionLines)
             foreach (List<Image> lineGroup in rowLines)
                 foreach (Image line in lineGroup)
@@ -131,22 +284,23 @@ public class CaveMap : MonoBehaviour
 
         connectionLines.Clear();
 
-        // Add new row at the top using the global index to maintain alternating pattern
-        int newNodeCount = GetNodeCountForRow(globalRowIndex);
-        rowWidths.Add(newNodeCount);
-        globalRowIndex++;
+        foreach (List<Button> row in levelTree)
+            foreach (Button button in row)
+                Destroy(button.gameObject);
 
-        List<Button> newRow = new List<Button>();
-        for (int j = 0; j < newNodeCount; j++)
-        {
-            GameObject levelButton = CreateLevel(col: j, row: levelTree.Count, rowWidth: newNodeCount);
-            newRow.Add(levelButton.GetComponent<Button>());
-        }
+        levelTree.Clear();
+        rowWidths.Clear();
 
-        levelTree.Add(newRow);
+        // Re-seed for fresh map
+        if (CaveMapState.Instance != null)
+            CaveMapState.Instance.GenerateNewSeed();
 
-        DrawAllConnections();
+        CreateMap();
         UpdateButtonAccess();
+
+        firstSelectedButton = levelTree[0].First();
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
     }
 
     private Vector2 GetNodePosition(int col, int row, int rowWidth)
@@ -182,7 +336,6 @@ public class CaveMap : MonoBehaviour
         else
         {
             if (bonusCount <= 1) rng = Random.Range(0, sprites.Length);
-
             if (rng == 2) bonusCount++;
         }
 
@@ -231,13 +384,11 @@ public class CaveMap : MonoBehaviour
 
         if (currentRowWidth > nextRowWidth)
         {
-            // Wide to narrow: each node connects to the one at same col and col-1 in narrow row
             neighbours.Add(col - 1);
             neighbours.Add(col);
         }
         else
         {
-            // Narrow to wide: each node connects to same col and col+1 in wide row
             neighbours.Add(col);
             neighbours.Add(col + 1);
         }
@@ -253,7 +404,7 @@ public class CaveMap : MonoBehaviour
 
         Image lineImage = lineObj.GetComponent<Image>();
         lineImage.color = color;
-        lineImage.raycastTarget = false; // <-- Add this line
+        lineImage.raycastTarget = false;
 
         RectTransform rt = lineObj.GetComponent<RectTransform>();
         Vector2 direction = to - from;
@@ -266,20 +417,8 @@ public class CaveMap : MonoBehaviour
         return lineImage;
     }
 
-    public void UpdateActiveLines(Button visitedButton)
-    {
-        for (int i = 0; i < levelTree.Count - 1; i++)
-        {
-            for (int j = 0; j < levelTree[i].Count; j++)
-            {
-                if (levelTree[i][j] == visitedButton && i < connectionLines.Count)
-                {
-                    foreach (Image line in connectionLines[i][j])
-                        line.color = activeLineColor;
-                }
-            }
-        }
-    }
+    // Legacy - kept for compatibility but ColourLineToNode is now preferred
+    public void UpdateActiveLines(Button visitedButton) { }
 
     private void UpdateButtonAccess()
     {
@@ -287,29 +426,43 @@ public class CaveMap : MonoBehaviour
             foreach (Button button in row)
                 button.interactable = false;
 
-        bool visitedRowExists = levelTree[0].Exists(b => b.GetComponent<MapButton>().Visited);
+        int lastVisitedRow = -1;
+        int lastVisitedCol = -1;
 
-        if (visitedRowExists && levelTree.Count > 1)
+        for (int i = levelTree.Count - 1; i >= 0; i--)
         {
-            for (int j = 0; j < levelTree[0].Count; j++)
+            for (int j = 0; j < levelTree[i].Count; j++)
             {
-                if (levelTree[0][j].GetComponent<MapButton>().Visited)
+                if (levelTree[i][j].GetComponent<MapButton>().Visited)
                 {
-                    List<int> neighbours = GetNeighbourIndices(col: j, currentRow: 0, currentRowWidth: rowWidths[0], nextRowWidth: rowWidths[1]);
-                    foreach (int n in neighbours)
-                    {
-                        if (n >= 0 && n < levelTree[1].Count)
-                            levelTree[1][n].interactable = true;
-                    }
+                    lastVisitedRow = i;
+                    lastVisitedCol = j;
                     break;
                 }
             }
+            if (lastVisitedRow != -1) break;
         }
-        else if (!visitedRowExists)
+
+        if (lastVisitedRow == -1)
         {
-            // All nodes on the first layer are accessible at the start
             foreach (Button button in levelTree[0])
                 button.interactable = true;
+        }
+        else if (lastVisitedRow < levelTree.Count - 1)
+        {
+            int nextRow = lastVisitedRow + 1;
+            List<int> neighbours = GetNeighbourIndices(
+                col: lastVisitedCol,
+                currentRow: lastVisitedRow,
+                currentRowWidth: rowWidths[lastVisitedRow],
+                nextRowWidth: rowWidths[nextRow]
+            );
+
+            foreach (int n in neighbours)
+            {
+                if (n >= 0 && n < levelTree[nextRow].Count)
+                    levelTree[nextRow][n].interactable = true;
+            }
         }
     }
 }
