@@ -64,8 +64,28 @@ public class MapButton : MonoBehaviour
     // Only wire this in the inspector OnClick
     public void StartLevel()
     {
-        VisitLocation(); // Save state before the scene changes
+        if (visited) return; // Prevent double-triggering
 
+        // Mark visited and update map state first
+        VisitLocation();
+
+        // Move rig to this button, shake, then launch
+        Vector2 targetPos = CaveMap.Instance != null
+            ? CaveMap.Instance.GetButtonPosition(GetComponent<Button>())
+            : Vector2.zero;
+
+        if (SpriteRig.Instance != null)
+        {
+            SpriteRig.Instance.MoveAndShake(targetPos, LaunchLevel);
+        }
+        else
+        {
+            LaunchLevel();
+        }
+    }
+
+    private void LaunchLevel()
+    {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
         if (gameflowManager != null)
         {

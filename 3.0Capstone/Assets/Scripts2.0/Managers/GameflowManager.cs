@@ -31,6 +31,14 @@ public class GameflowManager : MonoBehaviour
                 GameManager.Instance.Victory();
             }
         }
+        else if (CurrentLevel is GoldRushLevel goldRushLevel)
+        {
+            if (GameManager.Instance.GameTime >= goldRushLevel.Duration)
+            {
+                levelRunning = false;
+                GameManager.Instance.Victory();
+            }
+        }
     }
 
     // -------- Level Entry --------
