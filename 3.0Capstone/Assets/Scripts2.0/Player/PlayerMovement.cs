@@ -222,10 +222,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMounted) return;
 
+        interactor.currentInteractObject.GetComponent<Turret>().Dismount();
+        StartCoroutine(MoveAgain());
+    }
+
+    private IEnumerator MoveAgain()
+    {
+        yield return new WaitForSeconds(0.25f);
         canInteract = true;
         isMounted = false;
         canMove = true;
-        interactor.currentInteractObject.GetComponent<Turret>().Dismount();
     }
 
     public void HandleDrop()

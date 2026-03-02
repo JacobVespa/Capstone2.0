@@ -32,7 +32,7 @@ public class RigDrill : MonoBehaviour
             for (int i = 0; i < enemies.Length; i++)
             {
                 enemies[i].GetComponent<EnemyKnockBack>().KnockBack(transform, knockbackForce, stunTime);
-                //enemies[i].GetComponent<EnemyBody>().Attacked(damageSource);
+                enemies[i].GetComponent<EnemyBody>().Attacked(damageSource);
             }
         }
     }
