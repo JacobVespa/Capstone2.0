@@ -297,7 +297,7 @@ MonoBehaviour:
   damageSource: {fileID: 2136788478825979421}
   attackNotif: {fileID: 1890810218810033128}
   comicHurt: {fileID: 8036523748669703191}
-  comicDeath: {fileID: 8418658996730869995}
+  bugGoo: {fileID: 0}
   moveSpeed: 5
   shakeDuration: 0.3
   shakeStrength: 0.1
@@ -326,7 +326,8 @@ MonoBehaviour:
   targetLoc: {fileID: 0}
   hasTarget: 0
   check: 0
-  AttackRange: 18
+  minAttackRange: 12
+  maxAttackRange: 18
 --- !u!114 &2136788478825979421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +381,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &7827972095545819546
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -544,10 +545,5 @@ PrefabInstance:
 --- !u!4 &3381892833545886932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8532664798115923394, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
-  m_PrefabInstance: {fileID: 6378496682826340630}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &8418658996730869995 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3193594404914143741, guid: efcaa6b4953eace449f11aae465b7e13, type: 3}
   m_PrefabInstance: {fileID: 6378496682826340630}
   m_PrefabAsset: {fileID: 0}

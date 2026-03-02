@@ -10,13 +10,21 @@ public class RigDrill : MonoBehaviour
     public float drillRadius = 1f;
     public LayerMask enemyLayer;
 
-    private void FixedUpdate()
+    private DamageSource damageSource;
+
+    private void Start()
+    {
+        damageSource = GetComponent<DamageSource>();   
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         KnockBackEnemies();
     }
+
     public void KnockBackEnemies()
     {
-        Debug.Log("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH");
+        Debug.Log("OUCH!");
         Collider2D[] enemies = Physics2D.OverlapCircleAll(drillPoint.position, drillRadius, enemyLayer);
 
         if (enemies.Length > 0)
@@ -24,6 +32,7 @@ public class RigDrill : MonoBehaviour
             for (int i = 0; i < enemies.Length; i++)
             {
                 enemies[i].GetComponent<EnemyKnockBack>().KnockBack(transform, knockbackForce, stunTime);
+                //enemies[i].GetComponent<EnemyBody>().Attacked(damageSource);
             }
         }
     }

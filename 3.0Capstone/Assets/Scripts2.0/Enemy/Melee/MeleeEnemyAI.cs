@@ -45,7 +45,7 @@ public class MeleeEnemyAI : EnemyAI
                 if (agent.CanDealDamage) { behaviour = Behaviour.Attacking; }
                 break;
             case Behaviour.Knockback:
-                moveInput = Vector2.zero; // Make the move input zero ad apply the knockback else where
+                moveInput = Vector2.zero; // Make the move input zero and apply the knockback else where
                 break;
             case Behaviour.Attacking:
                 TryAttackTarget();
