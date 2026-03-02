@@ -222,7 +222,16 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMounted) return;
 
-        interactor.currentInteractObject.GetComponent<Turret>().Dismount();
+        var interactObject = interactor.currentInteractObject.GetComponent<Turret>();
+        if (interactObject != null)
+        {
+            interactObject.Dismount();
+        }
+        else
+        {
+            Debug.LogWarning("Current interact object does not have a Turret component.");
+        }
+
         StartCoroutine(MoveAgain());
     }
 

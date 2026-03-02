@@ -30,25 +30,21 @@ public class LevelManager : MonoBehaviour
 
     private void OnEnable()
     {
-        // Subscribe to scene loaded event to reset the loading flag
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        // Unsubscribe to prevent memory leaks
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Reset the loading flag whenever a scene finishes loading
         isLoading = false;
         if (GameManager.Instance != null) GameManager.Instance.ResumeGameTime();
-        
-        // Invoke callback if set
+
         onSceneLoadedCallback?.Invoke();
-        onSceneLoadedCallback = null; // Clear after invoking
+        onSceneLoadedCallback = null;
     }
 
     public void LoadScene(int index, Action onLoadComplete = null)
@@ -66,18 +62,14 @@ public class LevelManager : MonoBehaviour
         operation.allowSceneActivation = false;
 
         while (operation.progress < 0.9f)
-        {
             yield return null;
-        }
 
         yield return new WaitForSecondsRealtime(0.5f);
 
         operation.allowSceneActivation = true;
 
         while (!operation.isDone)
-        {
             yield return null;
-        }
     }
 
     public void StartWindDownLevel(bool goNext)
@@ -89,14 +81,20 @@ public class LevelManager : MonoBehaviour
     {
         GameObject[] obs = (GameObject[])FindObjectsByType(typeof(GameObject), FindObjectsSortMode.None);
 
-        // Fade to black
-        yield return StartCoroutine(FadeImage(0.1f));
-
-        // Disable all objects except GameManager and MainCamera
+        // Disable enemies and spawners immediately so they don't interfere
         foreach (GameObject go in obs)
         {
-            if (go.CompareTag("GameManager") || go.CompareTag("MainCamera")) continue;
-            go.SetActive(false);
+            if (go.CompareTag("Enemy") || go.CompareTag("Spawner"))
+                go.SetActive(false);
+        }
+
+        // Pan camera BEFORE stopping time — PanOver uses Time.deltaTime
+        // so Time.timeScale must still be 1 during the pan
+        CameraCinematic cam = GameObject.FindFirstObjectByType<CameraCinematic>();
+        if (cam != null && goNext)
+        {
+            cam.PanOver(20f, 0.3f, new Vector3(0, -60, 0));
+            yield return new WaitForSecondsRealtime(4f); // match PanOver duration
         }
 
         if (goNext)
@@ -107,41 +105,12 @@ public class LevelManager : MonoBehaviour
         else
         {
             if (GameManager.Instance.GameOverStatus)
-            {
                 SoundManager.Instance.PlayBGM("LoseTheme");
-            }
             else
-            {
                 SoundManager.Instance.PlayBGM("WinTheme");
-            }
+
             ShowEndScreen(GameManager.Instance.ResultScreenIndex);
         }
-
-        // Fade back in
-        yield return StartCoroutine(FadeImage(0.1f));
-    }
-
-    private IEnumerator FadeImage(float targetAlpha)
-    {
-        // Make sure fadeOut is active
-        if (!fadeOut.activeSelf)
-            fadeOut.SetActive(true);
-
-        SpriteRenderer renderer = fadeOut.GetComponent<SpriteRenderer>();
-
-        float startAlpha = renderer.color.a;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < fadeTime)
-        {
-            elapsedTime += Time.unscaledDeltaTime; // Use unscaledDeltaTime in case time is paused
-            float newAlpha = Mathf.Lerp(startAlpha, targetAlpha, elapsedTime / fadeTime);
-            renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, newAlpha);
-            yield return null;
-        }
-
-        // Ensure we reach the exact target value
-        renderer.color = new Color(renderer.color.r, renderer.color.g, renderer.color.b, targetAlpha);
     }
 
     public void ShowEndScreen(int screenSceneIndex)

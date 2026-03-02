@@ -109,23 +109,9 @@ public class GameflowManager : MonoBehaviour
     public void WindDownLevel(bool goNext)
     {
         if (CurrentLevel == null) return;
-        StartCoroutine(WindDownSequence(goNext));
-    }
-
-    private IEnumerator WindDownSequence(bool goNext)
-    {
-        // Pause time immediately
+        
         GameManager.Instance.ResetGameTime();
         levelRunning = false;
-
-        // Play transition and wait for it to finish
-        CameraCinematic cam = GameObject.FindFirstObjectByType<CameraCinematic>();
-        if (cam != null && goNext)
-        {
-            cam.PanOver(20f, 0.1f, new Vector3(0, -60, 0));
-            yield return new WaitForSecondsRealtime(4f); // match the PanOver duration
-        }
-
         CursorHidden(false);
         CurrentLevel?.WindDownLevel(goNext);
     }

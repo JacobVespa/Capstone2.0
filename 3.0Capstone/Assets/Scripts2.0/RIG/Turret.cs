@@ -41,6 +41,7 @@ public class Turret : MonoBehaviour
     private bool canShoot = true;
 
     Vector2 aimPos;
+    Vector3 originalPos;
     private LineRenderer lineRenderer;
     private DamageSource currentDamage;
 
@@ -63,6 +64,7 @@ public class Turret : MonoBehaviour
         buttonPromptXB.SetActive(false);
 
         aimPos = transform.position;
+        originalPos = pivot.transform.localPosition;
         audioSource.clip = shootClip;
         currentDamage = GetComponent<DamageSource>();
 
@@ -155,6 +157,7 @@ public class Turret : MonoBehaviour
         {
             ShootBullet();
             StartCoroutine(ShootingVFX());
+            StartCoroutine(Recoil());
             StartCoroutine(CoolDown());
         }
     }
@@ -170,15 +173,19 @@ public class Turret : MonoBehaviour
         rb.AddForce(-spawnedBullet.transform.right * bulletSpeed, ForceMode2D.Impulse);
     }
 
+    private Vector3 recoilCurrentOffset = Vector3.zero;
+
     private void Aim()
     {
         if (player != null && currentControls != null)
         {
-            pivot.transform.LookAt(transform.position + Vector3.forward, (Vector3)aimPos - transform.position);
-            pivot.transform.Rotate(new Vector3(0, 0, 180));
+            Vector2 direction = (Vector3)aimPos - transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            pivot.transform.rotation = Quaternion.Euler(0, 0, angle + 90f);
+            pivot.transform.localPosition = originalPos + recoilCurrentOffset;
 
             lineRenderer.enabled = true;
-            lineRenderer.SetPosition(0, transform.position);
+            lineRenderer.SetPosition(0, bulletSpawnLocation.transform.position);
             lineRenderer.SetPosition(1, aimPos);
         }
     }
@@ -240,6 +247,36 @@ public class Turret : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSeconds(0.1f);
         muzzleFlash.SetActive(false);
+    }
+
+    IEnumerator Recoil()
+    {
+        Vector3 startPos = originalPos;
+        // Push back along the pivot's current facing direction in local space
+        Vector3 recoilDir = pivot.transform.parent.InverseTransformDirection(pivot.transform.up);
+        Vector3 recoilOffset = startPos + recoilDir * 0.2f;
+
+        float recoilTime = 0.1f;
+        float returnTime = 0.1f;
+        float elapsed = 0f;
+
+        while (elapsed < recoilTime)
+        {
+            pivot.transform.localPosition = Vector3.Lerp(startPos, recoilOffset, elapsed / recoilTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        elapsed = 0f;
+
+        while (elapsed < returnTime)
+        {
+            pivot.transform.localPosition = Vector3.Lerp(recoilOffset, startPos, elapsed / returnTime);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        pivot.transform.localPosition = originalPos;
     }
 
     IEnumerator CoolDown()
