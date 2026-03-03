@@ -85,14 +85,14 @@ public class WallMoving : MonoBehaviour
         {
             transform.position = new Vector3(0, yPos, 0);
             SpawnGems();
-            //    foreach (GameObject i in envStuffPos)
-            //    {
-            //        int rand = Random.Range(0, 10);
-            //        if (rand >= 7)
-            //        {
-            //            Instantiate(envStuff[Random.Range(0, envStuff.Length)], position = i.transform.position);
-            //        }
-            //    }
+            foreach (GameObject i in envStuffPos)
+            {
+                int rand = Random.Range(0, 10);
+                if (rand >= 7)
+                {
+                    Instantiate(envStuff[Random.Range(0, envStuff.Length)], i.gameObject.transform);
+                }
+            }
         }
     }
 
