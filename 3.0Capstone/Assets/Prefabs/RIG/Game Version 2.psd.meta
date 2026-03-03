@@ -382,7 +382,31 @@ ScriptedImporter:
     characterGroups: []
     pivot: {x: 0, y: 0}
     boneReadOnly: 0
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   mosaicLayers: 1
   characterMode: 1
   documentPivot: {x: 0, y: 0}
@@ -401,7 +425,19 @@ ScriptedImporter:
     categories: []
   spritePackingTag: 
   resliceFromLayer: 0
-  pSDLayerImportSetting: []
+  pSDLayerImportSetting:
+  - spriteId: 2c0ee19dbaf526a48ac3ea2077154655
+    name: Drill Fill
+    layerId: 478
+    flatten: 0
+    isGroup: 0
+    importLayer: 0
+  - spriteId: 6b9d3fb2901b4444aa7df3da61805e6f
+    name: Drill Fill
+    layerId: 477
+    flatten: 0
+    isGroup: 0
+    importLayer: 0
   psdLayers:
   - name: Rig Body
     spriteName: 
@@ -514,22 +550,22 @@ ScriptedImporter:
     isImported: 1
     isVisible: 1
   - name: Drill Fill
-    spriteName: 
+    spriteName: Drill Fill
     isGroup: 0
     parentIndex: 9
     spriteID: 2c0ee19dbaf526a48ac3ea2077154655
     layerID: 478
-    mosaicPosition: {x: 0, y: 0}
+    mosaicPosition: {x: 6202, y: 4}
     flatten: 0
     isImported: 0
     isVisible: 0
   - name: Drill Fill
-    spriteName: 
+    spriteName: Drill Fill
     isGroup: 0
     parentIndex: 9
     spriteID: 6b9d3fb2901b4444aa7df3da61805e6f
     layerID: 477
-    mosaicPosition: {x: 0, y: 0}
+    mosaicPosition: {x: 9473, y: 4}
     flatten: 0
     isImported: 0
     isVisible: 0
@@ -564,22 +600,22 @@ ScriptedImporter:
     isImported: 1
     isVisible: 1
   - name: Tread Fill
-    spriteName: 
+    spriteName: Tread Fill
     isGroup: 0
     parentIndex: 13
     spriteID: bc9f11f46ed7b65448f1064118794377
     layerID: 598
-    mosaicPosition: {x: 0, y: 0}
+    mosaicPosition: {x: 1317, y: 8441}
     flatten: 0
     isImported: 0
     isVisible: 0
   - name: Tread Fill
-    spriteName: 
+    spriteName: Tread Fill
     isGroup: 0
     parentIndex: 13
     spriteID: 6d0ce7854a98517429b873aa410dd76d
     layerID: 539
-    mosaicPosition: {x: 0, y: 0}
+    mosaicPosition: {x: 4, y: 8441}
     flatten: 0
     isImported: 0
     isVisible: 0
