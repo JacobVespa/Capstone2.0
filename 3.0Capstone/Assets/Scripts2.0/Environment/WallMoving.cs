@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class WallMoving : MonoBehaviour
 {
+    [SerializeField] private GameObject[] wallSprites;
     [SerializeField] public float wallMoveSpeed;
     [SerializeField] public float floorMoveSpeed;
     [SerializeField] private bool isLooping = true;
@@ -15,6 +16,12 @@ public class WallMoving : MonoBehaviour
     //offset wall and floor position for despawning
     private float wallOffsetPos = -43.5f;
     private float floorOffsetPos = -47f;
+    private Color randShardColor;
+
+    [SerializeField] private GameObject[] shards;
+    [SerializeField] private GameObject[] shardPos;
+    [SerializeField] private GameObject[] envStuff;
+    [SerializeField] private GameObject[] envStuffPos;
 
     //random spawn rate
     [SerializeField] private float spawnRate = 0.2f; //20%
@@ -25,6 +32,14 @@ public class WallMoving : MonoBehaviour
     {
         startPosition = transform.position;
         SpawnGems();
+        foreach (GameObject i in envStuffPos)
+        {
+            int rand = Random.Range(0, 10);
+            if (rand >= 7)
+            {
+                Instantiate(envStuff[Random.Range(0, envStuff.Length)]);
+            }
+        }
     }
 
     void Update()
@@ -70,6 +85,14 @@ public class WallMoving : MonoBehaviour
         {
             transform.position = new Vector3(0, yPos, 0);
             SpawnGems();
+            //    foreach (GameObject i in envStuffPos)
+            //    {
+            //        int rand = Random.Range(0, 10);
+            //        if (rand >= 7)
+            //        {
+            //            Instantiate(envStuff[Random.Range(0, envStuff.Length)], position = i.transform.position);
+            //        }
+            //    }
         }
     }
 
