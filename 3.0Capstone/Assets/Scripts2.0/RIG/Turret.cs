@@ -256,8 +256,8 @@ public class Turret : MonoBehaviour
         Vector3 recoilDir = pivot.transform.parent.InverseTransformDirection(pivot.transform.up);
         Vector3 recoilOffset = startPos + recoilDir * 0.2f;
 
-        float recoilTime = 0.1f;
-        float returnTime = 0.1f;
+        float recoilTime = 0.05f;
+        float returnTime = 0.25f;
         float elapsed = 0f;
 
         while (elapsed < recoilTime)

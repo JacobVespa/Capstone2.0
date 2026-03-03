@@ -12,6 +12,7 @@ public class DefenceLevel : Level
     public int WavesCompleted { get { return wavesCompleted; } }
 
     private WaveSpawner[] spawners;
+    DefenseGem gem;
     private bool hasStarted = false;
     private bool initialized = false;
     private float startTime = 10f;
@@ -31,6 +32,8 @@ public class DefenceLevel : Level
         cinematic = GameObject.FindObjectsByType<CameraCinematic>(FindObjectsSortMode.None)[0];
 
         spawners = GameObject.FindObjectsByType<WaveSpawner>(FindObjectsSortMode.None);
+
+        gem = GameObject.FindFirstObjectByType<DefenseGem>();
 
         // Spawners start disabled, waiting for the level to trigger them
         initialized = true;
@@ -119,6 +122,12 @@ public class DefenceLevel : Level
             if (wavesCompleted < FinalWave)
             {
                 StartNextWave();
+
+                if (gem != null)
+                {
+                    gem.ShakeCrystal(1.5f);
+                }
+
                 cinematic.PanOver(3f,4f, new Vector3(0,14,0));
 
                 Debug.Log($"Starting Wave {wavesCompleted + 1}");
@@ -126,6 +135,12 @@ public class DefenceLevel : Level
             else
             {
                 Debug.Log("All waves complete!");
+
+                if (gem != null)
+                {
+                    gem.BreakCrystal(1.5f);
+                }
+
                 cinematic.PanOver(3f,4f, new Vector3(0,14,0));
                 // Victory will be triggered by GameflowManager checking WavesCompleted > FinalWave
             }
