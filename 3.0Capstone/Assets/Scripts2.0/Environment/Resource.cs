@@ -15,6 +15,7 @@ public class Resource : MonoBehaviour
     [SerializeField] private ParticleSystem crystalCrack;
     [SerializeField] private ParticleSystem shardScatter;
     [SerializeField] private GameObject crystalShine;
+    private Color gemColor;
 
     [SerializeField] AudioClip resource;
     [SerializeField] AudioSource audioSource;
@@ -23,6 +24,10 @@ public class Resource : MonoBehaviour
     {
         originalPosition = transform.localPosition;
         currentHP = OriginalHP;
+        gemColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        GetComponentInChildren<SpriteRenderer>().color = gemColor;
+        shardScatter.startColor = gemColor;
+
     }
 
     public void Damage()
@@ -46,7 +51,11 @@ public class Resource : MonoBehaviour
 
     public void Respawn()
     {
+        
         gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
+        gemColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+        GetComponentInChildren<SpriteRenderer>().color = gemColor;
+        shardScatter.startColor = gemColor;
         currentHP = OriginalHP;
         crystalShine.SetActive(true);
         GetComponent<Light2D>().enabled = true;
