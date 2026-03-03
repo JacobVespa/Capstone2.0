@@ -33,15 +33,9 @@ public class InputControlManager : MonoBehaviour
     public int SpawnedPlayerCount { get { return spawnedPlayerCount; } }
 
     [Header("Player One Assets")]
-    //[SerializeField] private Sprite playerOneSprite;
-    //[SerializeField] private RuntimeAnimatorController playerOneAnimatorController;
-
     [SerializeField] private GameObject playerOne;
 
     [Header("Player Two Assets")]
-    //[SerializeField] private Sprite playerTwoSprite;
-    //[SerializeField] private RuntimeAnimatorController playerTwoAnimatorController;
-
     [SerializeField] private GameObject playerTwo;
 
     private void Start()
