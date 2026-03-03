@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -13,6 +14,8 @@ public class Engine : MonoBehaviour
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip[] engineRepairClips;
+
+    [SerializeField] private GameObject[] damageStages;
 
     private Color originalColor = Color.white;
     private Color heatColor = Color.red;
@@ -31,6 +34,11 @@ public class Engine : MonoBehaviour
     private void Start()
     {
        buttonPromptXB.SetActive(false);
+
+        if (damageStages.Length < 4)
+        {
+            Debug.Log("A engine damage state sprite might be missing");
+        }
     }
     // Update is called once per frame
     void Update()
@@ -40,7 +48,8 @@ public class Engine : MonoBehaviour
 
         heat = Mathf.Lerp(heat, targetHeat, Time.deltaTime * lerpSpeed);
 
-        //engineSprite.color = Color.Lerp(originalColor, heatColor, heat); AGAIN WILL NEED THIS LATER
+        //damageStages[0].color = Color.Lerp(originalColor, heatColor, heat); //AGAIN WILL NEED THIS LATER
+        damageStages[0].GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, heatColor, heat);
         //Debug.Log("Heat: " + heat);
 
         EngineBreakdown();
