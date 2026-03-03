@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Resource : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class Resource : MonoBehaviour
 
     [SerializeField] private ParticleSystem crystalCrack;
     [SerializeField] private ParticleSystem shardScatter;
+    [SerializeField] private GameObject crystalShine;
 
     [SerializeField] AudioClip resource;
     [SerializeField] AudioSource audioSource;
@@ -45,6 +48,8 @@ public class Resource : MonoBehaviour
     {
         gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
         currentHP = OriginalHP;
+        crystalShine.SetActive(true);
+        GetComponent<Light2D>().enabled = true;
     }
 
     private void RewardShards(int shards, bool broken)
@@ -53,6 +58,8 @@ public class Resource : MonoBehaviour
         if (broken)
         {
             GameManager.Instance.AddShards(shards * breakMulitplier);
+            crystalShine.SetActive(false);
+            GetComponent<Light2D>().enabled = false;
         }
         else
         {
