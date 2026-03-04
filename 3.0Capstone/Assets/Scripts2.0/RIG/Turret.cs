@@ -240,6 +240,13 @@ public class Turret : MonoBehaviour
         if (proj != null) { StartCoroutine(HitMarker(Color.yellow)); proj.Attacked(currentDamage); }
     }
 
+    public void HitGrass(Collider2D col)
+    {
+        Debug.LogWarning("GRASS HERE!!!");
+        var proj = col.GetComponent<Grass>();
+        if (proj != null) { StartCoroutine(HitMarker(Color.green)); proj.grassClipped(); }
+    }
+
     IEnumerator ShootingVFX()
     {
         muzzleFlash.SetActive(true);

@@ -20,7 +20,7 @@ public class WallMoving : MonoBehaviour
 
     [SerializeField] private GameObject[] shards;
     [SerializeField] private GameObject[] shardPos;
-    [SerializeField] private GameObject[] envStuff;
+    [SerializeField] private GameObject envStuff;
     [SerializeField] private GameObject[] envStuffPos;
 
     //random spawn rate
@@ -32,14 +32,7 @@ public class WallMoving : MonoBehaviour
     {
         startPosition = transform.position;
         SpawnGems();
-        foreach (GameObject i in envStuffPos)
-        {
-            int rand = Random.Range(0, 10);
-            if (rand >= 7)
-            {
-                Instantiate(envStuff[Random.Range(0, envStuff.Length)]);
-            }
-        }
+        
     }
 
     void Update()
@@ -90,7 +83,7 @@ public class WallMoving : MonoBehaviour
                 int rand = Random.Range(0, 10);
                 if (rand >= 7)
                 {
-                    Instantiate(envStuff[Random.Range(0, envStuff.Length)], i.gameObject.transform);
+                    Instantiate(envStuff, i.gameObject.transform);
                 }
             }
         }
