@@ -50,14 +50,14 @@ public class RangedEnemyAI : EnemyAI
                 break;
             case Behaviour.Ready:
                 if (agent.CanDealDamage) { behaviour = Behaviour.Attacking; }
-                //Flutter();
+                Flutter();
                 break;
             case Behaviour.Attacking:
                 TryAttackTarget();
-                //Flutter();
                 break;
             case Behaviour.CoolDown:
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
+                Flutter();
                 break;
             case Behaviour.Dead:
                 if (CheckDeathPlayed() && !body.CheckProjectiles()) { DestroyEnemy(); }
@@ -96,7 +96,11 @@ public class RangedEnemyAI : EnemyAI
 
         if(transform.position.y >= stopPos.y+10 || transform.position.y <= stopPos.y-10) { moveInput *= -1; }
         else if(transform.position.x >= stopPos.x+10 || transform.position.x <= stopPos.x - 10) {  moveInput *= -1; }
+        else if (CheckInView() == false) { moveInput *= -1; }
+        
         body.InputDir = moveInput;
+        
+        
     }
 
     // shoots out a raycast on the default layers and checks if anyhit by them are the target 

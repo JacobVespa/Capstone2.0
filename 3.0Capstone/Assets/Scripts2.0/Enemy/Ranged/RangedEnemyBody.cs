@@ -30,6 +30,7 @@ public class RangedEnemyBody : EnemyBody
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        objectPool.transform.position = (objectPool.transform.position - (motion * Time.fixedDeltaTime));
     }
 
     // shoots out a bullet at the target
@@ -47,6 +48,8 @@ public class RangedEnemyBody : EnemyBody
         Vector2 projDir = (target.transform.position - fireLocation.position).normalized;
         projDir = SetBloom(projDir);
 
+
+        
         bullet.Fire(projSpeed, projDir);
     }
 
@@ -112,4 +115,6 @@ public class RangedEnemyBody : EnemyBody
 
         return dir;
     }
+
+
 }
