@@ -193,7 +193,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         {
             Debug.Log("fuckle");
             ParticleSystem bugDeath = Instantiate(bugGoo, transform);
-            bugDeath.transform.parent = null;
+            bugDeath.transform.parent = GameManager.Instance.GetStorage();
             bugDeath.Play();
             Destroy(bugDeath, 3);
         }

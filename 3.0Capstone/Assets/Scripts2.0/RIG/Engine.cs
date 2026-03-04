@@ -87,6 +87,7 @@ public class Engine : MonoBehaviour
             foreach (WallMoving wall in walls)            
             {
                 wall.Pause();
+                GameManager.Instance.ToggleStorageMovement(false);
             }
 
             //Debug.Log("ENGINE HOT!!!!");
@@ -107,6 +108,7 @@ public class Engine : MonoBehaviour
             foreach (WallMoving wall in walls)            
             {
                 wall.Play();
+                GameManager.Instance.ToggleStorageMovement(true);
             }
 
             //Debug.Log("ENGINE REPAIRED!");

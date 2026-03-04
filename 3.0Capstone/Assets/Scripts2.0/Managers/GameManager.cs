@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour
     public PlayerMovement[] playerMovement;
     [SerializeField] private Canvas pauseCanvas;
     private Button pauseButton;
+
+    [SerializeField] private Transform vfxStorage;
 
     private void Awake()
     {
@@ -144,4 +147,30 @@ public class GameManager : MonoBehaviour
 
         PauseGameTime();
     }
+
+    public Transform GetStorage()
+    {
+        return vfxStorage;
+    }
+
+    public void ToggleStorageMovement(bool isMoving)
+    {
+        foreach (Transform emitter in vfxStorage)
+        {
+            if (isMoving)
+                emitter.GetComponentInChildren<ParticleSystem>().Play();
+            else
+                emitter.GetComponentInChildren<ParticleSystem>().Pause();
+        }
+    }
+
+    public void EmptyStorage()
+    {
+        foreach (Transform t in vfxStorage)
+        {
+            if (t != null)
+                Destroy(t.gameObject);
+        }
+    }
+
 }
