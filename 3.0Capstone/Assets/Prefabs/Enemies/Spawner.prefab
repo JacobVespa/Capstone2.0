@@ -276,7 +276,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigTarget: {fileID: 0}
   spawnPoints: []
-  enemyPrefabs: []
+  enemyPrefabs:
+  - {fileID: 369488387364779184, guid: eacbd5346ac56054c87fd82445650d90, type: 3}
+  - {fileID: 2438030429640678585, guid: ea96e526efd6d2b449bd039548b24102, type: 3}
+  - {fileID: 2876655065483165158, guid: 6a4e578535206b6418e0bc6869eb37bb, type: 3}
+  - {fileID: 1410103180657650976, guid: 743bf89e86546b4469b1aeb3f2eccde4, type: 3}
+  - {fileID: 8759261604506914209, guid: c231ec4c63f164e429e28fafb455d245, type: 3}
   randomizeEnemyPrefab: 1
   enemiesPerWave: 8
   spawnInterval: 1
@@ -285,3 +290,16 @@ MonoBehaviour:
   requireWaveClearToAdvance: 1
   finiteWaves: 0
   totalWaves: 5
+  spawnPointSpreadRadius: 1.25
+  enableBurstSpawning: 1
+  burstMin: 3
+  burstMax: 5
+  formationType: 1
+  formationSpacing: 1.5
+  formationJitter: 0.35
+  burstStaggerMin: 0.05
+  burstStaggerMax: 0.15
+  clampSpawnsOnScreen: 1
+  viewportPaddingNormal: 0.03
+  viewportPaddingHeavy: 0.07
+  heavyEnemyPrefabs: []
