@@ -10,14 +10,14 @@ public class GoldRushLevel : Level
     public override void StartLevel()
     {
         Debug.Log("Starting Gold Rush Level");
-        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("BattleTheme");
+        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("GoldRush");
         base.StartLevel();
     }
 
     public override void RestartLevel()
     {
         Debug.Log("Restarting Gold Rush Level");
-        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("BattleTheme");
+        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("GoldRush");
         base.RestartLevel();
     }
 
