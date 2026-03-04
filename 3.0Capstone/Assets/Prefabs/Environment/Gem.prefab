@@ -4966,7 +4966,6 @@ GameObject:
   - component: {fileID: 2411276901625257198}
   - component: {fileID: 7379363644592005951}
   - component: {fileID: -5750756409168337022}
-  - component: {fileID: 8196937086071917592}
   m_Layer: 6
   m_Name: Gem
   m_TagString: Gem
@@ -4989,6 +4988,7 @@ Transform:
   m_Children:
   - {fileID: 5864734226838553992}
   - {fileID: 3375300084438858051}
+  - {fileID: 6655162574603307801}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2411276901625257198
@@ -5003,6 +5003,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6425562105b8486418d5adbc29eeefef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crystalStates:
+  - {fileID: 21300000, guid: 2a700f12dbb934d4097e87772b8456ed, type: 3}
+  - {fileID: 21300000, guid: 1a0e2fb81ce62fd499cc528378bfa196, type: 3}
+  - {fileID: 21300000, guid: 52152429de43952418c5445ff07b2043, type: 3}
   OriginalHP: 3
   crystalCrack: {fileID: 8425260559245106556}
   shardScatter: {fileID: 197617709486556625}
@@ -5166,13 +5170,45 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8196937086071917592
+--- !u!1 &3086374020306322093
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6655162574603307801}
+  - component: {fileID: 6873913560549586333}
+  m_Layer: 0
+  m_Name: Light 2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6655162574603307801
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3086374020306322093}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.97580767, y: 0.97580767, z: 0.97580767}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5918537943266742070}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6873913560549586333
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2423516624940455703}
+  m_GameObject: {fileID: 3086374020306322093}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
@@ -5182,7 +5218,7 @@ MonoBehaviour:
   m_LightType: 3
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 1, g: 0.5613208, b: 0.93021005, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
