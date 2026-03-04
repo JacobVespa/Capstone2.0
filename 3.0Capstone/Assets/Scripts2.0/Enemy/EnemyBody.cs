@@ -31,6 +31,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     [SerializeField] public GameObject attackNotif;
     [SerializeField] private ParticleSystem comicHurt;
     [SerializeField] private ParticleSystem bugGoo;
+    [SerializeField] private ParticleSystem gooSubEmitter;
     
 
 
@@ -192,6 +193,11 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         if (bugGoo != null)
         {
             Debug.Log("fuckle");
+
+            WallMoving floor = FindFirstObjectByType<WallMoving>();
+            var velOverTime = gooSubEmitter.velocityOverLifetime;
+            velOverTime.z = -floor.GetFloorSpeed();
+
             ParticleSystem bugDeath = Instantiate(bugGoo, transform);
             bugDeath.transform.parent = GameManager.Instance.GetStorage();
             bugDeath.Play();

@@ -137,4 +137,17 @@ public class WallMoving : MonoBehaviour
     {
         isPaused = false;
     }
+
+    public float GetFloorSpeed()
+    {
+        if(isPaused)
+        {
+            return 0f;
+        }
+        else
+        {
+            return floorMoveSpeed;
+        }
+    }
+
 }
