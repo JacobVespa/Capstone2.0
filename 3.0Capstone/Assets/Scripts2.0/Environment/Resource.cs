@@ -2,9 +2,12 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements;
 
 public class Resource : MonoBehaviour
 {
+    [SerializeField] Sprite[] crystalStates;
+    private int damageVar = 0;
 
     [SerializeField] int OriginalHP = 3;
     private int currentHP;
@@ -22,6 +25,8 @@ public class Resource : MonoBehaviour
 
     void Start()
     {
+        GetComponentInChildren<SpriteRenderer>().sprite = crystalStates[0];
+        
         originalPosition = transform.localPosition;
         currentHP = OriginalHP;
         gemColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
@@ -34,7 +39,14 @@ public class Resource : MonoBehaviour
     {
         if (currentHP > 0)
         {
-            int previousHP = currentHP;
+            damageVar++;
+            if (damageVar < crystalStates.Length)
+            {
+                
+                GetComponentInChildren<SpriteRenderer>().sprite = crystalStates[damageVar];
+            }
+
+                int previousHP = currentHP;
             crystalCrack.Play();
             shardScatter.Play();
             audioSource.Play();
@@ -51,7 +63,8 @@ public class Resource : MonoBehaviour
 
     public void Respawn()
     {
-        
+        GetComponentInChildren<SpriteRenderer>().sprite = crystalStates[0];
+        damageVar = 0;
         gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
         gemColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         GetComponentInChildren<SpriteRenderer>().color = gemColor;

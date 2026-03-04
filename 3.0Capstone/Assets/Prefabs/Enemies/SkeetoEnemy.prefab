@@ -152,6 +152,7 @@ MonoBehaviour:
   attackNotif: {fileID: 4836865024657577240}
   comicHurt: {fileID: 2213592736336454901}
   bugGoo: {fileID: 1833505497990277558}
+  gooSubEmitter: {fileID: 2778724116569963167}
   moveSpeed: 5
   shakeDuration: 0.3
   shakeStrength: 0.1
@@ -924,6 +925,11 @@ PrefabInstance:
 --- !u!198 &1833505497990277558 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 3053214299527371479, guid: 366f61916871b6c4da73b1a4975a9912, type: 3}
+  m_PrefabInstance: {fileID: 3688124510622937953}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2778724116569963167 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 1566930991096908286, guid: 366f61916871b6c4da73b1a4975a9912, type: 3}
   m_PrefabInstance: {fileID: 3688124510622937953}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8332191920138029035 stripped
