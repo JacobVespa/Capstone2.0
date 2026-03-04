@@ -70,9 +70,11 @@ public class AttackQueueAgent : MonoBehaviour
 
 
         // Visual debug: tint sprite
+        /*
         var sr = GetComponentInChildren<SpriteRenderer>();
         if (sr != null)
             sr.color = allowed ? Color.red : Color.white;
+        */
     }
 
     public bool CanDealDamage => canDealDamage;
