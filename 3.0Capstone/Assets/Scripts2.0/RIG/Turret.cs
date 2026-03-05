@@ -23,6 +23,9 @@ public class Turret : MonoBehaviour
     [SerializeField] bool autoTarget = true;
     [SerializeField] private float bulletSpeed = 50f;
 
+    [Header("Bullet Sprites")]
+    [SerializeField] private Sprite[] projectiles;
+
     private Camera cam;
     private float camHalfWidth;
     private float camHalfHeight;
@@ -177,6 +180,9 @@ public class Turret : MonoBehaviour
 
     private void ShootBullet()
     {
+        int randomNum = Random.Range(0, projectiles.Length);
+        bullet.GetComponentInChildren<SpriteRenderer>().sprite = projectiles[randomNum];
+
         GameObject spawnedBullet = Instantiate(
             bullet,
             bulletSpawnLocation.transform.position,
