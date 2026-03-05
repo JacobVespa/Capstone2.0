@@ -45,6 +45,10 @@ public class Turret : MonoBehaviour
     private LineRenderer lineRenderer;
     private DamageSource currentDamage;
 
+    //turret scaling
+    private Vector3 dismountedScale;
+    private Vector3 mountedScale;
+
     private void Start()
     {
         cam = Camera.main;
@@ -73,6 +77,9 @@ public class Turret : MonoBehaviour
 
         lastScreenWidth = Screen.width;
         lastScreenHeight = Screen.height;
+
+        dismountedScale = new Vector3(0.85f, 0.85f, 0.85f);
+        mountedScale = Vector3.one;
     }
 
     private void Update()
@@ -138,6 +145,9 @@ public class Turret : MonoBehaviour
         buttonPromptXB.SetActive(false);
         playerMounted = true;
 
+        //testing size increase
+        gameObject.transform.localScale = Vector3.Lerp(dismountedScale, mountedScale, 10f);
+
         aimPos = transform.position;
     }
 
@@ -147,6 +157,9 @@ public class Turret : MonoBehaviour
         currentControls = null;
         crosshair.SetActive(false);
         playerMounted = false;
+
+        //testing size decrease
+        gameObject.transform.localScale = Vector3.Lerp(mountedScale, dismountedScale, 10f);
     }
 
     private void Shoot()
