@@ -53,7 +53,11 @@ public class Resource : MonoBehaviour
             //shardScatter.Play();
             StartCoroutine(Shake());
             currentHP--;
-            if (currentHP <= 0) GetComponentInChildren<SpriteRenderer>().enabled = false;
+            if (currentHP <= 0)
+            {
+                GetComponentInChildren<SpriteRenderer>().enabled = false;
+                //StartCoroutine(RespawnAfterDestroyed());
+            }
 
             RewardShards(-(currentHP - previousHP), currentHP <= 0);
         }
@@ -71,7 +75,7 @@ public class Resource : MonoBehaviour
         shardScatter.startColor = gemColor;
         currentHP = OriginalHP;
         crystalShine.SetActive(true);
-        GetComponent<Light2D>().enabled = true;
+        GetComponentInChildren<Light2D>().enabled = true;
     }
 
     private void RewardShards(int shards, bool broken)
@@ -111,4 +115,11 @@ public class Resource : MonoBehaviour
 
         transform.localPosition = originalPosition;
     }
+
+    private IEnumerator RespawnAfterDestroyed()
+    {
+        yield return new WaitForSeconds(5f);
+        Respawn();
+    }
+
 }

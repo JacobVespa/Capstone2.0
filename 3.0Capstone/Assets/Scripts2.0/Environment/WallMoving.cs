@@ -77,7 +77,8 @@ public class WallMoving : MonoBehaviour
         if (isLooping && transform.position.y <= offsetPos)
         {
             transform.position = new Vector3(0, yPos, 0);
-            SpawnGems();
+            //SpawnGems();
+            RespawnGems();
             foreach (GameObject i in envStuffPos)
             {
                 int rand = Random.Range(0, 10);
@@ -107,6 +108,14 @@ public class WallMoving : MonoBehaviour
             {
                 gem.SetActive(true);
             }
+        }
+    }
+
+    private void RespawnGems()
+    {
+        foreach (GameObject gem in gems)
+        {
+            gem.GetComponent<Resource>().Respawn();
         }
     }
 
