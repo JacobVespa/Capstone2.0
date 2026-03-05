@@ -173,7 +173,7 @@ public class WaveSpawner : MonoBehaviour
             StopCoroutine(waveRoutine);
 
         waveRoutine = StartCoroutine(RunSingleWave());
-        Debug.Log($"[WaveSpawner] Started wave {currentWave}");
+        //Debug.Log($"[WaveSpawner] Started wave {currentWave}");
     }
 
     private IEnumerator RunSingleWave()
@@ -220,7 +220,7 @@ public class WaveSpawner : MonoBehaviour
         }
 
         waveSpawningComplete = true;
-        Debug.Log($"[WaveSpawner] Wave {currentWave} spawning complete");
+        //Debug.Log($"[WaveSpawner] Wave {currentWave} spawning complete");
 
         // Wave spawned fully - wait for clear if required
         if (requireWaveClearToAdvance)
@@ -233,7 +233,7 @@ public class WaveSpawner : MonoBehaviour
 
         // Wave fully complete
         waveActive = false;
-        Debug.Log($"[WaveSpawner] Wave {currentWave} fully complete");
+        //Debug.Log($"[WaveSpawner] Wave {currentWave} fully complete");
     }
 
     private IEnumerator SpawnBurst(int count)

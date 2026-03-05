@@ -192,7 +192,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
         if (bugGoo != null)
         {
-            Debug.Log("fuckle");
+            //Debug.Log("fuckle");
 
             WallMoving floor = FindFirstObjectByType<WallMoving>();
             var velOverTime = gooSubEmitter.velocityOverLifetime;

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5740967245520153890}
   - component: {fileID: 803167732077200537}
   - component: {fileID: 9025740072651296184}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GrassPrefab
   m_TagString: Grass
   m_Icon: {fileID: 0}
@@ -102,6 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dcb63182093a64439ea185f4d80ff26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  grassRenderer: {fileID: 5740967245520153890}
+  grassParticle: {fileID: 5643562987692613407}
 --- !u!61 &9025740072651296184
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -159,7 +161,7 @@ GameObject:
   - component: {fileID: 8118972633309204016}
   - component: {fileID: 5643562987692613407}
   - component: {fileID: 9178011392068025262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

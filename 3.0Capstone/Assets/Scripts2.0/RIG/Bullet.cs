@@ -31,6 +31,7 @@ public class Bullet : MonoBehaviour
         }
         if (collision.CompareTag("Grass"))
         {
+            Debug.Log("BRUH");
             turret.HitGrass(collision);
             Destroy(gameObject);
         }

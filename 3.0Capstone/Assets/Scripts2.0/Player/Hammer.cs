@@ -14,7 +14,7 @@ public class Hammer : MonoBehaviour
     {
         if(other.CompareTag("Enemy"))
         {
-            Debug.Log("Hit the tick");
+            //Debug.Log("Hit the tick");
             var body = other.GetComponent<EnemyBody>();
             body.Attacked(currentDamage);
         }

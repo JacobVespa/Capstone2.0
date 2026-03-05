@@ -266,7 +266,7 @@ public class PlayerMovement : MonoBehaviour
         canAttack = false;
         playerAudioSource.clip = hammerMiss;
         playerAudioSource.Play();
-        Debug.Log("Tried to swing the hammer...");
+        //Debug.Log("Tried to swing the hammer...");
         playerAnimator.SetTrigger("HammerSwing");
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;

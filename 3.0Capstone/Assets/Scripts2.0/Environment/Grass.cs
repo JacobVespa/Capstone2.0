@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class Grass : MonoBehaviour
 {
-    private SpriteRenderer grassRenderer;
-    private ParticleSystem grassParticle;
+    public SpriteRenderer grassRenderer;
+    public ParticleSystem grassParticle;
     private float grassTime = 0.7f; //length of time for how long the object should exist for
 
     private void Start()
     {
         grassRenderer = GetComponent<SpriteRenderer>();
         grassParticle = GetComponentInChildren<ParticleSystem>();
+        grassParticle.Stop();
     }
 
     public void grassClipped()
     {
-        //StartCoroutine(GrassCoroutine(grassTime));
-        grassParticle.Play();
+        StartCoroutine(GrassCoroutine(grassTime));
     }
 
     IEnumerator GrassCoroutine(float grassTime)
@@ -24,7 +24,7 @@ public class Grass : MonoBehaviour
         grassRenderer.enabled = false;
         grassParticle.Play();
         yield return new WaitForSeconds(grassTime);
-        grassParticle.Stop();
+        Destroy(this);
 
     }
 }
