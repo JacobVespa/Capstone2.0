@@ -56,7 +56,6 @@ public class Resource : MonoBehaviour
             if (currentHP <= 0)
             {
                 GetComponentInChildren<SpriteRenderer>().enabled = false;
-                //StartCoroutine(RespawnAfterDestroyed());
             }
 
             RewardShards(-(currentHP - previousHP), currentHP <= 0);
@@ -85,7 +84,7 @@ public class Resource : MonoBehaviour
         {
             GameManager.Instance.AddShards(shards * breakMulitplier);
             crystalShine.SetActive(false);
-            GetComponent<Light2D>().enabled = false;
+            GetComponentInChildren<Light2D>().enabled = false;
         }
         else
         {
