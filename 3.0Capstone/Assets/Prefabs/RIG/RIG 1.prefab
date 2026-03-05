@@ -354,7 +354,7 @@ Transform:
   m_GameObject: {fileID: 1491059242438431121}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.05, y: 5.75, z: 0}
+  m_LocalPosition: {x: -0.02, y: 5.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10336,7 +10336,7 @@ MonoBehaviour:
   drillPoint: {fileID: 7773137568341205064}
   knockbackForce: 30
   stunTime: 0.5
-  drillRadius: 3.99
+  drillRadius: 4.35
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -10347,12 +10347,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2463792094324392739}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f8985a4141778c49af1f779a1c1d628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageVal: 3
+  damageVal: 1
   damageTarget: 1
 --- !u!212 &3322870207931934052
 SpriteRenderer:
