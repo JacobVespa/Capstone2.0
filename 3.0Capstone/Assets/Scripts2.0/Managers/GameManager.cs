@@ -113,14 +113,13 @@ public class GameManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(pauseButton.gameObject);
 
-            PauseGameTime();
             StopGameTime();
             
         }
         else if (controls.controlEvent.HasEscaped && isPaused)
         {
             pauseCanvas.gameObject.SetActive(false);
-            StartGameTime();
+
             ResumeGameTime();
         }
     }
@@ -128,7 +127,6 @@ public class GameManager : MonoBehaviour
     public void PauseButton()
     {
         pauseCanvas.gameObject.SetActive(false);
-        StartGameTime();
         ResumeGameTime();
     }
 

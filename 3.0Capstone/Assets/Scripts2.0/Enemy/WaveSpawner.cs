@@ -67,6 +67,12 @@ public class WaveSpawner : MonoBehaviour
     [Header("References")]
     [SerializeField] private GameObject rigTarget;
     [SerializeField] private List<Transform> spawnPoints = new List<Transform>();
+    public List<Transform> SpawnPoints
+    {
+        get { return spawnPoints; }
+        set { spawnPoints = value; }
+    }
+
 
     [Header("Enemy Prefabs (choose one or randomize)")]
     [SerializeField] private List<GameObject> enemyPrefabs = new List<GameObject>();
@@ -130,6 +136,12 @@ public class WaveSpawner : MonoBehaviour
     private int spawnedThisWave = 0;
     private bool waveActive = false;
     private bool waveSpawningComplete = false;
+    private bool canSpawn = true;
+    public bool CanSpawn
+    {
+        get { return canSpawn; }
+        set { canSpawn = value; }
+    }
 
     private readonly List<GameObject> trackedEnemies = new List<GameObject>();
     private Coroutine waveRoutine;
@@ -137,11 +149,17 @@ public class WaveSpawner : MonoBehaviour
     private void Start()
     {
         if (rigTarget == null) Debug.LogWarning("[WaveSpawner] rigTarget not assigned.");
-        if (spawnPoints.Count == 0) Debug.LogWarning("[WaveSpawner] No spawn points assigned.");
+
+        if (spawnPoints.Count == 0) 
+        {
+            canSpawn = false;
+            Debug.LogWarning("[WaveSpawner] No spawn points assigned.");
+        }
+
         if (enemyPrefabs.Count == 0) Debug.LogWarning("[WaveSpawner] No enemy prefabs assigned.");
 
         // Don't start automatically - wait for external trigger
-        if (finiteWaves == false)
+        if (finiteWaves == false && canSpawn)
         {
             StartNewWave();
         }
@@ -149,7 +167,7 @@ public class WaveSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (!waveActive && !finiteWaves)
+        if (!waveActive && !finiteWaves && canSpawn)
         {
             StartNewWave();
             return;
