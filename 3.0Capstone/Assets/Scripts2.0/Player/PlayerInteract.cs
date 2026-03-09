@@ -123,6 +123,8 @@ public class PlayerInteract : MonoBehaviour
         {
             engine = other.GetComponent<Engine>();
             engine.buttonPromptXB.SetActive(false);
+            canEngine = false;
+            currentInteractObject = other.gameObject;
         }
     }
 

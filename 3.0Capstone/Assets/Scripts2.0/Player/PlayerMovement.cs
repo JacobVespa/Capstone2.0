@@ -136,17 +136,19 @@ public class PlayerMovement : MonoBehaviour
             {
                 HandlePickup();
             }
-            else if (interactor.canRepair)
-            {
-                HandleRepair();
-            }
-            else if (interactor.canEngine)
-            {
-                HandleEngine();
-            }
             else if(isHolding)
             {
                 HandleDrop();
+            }
+
+            if (interactor.canRepair)
+            {
+                HandleRepair();
+            }
+
+            if (interactor.canEngine)
+            {
+                HandleEngine();
             }
         }
         else if(!canInteract && playerControls.controlEvent.HasInteracted)
