@@ -181,6 +181,7 @@ MonoBehaviour:
   attackNotif: {fileID: 254310654915742521}
   comicHurt: {fileID: 3445665279238444902}
   bugGoo: {fileID: 0}
+  gooSubEmitter: {fileID: 0}
   moveSpeed: 5
   shakeDuration: 0.3
   shakeStrength: 0.1
@@ -295,7 +296,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: -0.1, y: 0}
-  m_Radius: 2.725724
+  m_Radius: 2
 --- !u!58 &3615466318253175549
 CircleCollider2D:
   m_ObjectHideFlags: 0
