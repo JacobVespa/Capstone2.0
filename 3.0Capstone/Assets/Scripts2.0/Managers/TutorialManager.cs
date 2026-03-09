@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework;
 using UnityEngine;
 
 public class TutorialManager : MonoBehaviour
@@ -8,15 +9,20 @@ public class TutorialManager : MonoBehaviour
     private List<Func<bool>> tutorialSteps;
     [SerializeField] private DialogueManager dialogueManager;
 
+    // boolean tutorial flags
     private bool introFlag = false;
     private bool engineFlag = false;
+    private bool crystalFlag = false;
     private bool smallEnemyFlag = false;
     private bool largeEnemyFlag = false;
-    private bool reloadFlag = false;
     private bool repairFlag = false;
     private bool hammerFlag = false;
     private bool tutorialCompleteFlag = false;
     private bool gameStartFlag = false;
+
+    // boolean start/finish flags
+    private bool hasStarted = false;
+    private bool hasFinished = false;
 
     [SerializeField] private WaveSpawner smallEnemySpawner;
     [SerializeField] private WaveSpawner largeEnemySpawner;
@@ -25,17 +31,27 @@ public class TutorialManager : MonoBehaviour
     private Engine engineScript;
     private Turret[] turretScripts;
     private RigHealth rigHealthScript;
+    private int oldShardCount;
+
+    //Cinematic Camera
+    [SerializeField] private CameraCinematic cinematicCamera;
 
     void Start()
     {
+        if (cinematicCamera == null)
+        {
+            Debug.LogError("CameraCinematic not found in the scene.");
+        }
+
         tutorialSteps = new List<Func<bool>>
         {
             TutorialIntroduction,
             TutorialEngine,
+            TutorialCrystal,
             TutorialEnemySmall,
-            TutorialRepair,
             TutorialHammer,
             TutorialEnemyLarge,
+            TutorialRepair,
             TutorialComplete
         };
 
@@ -51,18 +67,22 @@ public class TutorialManager : MonoBehaviour
         {
             Debug.LogError("RIG not found in the scene.");
         }
+
+        EnterTutorial();
     }
 
     void Update()
     {
-        if (tutorialSteps.Count > 0 && tutorialSteps[0].Invoke())
+        if (hasStarted)
         {
-            tutorialSteps.RemoveAt(0);
-        }
-        else if (tutorialSteps.Count == 0 && !gameStartFlag)
-        {
-            gameStartFlag = true;
-            StartGame();
+            if (tutorialSteps.Count > 0 && tutorialSteps[0].Invoke())
+            {
+                tutorialSteps.RemoveAt(0);
+            }
+            else if (tutorialSteps.Count == 0 && !gameStartFlag && !hasFinished)
+            {
+                ExitTutorial();
+            }
         }
 
         if (RIG != null && rigHealthScript.CanTakeDamage)
@@ -99,10 +119,27 @@ public class TutorialManager : MonoBehaviour
         {
             engineFlag = true;
             dialogueManager.ShowDialogue("engine");
-            engineScript.IsOverheated(true);
         }
 
         if(!engineScript.TooHot)
+        {
+            dialogueManager.SkipTypewriter();
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool TutorialCrystal()
+    {
+        if (!crystalFlag) // One time trigger for tutorial spawns and actions
+        {
+            crystalFlag = true;
+            dialogueManager.ShowDialogue("crystal");
+            oldShardCount = GameManager.Instance.Shards; // Store initial shard count to detect changes
+        }
+
+        if (GameManager.Instance != null && GameManager.Instance.Shards >= oldShardCount + 4)
         {
             dialogueManager.SkipTypewriter();
             return true;
@@ -240,6 +277,16 @@ public class TutorialManager : MonoBehaviour
         StartCoroutine(StartGame(1f)); // Delay to allow tutorial completion dialogue to finish
     }
 
+    private void EnterTutorial()
+    {
+        StartCoroutine(EnterTutorial(3f));
+    }
+
+    private void ExitTutorial()
+    {
+        StartCoroutine(ExitTutorial(3f));
+    }
+
     private IEnumerator StartGame(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -253,6 +300,28 @@ public class TutorialManager : MonoBehaviour
         {
             Debug.LogError("GameflowManager not found in the scene.");
         }
+    }
+
+    private IEnumerator EnterTutorial(float delay)
+    {
+        engineScript.Heat = 1f; // Start with overheated engine to trigger tutorial
+
+        if (cinematicCamera != null)
+            cinematicCamera.MoveCameraTo(new Vector3(0f, 0f, 0f), delay);
+
+        yield return new WaitForSeconds(delay);
+
+        hasStarted = true;
+    }
+
+    private IEnumerator ExitTutorial(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        gameStartFlag = true;
+        StartGame();
+
+        hasFinished = true;
     }
 
 #endregion

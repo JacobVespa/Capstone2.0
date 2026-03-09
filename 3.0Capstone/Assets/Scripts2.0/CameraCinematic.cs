@@ -21,7 +21,7 @@ public class CameraCinematic : MonoBehaviour
 
     private Coroutine shakeCoroutine;
 
-    private void Start()
+    private void Awake()
     {
         mainCamera = Camera.main;
         if (mainCamera == null)
@@ -30,7 +30,10 @@ public class CameraCinematic : MonoBehaviour
         }
 
         originalZ = mainCamera.transform.position.z;
+    }
 
+    private void Start()
+    {
         if (autoMove)
         {
             MoveCamera();

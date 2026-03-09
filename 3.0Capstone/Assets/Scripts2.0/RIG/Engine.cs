@@ -21,7 +21,16 @@ public class Engine : MonoBehaviour
     private bool tooHot = false;
     public bool TooHot => tooHot;
 
-    private float heat = 0f;        
+    private float heat = 0f;
+
+    public float Heat
+    {
+        set
+        {
+            heat = value;
+            heat = Mathf.Clamp01(heat);
+        }
+    }        
 
     [SerializeField] public GameObject buttonPromptXB;
 

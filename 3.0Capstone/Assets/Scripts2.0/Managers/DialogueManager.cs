@@ -25,8 +25,9 @@ public class DialogueManager : MonoBehaviour
     private void InitializeDialogues()
     {
         // Placeholder text!
-        dialogues.Add("intro", "That last wave took a lot out of us. Get ready for the next wave with this downtime to prepare!");
-        dialogues.Add("engine", "The engine is overheating! Press ***** to cool it down.");
+        dialogues.Add("intro", "Intro statement! :)");
+        dialogues.Add("engine", "The engine is overheating! Repair it and lets keep moving!");
+        dialogues.Add("crystal", "Shoot those shiny things on the wall money = happiness!.");
         dialogues.Add("smallEnemy", "Enemies incoming! Use your turrets to defend.");
         dialogues.Add("reload", "Your turrets are empty! Bring ammo from the crate and reload!");
         dialogues.Add("repair", "Damage detected! Use repair tools to fix your rig.");
