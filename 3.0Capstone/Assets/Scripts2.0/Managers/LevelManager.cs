@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using System.Xml.Serialization;
 
 public class LevelManager : MonoBehaviour
 {
@@ -118,6 +119,21 @@ public class LevelManager : MonoBehaviour
                 SoundManager.Instance.PlayBGM("WinTheme");
 
             ShowEndScreen(GameManager.Instance.ResultScreenIndex);
+        }
+
+        DisableLevelObjects(obs);
+    }
+
+    private void DisableLevelObjects(GameObject[] obs)
+    {
+        foreach (GameObject go in obs)
+        {
+            if (go == null) continue; // Skip destroyed objects
+
+            if (!go.CompareTag("GameManager") && !go.CompareTag("MainCamera"))
+            {
+                go.SetActive(false);
+            }
         }
     }
 

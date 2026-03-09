@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 public class ResultMenu_UI : MonoBehaviour
 {
     [Header("UI Elements")]
-    [SerializeField] private TMP_Text resultText;
     [SerializeField] private TMP_Text shardsText;
     [SerializeField] private TMP_Text killsText;
     [SerializeField] private GameObject restartButton;
@@ -15,36 +14,34 @@ public class ResultMenu_UI : MonoBehaviour
     private int totalShards = 0;
     private int totalKills = 0;
 
-    [Header("Messages")]
-    private string winMessage = "Cave Complete!";
-    private string loseMessage = "Cave CRASHED!";
-
-    private void OnEnable()
+    private void Start()
     {
         UpdateResultUI();
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(restartButton);
+        if (EventSystem.current != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(restartButton);
+        }
     }
 
     private void UpdateResultUI()
     {
-        if (GameManager.Instance.GameOverStatus)
-        {
-            resultText.text = loseMessage;
-        }
-        else
-        {
-            resultText.text = winMessage;
-        }
+        if (GameManager.Instance == null) return;
 
         totalShards = GameManager.Instance.Shards;
         totalKills = GameManager.Instance.Kills;
-        CountUpScore();
+        StartCoroutine(DelayedCountUp());
     }
 
     private float multiplier = 1.0f;
     private int tempShards = 0;
     private int tempKills = 0;
+
+    private IEnumerator DelayedCountUp()
+    {
+        yield return null; // wait one frame for scene to settle
+        CountUpScore();
+    }
 
     private void CountUpScore()
     {

@@ -57,9 +57,6 @@ public class Engine : MonoBehaviour
 
     public void EngineRepair()
     {
-        // Only allow repair when overheated
-        if (!tooHot) return;
-
         heat -= repairAmount;
         heat = Mathf.Clamp01(heat);
 
