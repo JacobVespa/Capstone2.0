@@ -24,7 +24,7 @@ public class RigDrill : MonoBehaviour
 
     public void KnockBackEnemies()
     {
-        Debug.Log("OUCH!");
+        Debug.LogError("OUCH!");
         Collider2D[] enemies = Physics2D.OverlapCircleAll(drillPoint.position, drillRadius, enemyLayer);
 
         if (enemies.Length > 0)

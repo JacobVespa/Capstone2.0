@@ -15,9 +15,9 @@ public class Bullet : MonoBehaviour
     {
         if(collision.CompareTag("Enemy"))
         {
-            //Debug.Log("Hit Enemy with a bullet");
+            Debug.LogError("Hit Enemy with a bullet");
             turret.HitEnemy(collision);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
         if(collision.CompareTag("Gem"))
         {

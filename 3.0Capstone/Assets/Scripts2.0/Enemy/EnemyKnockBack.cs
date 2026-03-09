@@ -30,6 +30,11 @@ public class EnemyKnockBack : MonoBehaviour
     IEnumerator StunTimer(float stunTime)
     {
         yield return new WaitForSeconds(stunTime);
+        if (!meleeAI.CheckInView())
+        {
+            Debug.LogError("offscreen");
+            meleeAI.behaviour = EnemyAI.Behaviour.Dead;
+        }
         rb.linearVelocityX = 0;
         foreach (Collider2D c in colliders)
         { 
