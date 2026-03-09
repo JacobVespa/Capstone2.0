@@ -21,6 +21,8 @@ public class Turret : MonoBehaviour
     [SerializeField] private float shootingCD = 1f;
     [SerializeField] float aimSpeed = 10.0f;
     [SerializeField] bool autoTarget = true;
+    [SerializeField] bool assistAim = true;
+    [SerializeField] float assistAngle = 5f;
     [SerializeField] private float bulletSpeed = 50f;
 
     [Header("Bullet Sprites")]
@@ -99,10 +101,12 @@ public class Turret : MonoBehaviour
         {
             if (autoTarget)
                 DetermineTarget();
+           
             else
                 ManualTarget();
 
             Aim();
+            if (assistAim) { AdujstAim(); }
             Shoot();
         }
         else
@@ -238,6 +242,46 @@ public class Turret : MonoBehaviour
             ClampAimToCamera();
             crosshair.transform.position = aimPos;
         }
+    }
+
+    private void AdujstAim()
+    {
+        ManualTarget();
+
+        int enemies = LayerMask.GetMask("Enemy");
+        int flyEnemies = LayerMask.GetMask("Flying Enemy");
+
+        Vector3 angle = pivot.transform.rotation.eulerAngles;
+        RaycastHit2D realAim = Physics2D.Raycast(pivot.transform.position, angle, Mathf.Infinity,enemies);
+
+        Debug.DrawRay(pivot.transform.position, new Vector3(1, 1, 0) * 10,Color.white);
+        Debug.Log(angle);
+        Debug.DrawRay(pivot.transform.position, angle , Color.white);
+
+        if(realAim.collider != null)
+        {
+            
+            return;
+        }
+        
+        Debug.Log("smh");
+        Vector2 posAngle = pivot.transform.rotation * Quaternion.Euler(0, 0, assistAngle).eulerAngles;
+        Vector2 negAngle = pivot.transform.rotation * Quaternion.Euler(0, 0, -assistAngle).eulerAngles;
+
+        RaycastHit2D posAssist = Physics2D.Raycast(pivot.transform.position, posAngle, Mathf.Infinity, enemies );
+        RaycastHit2D negAssist = Physics2D.Raycast(pivot.transform.position, negAngle, Mathf.Infinity,  enemies);
+
+        
+
+        if (posAssist.collider != null)
+        {
+            Debug.Log("pos assist");
+        }
+        else if (negAssist.collider != null)
+        {
+            Debug.Log("neg assist");
+        }
+
     }
 
     // Helper Collision Methods (unchanged)

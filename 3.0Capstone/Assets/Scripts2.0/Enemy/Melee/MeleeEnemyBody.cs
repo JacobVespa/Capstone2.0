@@ -19,7 +19,11 @@ public class MeleeEnemyBody : EnemyBody
     protected override void Awake()
     {
         base.Awake();
-        attackRange.radius = attackRangeVal;    // set the range collider radius equal to what the attackRangeVal is
+        if(attackRange != null)
+            {
+                attackRange.radius = attackRangeVal;
+            }
+           // set the range collider radius equal to what the attackRangeVal is
     }
 
     protected override void FixedUpdate()

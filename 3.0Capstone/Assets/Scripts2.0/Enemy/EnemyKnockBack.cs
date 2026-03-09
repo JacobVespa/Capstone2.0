@@ -33,7 +33,7 @@ public class EnemyKnockBack : MonoBehaviour
         if (!meleeAI.CheckInView())
         {
             Debug.LogError("offscreen");
-            meleeAI.behaviour = EnemyAI.Behaviour.Dead;
+            Destroy(gameObject);
         }
         rb.linearVelocityX = 0;
         foreach (Collider2D c in colliders)

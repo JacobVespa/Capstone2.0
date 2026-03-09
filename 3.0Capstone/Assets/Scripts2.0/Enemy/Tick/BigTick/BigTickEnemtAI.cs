@@ -31,7 +31,7 @@ public class BigTickEnemtAI : TickEnemyAI
         switch (behaviour)
         {
             case Behaviour.Spawning:
-                Debug.Log(body.dropping);
+                
                 if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos));Debug.Log("start"); }
                 break;
             case Behaviour.Moving:

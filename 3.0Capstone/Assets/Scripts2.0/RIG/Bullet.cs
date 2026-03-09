@@ -11,6 +11,14 @@ public class Bullet : MonoBehaviour
         turret = turretObject.GetComponent<Turret>();
     }
 
+    private void FixedUpdate()
+    {
+        if (!CheckInView())
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Enemy"))
@@ -31,9 +39,21 @@ public class Bullet : MonoBehaviour
         }
         if (collision.CompareTag("Grass"))
         {
-            Debug.Log("BRUH");
+            //Debug.Log("BRUH");
             turret.HitGrass(collision);
             //Destroy(gameObject);
         }
+    }
+
+    public bool CheckInView()
+    {
+        Vector3 vPos = Camera.main.WorldToViewportPoint(transform.position);
+
+        if (vPos.x < 0.99 && vPos.x > 0.01 && vPos.y < 0.99 && vPos.y > 0.01)
+        {
+            return true;
+        }
+
+        else { return false; }
     }
 }

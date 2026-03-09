@@ -66,14 +66,14 @@ MonoBehaviour:
   comicHurt: {fileID: 10622166586988311}
   bugGoo: {fileID: 2058144590037667241}
   gooSubEmitter: {fileID: 2553003104262905472}
-  moveSpeed: 5
+  moveSpeed: 10
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 1
-  attackStartUp: 3
-  attackCoolDown: 3
+  attackStartUp: 1
+  attackCoolDown: 1
   attackRange: {fileID: 1215407965381333140}
-  attackRangeVal: 2
+  attackRangeVal: 3.5
 --- !u!114 &5314007174558124751
 MonoBehaviour:
   m_ObjectHideFlags: 0
