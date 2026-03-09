@@ -45,6 +45,8 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         set => canTakeDamage = value;
     }
 
+    [SerializeField] private GameObject gameManager;
+
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -74,6 +76,11 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
         nextThreshold = maxHealth - DamageThreshold;
         
+
+        if(GameManager.Instance == null)
+        {
+            Instantiate(gameManager);
+        }
     }
 
     public void Attacked(DamageSource d)

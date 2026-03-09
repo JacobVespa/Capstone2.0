@@ -78,6 +78,7 @@ public class RangedEnemyAI : EnemyAI
     {
         if (!hasTarget) { return; }
         if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
+        if (!CheckInView()) { behaviour = Behaviour.Moving; }
         body.Attack(targetLoc);
     }
 

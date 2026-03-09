@@ -93,7 +93,7 @@ public abstract class EnemyAI : MonoBehaviour
         }
     }
 
-    protected bool CheckInView()
+    public bool CheckInView()
     {
         Vector3 vPos = Camera.main.WorldToViewportPoint(transform.position);
 
