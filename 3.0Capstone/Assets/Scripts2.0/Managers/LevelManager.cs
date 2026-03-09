@@ -84,8 +84,14 @@ public class LevelManager : MonoBehaviour
         // Disable enemies and spawners immediately so they don't interfere
         foreach (GameObject go in obs)
         {
-            if (go.CompareTag("Enemy") || go.CompareTag("Spawner"))
+            if (go.CompareTag("Spawner"))
                 go.SetActive(false);
+
+            if (go.CompareTag("Enemy"))  
+            {
+                EnemyBody enemy = go.GetComponent<EnemyBody>();
+                enemy.InstantKill();
+            }
         }
 
         // Pan camera BEFORE stopping time — PanOver uses Time.deltaTime
@@ -96,6 +102,8 @@ public class LevelManager : MonoBehaviour
             cam.PanOver(20f, 0.3f, new Vector3(0, -60, 0));
             yield return new WaitForSecondsRealtime(4f); // match PanOver duration
         }
+
+        GameManager.Instance.EmptyStorage();
 
         if (goNext)
         {

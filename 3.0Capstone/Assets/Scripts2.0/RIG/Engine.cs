@@ -1,9 +1,4 @@
-using System.Collections;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class Engine : MonoBehaviour
 {
@@ -22,34 +17,38 @@ public class Engine : MonoBehaviour
 
     private const float OVERHEAT_THRESHOLD = 0.99f;
     private const float REPAIR_THRESHOLD = 0.01f;
+
     private bool tooHot = false;
     public bool TooHot => tooHot;
-    
 
     private float heat = 0f;        
-    private float targetHeat = 0f;
 
     [SerializeField] public GameObject buttonPromptXB;
 
     private void Start()
     {
-       buttonPromptXB.SetActive(false);
+        buttonPromptXB.SetActive(false);
 
         if (damageStages.Length < 4)
         {
             Debug.Log("A engine damage state sprite might be missing");
         }
     }
+
     // Update is called once per frame
     void Update()
     {
-        targetHeat += heatIncreaseRate * Time.deltaTime;
-        targetHeat = Mathf.Clamp01(targetHeat);
+        // Heat only increases if the engine is not overheated
+        if (!tooHot)
+        {
+            heat += heatIncreaseRate * Time.deltaTime;
+        }
 
-        heat = Mathf.Lerp(heat, targetHeat, Time.deltaTime * lerpSpeed);
+        heat = Mathf.Clamp01(heat);
 
         //damageStages[0].color = Color.Lerp(originalColor, heatColor, heat); //AGAIN WILL NEED THIS LATER
         damageStages[0].GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, heatColor, heat);
+
         //Debug.Log("Heat: " + heat);
 
         EngineBreakdown();
@@ -58,8 +57,12 @@ public class Engine : MonoBehaviour
 
     public void EngineRepair()
     {
-        targetHeat -= repairAmount;
-        targetHeat = Mathf.Clamp01(targetHeat);
+        // Only allow repair when overheated
+        if (!tooHot) return;
+
+        heat -= repairAmount;
+        heat = Mathf.Clamp01(heat);
+
         EngineRepairSFX();
         //Debug.Log("Here");
     }
@@ -77,11 +80,11 @@ public class Engine : MonoBehaviour
         if (!tooHot && heat >= OVERHEAT_THRESHOLD)
         {
             IsOverheated(true);
+
             if(GameManager.Instance != null)
             {
                 GameManager.Instance.PauseGameTime();
             }
-            
 
             WallMoving[] walls = GameObject.FindObjectsByType<WallMoving>(FindObjectsSortMode.None);
             foreach (WallMoving wall in walls)            
@@ -99,6 +102,7 @@ public class Engine : MonoBehaviour
         if (tooHot && heat <= REPAIR_THRESHOLD)
         {
             IsOverheated(false);
+
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.StartGameTime();

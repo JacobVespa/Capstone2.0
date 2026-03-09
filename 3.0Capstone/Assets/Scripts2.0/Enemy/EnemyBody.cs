@@ -175,6 +175,13 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         }
     }
 
+    public void InstantKill()
+    {
+        comicHurt.Play();
+        health = -1;
+        StartCoroutine(StartDeath());
+    }
+
 
     //  Death Coroutine 
     //  - sets ai state to death, turns off colldiers on enemy, removes it from the attack queue
