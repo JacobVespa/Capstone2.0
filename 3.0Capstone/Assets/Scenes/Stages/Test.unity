@@ -800,9 +800,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359887a154e113d42bc531a3221a62aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallSprites: []
   wallMoveSpeed: 2
   floorMoveSpeed: 2
   isLooping: 1
+  shards: []
+  shardPos: []
+  envStuff: {fileID: 0}
+  envStuffPos: []
+  spawnRate: 0.2
   gems: []
 --- !u!95 &543979937
 Animator:
@@ -971,6 +977,71 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565906420}
   m_CullTransparentMesh: 1
+--- !u!1001 &567651441
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1154048961172827849, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_Name
+      value: TestPede
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.291243
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 105.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6163505038083192184, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901144305445522472, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: behaviour
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901144305445522472, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
+      propertyPath: targetLoc
+      value: 
+      objectReference: {fileID: 971106171}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8725eee9597bd474c870e7ca73477181, type: 3}
 --- !u!1 &628331145
 GameObject:
   m_ObjectHideFlags: 0
@@ -1002,9 +1073,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 359887a154e113d42bc531a3221a62aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wallSprites: []
   wallMoveSpeed: 2
   floorMoveSpeed: 2
   isLooping: 1
+  shards: []
+  shardPos: []
+  envStuff: {fileID: 0}
+  envStuffPos: []
+  spawnRate: 0.2
   gems: []
 --- !u!95 &628331147
 Animator:
@@ -2456,13 +2533,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1765859057658468846, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 7216554579017788385, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
 --- !u!1 &1278214777 stripped
 GameObject:
@@ -5000,3 +5071,4 @@ SceneRoots:
   - {fileID: 901358142218713736}
   - {fileID: 1113978504}
   - {fileID: 1332149487}
+  - {fileID: 567651441}
