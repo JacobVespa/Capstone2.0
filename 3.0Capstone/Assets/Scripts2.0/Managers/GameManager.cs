@@ -12,6 +12,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int navigationScreenIndex = 3;
     public int NavigationScreenIndex => navigationScreenIndex;
 
+    private int levelsCompleted = 0;
+    public int LevelsCompleted
+    {
+        set => levelsCompleted = value;
+        get => levelsCompleted;
+    }
+    private int maxDepth;
+    public int MaxDepth
+    {
+        set => maxDepth = value;
+        get => maxDepth;
+    }
 
     private bool timeActive;
     private bool isPaused;
@@ -134,6 +146,8 @@ public class GameManager : MonoBehaviour
     {
         pauseCanvas.gameObject.SetActive(false);
         flowManager.EndLevel();
+        CaveMapState.Instance.FullReset();
+        levelsCompleted = 0;
         ResetStats();
     }
 
@@ -147,7 +161,10 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
-        if (flowManager != null) flowManager.WindDownLevel(true);
+        if (flowManager == null) return;
+        levelsCompleted++;
+
+        flowManager.WindDownLevel(true);
 
         PauseGameTime();
     }

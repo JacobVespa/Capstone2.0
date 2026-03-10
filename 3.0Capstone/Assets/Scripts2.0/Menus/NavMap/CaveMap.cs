@@ -47,6 +47,9 @@ public class CaveMap : MonoBehaviour
 
         CreateMap();
 
+        if (GameManager.Instance != null)
+            GameManager.Instance.MaxDepth = depth;
+
         if (state != null && state.HasVisitedNode)
         {
             RestoreState(state);
@@ -78,7 +81,7 @@ public class CaveMap : MonoBehaviour
 
         // Centre X of the first row, slightly below it
         float centreX = 0f;
-        float bottomY = GetNodePosition(0, 0, rowWidths[0]).y - spacingY * 0.6f;
+        float bottomY = GetNodePosition(0, 0, rowWidths[0]).y - spacingY * 0.8f;
 
         SpriteRig.Instance.SnapTo(new Vector2(centreX, bottomY));
     }

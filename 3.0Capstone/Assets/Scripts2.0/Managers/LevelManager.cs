@@ -106,7 +106,13 @@ public class LevelManager : MonoBehaviour
 
         GameManager.Instance.EmptyStorage();
 
-        if (goNext)
+        if (goNext && GameManager.Instance.LevelsCompleted > GameManager.Instance.MaxDepth)
+        {
+            SoundManager.Instance.PlayBGM("WinTheme");
+            GameManager.Instance.LevelsCompleted = 0;
+            ShowEndScreen(7);
+        }
+        else if (goNext)
         {
             SoundManager.Instance.PlayBGM("Navigation");
             ShowEndScreen(GameManager.Instance.NavigationScreenIndex);

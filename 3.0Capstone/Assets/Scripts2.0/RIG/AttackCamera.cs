@@ -106,7 +106,7 @@ public class AttackCamera : MonoBehaviour
 
         int row = chosenIndex % SideSize;
 
-        cam.MoveCameraToPosition(cameraPoints[chosenIndex].position);
+        cam.MoveCameraTo(cameraPoints[chosenIndex].position,1f);
         AssignSpawnPoints(sideOffset, row);
     }
 

@@ -43,7 +43,10 @@ public class MapButton : MonoBehaviour
         visited = true;
 
         if (locationText != null)
-            locationText.text = "Complete";
+        {
+            locationText.text = "Onward!";
+            locationText.color = Color.green;
+        }
 
         if (CaveMap.Instance != null)
             CaveMap.Instance.OnNodeVisited(GetComponent<Button>());
