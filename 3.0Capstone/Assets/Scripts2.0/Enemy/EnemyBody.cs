@@ -205,10 +205,10 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             var velOverTime = gooSubEmitter.velocityOverLifetime;
             velOverTime.z = -floor.GetFloorSpeed();
 
-            ParticleSystem bugDeath = Instantiate(bugGoo, transform);
-            bugDeath.transform.parent = GameManager.Instance.GetStorage();
-            bugDeath.Play();
-            Destroy(bugDeath, 3);
+            //ParticleSystem bugDeath = Instantiate(bugGoo, transform);
+            bugGoo.transform.parent = GameManager.Instance.GetStorage();
+            bugGoo.Play();
+            Destroy(bugGoo, 3);
         }
 
         if (animator != null) //if enemy has animations, play them before triggering death
