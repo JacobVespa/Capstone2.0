@@ -8,7 +8,7 @@ public class ResultMenu_UI : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private TMP_Text shardsText;
     [SerializeField] private TMP_Text killsText;
-    [SerializeField] private GameObject restartButton;
+    //[SerializeField] private GameObject restartButton;
     [SerializeField] private GameObject mainMenuButton;
 
     private int totalShards = 0;
@@ -20,7 +20,7 @@ public class ResultMenu_UI : MonoBehaviour
         if (EventSystem.current != null)
         {
             EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(restartButton);
+            EventSystem.current.SetSelectedGameObject(mainMenuButton);
         }
     }
 
