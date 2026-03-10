@@ -33,10 +33,11 @@ public class GameManager : MonoBehaviour
 
     public PlayerMovement[] playerMovement;
     [SerializeField] private Canvas pauseCanvas;
-    private Button pauseButton;
+    [SerializeField] private Button pauseButton;
 
     [SerializeField] private Transform vfxStorage;
 
+    private GameflowManager flow;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -49,7 +50,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         playerMovement = FindObjectsByType<PlayerMovement>(sortMode: FindObjectsSortMode.None);
-        pauseButton = pauseCanvas.GetComponentInChildren<Button>();
+        //pauseButton = pauseCanvas.GetComponentInChildren<Button>();
     }
 
     private void Start()
@@ -103,7 +104,7 @@ public class GameManager : MonoBehaviour
     {
 
         PlayerControls controls = FindFirstObjectByType<PlayerControls>();
-        GameflowManager flow = FindFirstObjectByType<GameflowManager>();
+        flow = FindFirstObjectByType<GameflowManager>();
 
         if (!flow.LevelRunning || controls == null || flow == null) return;
 
@@ -128,6 +129,13 @@ public class GameManager : MonoBehaviour
     {
         pauseCanvas.gameObject.SetActive(false);
         ResumeGameTime();
+    }
+
+    public void ReturnButton()
+    {
+        pauseCanvas.gameObject.SetActive(false);
+        flow.EndLevel();
+        ResetStats();
     }
 
     public void GameOver()
