@@ -48,6 +48,9 @@ public class TutorialManager : MonoBehaviour
     [Header("Interact UI")]
     [SerializeField] private GameObject engineIndicator;
     [SerializeField] private GameObject repairIndicator;
+    [SerializeField] private GameObject triangleTurretIndicator;
+    [SerializeField] private GameObject octagonTurretIndicator;
+    [SerializeField] private GameObject hammerIndicator;
 
     void Start()
     {
@@ -157,6 +160,8 @@ public class TutorialManager : MonoBehaviour
             crystalFlag = true;
             dialogueBox.transform.position = crystalTextPos.transform.position;
             dialogueBox.SetActive(true);
+            triangleTurretIndicator.SetActive(true);
+            octagonTurretIndicator.SetActive(true);
             dialogueManager.ShowDialogue("crystal");
             oldShardCount = GameManager.Instance.Shards; // Store initial shard count to detect changes
         }
@@ -165,6 +170,8 @@ public class TutorialManager : MonoBehaviour
         {
             dialogueManager.SkipTypewriter();
             dialogueBox.SetActive(false);
+            triangleTurretIndicator.SetActive(false);
+            octagonTurretIndicator.SetActive(false);
             return true;
         }
 
@@ -178,6 +185,8 @@ public class TutorialManager : MonoBehaviour
             smallEnemyFlag = true;
             dialogueBox.transform.position = enemyTextPos.transform.position;
             dialogueBox.SetActive(true);
+            triangleTurretIndicator.SetActive(true);
+            octagonTurretIndicator.SetActive(true);
             dialogueManager.ShowDialogue("smallEnemy");
             smallEnemySpawner.StartNewWave();
         }
@@ -186,6 +195,8 @@ public class TutorialManager : MonoBehaviour
         {
             dialogueManager.SkipTypewriter();
             dialogueBox.SetActive(false);
+            triangleTurretIndicator.SetActive(false);
+            octagonTurretIndicator.SetActive(false);
             return true;
         }
 
@@ -199,6 +210,8 @@ public class TutorialManager : MonoBehaviour
             largeEnemyFlag = true;
             dialogueBox.transform.position = enemyTextPos.transform.position;
             dialogueBox.SetActive(true);
+            triangleTurretIndicator.SetActive(true);
+            octagonTurretIndicator.SetActive(true);
             dialogueManager.ShowDialogue("largeEnemy");
             largeEnemySpawner.StartNewWave();
         }
@@ -207,6 +220,8 @@ public class TutorialManager : MonoBehaviour
         {
             dialogueManager.SkipTypewriter();
             dialogueBox.SetActive(false);
+            triangleTurretIndicator.SetActive(false);
+            octagonTurretIndicator.SetActive(false);
             return true;
         }
 
@@ -246,6 +261,7 @@ public class TutorialManager : MonoBehaviour
             hammerFlag = true;
             dialogueBox.transform.position = enemyTextPos.transform.position;
             dialogueBox.SetActive(true);
+            hammerIndicator.SetActive(true);
             dialogueManager.ShowDialogue("hammer");
             tickEnemySpawner.StartNewWave();
         }
@@ -253,6 +269,7 @@ public class TutorialManager : MonoBehaviour
         if (tickEnemySpawner != null && tickEnemySpawner.IsWaveComplete)
         {
             dialogueManager.SkipTypewriter();
+            hammerIndicator.SetActive(false);
             dialogueBox.SetActive(false);
             return true;
         }
