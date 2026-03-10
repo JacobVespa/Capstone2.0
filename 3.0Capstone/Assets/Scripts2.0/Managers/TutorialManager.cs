@@ -18,7 +18,6 @@ public class TutorialManager : MonoBehaviour
     private bool repairFlag = false;
     private bool hammerFlag = false;
     private bool tutorialCompleteFlag = false;
-    private bool gameStartFlag = false;
 
     // boolean start/finish flags
     private bool hasStarted = false;
@@ -95,9 +94,10 @@ public class TutorialManager : MonoBehaviour
             {
                 tutorialSteps.RemoveAt(0);
             }
-            else if (tutorialSteps.Count == 0 && !gameStartFlag && !hasFinished)
+            else if (tutorialSteps.Count == 0 && !hasFinished)
             {
-                ExitTutorial();
+                hasFinished = true;
+                StartGame();
             }
         }
 
@@ -311,11 +311,6 @@ public class TutorialManager : MonoBehaviour
         StartCoroutine(EnterTutorial(3f));
     }
 
-    private void ExitTutorial()
-    {
-        StartCoroutine(ExitTutorial(3f));
-    }
-
     private IEnumerator StartGame(float delay)
     {
         yield return new WaitForSeconds(delay);
@@ -341,16 +336,6 @@ public class TutorialManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
 
         hasStarted = true;
-    }
-
-    private IEnumerator ExitTutorial(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        gameStartFlag = true;
-        StartGame();
-
-        hasFinished = true;
     }
 
 #endregion

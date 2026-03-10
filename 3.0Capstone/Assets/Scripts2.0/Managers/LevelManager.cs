@@ -115,8 +115,6 @@ public class LevelManager : MonoBehaviour
         {
             if (GameManager.Instance.GameOverStatus)
                 SoundManager.Instance.PlayBGM("LoseTheme");
-            else
-                SoundManager.Instance.PlayBGM("WinTheme");
 
             ShowEndScreen(GameManager.Instance.ResultScreenIndex);
         }

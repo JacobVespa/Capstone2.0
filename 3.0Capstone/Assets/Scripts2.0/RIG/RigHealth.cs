@@ -98,7 +98,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         UpdateHealthUI();
         UpdateDamageStages();
 
-        CameraCinematic cinematic = GameObject.FindObjectsByType<CameraCinematic>(FindObjectsSortMode.None)[0];
+        CameraCinematic cinematic = FindFirstObjectByType<CameraCinematic>();
         cinematic.ShakeCamera(0.15f,0.25f);
         StartCoroutine(Vignette(Color.red));
 

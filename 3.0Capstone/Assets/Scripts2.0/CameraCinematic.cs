@@ -170,7 +170,7 @@ public class CameraCinematic : MonoBehaviour
             StopCoroutine(shakeCoroutine);
         }
 
-        //shakeCoroutine = StartCoroutine(Shake(duration, magnitude));
+        shakeCoroutine = StartCoroutine(Shake(duration, magnitude));
     }
 
     private IEnumerator Shake(float duration, float magnitude)

@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Transform vfxStorage;
 
-    private GameflowManager flow;
+    private GameflowManager flowManager;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         playerMovement = FindObjectsByType<PlayerMovement>(sortMode: FindObjectsSortMode.None);
-        //pauseButton = pauseCanvas.GetComponentInChildren<Button>();
+        flowManager = FindFirstObjectByType<GameflowManager>();
     }
 
     private void Start()
@@ -104,9 +104,8 @@ public class GameManager : MonoBehaviour
     {
 
         PlayerControls controls = FindFirstObjectByType<PlayerControls>();
-        flow = FindFirstObjectByType<GameflowManager>();
 
-        if (!flow.LevelRunning || controls == null || flow == null) return;
+        if (!flowManager.LevelRunning || controls == null || flowManager == null) return;
 
         if (controls.controlEvent.HasEscaped && !isPaused)
         {
@@ -134,22 +133,20 @@ public class GameManager : MonoBehaviour
     public void ReturnButton()
     {
         pauseCanvas.gameObject.SetActive(false);
-        flow.EndLevel();
+        flowManager.EndLevel();
         ResetStats();
     }
 
     public void GameOver()
     {
-        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        if (gameflowManager != null) gameflowManager.WindDownLevel(false);
+        if (flowManager != null) flowManager.WindDownLevel(false);
 
         PauseGameTime();
     }
 
     public void Victory()
     {
-        GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        if (gameflowManager != null) gameflowManager.WindDownLevel(true);
+        if (flowManager != null) flowManager.WindDownLevel(true);
 
         PauseGameTime();
     }
