@@ -15,7 +15,7 @@ public class VictoryMenu_UI : MonoBehaviour
     public void OnQuitButton()
     {
         GameflowManager gameflowManager = FindFirstObjectByType<GameflowManager>();
-        if (gameflowManager != null)
+        if (gameflowManager != null && GameManager.Instance != null && LevelManager.Instance != null)
         {
             GameManager.Instance.ResetStats();
             gameflowManager.EndLevel();
