@@ -10,14 +10,14 @@ public class ScrollerLevel : Level
     public override void StartLevel()
     {
         //Debug.Log("Starting Scroller Level");
-        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("BattleTheme");
+        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("AttackLevel");
         base.StartLevel();
     }
 
     public override void RestartLevel()
     {
         //Debug.Log("Restarting Scroller Level");
-        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("BattleTheme");
+        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("AttackLevel");
         base.RestartLevel();
     }
 

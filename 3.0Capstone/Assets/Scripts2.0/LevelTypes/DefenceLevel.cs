@@ -21,7 +21,7 @@ public class DefenceLevel : Level
     {
         Debug.Log("Starting Defence Level");
         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlayBGM("CaveFight");
+            SoundManager.Instance.PlayBGM("DefenceLevel");
 
         base.StartLevel();
     }
@@ -45,7 +45,7 @@ public class DefenceLevel : Level
         Debug.Log("Restarting Defence Level");
 
         if (SoundManager.Instance != null)
-            SoundManager.Instance.PlayBGM("CaveFight");
+            SoundManager.Instance.PlayBGM("DefenceLevel");
 
         hasStarted = false;
         wavesCompleted = 0;
