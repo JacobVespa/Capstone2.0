@@ -13,7 +13,7 @@ public class TreadMoving : MonoBehaviour
     private Vector3 startPosition;
 
     //offset wall and floor position for despawning
-    private float TreadOffsetPos = -6f;
+    private float TreadOffsetPos = 7f;
 
     private void Start()
     {
@@ -45,13 +45,13 @@ public class TreadMoving : MonoBehaviour
         if (gameObject.CompareTag("Tread"))
         {
             transform.position -= new Vector3(0, TreadMoveSpeed, 0) * Time.deltaTime;
-            DistanceCheck(TreadOffsetPos, 7f);
+            DistanceCheck(TreadOffsetPos, -6f);
         }
     }
 
     private void DistanceCheck(float offsetPos, float yPos)
     {
-        if (isLooping && transform.position.y <= offsetPos)
+        if (isLooping && transform.position.y >= offsetPos)
         {
             transform.position = new Vector3(0, yPos, 0);
         }
