@@ -32,7 +32,7 @@ public class BigTickEnemtAI : TickEnemyAI
         {
             case Behaviour.Spawning:
                 
-                if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos));Debug.Log("start"); }
+                if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos)); }
                 break;
             case Behaviour.Moving:
                 ApproachTarget();

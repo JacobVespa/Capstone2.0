@@ -131,6 +131,8 @@ public class WaveSpawner : MonoBehaviour
     [Tooltip("Assign large/heavy prefabs here so they never spawn near the edge/off-screen.")]
     [SerializeField] private List<GameObject> heavyEnemyPrefabs = new List<GameObject>();
 
+    //[Tooltip("")]
+    [SerializeField] private Collider2D tickSpawnArea;
     // Runtime
     private int currentWave = 0;
     private int spawnedThisWave = 0;
@@ -324,6 +326,21 @@ public class WaveSpawner : MonoBehaviour
         {
             Vector3 pos = rigTarget.transform.position;
 
+            
+
+            Vector3 min = tickSpawnArea.bounds.min;
+            Vector3 max = tickSpawnArea.bounds.max;
+
+            while (true)
+            {
+                pos = new Vector3(Random.Range(min.x,max.x), Random.Range(min.y,max.y), 0);
+                if (tickSpawnArea.OverlapPoint(pos))
+                {
+                    break;
+                }
+            }
+
+            /*
             float zRange = Random.Range(-5f, 8f);
             float xRange;
             if (zRange > 0) xRange = Random.Range(-8f, 8f);
@@ -332,6 +349,8 @@ public class WaveSpawner : MonoBehaviour
             pos.x += xRange;
             pos.y += zRange;
 
+            Debug.Log(collider.OverlapPoint(pos));
+            */
             return pos;
         }
 
