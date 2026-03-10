@@ -262,7 +262,9 @@ public class Turret : MonoBehaviour
             closestDir = dir;
         }
 
-        for (float x = -assistAngle; x <= assistAngle; x++)
+        float angleAdjuster = -1;
+
+        for (float x = 0; x <= assistAngle; x += angleAdjuster)
         {
             
             Vector2 rayDir = Quaternion.AngleAxis(x, Vector3.forward) * dir;
@@ -276,17 +278,21 @@ public class Turret : MonoBehaviour
                 //if (r.distance > closestRay.distance)
                 if (closestDir == Vector2.zero) 
                 {
-                    Debug.Log(r.collider.name);
+                    //Debug.Log(r.collider.name);
                     closestRay = r;
                     closestDir = rayDir;
                 }
             }
 
+            if (x <= -assistAngle)
+            {
+                angleAdjuster = 1;
+            }
         }
 
         if (closestDir != Vector2.zero)
         {
-            Debug.LogError("Better");
+            
 
             float angle = Mathf.Atan2(closestDir.y, closestDir.x) * Mathf.Rad2Deg;
             
