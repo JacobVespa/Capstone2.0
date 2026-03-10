@@ -208,7 +208,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             //ParticleSystem bugDeath = Instantiate(bugGoo, transform);
             bugGoo.transform.parent = GameManager.Instance.GetStorage();
             bugGoo.Play();
-            Destroy(bugGoo, 3);
+            Destroy(bugGoo.gameObject,5f);
         }
 
         if (animator != null) //if enemy has animations, play them before triggering death
