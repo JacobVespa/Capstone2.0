@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
+using System;
 
 public class Turret : MonoBehaviour
 {
@@ -184,7 +186,7 @@ public class Turret : MonoBehaviour
 
     private void ShootBullet()
     {
-        int randomNum = Random.Range(0, projectiles.Length);
+        int randomNum = UnityEngine.Random.Range(0, projectiles.Length);
         bullet.GetComponentInChildren<SpriteRenderer>().sprite = projectiles[randomNum];
 
         GameObject spawnedBullet = Instantiate(
@@ -248,41 +250,54 @@ public class Turret : MonoBehaviour
     {
         ManualTarget();
 
+        Vector2 dir = -pivot.transform.up;
+
         int enemies = LayerMask.GetMask("Enemy");
         int flyEnemies = LayerMask.GetMask("Flying Enemy");
 
-        Vector3 angle = pivot.transform.rotation.eulerAngles;
-        RaycastHit2D realAim = Physics2D.Raycast(pivot.transform.position, angle, Mathf.Infinity,enemies);
+        RaycastHit2D closestRay = Physics2D.Raycast(pivot.transform.position, dir * 10, Mathf.Infinity, enemies | flyEnemies);
+        Vector2 closestDir = Vector2.zero;
+        if(closestRay.collider != null)
+        {
+            closestDir = dir;
+        }
 
-        Debug.DrawRay(pivot.transform.position, new Vector3(1, 1, 0) * 10,Color.white);
-        Debug.Log(angle);
-        Debug.DrawRay(pivot.transform.position, angle , Color.white);
-
-        if(realAim.collider != null)
+        for (float x = -assistAngle; x <= assistAngle; x++)
         {
             
-            return;
+            Vector2 rayDir = Quaternion.AngleAxis(x, Vector3.forward) * dir;
+            RaycastHit2D r = Physics2D.Raycast(pivot.transform.position, rayDir * 10, Mathf.Infinity, enemies | flyEnemies);
+
+            Debug.DrawLine(pivot.transform.position, rayDir * 100, Color.white);
+
+            if (r.collider != null)
+            {
+
+                //if (r.distance > closestRay.distance)
+                if (closestDir == Vector2.zero) 
+                {
+                    Debug.Log(r.collider.name);
+                    closestRay = r;
+                    closestDir = rayDir;
+                }
+            }
+
         }
-        
-        Debug.Log("smh");
-        Vector2 posAngle = pivot.transform.rotation * Quaternion.Euler(0, 0, assistAngle).eulerAngles;
-        Vector2 negAngle = pivot.transform.rotation * Quaternion.Euler(0, 0, -assistAngle).eulerAngles;
 
-        RaycastHit2D posAssist = Physics2D.Raycast(pivot.transform.position, posAngle, Mathf.Infinity, enemies );
-        RaycastHit2D negAssist = Physics2D.Raycast(pivot.transform.position, negAngle, Mathf.Infinity,  enemies);
-
-        
-
-        if (posAssist.collider != null)
+        if (closestDir != Vector2.zero)
         {
-            Debug.Log("pos assist");
-        }
-        else if (negAssist.collider != null)
-        {
-            Debug.Log("neg assist");
+            Debug.LogError("Better");
+
+            float angle = Mathf.Atan2(closestDir.y, closestDir.x) * Mathf.Rad2Deg;
+            
+            pivot.transform.rotation = Quaternion.Euler(0,0,angle + 90);
+            
+
         }
 
     }
+
+    
 
     // Helper Collision Methods (unchanged)
     public void HitEnemy(Collider2D col)
