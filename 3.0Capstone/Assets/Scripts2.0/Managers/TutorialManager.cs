@@ -36,6 +36,19 @@ public class TutorialManager : MonoBehaviour
     //Cinematic Camera
     [SerializeField] private CameraCinematic cinematicCamera;
 
+    //Dialogue box
+    [SerializeField] private GameObject dialogueBox;
+
+    [Header("Text positions")]
+    [SerializeField] private Transform engineTextPos;
+    [SerializeField] private Transform repairTextPos;
+    [SerializeField] private Transform crystalTextPos;
+    [SerializeField] private Transform enemyTextPos;
+
+    [Header("Interact UI")]
+    [SerializeField] private GameObject engineIndicator;
+    [SerializeField] private GameObject repairIndicator;
+
     void Start()
     {
         if (cinematicCamera == null)
@@ -101,12 +114,14 @@ public class TutorialManager : MonoBehaviour
         if (!introFlag) // One time trigger for tutorial spawns and actions
         {
             introFlag = true;
+            dialogueBox.SetActive(true);
             dialogueManager.ShowDialogue("intro");
         }
 
         if (dialogueManager.hasFinishedTalking)
         {
             dialogueManager.SkipTypewriter();
+            dialogueBox.SetActive(false);
             return true;
         }
 
@@ -118,12 +133,17 @@ public class TutorialManager : MonoBehaviour
         if (!engineFlag) // One time trigger for tutorial spawns and actions
         {
             engineFlag = true;
+            dialogueBox.SetActive(true);
+            dialogueBox.transform.position = engineTextPos.transform.position;
+            engineIndicator.SetActive(true);
             dialogueManager.ShowDialogue("engine");
         }
 
         if(!engineScript.TooHot)
         {
             dialogueManager.SkipTypewriter();
+            dialogueBox.SetActive(false);
+            engineIndicator.SetActive(false);
             return true;
         }
 
@@ -135,6 +155,8 @@ public class TutorialManager : MonoBehaviour
         if (!crystalFlag) // One time trigger for tutorial spawns and actions
         {
             crystalFlag = true;
+            dialogueBox.transform.position = crystalTextPos.transform.position;
+            dialogueBox.SetActive(true);
             dialogueManager.ShowDialogue("crystal");
             oldShardCount = GameManager.Instance.Shards; // Store initial shard count to detect changes
         }
@@ -142,6 +164,7 @@ public class TutorialManager : MonoBehaviour
         if (GameManager.Instance != null && GameManager.Instance.Shards >= oldShardCount + 4)
         {
             dialogueManager.SkipTypewriter();
+            dialogueBox.SetActive(false);
             return true;
         }
 
@@ -153,6 +176,8 @@ public class TutorialManager : MonoBehaviour
         if (!smallEnemyFlag) // One time trigger for tutorial spawns and actions
         {
             smallEnemyFlag = true;
+            dialogueBox.transform.position = enemyTextPos.transform.position;
+            dialogueBox.SetActive(true);
             dialogueManager.ShowDialogue("smallEnemy");
             smallEnemySpawner.StartNewWave();
         }
@@ -160,6 +185,7 @@ public class TutorialManager : MonoBehaviour
         if (smallEnemySpawner != null && smallEnemySpawner.IsWaveComplete)
         {
             dialogueManager.SkipTypewriter();
+            dialogueBox.SetActive(false);
             return true;
         }
 
@@ -171,6 +197,8 @@ public class TutorialManager : MonoBehaviour
         if (!largeEnemyFlag) // One time trigger for tutorial spawns and actions
         {
             largeEnemyFlag = true;
+            dialogueBox.transform.position = enemyTextPos.transform.position;
+            dialogueBox.SetActive(true);
             dialogueManager.ShowDialogue("largeEnemy");
             largeEnemySpawner.StartNewWave();
         }
@@ -178,44 +206,21 @@ public class TutorialManager : MonoBehaviour
         if (largeEnemySpawner != null && largeEnemySpawner.IsWaveComplete)
         {
             dialogueManager.SkipTypewriter();
+            dialogueBox.SetActive(false);
             return true;
         }
 
         return false;
     }
 
-    //private bool TutorialReload()
-    //{
-    //    if (!reloadFlag) // One time trigger for tutorial spawns and actions
-    //    {
-    //        reloadFlag = true;
-    //        dialogueManager.ShowDialogue("reload");
-    //
-    //        foreach (var turret in turretScripts)
-    //        {
-    //            turret.currentAmmo = 0;
-    //            turret.UpdateAmmoUI();
-    //            turret.needsReload = true;
-    //        }
-    //    }
-    //
-    //    foreach (var turret in turretScripts)
-    //    {
-    //        if (!turret.needsReload)
-    //        {
-    //            dialogueManager.SkipTypewriter();
-    //            return true;
-    //        }
-    //    }
-    //
-    //    return false;
-    //}
-
     private bool TutorialRepair()
     {
         if (!repairFlag) // One time trigger for tutorial spawns and actions
         {
             repairFlag = true;
+            dialogueBox.SetActive(true);
+            dialogueBox.transform.position = repairTextPos.transform.position;
+            repairIndicator.SetActive(true);
             dialogueManager.ShowDialogue("repair");
             while (rigHealthScript.HealthNormalized >= 0.6f)
             {
@@ -226,6 +231,8 @@ public class TutorialManager : MonoBehaviour
         if (RIG != null && rigHealthScript.HealthNormalized >= 0.8f)
         {
             dialogueManager.SkipTypewriter();
+            repairIndicator.SetActive(false);
+            dialogueBox.SetActive(false);
             return true;
         }
 
@@ -237,6 +244,8 @@ public class TutorialManager : MonoBehaviour
         if (!hammerFlag) // One time trigger for tutorial spawns and actions
         {
             hammerFlag = true;
+            dialogueBox.transform.position = enemyTextPos.transform.position;
+            dialogueBox.SetActive(true);
             dialogueManager.ShowDialogue("hammer");
             tickEnemySpawner.StartNewWave();
         }
@@ -244,6 +253,7 @@ public class TutorialManager : MonoBehaviour
         if (tickEnemySpawner != null && tickEnemySpawner.IsWaveComplete)
         {
             dialogueManager.SkipTypewriter();
+            dialogueBox.SetActive(false);
             return true;
         }
 
@@ -255,6 +265,7 @@ public class TutorialManager : MonoBehaviour
         if (!tutorialCompleteFlag) // One time trigger for tutorial spawns and actions
         {
             tutorialCompleteFlag = true;
+            dialogueBox.SetActive(true);
             dialogueManager.ShowDialogue("tutorialComplete");
             rigHealthScript.CanTakeDamage = true; // Allow damage to RIG after tutorial is complete
         }
@@ -262,6 +273,7 @@ public class TutorialManager : MonoBehaviour
         if (dialogueManager.hasFinishedTalking)
         {
             dialogueManager.SkipTypewriter();
+            dialogueBox.SetActive(false);
             return true;
         }
 
