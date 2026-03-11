@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
+using UnityEditor.Search;
 
 public class Resource : MonoBehaviour
 {
@@ -23,6 +24,18 @@ public class Resource : MonoBehaviour
     [SerializeField] AudioClip resource;
     [SerializeField] AudioSource audioSource;
 
+    //Item stuff
+    [SerializeField] private bool hasItem;
+    private int randomItemNum;
+    Items currentItem = Items.NONE;
+
+    public enum Items
+    {
+        RapidFire,
+        LargeHammer,
+        NONE
+    }
+
     void Start()
     {
         GetComponentInChildren<SpriteRenderer>().sprite = crystalStates[0];
@@ -34,7 +47,27 @@ public class Resource : MonoBehaviour
         shardScatter.startColor = gemColor;
         GetComponentInChildren<Light2D>().color = gemColor;
 
+        ItemInitialization();
+        Debug.Log("item that this gem has: " + currentItem);
+    }
 
+    private void ItemInitialization()
+    {
+        if (hasItem)
+        {
+            randomItemNum = Random.Range(0, 2);
+            switch(randomItemNum)
+            {
+                case 0: 
+                    currentItem = Items.RapidFire; 
+                    break;
+                case 1: 
+                    currentItem = Items.LargeHammer;
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     public void Damage()
