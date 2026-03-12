@@ -67,8 +67,8 @@ public class AttackCamera : MonoBehaviour
         transitioning = true;
 
         // Step 1: return to centre
-        cam.MoveCameraToPosition(cameraPoints[6].position);
-        yield return new WaitForSeconds(resetHoldTime);
+        //cam.MoveCameraToPosition(cameraPoints[6].position);
+        //yield return new WaitForSeconds(resetHoldTime);
 
         // Step 2: flip side and move
         currentSide = currentSide == 0 ? 1 : 0;
