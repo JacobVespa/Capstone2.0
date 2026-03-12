@@ -18,6 +18,12 @@ public class Hammer : MonoBehaviour
             var body = other.GetComponent<EnemyBody>();
             body.Attacked(currentDamage);
         }
+        if(other.CompareTag("Item"))
+        {
+            SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
+            spriteRenderer.enabled = false;
+            Debug.Log("GOT THE ITEM");
+        }
     }
 
 }

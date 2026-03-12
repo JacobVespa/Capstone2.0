@@ -114,6 +114,7 @@ public class Resource : MonoBehaviour
             GameManager.Instance.AddShards(shards * breakMulitplier);
             crystalShine.SetActive(false);
             GetComponentInChildren<Light2D>().enabled = false;
+            //spawning item
             itemManager.SpawnItem(0);
         }
         else
