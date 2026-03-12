@@ -27,14 +27,8 @@ public class Resource : MonoBehaviour
     //Item stuff
     [SerializeField] private bool hasItem;
     private int randomItemNum;
-    Items currentItem = Items.NONE;
-
-    public enum Items
-    {
-        RapidFire,
-        LargeHammer,
-        NONE
-    }
+    [SerializeField] private ItemTypes itemManager;
+    ItemTypes.Items currentItem = ItemTypes.Items.NONE;
 
     void Start()
     {
@@ -59,10 +53,10 @@ public class Resource : MonoBehaviour
             switch(randomItemNum)
             {
                 case 0: 
-                    currentItem = Items.RapidFire; 
+                    currentItem = ItemTypes.Items.RapidFire; 
                     break;
                 case 1: 
-                    currentItem = Items.LargeHammer;
+                    currentItem = ItemTypes.Items.LargeHammer;
                     break;
                 default:
                     break;
@@ -120,6 +114,7 @@ public class Resource : MonoBehaviour
             GameManager.Instance.AddShards(shards * breakMulitplier);
             crystalShine.SetActive(false);
             GetComponentInChildren<Light2D>().enabled = false;
+            itemManager.SpawnItem(0);
         }
         else
         {
