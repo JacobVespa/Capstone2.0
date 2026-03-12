@@ -32,6 +32,14 @@ public class TickEnemyBody : EnemyBody
         
     }
 
+    void Start()
+    {
+        if (DifficultyManager.Instance != null)
+        {
+            this.Health = DifficultyManager.Instance.TickHealth;
+        }
+    }
+
 
     protected override void FixedUpdate()
     {

@@ -26,6 +26,14 @@ public class RangedEnemyBody : EnemyBody
         base.Awake();
     }
 
+    void Start()
+    {
+        if (DifficultyManager.Instance != null)
+        {
+            this.Health = DifficultyManager.Instance.SkeetoHealth;
+        }
+    }
+
 
     protected override void FixedUpdate()
     {

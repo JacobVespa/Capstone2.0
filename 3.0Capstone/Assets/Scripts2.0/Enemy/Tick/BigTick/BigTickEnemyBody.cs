@@ -16,6 +16,14 @@ public class BigTickEnemyBody : TickEnemyBody
 
     }
 
+    void Start()
+    {
+        if (DifficultyManager.Instance != null)
+        {
+            this.Health = DifficultyManager.Instance.TickHealth + 1;
+        }
+    }
+
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
