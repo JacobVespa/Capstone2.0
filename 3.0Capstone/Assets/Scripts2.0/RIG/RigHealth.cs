@@ -83,6 +83,12 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         }
     }
 
+
+    private void Start()
+    {
+        SubscribeToEvents();
+    }
+
     public void Attacked(DamageSource d)
     {
         if (d.DamageTarget == DamageSource.DamageType.Player)
@@ -227,4 +233,43 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
     //     mainCam.transform.position = startPos;
     // }
+
+
+    #region AAHHHHHHHHHHHHHHH
+    [Header ("Turret Power Events")]
+    RigEvents rigEvents = new RigEvents();
+    public RigEvents RigEvents => rigEvents;
+    [SerializeField] Turret left, right;
+    bool isPowerShootSpeed;
+
+    void SubscribeToEvents()
+    {
+        rigEvents.SpeedStart += StartSpeed;
+
+        isPowerShootSpeed = false;
+    }
+
+    public void StartSpeed()
+    {
+        if (isPowerShootSpeed)
+        {
+            return;
+        }
+        StartCoroutine(ShootSpeed());
+    }
+
+    IEnumerator ShootSpeed()
+    {
+        isPowerShootSpeed = true;
+        left.shootingCD = 0.1f;
+        right.shootingCD = 0.1f;
+        yield return new WaitForSeconds(5f);
+        left.shootingCD = 0.15f;
+        right.shootingCD = 0.15f;
+        isPowerShootSpeed = false;
+
+    }
+
+
+    #endregion
 }

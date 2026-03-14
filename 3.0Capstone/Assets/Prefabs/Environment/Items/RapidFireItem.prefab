@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 1113300734757569372}
   - component: {fileID: 2405405602952263559}
   - component: {fileID: 7608187706884500601}
+  - component: {fileID: 610973716748467023}
   m_Layer: 7
   m_Name: RapidFireItem
   m_TagString: Item
@@ -247,3 +248,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.9447777, y: 7.3004518}
   m_EdgeRadius: 0
+--- !u!114 &610973716748467023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4678736231374425120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619b693b5ba00ba4091f75287c271881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 0
+  rig: {fileID: 3686836771572647104, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}

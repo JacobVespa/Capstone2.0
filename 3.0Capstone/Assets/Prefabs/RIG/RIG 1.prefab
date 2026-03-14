@@ -16104,6 +16104,8 @@ MonoBehaviour:
   vignette: {fileID: 0}
   rigDeath: {fileID: 2436525782096443507}
   gameManager: {fileID: 3932545320157543553, guid: 9902f7eda4a83ba4bbf7bb4adcc074a9, type: 3}
+  left: {fileID: 7507324265215104102}
+  right: {fileID: 1479594070071338601}
 --- !u!114 &242098411885642447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28319,6 +28321,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4164166787851783429, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
   m_PrefabInstance: {fileID: 1640988940725999600}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7507324265215104102 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+  m_PrefabInstance: {fileID: 1640988940725999600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f7cd50a69167d4bb74d93b78ec049a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2036399910490776703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30102,6 +30115,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+--- !u!114 &1479594070071338601 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+  m_PrefabInstance: {fileID: 7665755401272436223}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f7cd50a69167d4bb74d93b78ec049a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6028116811877361914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4164166787851783429, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}

@@ -20,7 +20,7 @@ public class Turret : MonoBehaviour
     [SerializeField] private ParticleSystem comicShot;
 
     [Header("Settings")]
-    [SerializeField] private float shootingCD = 1f;
+    public float shootingCD;
     [SerializeField] float aimSpeed = 10.0f;
     [SerializeField] bool autoTarget = true;
     [SerializeField] bool assistAim = true;
@@ -177,6 +177,7 @@ public class Turret : MonoBehaviour
 
         if (currentControls.controlEvent.IsAttacking && canShoot)
         {
+            Debug.Log($"SPEED SHOOWING CD IS {shootingCD}");
             ShootBullet();
             StartCoroutine(ShootingVFX());
             StartCoroutine(Recoil());

@@ -1,16 +1,43 @@
+using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] public ItemTypes.Items itemType;
+
+    //RAPIDFIRE REFERENCE
+    private RigHealth rig;
+    public Turret[] turretRefs;
+
+    RigEvents local;
+
+    private void Start()
     {
-        
+        rig = FindFirstObjectByType<RigHealth>();
+       
+        local = rig.RigEvents;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GainItemEffect(ItemTypes.Items currentItem)
     {
-        
+        switch(currentItem)
+        {
+            case ItemTypes.Items.RapidFire:
+                //gain rapid fire effect
+                Debug.Log("FIRE RATE GO BRRRRRRRR");
+                local.CallSpeedStart();
+                break;
+            case ItemTypes.Items.LargeHammer:
+                //gain large hammer effect
+                break;
+            default:
+                Debug.Log("No item");
+                break;
+        }
     }
+
 }
+
+
+
