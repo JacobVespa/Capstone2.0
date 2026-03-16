@@ -66,6 +66,9 @@ public class DefenceLevel : Level
     public override void WindDownLevel(bool goNext)
     {
         Debug.Log("Defence Level Complete!");
+
+        if(goNext) DifficultyManager.Instance.GemCollected();
+
         base.WindDownLevel(goNext);
     }
 

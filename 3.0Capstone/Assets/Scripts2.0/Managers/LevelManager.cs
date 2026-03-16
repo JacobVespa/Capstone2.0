@@ -109,12 +109,15 @@ public class LevelManager : MonoBehaviour
         if (goNext && GameManager.Instance.LevelsCompleted > GameManager.Instance.MaxDepth)
         {
             SoundManager.Instance.PlayBGM("WinTheme");
+            DifficultyManager.Instance.CaveCleared();
+            DifficultyManager.Instance.ResetGemsCollected();
             GameManager.Instance.LevelsCompleted = 0;
             ShowEndScreen(7);
         }
         else if (goNext)
         {
             SoundManager.Instance.PlayBGM("Navigation");
+            DifficultyManager.Instance.StageCleared();
             ShowEndScreen(GameManager.Instance.NavigationScreenIndex);
         }
         else

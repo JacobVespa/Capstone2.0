@@ -93,25 +93,68 @@ public class DifficultyManager : MonoBehaviour
         currentTick_Speed = InitialTick_Speed;
     }
 
-    public void SetGrub_Stats(float health, float speed)
+    public void StageCleared()
+    {
+        stagesCleared++;
+        UpgradeDifficulty();
+    }
+
+    public void CaveCleared()
+    {
+        cavesCleared++;
+        UpgradeDifficulty();
+    }
+
+    public void GemCollected()
+    {
+        gemsCollected++;
+        UpgradeDifficulty();
+    }
+
+    public void ResetGemsCollected()
+    {
+        gemsCollected = 0;
+        UpgradeDifficulty();
+    }
+
+
+    private void UpgradeDifficulty()
+    {
+        SetGrub_Stats(currentGrub_Health * HealthIncrease(),currentGrub_Speed * SpeedIncrease());
+        SetSkeeto_Stats(currentSkeeto_Health * HealthIncrease(),currentSkeeto_Speed * SpeedIncrease());
+        SetBottomFeeder_Stats(currentBottomFeeder_Health * HealthIncrease(),currentBottomFeeder_Speed * SpeedIncrease());
+        SetTick_Stats(currentTick_Health * HealthIncrease(),currentTick_Speed * SpeedIncrease());
+    }
+
+    private float HealthIncrease()
+    {
+        return 1 + (stagesCleared * 0.25f) + (cavesCleared) + (gemsCollected);
+    }
+
+    private float SpeedIncrease()
+    {
+        return 1 + (stagesCleared * 0.25f) + (cavesCleared) + (gemsCollected);
+    }
+
+    private void SetGrub_Stats(float health, float speed)
     {
         currentGrub_Health = health;
         currentGrub_Speed = speed;
     }
 
-    public void SetSkeeto_Stats(float health, float speed)
+    private void SetSkeeto_Stats(float health, float speed)
     {
         currentSkeeto_Health = health;
         currentSkeeto_Speed = speed;
     }
 
-    public void SetBottomFeeder_Stats(float health, float speed)
+    private void SetBottomFeeder_Stats(float health, float speed)
     {
         currentBottomFeeder_Health = health;
         currentBottomFeeder_Speed = speed;
     }
 
-    public void SetTick_Stats(float health, float speed)
+    private void SetTick_Stats(float health, float speed)
     {
         currentTick_Health = health;
         currentTick_Speed = speed;
