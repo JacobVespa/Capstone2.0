@@ -128,12 +128,12 @@ public class DifficultyManager : MonoBehaviour
 
     private float HealthIncrease()
     {
-        return 1 + (stagesCleared * 0.25f) + (cavesCleared) + (gemsCollected);
+        return 1 + (stagesCleared * 0.2f) + (cavesCleared * 0.3f) + (gemsCollected * 0.4f);
     }
 
     private float SpeedIncrease()
     {
-        return 1 + (stagesCleared * 0.25f) + (cavesCleared) + (gemsCollected);
+        return 1 + (stagesCleared * 0.2f) + (cavesCleared * 0.3f) + (gemsCollected * 0.4f);
     }
 
     private void SetGrub_Stats(float health, float speed)
