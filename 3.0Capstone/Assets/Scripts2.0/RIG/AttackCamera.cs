@@ -40,6 +40,7 @@ public class AttackCamera : MonoBehaviour
 
     void Update()
     {
+        if(spawner == null) { return; }
         if (!transitioning && spawner.IsWaveComplete && !waveWasComplete)
         {
             waveWasComplete = true;

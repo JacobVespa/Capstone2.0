@@ -54,7 +54,9 @@ public class PlayerInteract : MonoBehaviour
     {
         if (other.CompareTag("Turret"))
         {
+            
             turret = other.GetComponent<Turret>();
+            if(turret.playerMounted) { return; }
             turret.buttonPromptXB.SetActive(true);
             canMount = true;
             currentInteractObject = other.gameObject;

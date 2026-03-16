@@ -44,9 +44,29 @@ public class PlayerControls : MonoBehaviour
     }
     public Controls controlEvent;
 
+
+    public ControllerType playerControllerType = ControllerType.NA;
+
+    public enum ControllerType
+    {
+        NA = 0,
+        Keyboard = 1,
+        Controller = 2,
+    }
+
     private void Awake()
     {
         controlEvent = new Controls();
+
+        if (GetComponent<PlayerInput>().currentControlScheme.Contains("Keyboard"))
+        {
+            playerControllerType = ControllerType.Keyboard;
+        }
+        else if (GetComponent<PlayerInput>().currentControlScheme.Contains("Gamepad"))
+        {
+            playerControllerType = ControllerType.Controller;
+        }
+        else { playerControllerType = ControllerType.NA; }
     }
 
     private void LateUpdate()

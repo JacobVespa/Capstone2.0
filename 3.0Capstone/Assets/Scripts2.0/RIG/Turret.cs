@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections.Generic;
 using System;
+using UnityEngine.InputSystem;
 
 public class Turret : MonoBehaviour
 {
@@ -21,10 +22,16 @@ public class Turret : MonoBehaviour
 
     [Header("Settings")]
     public float shootingCD;
+
+    [SerializeField] bool controllerAim;
+    [SerializeField] bool mouseAim;
+
     [SerializeField] float aimSpeed = 10.0f;
     [SerializeField] bool autoTarget = true;
+
     [SerializeField] bool assistAim = true;
     [SerializeField] float assistAngle = 5f;
+
     [SerializeField] private float bulletSpeed = 50f;
 
     [Header("Bullet Sprites")]
@@ -44,7 +51,7 @@ public class Turret : MonoBehaviour
     private PlayerControls currentControls;
     public int currentAmmo;
     public bool needsReload = false;
-    private bool playerMounted = false;
+    public bool playerMounted = false;
     private bool canShoot = true;
 
     Vector2 aimPos;
@@ -139,8 +146,32 @@ public class Turret : MonoBehaviour
     private void ManualTarget()
     {
         if (currentControls == null) return;
+       
+        //
 
-        aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
+        if (mouseAim)
+        {
+            aimPos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        }
+        else if(controllerAim)
+        {
+
+            if(currentControls.controlEvent.LookDirection != Vector2.zero)
+            {
+                Vector2 dir = currentControls.controlEvent.LookDirection;
+
+                // i had minor drift on my controller idk if this is needed for xbox controllers
+                if(Mathf.Abs(dir.x) >0.1 || Mathf.Abs(dir.y) > 0.1)
+                {
+                    aimPos = (Vector2)transform.position + dir.normalized * 17;
+                }
+
+            }
+        }
+        else
+        {
+            aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
+        }
 
         ClampAimToCamera();
         crosshair.transform.position = aimPos;
@@ -153,6 +184,14 @@ public class Turret : MonoBehaviour
         crosshair.SetActive(true);
         buttonPromptXB.SetActive(false);
         playerMounted = true;
+        if (currentControls.playerControllerType == PlayerControls.ControllerType.Keyboard)
+        {
+            mouseAim = true;
+        }
+        else if (currentControls.playerControllerType == PlayerControls.ControllerType.Controller)
+        {
+            controllerAim = true;
+        }
 
         //testing size increase
         gameObject.transform.localScale = Vector3.Lerp(dismountedScale, mountedScale, 10f);
@@ -166,6 +205,9 @@ public class Turret : MonoBehaviour
         currentControls = null;
         crosshair.SetActive(false);
         playerMounted = false;
+        mouseAim = false;
+        controllerAim = false;
+
 
         //testing size decrease
         gameObject.transform.localScale = Vector3.Lerp(mountedScale, dismountedScale, 10f);
@@ -177,7 +219,7 @@ public class Turret : MonoBehaviour
 
         if (currentControls.controlEvent.IsAttacking && canShoot)
         {
-            Debug.Log($"SPEED SHOOWING CD IS {shootingCD}");
+            //Debug.Log($"SPEED SHOOWING CD IS {shootingCD}");
             ShootBullet();
             StartCoroutine(ShootingVFX());
             StartCoroutine(Recoil());

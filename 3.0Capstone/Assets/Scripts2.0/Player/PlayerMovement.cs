@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class PlayerMovement : MonoBehaviour
 
     private int playerIndex; // Which player this is (0 or 1)
 
+    
+
     private void Start()
     {
         playerControls = GetComponent<PlayerControls>();
@@ -55,6 +58,8 @@ public class PlayerMovement : MonoBehaviour
             playerIndex = inputControlManager.Player.Length - 1;
         }
 
+       
+
         //Spawn player animator/layers
         GameObject playerBody = Instantiate(inputControlManager.Player[playerIndex].PlayerObject, this.transform);
 
@@ -69,6 +74,10 @@ public class PlayerMovement : MonoBehaviour
 
         isHoldingAmmo = false;
         isHoldingRepair = false;
+
+        
+
+        
     }
 
     private void Update()
@@ -197,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMounting()
     {
+        
         if (isHolding) HandleDrop();
 
         canInteract = false; //TESTING
