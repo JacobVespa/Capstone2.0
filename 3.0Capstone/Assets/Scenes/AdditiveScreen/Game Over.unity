@@ -400,7 +400,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shardsText: {fileID: 1279661254}
   killsText: {fileID: 0}
-  restartButton: {fileID: 848540291}
   mainMenuButton: {fileID: 1131206547}
 --- !u!1 &371587955
 GameObject:
@@ -997,10 +996,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 1131206548}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
-    m_HighlightedColor: {r: 0.62352943, g: 0.54901963, b: 0.54901963, a: 1}
-    m_PressedColor: {r: 1, g: 0.6627451, b: 0.1764706, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.7254902, g: 0, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.48235297, b: 0.4666667, a: 1}
+    m_PressedColor: {r: 1, g: 0.1764706, b: 0.8235295, a: 1}
+    m_SelectedColor: {r: 1, g: 0.48235297, b: 0.4666667, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1064,7 +1063,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5582248563125418308, guid: 378e03e7fbe266f458cfc85ed230c2e7, type: 3}
+  m_Sprite: {fileID: -9016615793016203084, guid: f6d815fee21885747be1900efa0a31dd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1449,10 +1448,10 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 848540292}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.29411766, g: 0.29411766, b: 0.29411766, a: 1}
-    m_HighlightedColor: {r: 0.62352943, g: 0.54901963, b: 0.54901963, a: 1}
-    m_PressedColor: {r: 1, g: 0.6627451, b: 0.1764706, a: 1}
-    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 0.7254902, g: 0, b: 1, a: 1}
+    m_HighlightedColor: {r: 1, g: 0.48235297, b: 0.4666667, a: 1}
+    m_PressedColor: {r: 1, g: 0.1764706, b: 0.8235295, a: 1}
+    m_SelectedColor: {r: 1, g: 0.48235297, b: 0.4666667, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1516,7 +1515,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5582248563125418308, guid: 378e03e7fbe266f458cfc85ed230c2e7, type: 3}
+  m_Sprite: {fileID: -9016615793016203084, guid: f6d815fee21885747be1900efa0a31dd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2129,7 +2128,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shardsText: {fileID: 1279661254}
   killsText: {fileID: 371587957}
-  restartButton: {fileID: 848540291}
   mainMenuButton: {fileID: 1131206547}
 --- !u!1 &1593421364
 GameObject:
