@@ -8,7 +8,6 @@ public class Item : MonoBehaviour
 
     //RAPIDFIRE REFERENCE
     private RigHealth rig;
-    public Turret[] turretRefs;
 
     RigEvents local;
 
@@ -35,6 +34,12 @@ public class Item : MonoBehaviour
                 Debug.Log("No item");
                 break;
         }
+    }
+
+    public IEnumerator DespawnItem()
+    {
+        yield return new WaitForSeconds(3);
+        gameObject.SetActive(false);
     }
 
 }

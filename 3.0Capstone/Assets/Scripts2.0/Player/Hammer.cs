@@ -23,11 +23,12 @@ public class Hammer : MonoBehaviour
         {
             SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
             spriteRenderer.enabled = false;
-            Light2D light2D = other.GetComponent<Light2D>();
+            Light2D light2D = other.GetComponentInChildren<Light2D>();
             light2D.enabled = false;
             Debug.Log("GOT THE ITEM");
             Item item = other.GetComponent<Item>();
             item.GainItemEffect(item.itemType);
+            item.StartCoroutine(item.DespawnItem());
         }
     }
 
