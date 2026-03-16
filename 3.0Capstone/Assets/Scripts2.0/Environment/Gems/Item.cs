@@ -8,8 +8,12 @@ public class Item : MonoBehaviour
 
     //RAPIDFIRE REFERENCE
     private RigHealth rig;
-
     RigEvents local;
+
+    //HAMMER REFERENCE, I hope....
+    private GameObject hammer;
+    private BoxCollider2D boxCollider;
+    private CircleCollider2D circleCollider;
 
     private void Start()
     {
@@ -29,6 +33,7 @@ public class Item : MonoBehaviour
                 break;
             case ItemTypes.Items.LargeHammer:
                 //gain large hammer effect
+                HammerSlop();
                 break;
             default:
                 Debug.Log("No item");
@@ -40,6 +45,24 @@ public class Item : MonoBehaviour
     {
         yield return new WaitForSeconds(3);
         gameObject.SetActive(false);
+    }
+
+    //trying something goofy and stupid
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Hammer"))
+        {
+            hammer = collision.gameObject;
+        }
+    }
+
+    private void HammerSlop()
+    {
+        boxCollider = hammer.GetComponent<BoxCollider2D>();
+        circleCollider = hammer.GetComponent<CircleCollider2D>();
+
+        boxCollider.enabled = false;
+        circleCollider.enabled = true;
     }
 
 }

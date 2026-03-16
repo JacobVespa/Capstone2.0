@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 595057450523459898}
   - component: {fileID: 7197129794825972225}
   - component: {fileID: 4131371052024265185}
+  - component: {fileID: 310200864758875176}
   m_Layer: 7
   m_Name: LargeHammerItem
   m_TagString: Item
@@ -163,6 +164,19 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 4.7999525, y: 7.1826634}
   m_EdgeRadius: 0
+--- !u!114 &310200864758875176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 909447906405810721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619b693b5ba00ba4091f75287c271881, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemType: 1
 --- !u!1 &3258755859064173963
 GameObject:
   m_ObjectHideFlags: 0
