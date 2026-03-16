@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heatIncreaseRate: 0.02
-  repairAmount: 0.05
+  repairAmount: 0.2
   lerpSpeed: 5
   audioSource: {fileID: 6694585832992618258}
   engineRepairClips:
@@ -27819,6 +27819,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6311087555394432483}
     m_Modifications:
+    - target: {fileID: 3510129424383369881, guid: 77c8f9f12dfa61c4b93f19894c443333, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1666278587567156368, guid: 7a3527d4d262f604eb61fdabce364369, type: 3}
     - target: {fileID: 3724649353238206944, guid: 77c8f9f12dfa61c4b93f19894c443333, type: 3}
       propertyPath: m_Name
       value: Button Prompt(xb) (1)

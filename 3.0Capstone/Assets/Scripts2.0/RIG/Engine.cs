@@ -64,6 +64,14 @@ public class Engine : MonoBehaviour
         EngineUpstart();
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.CompareTag("Hammer"))
+        {
+            EngineRepair();
+        }
+    }
+
     public void EngineRepair()
     {
         heat -= repairAmount;

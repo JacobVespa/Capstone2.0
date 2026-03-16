@@ -153,10 +153,6 @@ public class PlayerMovement : MonoBehaviour
                 HandleRepair();
             }
 
-            if (interactor.canEngine)
-            {
-                HandleEngine();
-            }
         }
         else if(!canInteract && playerControls.controlEvent.HasInteracted)
         {
@@ -165,14 +161,6 @@ public class PlayerMovement : MonoBehaviour
         else if (playerControls.controlEvent.HasAttacked && canAttack && !isMounted)
         {
             StartCoroutine(HammerSwing());
-        }
-    }
-
-    private void HandleEngine()
-    {
-        if (interactor.currentInteractObject.CompareTag("Engine"))
-        {
-            engine.EngineRepair();
         }
     }
 
