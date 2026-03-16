@@ -414,6 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15b6117926baa3e4a80245356dfd9b66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerControllerType: 0
 --- !u!114 &5898586163461851818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,7 +427,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06c7fb344f138f48982605540172032, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hammerMiss: {fileID: 8300000, guid: 52c1b3dcd977b084fb810b56301ac8f2, type: 3}
+  hammerMiss:
+  - {fileID: 8300000, guid: 6a929d569c215054e9d0f91574cb03b5, type: 3}
+  - {fileID: 8300000, guid: 7bc4f96da9fac4146bde91f09e51e396, type: 3}
+  - {fileID: 8300000, guid: 0b8e73ef38a3400498278d3695b43858, type: 3}
+  - {fileID: 8300000, guid: e418fe8efb5949149921487ac377f3c9, type: 3}
   heldAmmo: {fileID: 8709191247872423162}
   heldRepair: {fileID: 5584584525575227812}
   isHoldingAmmo: 0
@@ -510,7 +515,7 @@ AudioSource:
   m_GameObject: {fileID: 2963705724401187127}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4788311519913184375, guid: ac5fbbf4ed2172f49abb764f57e2b112, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0

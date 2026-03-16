@@ -14,8 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private Turret turret;
     private AudioSource playerAudioSource;
 
-    [SerializeField] private AudioClip hammerMiss;
-
     [Header("Sprites")]
     [SerializeField] private GameObject heldAmmo;
     [SerializeField] private GameObject heldRepair;
@@ -276,8 +274,6 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator HammerSwing()
     {
         canAttack = false;
-        playerAudioSource.clip = hammerMiss;
-        playerAudioSource.Play();
         //Debug.Log("Tried to swing the hammer...");
         playerAnimator.SetTrigger("HammerSwing");
         yield return new WaitForSeconds(attackCooldown);

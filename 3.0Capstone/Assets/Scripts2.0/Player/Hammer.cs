@@ -6,6 +6,10 @@ public class Hammer : MonoBehaviour
     
     private DamageSource currentDamage;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip[] hammerMiss;
+    [SerializeField] private AudioClip[] hammerHit;
+
     void Start()
     {
         currentDamage = GetComponent<DamageSource>();
@@ -18,8 +22,18 @@ public class Hammer : MonoBehaviour
             //Debug.Log("Hit the tick");
             var body = other.GetComponent<EnemyBody>();
             body.Attacked(currentDamage);
+            int clipIndex = Random.Range(0, hammerHit.Length);
+            audioSource.clip = hammerHit[clipIndex];
+            audioSource.Play();
         }
-        if(other.CompareTag("Item"))
+        else
+        {
+            int clipIndex = Random.Range(0, hammerMiss.Length);
+            audioSource.clip = hammerMiss[clipIndex];
+            audioSource.Play();
+        } 
+
+        if (other.CompareTag("Item"))
         {
             SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
             spriteRenderer.enabled = false;
