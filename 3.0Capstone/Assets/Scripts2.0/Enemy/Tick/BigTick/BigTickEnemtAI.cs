@@ -157,16 +157,6 @@ public class BigTickEnemtAI : TickEnemyAI
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.layer == 8)
-        {
-            
-            //behaviour = Behaviour.Moving;
-            //FindNewTarget();
-        }
-    }
-
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 8 && collision.TryGetComponent<PlayerInteract>(out PlayerInteract p))
@@ -175,7 +165,7 @@ public class BigTickEnemtAI : TickEnemyAI
             //Debug.LogError("check");
 
             //FindEscapeDirection(collision);
-            if (behaviour != Behaviour.Moving) {
+            if (behaviour != Behaviour.Moving && behaviour != Behaviour.Dead) {
                 body.attackNotif.SetActive(false);
                 behaviour = Behaviour.Moving;
 

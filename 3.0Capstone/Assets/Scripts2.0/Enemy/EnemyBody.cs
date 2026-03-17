@@ -172,6 +172,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         comicHurt.Play();
         if (health <= 0)
         {
+            
             StartCoroutine(StartDeath());
         }
     }
@@ -191,12 +192,13 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     // NOTE: this coroutine does nto actual delete the game object, that is dealt with in the enemy ai 
     private IEnumerator StartDeath()
     {
+        Debug.Log("Bug Death");
         ai.RemoveFromAttackQueue();
         ai.behaviour = EnemyAI.Behaviour.Dead;
         Collider2D[] colliders = GetComponents<Collider2D>();
         foreach (Collider2D c in colliders) { c.enabled = false; }
         attackNotif.SetActive(false);
-        
+        Debug.Log(ai.behaviour);
 
         if (bugGoo != null)
         {
