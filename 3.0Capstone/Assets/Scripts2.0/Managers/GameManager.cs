@@ -12,6 +12,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int navigationScreenIndex = 3;
     public int NavigationScreenIndex => navigationScreenIndex;
 
+    private bool increaseMaxPlayer = false;
+    public bool IncreaseMaxPlayer
+    {
+        set => increaseMaxPlayer = value;
+        get => increaseMaxPlayer;
+    }
+
     private int levelsCompleted = 0;
     public int LevelsCompleted
     {
@@ -150,6 +157,18 @@ public class GameManager : MonoBehaviour
         levelsCompleted = 0;
         ResetStats();
         DifficultyManager.Instance.ResetDifficulty();
+    }
+
+    public void TogglePlayerCount(bool enable)
+    {
+        if (enable)
+        {
+            increaseMaxPlayer = true;
+        }
+        else 
+        { 
+            increaseMaxPlayer = false; 
+        }
     }
 
     public void GameOver()

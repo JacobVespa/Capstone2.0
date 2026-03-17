@@ -41,6 +41,7 @@ public class InputControlManager : MonoBehaviour
     private void Start()
     {
         SetPlayerAssets();
+        TogglePlayerLimit(GameManager.Instance.IncreaseMaxPlayer);
 
         if (numberOfPlayers < 1) numberOfPlayers = 1;
         if (numberOfPlayers > 2) numberOfPlayers = 2;
@@ -73,6 +74,20 @@ public class InputControlManager : MonoBehaviour
         if (playersSpawned < numberOfPlayers)
         {
             Debug.LogWarning($"Only {playersSpawned} input devices found. Expected {numberOfPlayers} players.");
+        }
+    }
+
+    // Creates a toggle between only allowing 2 players or allowing infinite players
+    // TODO: Despawn extra players when toggle is used after more than 2 have been detected
+    public void TogglePlayerLimit(bool enabled)
+    {
+        if (enabled)
+        {
+            playerInputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersWhenButtonIsPressed;
+        }
+        else
+        {
+            playerInputManager.joinBehavior = PlayerJoinBehavior.JoinPlayersManually;
         }
     }
 
