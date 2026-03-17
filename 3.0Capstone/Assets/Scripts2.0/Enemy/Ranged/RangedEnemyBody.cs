@@ -20,7 +20,6 @@ public class RangedEnemyBody : EnemyBody
     private List<Projectile> bullets = new List<Projectile>();
     [SerializeField] private Transform fireLocation;
 
-
     protected override void Awake()
     {
         base.Awake();
