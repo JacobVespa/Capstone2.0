@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class DifficultyManager : MonoBehaviour
@@ -46,14 +47,15 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private float InitialTick_Speed;
 
     [Header("Stat Multipliers")]
-    [SerializeField] private float HealthMultiplier;
-    [SerializeField] private float SpawnRateMultiplier;
-    [SerializeField] private float SpeedMultiplier;
+    [SerializeField] private float stageClear_M = 0.05f;
+    [SerializeField] private float caveClear_M = 0.08f;
+    [SerializeField] private float gemCollected_M = 0.1f;
 
     // Progress variables
-    private float stagesCleared = 0;
-    private float cavesCleared = 0;
-    private float gemsCollected = 0;
+    [Header("Progress Variables")]
+    [SerializeField] private float stagesCleared = -1;
+    [SerializeField] private float cavesCleared = 0;
+    [SerializeField] private float gemsCollected = 0;
 
     // Dynamic variables -------------------------------------------------
     private float currentGrub_Health;
@@ -84,7 +86,7 @@ public class DifficultyManager : MonoBehaviour
 
     public void ResetDifficulty()
     {
-        stagesCleared = 0;
+        stagesCleared = -1;
         cavesCleared = 0;
         gemsCollected = 0;
 
@@ -126,12 +128,12 @@ public class DifficultyManager : MonoBehaviour
 
     private float HealthIncrease()
     {
-        return 1 + (stagesCleared * 0.05f) + (cavesCleared * 0.08f) + (gemsCollected * 0.1f);
+        return 1 + (stagesCleared * stageClear_M) + (cavesCleared * caveClear_M) + (gemsCollected * gemCollected_M);
     }
 
     private float SpeedIncrease()
     {
-        return 1 + (stagesCleared * 0.05f) + (cavesCleared * 0.08f) + (gemsCollected * 0.1f);
+        return 1 + (stagesCleared * stageClear_M) + (cavesCleared * caveClear_M) + (gemsCollected * gemCollected_M);
     }
 
     private void SetGrub_Stats(float health, float speed)

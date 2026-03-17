@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     }
 
     private bool timeActive;
+    public bool TimeActive => timeActive;
+
     private bool isPaused;
 
     private bool gameOverTriggered = false;

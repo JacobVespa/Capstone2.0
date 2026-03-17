@@ -145,6 +145,11 @@ public class WaveSpawner : MonoBehaviour
         set { canSpawn = value; }
     }
 
+    public bool WaveActive
+    {
+        set { waveActive = value; }
+    }
+
     private readonly List<GameObject> trackedEnemies = new List<GameObject>();
     private Coroutine waveRoutine;
 

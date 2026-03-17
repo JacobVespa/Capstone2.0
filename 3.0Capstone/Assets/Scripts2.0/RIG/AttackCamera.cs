@@ -6,6 +6,7 @@ public class AttackCamera : MonoBehaviour
 {
     private CameraCinematic cam;
     private WaveSpawner spawner;
+    private float waveTimer = 0f;
 
     [Header("Camera Points")] //— index 0-2 = Left (Top/Mid/Bot), 3-5 = Right (Top/Mid/Bot), 6 = Centre
     [SerializeField] private Transform[] cameraPoints;
@@ -13,10 +14,13 @@ public class AttackCamera : MonoBehaviour
     [Header("Spawn Points")] //— index 0-2 = Left (Top/Mid/Bot), 3-5 = Right (Top/Mid/Bot)
     [SerializeField] private Transform[] spawnPoints;
 
-    [Header("Timing")]
+    [Header("Camera Position Timing")]
     [SerializeField] private float initialDelay = 3f;
     [SerializeField] private float resetHoldTime = 1f;
     [SerializeField] private float moveHoldTime = 1f;
+
+    [Header("Wave Failsafe Threshold")]
+    [SerializeField] float waveThreshold = 25f;
 
     private const int SideSize = 3;
     private int lastCamIndex = -1;
@@ -41,14 +45,23 @@ public class AttackCamera : MonoBehaviour
     void Update()
     {
         if(spawner == null) { return; }
-        if (!transitioning && spawner.IsWaveComplete && !waveWasComplete)
+        if (!transitioning && (spawner.IsWaveComplete || ThresholdPassed()) && !waveWasComplete)
         {
             waveWasComplete = true;
+            spawner.WaveActive = false;
+            waveTimer = 0;
             StartCoroutine(BetweenWaveSequence());
         }
 
         if (!spawner.IsWaveComplete)
             waveWasComplete = false;
+    }
+
+    private bool ThresholdPassed()
+    {
+        waveTimer += Time.deltaTime;
+
+        return (waveTimer >= waveThreshold && GameManager.Instance.TimeActive);
     }
 
     private IEnumerator InitialSequence()
