@@ -118,10 +118,10 @@ public class DifficultyManager : MonoBehaviour
 
     private void UpgradeDifficulty()
     {
-        SetGrub_Stats(currentGrub_Health * HealthIncrease(),currentGrub_Speed * SpeedIncrease());
-        SetSkeeto_Stats(currentSkeeto_Health * HealthIncrease(),currentSkeeto_Speed * SpeedIncrease());
-        SetBottomFeeder_Stats(currentBottomFeeder_Health * HealthIncrease(),currentBottomFeeder_Speed * SpeedIncrease());
-        SetTick_Stats(currentTick_Health * HealthIncrease(),currentTick_Speed * SpeedIncrease());
+        SetGrub_Stats(InitialGrub_Health * HealthIncrease(), InitialGrub_Speed * SpeedIncrease());
+        SetSkeeto_Stats(InitialSkeeto_Health * HealthIncrease(), InitialSkeeto_Speed * SpeedIncrease());
+        SetBottomFeeder_Stats(InitialBottomFeeder_Health * HealthIncrease(), InitialBottomFeeder_Speed * SpeedIncrease());
+        SetTick_Stats(InitialTick_Health * HealthIncrease(), InitialTick_Speed * SpeedIncrease());
     }
 
     private float HealthIncrease()

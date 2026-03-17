@@ -627,6 +627,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3731154022642952972, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_Maskable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3731154022642952972, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4793956249089145486, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_Name
       value: NavigationCanvas
