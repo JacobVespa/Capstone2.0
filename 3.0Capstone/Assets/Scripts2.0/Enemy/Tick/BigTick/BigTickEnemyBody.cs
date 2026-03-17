@@ -29,4 +29,13 @@ public class BigTickEnemyBody : TickEnemyBody
         base.FixedUpdate();
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == 9)
+        {
+            //Debug.LogError("Whoops");
+            //TakeDamage(health);
+        }
+    }
+
 }

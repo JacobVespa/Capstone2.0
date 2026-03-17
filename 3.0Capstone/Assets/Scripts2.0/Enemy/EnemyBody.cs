@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Net.Security;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -165,7 +166,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         StartCoroutine(Shake());
     }
 
-    private void TakeDamage(float damage)
+    protected void TakeDamage(float damage)
     {
         health -= damage;
         comicHurt.Play();
