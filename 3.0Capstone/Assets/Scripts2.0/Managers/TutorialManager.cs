@@ -45,7 +45,7 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private Transform enemyTextPos;
 
     [Header("Interact UI")]
-    [SerializeField] private GameObject engineIndicator;
+    [SerializeField] private GameObject[] engineIndicators;
     [SerializeField] private GameObject repairIndicator;
     [SerializeField] private GameObject triangleTurretIndicator;
     [SerializeField] private GameObject octagonTurretIndicator;
@@ -138,7 +138,10 @@ public class TutorialManager : MonoBehaviour
             engineFlag = true;
             dialogueBox.SetActive(true);
             dialogueBox.transform.position = engineTextPos.transform.position;
-            engineIndicator.SetActive(true);
+            foreach(GameObject g in engineIndicators)
+            {
+                g.SetActive(true);
+            }
             dialogueManager.ShowDialogue("engine");
         }
 
@@ -146,7 +149,10 @@ public class TutorialManager : MonoBehaviour
         {
             dialogueManager.SkipTypewriter();
             dialogueBox.SetActive(false);
-            engineIndicator.SetActive(false);
+            foreach (GameObject g in engineIndicators)
+            {
+                g.SetActive(false);
+            }
             return true;
         }
 

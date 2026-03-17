@@ -26,14 +26,13 @@ public class DialogueManager : MonoBehaviour
     {
         // Placeholder text!
         dialogues.Add("intro", "Intro statement! :)");
-        dialogues.Add("engine", "The engine is overheating! Repair it and lets get this RIG moving!");
-        dialogues.Add("crystal", "Shoot those gems on the wall - Crystals = Money, Money = happiness!");
+        dialogues.Add("engine", "The engine is overheating! Use your 'HAMMER' to repair it and lets get this RIG moving!");
+        dialogues.Add("crystal", "Now mount your turrets using 'A', then aim and shoot those gems on the wall using 'RT' to get shards!");
         dialogues.Add("smallEnemy", "Enemies incoming! Use your turrets to defend.");
-        dialogues.Add("reload", "Your turrets are empty! Bring ammo from the crate and reload!");
-        dialogues.Add("repair", "Damage detected! Use repair tools to fix your rig.");
-        dialogues.Add("hammer", "Hitch hikers are invading the RIG! Grab your hammer and start swinging!");
+        dialogues.Add("repair", "Damage detected! Use repair tools to fix your rig. Pickup repair with 'A' and place on hole using 'A'");
+        dialogues.Add("hammer", "Hitch hikers are invading the RIG! Grab your 'HAMMER' and start swinging!");
         dialogues.Add("largeEnemy", "Watch out! A large enemy is approaching!");
-        dialogues.Add("tutorialComplete", "The path ahead is clear!Get ready for the real challenge ahead!");
+        dialogues.Add("tutorialComplete", "The path ahead is clear! Get ready for the real challenge ahead!");
     }
 
     // Call this method from TutorialManager to show dialogue
