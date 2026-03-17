@@ -41,7 +41,7 @@ public class InputControlManager : MonoBehaviour
     private void Start()
     {
         SetPlayerAssets();
-        TogglePlayerLimit(GameManager.Instance.IncreaseMaxPlayer);
+        //TogglePlayerLimit(GameManager.Instance.IncreaseMaxPlayer);
 
         if (numberOfPlayers < 1) numberOfPlayers = 1;
         if (numberOfPlayers > 2) numberOfPlayers = 2;

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int navigationScreenIndex = 3;
     public int NavigationScreenIndex => navigationScreenIndex;
 
-    private bool increaseMaxPlayer = false;
+    private bool increaseMaxPlayer = true;
     public bool IncreaseMaxPlayer
     {
         set => increaseMaxPlayer = value;

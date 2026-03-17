@@ -51,9 +51,9 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private float SpeedMultiplier;
 
     // Progress variables
-    private int stagesCleared = 0;
-    private int cavesCleared = 0;
-    private int gemsCollected = 0;
+    private float stagesCleared = 0;
+    private float cavesCleared = 0;
+    private float gemsCollected = 0;
 
     // Dynamic variables -------------------------------------------------
     private float currentGrub_Health;
@@ -126,12 +126,12 @@ public class DifficultyManager : MonoBehaviour
 
     private float HealthIncrease()
     {
-        return 1 + (stagesCleared * 0.2f) + (cavesCleared * 0.3f) + (gemsCollected * 0.4f);
+        return 1 + (stagesCleared * 0.05f) + (cavesCleared * 0.08f) + (gemsCollected * 0.1f);
     }
 
     private float SpeedIncrease()
     {
-        return 1 + (stagesCleared * 0.2f) + (cavesCleared * 0.3f) + (gemsCollected * 0.4f);
+        return 1 + (stagesCleared * 0.05f) + (cavesCleared * 0.08f) + (gemsCollected * 0.1f);
     }
 
     private void SetGrub_Stats(float health, float speed)
