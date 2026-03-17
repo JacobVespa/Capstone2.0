@@ -79,18 +79,16 @@ public class DifficultyManager : MonoBehaviour
 
     private void Start()
     {
-        // Grub
-        currentGrub_Health = InitialGrub_Health;
-        currentGrub_Speed = InitialGrub_Speed;
-        // Skeeto
-        currentSkeeto_Health = InitialSkeeto_Health;
-        currentSkeeto_Speed = InitialSkeeto_Speed;
-        // BottomFeeder
-        currentBottomFeeder_Health = InitialBottomFeeder_Health;
-        currentBottomFeeder_Speed = InitialBottomFeeder_Speed;
-        // Tick
-        currentTick_Health = InitialTick_Health;
-        currentTick_Speed = InitialTick_Speed;
+        InitiateStats();
+    }
+
+    public void ResetDifficulty()
+    {
+        stagesCleared = 0;
+        cavesCleared = 0;
+        gemsCollected = 0;
+
+        InitiateStats();
     }
 
     public void StageCleared()
@@ -158,6 +156,22 @@ public class DifficultyManager : MonoBehaviour
     {
         currentTick_Health = health;
         currentTick_Speed = speed;
+    }
+
+    private void InitiateStats()
+    {
+        // Grub
+        currentGrub_Health = InitialGrub_Health;
+        currentGrub_Speed = InitialGrub_Speed;
+        // Skeeto
+        currentSkeeto_Health = InitialSkeeto_Health;
+        currentSkeeto_Speed = InitialSkeeto_Speed;
+        // BottomFeeder
+        currentBottomFeeder_Health = InitialBottomFeeder_Health;
+        currentBottomFeeder_Speed = InitialBottomFeeder_Speed;
+        // Tick
+        currentTick_Health = InitialTick_Health;
+        currentTick_Speed = InitialTick_Speed;
     }
 
 }

@@ -353,7 +353,7 @@ MonoBehaviour:
   shootingCD: 0.3
   controllerAim: 0
   mouseAim: 0
-  aimSpeed: 20
+  aimSpeed: 10
   autoTarget: 0
   assistAim: 1
   assistAngle: 5
@@ -361,6 +361,7 @@ MonoBehaviour:
   projectiles: []
   currentAmmo: 0
   needsReload: 0
+  playerMounted: 0
 --- !u!114 &6325703158096329179
 MonoBehaviour:
   m_ObjectHideFlags: 0

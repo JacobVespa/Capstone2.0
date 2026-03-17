@@ -125,6 +125,7 @@ public class LevelManager : MonoBehaviour
             if (GameManager.Instance.GameOverStatus)
                 SoundManager.Instance.PlayBGM("LoseTheme");
 
+            DifficultyManager.Instance.ResetDifficulty();
             ShowEndScreen(GameManager.Instance.ResultScreenIndex);
         }
 
