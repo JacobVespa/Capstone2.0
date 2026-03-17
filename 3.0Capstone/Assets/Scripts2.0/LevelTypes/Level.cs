@@ -10,7 +10,8 @@ public class Level
         SCROLLER = 1,
         DEFENCE = 2,
         TUTORIAL = 3,
-        GOLDRUSH = 4
+        GOLDRUSH = 4,
+        QVARIANT1 = 5
     }
 
     protected LevelType levelType;

@@ -78,6 +78,15 @@ public class GameflowManager : MonoBehaviour
         BeginLevel();
     }
 
+    public void StartQVariant1Level()
+    {
+        int currentSceneIndex = 8;
+        int wasPressed = 0;
+
+        CurrentLevel = new QVariant1Level(currentSceneIndex, wasPressed);
+        BeginLevel();
+    }
+
     private void BeginLevel()
     {
         ResetValues();
