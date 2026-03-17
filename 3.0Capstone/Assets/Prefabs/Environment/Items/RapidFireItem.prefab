@@ -97,6 +97,7 @@ GameObject:
   - component: {fileID: 2405405602952263559}
   - component: {fileID: 7608187706884500601}
   - component: {fileID: 610973716748467023}
+  - component: {fileID: 3715997846108136658}
   m_Layer: 7
   m_Name: RapidFireItem
   m_TagString: Item
@@ -261,4 +262,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemType: 0
-  rig: {fileID: 3686836771572647104, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+--- !u!111 &3715997846108136658
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4678736231374425120}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Animation: {fileID: 7400000, guid: efe10794cd2d92a44b2f71686e03fa1f, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 0b00e1a14d3dac34faba69896f306292, type: 2}
+  - {fileID: 7400000, guid: efe10794cd2d92a44b2f71686e03fa1f, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_UpdateMode: 0
+  m_CullingType: 0

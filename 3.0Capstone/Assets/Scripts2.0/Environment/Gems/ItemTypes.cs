@@ -1,10 +1,9 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ItemTypes : MonoBehaviour
 {
-    //Could have power up class which contains all powerups and activates when destroyed
-
     [SerializeField] private GameObject[] items;
 
     public enum Items
@@ -17,15 +16,18 @@ public class ItemTypes : MonoBehaviour
     //spawning the power-up crystal
     public void SpawnItem(int index)
     {
+        GameObject go;
         switch(index)
         {
             case 0:
                 //spawn RapidFire crystal
-                Instantiate(items[index]);
+                go = Instantiate(items[index]);
+                go.transform.position = new Vector3(0, -8, 0);
                 break;
             case 1:
                 //spawn LargeHammer crystal
-                Instantiate(items[index]);
+                go = Instantiate(items[index]);
+                go.transform.position = new Vector3(0, -8, 0);
                 break;
             default:
                 Debug.Log("No crystal found");
