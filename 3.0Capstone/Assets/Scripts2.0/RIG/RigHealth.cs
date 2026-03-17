@@ -87,6 +87,8 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     private void Start()
     {
         SubscribeToEvents();
+
+        GameManager.Instance.SetRig(gameObject);
     }
 
     public void Attacked(DamageSource d)

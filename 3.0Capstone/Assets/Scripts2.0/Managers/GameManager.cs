@@ -54,6 +54,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Transform vfxStorage;
 
     private GameflowManager flowManager;
+
+    private GameObject rigObject;
+    public GameObject RigObject => rigObject;
+    public void SetRig(GameObject newRig) { rigObject = newRig; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -151,6 +155,7 @@ public class GameManager : MonoBehaviour
         pauseCanvas.gameObject.SetActive(false);
         flowManager.EndLevel();
         CaveMapState.Instance.FullReset();
+        rigObject = null;
         levelsCompleted = 0;
         ResetStats();
         DifficultyManager.Instance.ResetDifficulty();
@@ -172,6 +177,7 @@ public class GameManager : MonoBehaviour
     {
         if (flowManager != null) flowManager.WindDownLevel(false);
         CaveMapState.Instance.FullReset();
+        rigObject = null;
 
         PauseGameTime();
     }
@@ -182,6 +188,7 @@ public class GameManager : MonoBehaviour
         levelsCompleted++;
 
         flowManager.WindDownLevel(true);
+        rigObject = null;
 
         PauseGameTime();
     }
