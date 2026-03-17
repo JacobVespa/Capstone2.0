@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ai: {fileID: 824894603949119956}
   animator: {fileID: 7527009891435183403}
-  sprite: {fileID: 3136186643911555787}
+  sprite: {fileID: 1442091398127571451}
   damageSource: {fileID: 1538699025735670894}
   attackNotif: {fileID: 254310654915742521}
   comicHurt: {fileID: 3445665279238444902}
@@ -191,6 +191,7 @@ MonoBehaviour:
   attackCoolDown: 3
   attackRange: {fileID: 0}
   attackRangeVal: 3.75
+  isGrub: 0
 --- !u!114 &824894603949119956
 MonoBehaviour:
   m_ObjectHideFlags: 0
