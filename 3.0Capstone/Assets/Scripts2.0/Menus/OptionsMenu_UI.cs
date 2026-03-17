@@ -20,6 +20,7 @@ public class OptionsMenu_UI : MonoBehaviour
 
     public void SetMasterVolume()
     {
+        volumeSlider.value = 80;
         float volume = volumeSlider.value;
         audioMixer.SetFloat("MasterVolume", volume);
     }
