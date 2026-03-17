@@ -958,7 +958,7 @@ PrefabInstance:
     - target: {fileID: 6474902853378481311, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
       propertyPath: shardText
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 500697648}
     - target: {fileID: 6525199705907830722, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -56.03401
@@ -997,6 +997,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3467884818648132359, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
   m_PrefabInstance: {fileID: 500697646}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &500697648 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1555507857831901056, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
+  m_PrefabInstance: {fileID: 500697646}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &515492048
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,7 +1021,7 @@ GameObject:
   - component: {fileID: 515492049}
   m_Layer: 0
   m_Name: EventSystem
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

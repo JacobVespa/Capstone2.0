@@ -6,7 +6,11 @@ public class GameflowManager : MonoBehaviour
     public Level CurrentLevel { get; private set; }
 
     private bool levelRunning = false;
-    public bool LevelRunning => levelRunning;
+    public bool LevelRunning
+    {
+        get {  return levelRunning; }
+        set { levelRunning = value; }
+    }
 
     private void Update()
     {
@@ -78,6 +82,7 @@ public class GameflowManager : MonoBehaviour
         BeginLevel();
     }
 
+    // Randomize variants here
     public void StartQVariant1Level()
     {
         int currentSceneIndex = 8;

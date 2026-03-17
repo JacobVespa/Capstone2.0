@@ -16,6 +16,7 @@ public class CaveMap : MonoBehaviour
     [SerializeField] Sprite searchSprite;
     [SerializeField] Sprite extractSprite;
     [SerializeField] Sprite bonusSprite;
+    [SerializeField] Sprite mysterySprite;
 
     [Header("Lines")]
     [SerializeField] private Color defaultLineColor = Color.gray;
@@ -330,8 +331,8 @@ public class CaveMap : MonoBehaviour
 
         MapButton mapButton = levelButton.GetComponent<MapButton>();
 
-        Sprite[] sprites = { searchSprite, extractSprite, bonusSprite };
-        string[] names = { "Search", "Extract", "Bonus" };
+        Sprite[] sprites = { searchSprite, extractSprite, mysterySprite, bonusSprite};
+        string[] names = { "Search", "Extract", "Mystery", "Bonus"};
 
         int rng = 0;
 

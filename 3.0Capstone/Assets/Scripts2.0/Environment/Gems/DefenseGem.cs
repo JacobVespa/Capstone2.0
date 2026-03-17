@@ -25,6 +25,11 @@ public class DefenseGem : MonoBehaviour
         StartCoroutine(Shake(delay));
     }
 
+    public void Damage()
+    {
+        StartCoroutine(Shake(0.8f));
+    }
+
     public void BreakCrystal(float delay)
     {
         StartCoroutine(Shake(delay));

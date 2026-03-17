@@ -361,6 +361,12 @@ public class Turret : MonoBehaviour
         if (gem != null) { StartCoroutine(HitMarker(Color.blue)); gem.Damage(); }
     }
 
+    public void HitDefenseGem(Collider2D col)
+    {
+        var defenseGem = col.GetComponent<DefenseGem>();
+        if (defenseGem != null) { StartCoroutine(HitMarker(Color.magenta)); defenseGem.Damage(); }
+    }
+
     public void HitProjectile(Collider2D col)
     {
         var proj = col.GetComponent<Projectile>();

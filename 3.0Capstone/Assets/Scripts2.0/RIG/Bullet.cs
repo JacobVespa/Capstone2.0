@@ -32,6 +32,11 @@ public class Bullet : MonoBehaviour
             turret.HitGem(collision);
             Destroy(gameObject);
         }
+        if (collision.CompareTag("DefenseGem"))
+        {
+            turret.HitDefenseGem(collision);
+            Destroy(gameObject);
+        }
         if (collision.CompareTag("Projectile"))
         {
             turret.HitProjectile(collision);
