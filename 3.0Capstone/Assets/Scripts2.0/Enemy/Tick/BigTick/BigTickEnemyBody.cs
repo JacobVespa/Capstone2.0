@@ -18,10 +18,10 @@ public class BigTickEnemyBody : TickEnemyBody
 
     public override void Attacked(DamageSource d)
     {
-       // if (invincible) { Debug.Log("Denied");  return;  }
+        //if (invincible) { Debug.Log("Denied");  return;  }
         base.Attacked(d);
         
-        StartCoroutine(Iframes());
+        //StartCoroutine(Iframes());
     }
 
     void Start()
@@ -51,11 +51,11 @@ public class BigTickEnemyBody : TickEnemyBody
     IEnumerator Iframes()
     {
         invincible = true;
-        moveSpeed *= 1.5f;
-        Debug.Log("hit");
+        //moveSpeed *= 1.5f;
+        
         yield return new WaitForSeconds(0.5f);
-        Debug.Log("done");
+
         invincible = false;
-        moveSpeed *= 2 / 3;
+        //moveSpeed *= 2 / 3;
     }
 }
