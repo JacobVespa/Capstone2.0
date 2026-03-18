@@ -96,6 +96,45 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -108,12 +147,35 @@ TextureImporter:
         width: 1662
         height: 1959
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      physicsShape:
+      - - {x: 765, y: -748.5}
+        - {x: 771, y: -522.5}
+        - {x: 725, y: -426.5}
+        - {x: 804, y: -291.5}
+        - {x: 763, y: -203.5}
+        - {x: 670, y: -117.5}
+        - {x: 831, y: 264.5}
+        - {x: 723, y: 652.5}
+        - {x: 324, y: 440.5}
+        - {x: 206, y: 187.5}
+        - {x: 52, y: 540.5}
+        - {x: -116, y: 355.5}
+        - {x: -337, y: 728.5}
+        - {x: -665, y: 979.5}
+        - {x: -802, y: 558.5}
+        - {x: -526, y: 61.5}
+        - {x: -679, y: 189.5}
+        - {x: -732, y: -269.5}
+        - {x: -643, y: -431.5}
+        - {x: -828, y: -683.5}
+        - {x: -667, y: -843.5}
+        - {x: -90, y: -972.5}
+        - {x: 556, y: -953.5}
+      tessellationDetail: 0
       bones: []
       spriteID: 1fca82b50eaac4ec0800000000000000
       internalID: -3581299723087598351
@@ -125,7 +187,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 36ce8a6bfa11baa41ac5db27fdf6177b
     internalID: 0
     vertices: []
     indices: 
