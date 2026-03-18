@@ -11,9 +11,11 @@ public class Item : MonoBehaviour
     RigEvents local;
 
     //HAMMER REFERENCE, I hope....
+    private Hammer hammerRef;
     private GameObject hammer;
     private BoxCollider2D boxCollider;
     private CircleCollider2D circleCollider;
+    private SpriteRenderer aoeSprite;
 
     private void Start()
     {
@@ -60,9 +62,15 @@ public class Item : MonoBehaviour
     {
         boxCollider = hammer.GetComponent<BoxCollider2D>();
         circleCollider = hammer.GetComponent<CircleCollider2D>();
+        hammerRef = hammer.GetComponent<Hammer>();
+        aoeSprite = hammerRef.aoeSprite;
 
         boxCollider.enabled = false;
         circleCollider.enabled = true;
+        aoeSprite.enabled = true;
+
+        //IMPORTANT LINE
+        hammerRef.isPoweredUp = true;
     }
 
 }

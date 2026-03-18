@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -9,10 +10,15 @@ public class Hammer : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip[] hammerMiss;
     [SerializeField] private AudioClip[] hammerHit;
+    public SpriteRenderer aoeSprite;
+    private Vector3 initialAOESize;
+    public bool isPoweredUp;
 
     void Start()
     {
         currentDamage = GetComponent<DamageSource>();
+        initialAOESize = new Vector3(3, 3, 3);
+        gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -43,6 +49,25 @@ public class Hammer : MonoBehaviour
             Item item = other.GetComponent<Item>();
             item.GainItemEffect(item.itemType);
             item.StartCoroutine(item.DespawnItem());
+        }
+    }
+
+    public void CallStupidPulse()
+    {
+        StartCoroutine(AOEPulse(initialAOESize, new Vector3(9, 9, 9), 0.67f));
+    }
+
+    private IEnumerator AOEPulse(Vector3 initialSize, Vector3 finalSize, float pulseDuration)
+    {
+        aoeSprite.transform.localScale = initialSize;
+
+        float timer = 0f;
+
+        while (timer < pulseDuration)
+        {
+            aoeSprite.transform.localScale = Vector3.Lerp(initialSize, finalSize, timer / pulseDuration);
+            timer += Time.deltaTime;
+            yield return null;
         }
     }
 

@@ -115,7 +115,7 @@ public class Resource : MonoBehaviour
             crystalShine.SetActive(false);
             GetComponentInChildren<Light2D>().enabled = false;
             //spawning item
-            itemManager.SpawnItem(0); //only spawning rapidfire for now
+            itemManager.SpawnItem(1); //only spawning rapidfire for now
         }
         else
         {

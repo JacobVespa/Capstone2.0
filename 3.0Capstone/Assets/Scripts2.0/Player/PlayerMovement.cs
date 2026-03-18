@@ -33,6 +33,9 @@ public class PlayerMovement : MonoBehaviour
     public bool canInteract = true;
     [SerializeField] float attackCooldown = 1.0f;
 
+    //hammer ref
+    private Hammer hammer;
+
 
     private int playerIndex; // Which player this is (0 or 1)
 
@@ -56,12 +59,14 @@ public class PlayerMovement : MonoBehaviour
             playerIndex = inputControlManager.Player.Length - 1;
         }
 
-       
-
         //Spawn player animator/layers
         GameObject playerBody = Instantiate(inputControlManager.Player[playerIndex].PlayerObject, this.transform);
 
         playerAnimator = playerBody.GetComponentInChildren<Animator>();
+
+        //teehee
+        hammer = playerBody.GetComponentInChildren<Hammer>();
+        hammer.gameObject.SetActive(false);
 
         // Teleport to spawn point
         Transform spawn = inputControlManager.GetCurrentSpawnPoint();
@@ -73,9 +78,7 @@ public class PlayerMovement : MonoBehaviour
         isHoldingAmmo = false;
         isHoldingRepair = false;
 
-        
 
-        
     }
 
     private void Update()
@@ -264,6 +267,10 @@ public class PlayerMovement : MonoBehaviour
         canAttack = false;
         //Debug.Log("Tried to swing the hammer...");
         playerAnimator.SetTrigger("HammerSwing");
+        if(hammer.isPoweredUp)
+        {
+            hammer.CallStupidPulse();
+        }
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
