@@ -25,7 +25,7 @@ public class Hammer : MonoBehaviour
     {
         if(other.CompareTag("Enemy"))
         {
-            //Debug.Log("Hit the tick");
+            Debug.Log("Hit an enemy");
             var body = other.GetComponent<EnemyBody>();
             body.Attacked(currentDamage);
             int clipIndex = Random.Range(0, hammerHit.Length);
