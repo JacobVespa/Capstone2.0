@@ -1005,6 +1005,7 @@ GameObject:
   - component: {fileID: 5751146871991665551}
   - component: {fileID: 4843657086593947354}
   - component: {fileID: 52786865223188569}
+  - component: {fileID: 8980043666269336122}
   m_Layer: 8
   m_Name: hammer_0
   m_TagString: Hammer
@@ -1330,6 +1331,28 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &8980043666269336122
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5909128680770475084}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bf22c2f985ecd7947884953af290a98e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6332106087082276102
 GameObject:
   m_ObjectHideFlags: 0
@@ -1758,6 +1781,7 @@ GameObject:
   m_Component:
   - component: {fileID: 94346313646134405}
   - component: {fileID: 5593999644340929026}
+  - component: {fileID: 1345929008788603574}
   m_Layer: 8
   m_Name: AnimatedConeMoleNew 1
   m_TagString: Untagged
@@ -1818,3 +1842,16 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1345929008788603574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8420302830569086633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8a9d3cbdd949ad44bddbdf33f3f3cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hammerAnims: {fileID: 8980043666269336122}
