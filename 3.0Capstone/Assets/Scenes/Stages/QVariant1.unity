@@ -1844,7 +1844,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Get nothing...
+  m_text: Search!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26505ba72217d424992c86660c791147, type: 2}
   m_sharedMaterial: {fileID: 2794191476264317408, guid: 26505ba72217d424992c86660c791147, type: 2}
@@ -3222,7 +3222,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: What will you choose??
+  m_text: You find a pile of shards!! Should we take them and run or go search for
+    more?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26505ba72217d424992c86660c791147, type: 2}
   m_sharedMaterial: {fileID: 2794191476264317408, guid: 26505ba72217d424992c86660c791147, type: 2}
@@ -3249,8 +3250,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35
-  m_fontSizeBase: 35
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

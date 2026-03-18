@@ -27,10 +27,13 @@ public class QVariant1Manager : MonoBehaviour
 
     public void Option2Press()
     {
+        Debug.Log("RIGHT BUTTON PRESSED");
         if (buttonPressed) return;
 
         buttonPressed = true;
-        Debug.Log("RIGHT BUTTON PRESSED");
+        GameflowManager flow = FindFirstObjectByType<GameflowManager>();
+        flow.LevelRunning = false;
+        flow.StartScrollerLevel();
     }
 
 }
