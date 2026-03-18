@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -34,6 +35,7 @@ public class Bullet : MonoBehaviour
         }
         if (collision.CompareTag("DefenseGem"))
         {
+            Debug.Log("BIG GEM HIT!!!");
             turret.HitDefenseGem(collision);
             Destroy(gameObject);
         }

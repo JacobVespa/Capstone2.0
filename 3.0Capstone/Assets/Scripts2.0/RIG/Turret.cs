@@ -375,7 +375,6 @@ public class Turret : MonoBehaviour
 
     public void HitGrass(Collider2D col)
     {
-        Debug.LogWarning("GRASS HERE!!!");
         var proj = col.GetComponent<Grass>();
         if (proj != null) { StartCoroutine(HitMarker(Color.green)); proj.grassClipped(); }
     }

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DefenseGem : MonoBehaviour
@@ -18,6 +19,12 @@ public class DefenseGem : MonoBehaviour
     private void Start()
     {
         originalPosition = transform.localPosition;
+    }
+
+    public void ScatterShard()
+    {
+        audioSource.Play();
+        shardScatter.Play();
     }
 
     public void ShakeCrystal(float delay)
