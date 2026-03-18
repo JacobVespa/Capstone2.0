@@ -16,11 +16,11 @@ public class BigTickEnemyBody : TickEnemyBody
 
     }
 
-    protected override void TakeDamage(float damage)
+    public override void Attacked(DamageSource d)
     {
-        if (invincible) { return; }
-        base.TakeDamage(damage);
-
+       // if (invincible) { Debug.Log("Denied");  return;  }
+        base.Attacked(d);
+        
         StartCoroutine(Iframes());
     }
 
@@ -28,7 +28,7 @@ public class BigTickEnemyBody : TickEnemyBody
     {
         if (DifficultyManager.Instance != null)
         {
-            this.Health = DifficultyManager.Instance.TickHealth + 1;
+            this.Health = DifficultyManager.Instance.BigTickHealth + 1;
         }
     }
 
@@ -52,9 +52,9 @@ public class BigTickEnemyBody : TickEnemyBody
     {
         invincible = true;
         moveSpeed *= 1.5f;
-
+        Debug.Log("hit");
         yield return new WaitForSeconds(0.5f);
-
+        Debug.Log("done");
         invincible = false;
         moveSpeed *= 2 / 3;
     }

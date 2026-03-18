@@ -154,7 +154,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     //  IdamageReceiver method, needs a damage source as a parameter
     //  takes damage, shakes, and plays the damage particle effect
     //  check if the damage source targeting an enemy, otherwise does nothing
-    public void Attacked(DamageSource d)
+    public virtual void Attacked(DamageSource d)
     {
         if(d.DamageTarget != DamageSource.DamageType.Enemy) { return; }
 

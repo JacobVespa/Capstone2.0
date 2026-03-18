@@ -694,6 +694,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resultScreenIndex: 2
   navigationScreenIndex: 3
+  increaseMaxPlayer: 1
   gameTime: 0
   playerMovement: []
   pauseCanvas: {fileID: 7305505038093486738}
@@ -770,9 +771,14 @@ MonoBehaviour:
   InitialBottomFeeder_Speed: 0
   InitialTick_Health: 1
   InitialTick_Speed: 0
-  HealthMultiplier: 1
-  SpawnRateMultiplier: 1
-  SpeedMultiplier: 1
+  InitialBigTick_Health: 3
+  InitialBigTick_Speed: 0
+  stageClear_M: 0.05
+  caveClear_M: 0.08
+  gemCollected_M: 0.1
+  stagesCleared: -1
+  cavesCleared: 0
+  gemsCollected: 0
 --- !u!1 &5568078536617126128
 GameObject:
   m_ObjectHideFlags: 0
