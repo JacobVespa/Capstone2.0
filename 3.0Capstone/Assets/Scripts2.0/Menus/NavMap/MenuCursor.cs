@@ -31,8 +31,8 @@ public class MenuCursor : MonoBehaviour
     //TODO detect individual input to move circles based on players vote/movement
     private void VotePlacement(Vector3 target)
     {
-        P1Head_Sprite.parent = both_Sprite;
-        P2Head_Sprite.parent = both_Sprite;
+        P1Head_Sprite.SetParent(both_Sprite,false);
+        P2Head_Sprite.SetParent(both_Sprite,false);
 
         P1Head_Sprite.position = target + new Vector3(-30, -30, 0);
         P2Head_Sprite.position = target + new Vector3(30, -30, 0);
