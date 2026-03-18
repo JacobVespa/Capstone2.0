@@ -4,7 +4,7 @@ using UnityEngine;
 public class BigTickEnemyBody : TickEnemyBody
 {
 
-
+    private bool invincible = false;
 
     protected override void Awake()
     {
@@ -14,6 +14,14 @@ public class BigTickEnemyBody : TickEnemyBody
 
         if (notifPos == Vector2.zero) { notifPos = attackNotif.transform.position; }
 
+    }
+
+    protected override void TakeDamage(float damage)
+    {
+        if (invincible) { return; }
+        base.TakeDamage(damage);
+
+        StartCoroutine(Iframes());
     }
 
     void Start()
@@ -26,8 +34,10 @@ public class BigTickEnemyBody : TickEnemyBody
 
     protected override void FixedUpdate()
     {
+        
         base.FixedUpdate();
     }
+    
 
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -38,4 +48,14 @@ public class BigTickEnemyBody : TickEnemyBody
         }
     }
 
+    IEnumerator Iframes()
+    {
+        invincible = true;
+        moveSpeed *= 1.5f;
+
+        yield return new WaitForSeconds(0.5f);
+
+        invincible = false;
+        moveSpeed *= 2 / 3;
+    }
 }

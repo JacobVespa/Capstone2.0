@@ -166,7 +166,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         StartCoroutine(Shake());
     }
 
-    protected void TakeDamage(float damage)
+    protected virtual void TakeDamage(float damage)
     {
         health -= damage;
         comicHurt.Play();
