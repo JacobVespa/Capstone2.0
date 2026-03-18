@@ -4999,6 +4999,7 @@ GameObject:
   - component: {fileID: 6232623396345854502}
   - component: {fileID: 2346493995923983838}
   - component: {fileID: 8934992379404990964}
+  - component: {fileID: 7873570698804986569}
   m_Layer: 0
   m_Name: RockPile
   m_TagString: Wall
@@ -5118,3 +5119,15 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &7873570698804986569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6696448945714322624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15683e9bc4201b741a8a5ded887d3365, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

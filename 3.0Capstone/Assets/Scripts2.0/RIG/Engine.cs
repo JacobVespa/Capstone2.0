@@ -3,6 +3,10 @@ using UnityEngine;
 public class Engine : MonoBehaviour
 {
     //[SerializeField] private SpriteRenderer engineSprite; WILL PROB NEED AGAIN LATER, maybe...
+
+    [SerializeField] private ParticleSystem smokeParticles;
+    [SerializeField] private ParticleSystem fireParticles;
+
     [SerializeField] private float heatIncreaseRate = 0.02f; 
     [SerializeField] private float repairAmount = 0.05f;
     [SerializeField] private float lerpSpeed = 5f;
@@ -60,6 +64,8 @@ public class Engine : MonoBehaviour
 
         //Debug.Log("Heat: " + heat);
 
+      
+
         EngineBreakdown();
         EngineUpstart();
     }
@@ -91,6 +97,16 @@ public class Engine : MonoBehaviour
 
     private void EngineBreakdown()
     {
+        if (!tooHot && heat >= OVERHEAT_THRESHOLD/3 && !smokeParticles.gameObject.activeInHierarchy)
+        {
+            smokeParticles.gameObject.SetActive(true);
+        }
+
+        if (!tooHot && heat >= 2*OVERHEAT_THRESHOLD/3 && !fireParticles.gameObject.activeInHierarchy)
+        {
+            fireParticles.gameObject.SetActive(true);
+        }
+
         if (!tooHot && heat >= OVERHEAT_THRESHOLD)
         {
             IsOverheated(true);
@@ -113,6 +129,16 @@ public class Engine : MonoBehaviour
 
     private void EngineUpstart()
     {
+        if (!tooHot && heat <= OVERHEAT_THRESHOLD / 3 && smokeParticles.gameObject.activeInHierarchy)
+        {
+            smokeParticles.gameObject.SetActive(false);
+        }
+
+        if (!tooHot && heat <= 2 * OVERHEAT_THRESHOLD / 3 && fireParticles.gameObject.activeInHierarchy)
+        {
+            fireParticles.gameObject.SetActive(false);
+        }
+
         if (tooHot && heat <= REPAIR_THRESHOLD)
         {
             IsOverheated(false);
