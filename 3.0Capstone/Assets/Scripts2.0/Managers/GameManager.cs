@@ -58,6 +58,10 @@ public class GameManager : MonoBehaviour
     private GameObject rigObject;
     public GameObject RigObject => rigObject;
     public void SetRig(GameObject newRig) { rigObject = newRig; }
+
+    //check bool if coming from Q variant level
+    public bool cameFromQVariant;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -71,6 +75,8 @@ public class GameManager : MonoBehaviour
 
         playerMovement = FindObjectsByType<PlayerMovement>(sortMode: FindObjectsSortMode.None);
         flowManager = FindFirstObjectByType<GameflowManager>();
+
+        cameFromQVariant = false;
     }
 
     private void Start()
@@ -191,6 +197,8 @@ public class GameManager : MonoBehaviour
         rigObject = null;
 
         PauseGameTime();
+
+        cameFromQVariant = false;
     }
 
     public Transform GetStorage()

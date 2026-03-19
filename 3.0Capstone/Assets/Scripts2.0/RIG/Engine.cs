@@ -46,6 +46,12 @@ public class Engine : MonoBehaviour
         {
             Debug.Log("A engine damage state sprite might be missing");
         }
+
+        //start level off with overheated engine
+        if(GameManager.Instance.cameFromQVariant)
+        {
+            heat += 0.99f;
+        }
     }
 
     // Update is called once per frame

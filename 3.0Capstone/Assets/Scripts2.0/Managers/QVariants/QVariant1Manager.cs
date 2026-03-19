@@ -31,6 +31,7 @@ public class QVariant1Manager : MonoBehaviour
         if (buttonPressed) return;
 
         buttonPressed = true;
+        GameManager.Instance.cameFromQVariant = true;
         GameflowManager flow = FindFirstObjectByType<GameflowManager>();
         flow.LevelRunning = false;
         flow.StartScrollerLevel();
