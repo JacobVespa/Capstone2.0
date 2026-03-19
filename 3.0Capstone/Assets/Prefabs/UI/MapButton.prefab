@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 5408021117930102671}
   - component: {fileID: 2588826390829035106}
   - component: {fileID: 4227614830351465335}
+  - component: {fileID: 7487686467718410149}
   m_Layer: 5
   m_Name: MapButton
   m_TagString: Untagged
@@ -280,5 +281,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91657e328fc1fd24b97333381936dea1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7487686467718410149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7673557791521298322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee0a9c8fa70d43468483be9b6799d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -1,45 +1,124 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
+// Attach to a GameObject in the CaveMap scene alongside MenuCursor's sprites.
 public class MenuCursor : MonoBehaviour
 {
-    [Header("Circle")]
-    [SerializeField] private Transform P1Circle_Sprite;  // the circle sprites
+    [Header("Circle Sprites")]
+    [SerializeField] private Transform P1Circle_Sprite;
     [SerializeField] private Transform P2Circle_Sprite;
-    [SerializeField] private Transform both_Sprite;
 
-    [Header("Head")]
-    [SerializeField] private Transform P1Head_Sprite; // Player sprites
+    [Header("Head Sprites")]
+    [SerializeField] private Transform P1Head_Sprite;
     [SerializeField] private Transform P2Head_Sprite;
 
+    [Header("Canvas Reference")]
+    // Drag the root Canvas of your map UI here
+    [SerializeField] private Canvas rootCanvas;
+
     [Header("Offset")]
-    [SerializeField] private Vector3 offset;       // tweak in inspector if needed
+    [SerializeField] private Vector2 offset;
+
+    [Header("Vote Settings")]
+    [SerializeField] private float autoSelectDelay = 10f;
+    private float voteTimer = 0f;
+    private bool timerRunning = false;
+    private bool voteConfirmed = false;
+
+    // Short cooldown on startup prevents an instant confirm when both
+    // players are initialised on the same button
+    [SerializeField] private float confirmCooldown = 0.5f;
+    private float confirmCooldownTimer = 0f;
+
+    private void Start()
+    {
+        confirmCooldownTimer = confirmCooldown;
+    }
 
     private void Update()
     {
-        GameObject selected = EventSystem.current?.currentSelectedGameObject;
+        if (confirmCooldownTimer > 0f)
+        {
+            confirmCooldownTimer -= Time.deltaTime;
+            return;
+        }
 
-        if (selected == null) return;
+        GameObject sel0 = GetSelection(0);
+        GameObject sel1 = GetSelection(1);
 
-        Vector3 targetPos = selected.transform.position + offset;
-        targetPos.z = both_Sprite.position.z; // keep circle on correct z layer
+        MoveCursor(P1Circle_Sprite, P1Head_Sprite, sel0, new Vector2(-30, -30));
+        MoveCursor(P2Circle_Sprite, P2Head_Sprite, sel1, new Vector2( 30, -30));
 
-        both_Sprite.position = targetPos;
-        VotePlacement(targetPos);
+        if (!voteConfirmed)
+            HandleVoteTimer(sel0, sel1);
     }
 
-    //TODO detect individual input to move circles based on players vote/movement
-    private void VotePlacement(Vector3 target)
+    // Reads from whichever input manager is present in this scene
+    private static GameObject GetSelection(int playerIndex)
     {
-        P1Head_Sprite.SetParent(both_Sprite,false);
-        P2Head_Sprite.SetParent(both_Sprite,false);
+        if (CaveMapInputManager.Instance != null)
+            return CaveMapInputManager.Instance.GetPlayerSelection(playerIndex);
 
-        P1Head_Sprite.position = target + new Vector3(-30, -30, 0);
-        P2Head_Sprite.position = target + new Vector3(30, -30, 0);
+        return null;
     }
 
-    //TODO add a timer that displays how long until a choice is made
-    // Picks a random level if the vote is split
-    // Picks the selected level if both votes exist on the same level
-    // Timer ends if both players vote on the same level before it hits 0
+    private void MoveCursor(Transform circle, Transform head, GameObject selected, Vector2 headOffset)
+    {
+        if (circle == null || selected == null || rootCanvas == null) return;
+
+        RectTransform circleRect = circle.GetComponent<RectTransform>();
+        RectTransform headRect   = head.GetComponent<RectTransform>();
+        RectTransform canvasRect = rootCanvas.GetComponent<RectTransform>();
+
+        Camera cam = rootCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : Camera.main;
+
+        // Convert the button's world position into canvas local space
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(cam, selected.transform.position);
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect, screenPoint, cam, out Vector2 localPoint
+        );
+
+        if (circleRect != null) circleRect.anchoredPosition = localPoint + offset;
+        if (headRect   != null) headRect.anchoredPosition   = localPoint + offset + headOffset;
+    }
+
+    private void HandleVoteTimer(GameObject sel0, GameObject sel1)
+    {
+        if (sel0 == null || sel1 == null) return;
+
+        if (sel0 == sel1)
+        {
+            timerRunning = false;
+            voteTimer = 0f;
+            ConfirmSelection(sel0);
+        }
+        else
+        {
+            if (!timerRunning)
+            {
+                timerRunning = true;
+                voteTimer = autoSelectDelay;
+            }
+
+            voteTimer -= Time.deltaTime;
+            // TODO: push voteTimer to a UI countdown display here
+
+            if (voteTimer <= 0f)
+            {
+                timerRunning = false;
+                ConfirmSelection(Random.value < 0.5f ? sel0 : sel1);
+            }
+        }
+    }
+
+    private void ConfirmSelection(GameObject node)
+    {
+        voteConfirmed = true;
+
+        MapButton mb = node.GetComponent<MapButton>();
+        if (mb != null)
+            CaveMap.Instance?.OnNodeVisited(mb.GetComponent<Button>());
+    }
 }
