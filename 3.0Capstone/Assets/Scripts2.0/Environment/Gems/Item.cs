@@ -1,42 +1,56 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Item : MonoBehaviour
 {
     [SerializeField] public ItemTypes.Items itemType;
 
-    //RAPIDFIRE REFERENCE
     private RigHealth rig;
-    RigEvents local;
-
-    //HAMMER REFERENCE, I hope....
+    private RigEvents local;
     private Hammer hammerRef;
-    private GameObject hammer;
-    private BoxCollider2D boxCollider;
-    private CircleCollider2D circleCollider;
-    private SpriteRenderer aoeSprite;
+
+    [Header("Power-Up Durations")]
+    [SerializeField] private float shockwaveDuration = 8f;
 
     private void Start()
     {
         rig = FindFirstObjectByType<RigHealth>();
-       
-        local = rig.RigEvents;
+        hammerRef = FindFirstObjectByType<Hammer>();
+
+        if (rig != null)
+        {
+            local = rig.RigEvents;
+        }
     }
 
     public void GainItemEffect(ItemTypes.Items currentItem)
     {
-        switch(currentItem)
+        switch (currentItem)
         {
             case ItemTypes.Items.RapidFire:
-                //gain rapid fire effect
                 Debug.Log("FIRE RATE GO BRRRRRRRR");
-                local.CallSpeedStart();
+                if (local != null)
+                {
+                    local.CallSpeedStart();
+                }
                 break;
-            case ItemTypes.Items.LargeHammer:
-                //gain large hammer effect
-                HammerSlop();
+
+            case ItemTypes.Items.ShockwaveHammer:
+                Debug.Log("SHOCKWAVE HAMMER ACTIVATED");
+                if (hammerRef != null)
+                {
+                    hammerRef.ActivateShockwaveHammer(shockwaveDuration);
+                }
                 break;
+
+            case ItemTypes.Items.RepairBurst:
+                Debug.Log("REPAIR BURST ACTIVATED");
+                if (rig != null)
+                {
+                    rig.FullRepairBurst();
+                }
+                break;
+
             default:
                 Debug.Log("No item");
                 break;
@@ -45,14 +59,15 @@ public class Item : MonoBehaviour
 
     public IEnumerator DespawnItem()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3f);
         gameObject.SetActive(false);
     }
 
+    /**
     //trying something goofy and stupid
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Hammer"))
+        if (collision.CompareTag("Hammer"))
         {
             hammer = collision.gameObject;
         }
@@ -72,8 +87,5 @@ public class Item : MonoBehaviour
         //IMPORTANT LINE
         hammerRef.isPoweredUp = true;
     }
-
+    **/
 }
-
-
-

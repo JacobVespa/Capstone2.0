@@ -1,6 +1,4 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ItemTypes : MonoBehaviour
 {
@@ -11,31 +9,48 @@ public class ItemTypes : MonoBehaviour
     public enum Items
     {
         RapidFire,
-        LargeHammer,
+        ShockwaveHammer,
+        RepairBurst,
         NONE
     }
 
-    //spawning the power-up crystal
-    public void SpawnItem(int index)
+    // Spawns the selected power-up crystal somewhere on the RIG
+    public void SpawnItem(Items itemType)
     {
-        GameObject go;
-        Vector3 spawnPos = new Vector3(Random.Range(rigXBounds.x, rigXBounds.y), Random.Range(rigYBounds.x, rigYBounds.y), GameManager.Instance.RigObject.transform.position.z);
-        switch(index)
+        if (itemType == Items.NONE)
         {
-            case 0:
-                //spawn RapidFire crystal
-                go = Instantiate(items[index]);
-                go.transform.position = GameManager.Instance.RigObject.transform.position + spawnPos;
-                break;
-            case 1:
-                //spawn LargeHammer crystal
-                go = Instantiate(items[index]);
-                go.transform.position = GameManager.Instance.RigObject.transform.position + spawnPos;
-                break;
-            default:
-                Debug.Log("No crystal found");
-                break;
+            Debug.Log("No item selected to spawn.");
+            return;
+        }
+
+        int index = (int)itemType;
+
+        if (index < 0 || index >= items.Length)
+        {
+            Debug.LogWarning("Item index out of range for itemType: " + itemType);
+            return;
+        }
+
+        if (GameManager.Instance == null || GameManager.Instance.RigObject == null)
+        {
+            Debug.LogWarning("GameManager or RigObject is missing, cannot spawn item.");
+            return;
+        }
+
+        Vector3 localOffset = new Vector3(
+            Random.Range(rigXBounds.x, rigXBounds.y),
+            Random.Range(rigYBounds.x, rigYBounds.y),
+            0f
+        );
+
+        Vector3 spawnPos = GameManager.Instance.RigObject.transform.position + localOffset;
+
+        GameObject go = Instantiate(items[index], spawnPos, Quaternion.identity);
+
+        Item itemComponent = go.GetComponent<Item>();
+        if (itemComponent != null)
+        {
+            itemComponent.itemType = itemType;
         }
     }
-
 }
