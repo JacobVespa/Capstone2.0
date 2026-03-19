@@ -28,6 +28,13 @@ public class Hammer : MonoBehaviour
     private bool shockwavePoweredUp;
     private bool pulseOnCooldown;
 
+    public bool isPoweredUp => shockwavePoweredUp;
+
+    public void CallStupidPulse()
+    {
+        TriggerShockwave();
+    }
+
     private void Start()
     {
         currentDamage = GetComponent<DamageSource>();
