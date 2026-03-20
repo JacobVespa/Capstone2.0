@@ -2778,6 +2778,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: ebd6f66e73544f048a6984f38b1b9927, type: 2}
+    - target: {fileID: 2717372293453574232, guid: 19989e2aa1584e044aea78bb3bc3094a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3387448963991174107, guid: 19989e2aa1584e044aea78bb3bc3094a, type: 3}
       propertyPath: m_Name
       value: AnimatedCollapsedPotMoleNew
@@ -18904,7 +18908,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -5.9000015, y: -1.3262024}
+  m_AnchoredPosition: {x: -5.899994, y: -1.3262024}
   m_SizeDelta: {x: -18.0833, y: -2.6524}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1520238874
