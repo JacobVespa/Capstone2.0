@@ -54,7 +54,8 @@ public class Hammer : MonoBehaviour
 
     public void CallStupidPulse()
     {
-        StartCoroutine(AOEPulse(initialAOESize, new Vector3(9, 9, 9), 0.67f));
+        //StartCoroutine(AOEPulse(initialAOESize, new Vector3(9, 9, 9), 0.67f));
+        Debug.Log("this is supposed to pulse ig");
     }
 
     private IEnumerator AOEPulse(Vector3 initialSize, Vector3 finalSize, float pulseDuration)

@@ -21,7 +21,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &9080539766527176695
 Transform:
   m_ObjectHideFlags: 0
@@ -192,6 +192,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 29e6079bc3a815d40b57429c848507cc, type: 3}
   - {fileID: 8300000, guid: 1467ccd8fb4f7d14090420478103c448, type: 3}
   aoeSprite: {fileID: 5010864346674409219}
+  isPoweredUp: 0
 --- !u!114 &4867708589588912629
 MonoBehaviour:
   m_ObjectHideFlags: 0
