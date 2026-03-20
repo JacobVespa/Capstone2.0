@@ -1,13 +1,16 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UIElements;
+using UnityEditor.Search;
 
 public class Resource : MonoBehaviour
 {
-    [SerializeField] private Sprite[] crystalStates;
+    [SerializeField] Sprite[] crystalStates;
     private int damageVar = 0;
 
-    [SerializeField] private int OriginalHP = 3;
+    [SerializeField] int OriginalHP = 3;
     private int currentHP;
 
     private int breakMulitplier = 2;
@@ -18,26 +21,21 @@ public class Resource : MonoBehaviour
     [SerializeField] private GameObject crystalShine;
     private Color gemColor;
 
-    [SerializeField] private AudioClip resource;
-    [SerializeField] private AudioSource audioSource;
+    [SerializeField] AudioClip resource;
+    [SerializeField] AudioSource audioSource;
 
-    // Item stuff
+    //Item stuff
     [SerializeField] private bool hasItem;
     private int randomItemNum;
     [SerializeField] private ItemTypes itemManager;
-    private ItemTypes.Items currentItem = ItemTypes.Items.NONE;
+    ItemTypes.Items currentItem = ItemTypes.Items.NONE;
 
-    public float shakeDuration = 0.3f;
-    public float shakeStrength = 0.1f;
-    private Vector3 originalPosition;
-
-    private void Start()
+    void Start()
     {
         GetComponentInChildren<SpriteRenderer>().sprite = crystalStates[0];
-
+        
         originalPosition = transform.localPosition;
         currentHP = OriginalHP;
-
         gemColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         GetComponentInChildren<SpriteRenderer>().color = gemColor;
         shardScatter.startColor = gemColor;
@@ -49,25 +47,18 @@ public class Resource : MonoBehaviour
 
     private void ItemInitialization()
     {
-        currentItem = ItemTypes.Items.NONE;
-
         if (hasItem)
         {
-            randomItemNum = Random.Range(0, 3);
-
-            switch (randomItemNum)
+            randomItemNum = Random.Range(0, 2);
+            switch(randomItemNum)
             {
-                case 0:
-                    currentItem = ItemTypes.Items.RapidFire;
+                case 0: 
+                    currentItem = ItemTypes.Items.RapidFire; 
                     break;
-                case 1:
-                    currentItem = ItemTypes.Items.ShockwaveHammer;
-                    break;
-                case 2:
-                    currentItem = ItemTypes.Items.RepairBurst;
+                case 1: 
+                    currentItem = ItemTypes.Items.LargeHammer;
                     break;
                 default:
-                    currentItem = ItemTypes.Items.NONE;
                     break;
             }
         }
@@ -78,22 +69,19 @@ public class Resource : MonoBehaviour
         if (currentHP > 0)
         {
             damageVar++;
-
             if (damageVar < crystalStates.Length)
             {
+                
                 GetComponentInChildren<SpriteRenderer>().sprite = crystalStates[damageVar];
             }
 
-            int previousHP = currentHP;
-
-            if (crystalCrack != null) crystalCrack.Play();
-            if (shardScatter != null) shardScatter.Play();
-            if (audioSource != null) audioSource.Play();
-
+                int previousHP = currentHP;
+            crystalCrack.Play();
+            shardScatter.Play();
+            audioSource.Play();
+            //shardScatter.Play();
             StartCoroutine(Shake());
-
             currentHP--;
-
             if (currentHP <= 0)
             {
                 GetComponentInChildren<SpriteRenderer>().enabled = false;
@@ -101,41 +89,33 @@ public class Resource : MonoBehaviour
 
             RewardShards(-(currentHP - previousHP), currentHP <= 0);
         }
+        
+
     }
 
     public void Respawn()
     {
         GetComponentInChildren<SpriteRenderer>().sprite = crystalStates[0];
         damageVar = 0;
-        GetComponentInChildren<SpriteRenderer>().enabled = true;
-
+        gameObject.GetComponentInChildren<SpriteRenderer>().enabled = true;
         gemColor = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
         GetComponentInChildren<SpriteRenderer>().color = gemColor;
         shardScatter.startColor = gemColor;
-
         currentHP = OriginalHP;
         crystalShine.SetActive(true);
         GetComponentInChildren<Light2D>().enabled = true;
-
-        ItemInitialization();
-        Debug.Log("item that this gem has: " + currentItem);
     }
 
     private void RewardShards(int shards, bool broken)
     {
-        if (GameManager.Instance == null) return;
-
+        if(GameManager.Instance == null) { return; }
         if (broken)
         {
             GameManager.Instance.AddShards(shards * breakMulitplier);
-
             crystalShine.SetActive(false);
             GetComponentInChildren<Light2D>().enabled = false;
-
-            if (hasItem && currentItem != ItemTypes.Items.NONE && itemManager != null)
-            {
-                itemManager.SpawnItem(currentItem);
-            }
+            //spawning item
+            itemManager.SpawnItem(0); //only spawning rapidfire for now
         }
         else
         {
@@ -143,7 +123,12 @@ public class Resource : MonoBehaviour
         }
     }
 
-    private IEnumerator Shake()
+    
+    public float shakeDuration = 0.3f;   // how long the shake lasts
+    public float shakeStrength = 0.1f;    // how strong the shake is
+    private Vector3 originalPosition;
+
+    IEnumerator Shake()
     {
         float elapsed = 0f;
 
@@ -166,4 +151,5 @@ public class Resource : MonoBehaviour
         yield return new WaitForSeconds(5f);
         Respawn();
     }
+
 }

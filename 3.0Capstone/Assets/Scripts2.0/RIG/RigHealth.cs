@@ -215,36 +215,6 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         vignette.gameObject.SetActive(false);
     }
 
-    public void FullRepairBurst()
-    {
-        if (currentHealth <= 0f) return;
-
-        currentHealth = maxHealth;
-        nextThreshold = maxHealth - DamageThreshold;
-
-        for (int i = 0; i < damagedAreas.Length; i++)
-        {
-            if (damagedAreas[i] != null)
-            {
-                damagedAreas[i].SetActive(false);
-            }
-        }
-
-        active.Clear();
-        nonActive.Clear();
-
-        for (int i = 0; i < damagedAreas.Length; i++)
-        {
-            if (damagedAreas[i] != null)
-            {
-                active.Add(damagedAreas[i]);
-            }
-        }
-
-        UpdateHealthUI();
-        StartCoroutine(Vignette(Color.green));
-    }
-
     // private IEnumerator Shake()
     // {
     //     if (mainCam == null) yield break;
