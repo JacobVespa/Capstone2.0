@@ -1,0 +1,815 @@
+fileFormatVersion: 2
+guid: 5c170cc988b0aad45a2008e947d8fcd0
+importerOverride:
+  nativeImporterType: 2089858483
+  scriptedImporterType:
+    serializedVersion: 2
+    Hash: b10b55a1aa6a1aa32521bc0cab59632e
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: b2a9591990af98743ba3ff7cf1000886, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 1
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 6a3fb94832c51e04c8a0ea131c93637b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+    spritePosition: {x: 0, y: 0}
+  multiSpriteImportData: []
+  layeredSpriteImportData:
+  - name: Rig Update
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 5831
+      height: 7919
+    spriteID: 1fbf22342658076409d5080facc14689
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+    spritePosition: {x: 5005, y: 976}
+  - name: Flag
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 6202
+      y: 7931
+      width: 1628
+      height: 1377
+    spriteID: b8e0d758eb02cac4da7fc4e232209fd4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 6202, y: 7931}
+    spritePosition: {x: 4485, y: 0}
+  - name: Small Pipe
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 3368
+      y: 11005
+      width: 840
+      height: 478
+    spriteID: 1493c17063d10e2408f5e1709e870fec
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 3368, y: 11005}
+    spritePosition: {x: 10573, y: 3462}
+  - name: Large Pipe
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 6222
+      y: 9568
+      width: 1378
+      height: 485
+    spriteID: c642db020a403e845940510c6773c93c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 6222, y: 9568}
+    spritePosition: {x: 10502, y: 3146}
+  - name: Bumper
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4750
+      y: 10791
+      width: 2293
+      height: 639
+    spriteID: 68d536d9f545d0040b3d24b7909e2362
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4750, y: 10791}
+    spritePosition: {x: 6895, y: 466}
+  - name: Piston 1
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 7002
+      y: 6935
+      width: 1069
+      height: 347
+    spriteID: 8e03ce62f753b1a4fbba27cfd84ef9d8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 7002, y: 6935}
+    spritePosition: {x: 4770, y: 4021}
+  - name: Piston 2
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 5843
+      y: 6935
+      width: 1066
+      height: 645
+    spriteID: 0a2cefb2f3ee613439dbaa801011970d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 5843, y: 6935}
+    spritePosition: {x: 4827, y: 3499}
+  - name: Piston 3
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 7051
+      y: 10791
+      width: 1126
+      height: 635
+    spriteID: 6ba8b34e7b2a6e14f9b72865da159a56
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 7051, y: 10791}
+    spritePosition: {x: 4953, y: 3071}
+  - name: Stop Sign
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4750
+      y: 9568
+      width: 1464
+      height: 1215
+    spriteID: 53047f4ce55700a409d63bc128de2b66
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4750, y: 9568}
+    spritePosition: {x: 10261, y: 4498}
+  - name: Dead End
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 3368
+      y: 9568
+      width: 1374
+      height: 1429
+    spriteID: e6bac1529daebb44aa8ffdc52558dd5b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 3368, y: 9568}
+    spritePosition: {x: 4280, y: 4601}
+  - name: Drill
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 5843
+      y: 4
+      width: 2278
+      height: 3099
+    spriteID: e197e4fb4a7b4c148957906384d7951c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 5843, y: 4}
+    spritePosition: {x: 6871, y: 8799}
+  - name: Left Tread
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 5843
+      y: 3111
+      width: 1151
+      height: 3816
+    spriteID: 3b4cf6a85d6445b45a93012a8bdfe83c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 5843, y: 3111}
+    spritePosition: {x: 5654, y: 5150}
+  - name: Right Tread
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 7002
+      y: 3111
+      width: 1151
+      height: 3816
+    spriteID: 0c359184560ebe440b0e57d5b9cbb170
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 7002, y: 3111}
+    spritePosition: {x: 9260, y: 5150}
+  - name: Tire Guards
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 7931
+      width: 6190
+      height: 1629
+    spriteID: 4da602e0999447c49ba13beb9a241cad
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 7931}
+    spritePosition: {x: 4907, y: 1070}
+  - name: Right Tire
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 9568
+      width: 1689
+      height: 1931
+    spriteID: 31157fd19828e6e4f82d1e8a7b92983e
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 9568}
+    spritePosition: {x: 9039, y: 554}
+  - name: Left Tire
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 1701
+      y: 9568
+      width: 1659
+      height: 1913
+    spriteID: c822e6f6dce1842459430291a6acac1c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 1701, y: 9568}
+    spritePosition: {x: 5290, y: 564}
+  spriteImportData: []
+  rigSpriteImportData: []
+  sharedRigSpriteImportData: []
+  mosaicSpriteImportData: []
+  sharedRigCharacterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  characterData:
+    bones: []
+    parts: []
+    dimension: {x: 0, y: 0}
+    characterGroups: []
+    pivot: {x: 0, y: 0}
+    boneReadOnly: 0
+  platformSettings: []
+  mosaicLayers: 1
+  characterMode: 1
+  documentPivot: {x: 0, y: 0}
+  documentAlignment: 7
+  importHiddenLayers: 0
+  layerMappingOption: 2
+  generatePhysicsShape: 0
+  paperDollMode: 0
+  keepDupilcateSpriteName: 1
+  padding: 4
+  spriteSizeExpand: 0
+  skeletonAssetReferenceID: 
+  pipeline: {instanceID: 0}
+  pipelineVersion: 
+  spriteCategoryList:
+    categories: []
+  spritePackingTag: 
+  resliceFromLayer: 0
+  pSDLayerImportSetting: []
+  psdLayers:
+  - name: Rig Body
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: dab4ca2a0d934e143bc69cf00040f416
+    layerID: 804
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Rig Update
+    spriteName: Rig Update
+    isGroup: 0
+    parentIndex: 0
+    spriteID: 1fbf22342658076409d5080facc14689
+    layerID: 783
+    mosaicPosition: {x: 4, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Accesories
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 5882458577b78a145bbfff89f80f1323
+    layerID: 597
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Flag
+    spriteName: Flag
+    isGroup: 0
+    parentIndex: 2
+    spriteID: b8e0d758eb02cac4da7fc4e232209fd4
+    layerID: 869
+    mosaicPosition: {x: 6202, y: 7931}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Small Pipe
+    spriteName: Small Pipe
+    isGroup: 0
+    parentIndex: 2
+    spriteID: 1493c17063d10e2408f5e1709e870fec
+    layerID: 512
+    mosaicPosition: {x: 3368, y: 11005}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Large Pipe
+    spriteName: Large Pipe
+    isGroup: 0
+    parentIndex: 2
+    spriteID: c642db020a403e845940510c6773c93c
+    layerID: 510
+    mosaicPosition: {x: 6222, y: 9568}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Bumper
+    spriteName: Bumper
+    isGroup: 0
+    parentIndex: 2
+    spriteID: 68d536d9f545d0040b3d24b7909e2362
+    layerID: 866
+    mosaicPosition: {x: 4750, y: 10791}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Pistons
+    spriteName: 
+    isGroup: 1
+    parentIndex: 2
+    spriteID: abbb3d4a12feebb43b44be218fe9d65a
+    layerID: 525
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Piston 1
+    spriteName: Piston 1
+    isGroup: 0
+    parentIndex: 7
+    spriteID: 8e03ce62f753b1a4fbba27cfd84ef9d8
+    layerID: 524
+    mosaicPosition: {x: 7002, y: 6935}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Piston 2
+    spriteName: Piston 2
+    isGroup: 0
+    parentIndex: 7
+    spriteID: 0a2cefb2f3ee613439dbaa801011970d
+    layerID: 522
+    mosaicPosition: {x: 5843, y: 6935}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Piston 3
+    spriteName: Piston 3
+    isGroup: 0
+    parentIndex: 7
+    spriteID: 6ba8b34e7b2a6e14f9b72865da159a56
+    layerID: 520
+    mosaicPosition: {x: 7051, y: 10791}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Turrets
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 433ecde3f3d91224fac76ae019713124
+    layerID: 620
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Stop Sign
+    spriteName: 
+    isGroup: 1
+    parentIndex: 11
+    spriteID: 7b3cca1e4d31fb04a9e8cba59bea50ef
+    layerID: 619
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Stop Sign
+    spriteName: Stop Sign
+    isGroup: 0
+    parentIndex: 12
+    spriteID: 53047f4ce55700a409d63bc128de2b66
+    layerID: 618
+    mosaicPosition: {x: 4750, y: 9568}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Dead End
+    spriteName: 
+    isGroup: 1
+    parentIndex: 11
+    spriteID: be0ac4381628d434a866263a5573975f
+    layerID: 612
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Dead End
+    spriteName: Dead End
+    isGroup: 0
+    parentIndex: 14
+    spriteID: e6bac1529daebb44aa8ffdc52558dd5b
+    layerID: 611
+    mosaicPosition: {x: 3368, y: 9568}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Drill
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 36c705e719baa8946a1cc7629a2c1ac0
+    layerID: 485
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Drill
+    spriteName: Drill
+    isGroup: 0
+    parentIndex: 16
+    spriteID: e197e4fb4a7b4c148957906384d7951c
+    layerID: 484
+    mosaicPosition: {x: 5843, y: 4}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Drill Fill
+    spriteName: 
+    isGroup: 0
+    parentIndex: 16
+    spriteID: 8de39f6e351c8334dbe3a3b060943023
+    layerID: 478
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Drill Fill
+    spriteName: 
+    isGroup: 0
+    parentIndex: 16
+    spriteID: 044df68a3011ab84aad9b03b0296bc38
+    layerID: 477
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: ' Treads'
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 650b565b577ff504ebb156fdf51f294e
+    layerID: 562
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Left Tread
+    spriteName: Left Tread
+    isGroup: 0
+    parentIndex: 20
+    spriteID: 3b4cf6a85d6445b45a93012a8bdfe83c
+    layerID: 560
+    mosaicPosition: {x: 5843, y: 3111}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Right Tread
+    spriteName: Right Tread
+    isGroup: 0
+    parentIndex: 20
+    spriteID: 0c359184560ebe440b0e57d5b9cbb170
+    layerID: 555
+    mosaicPosition: {x: 7002, y: 3111}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Tread Fill
+    spriteName: 
+    isGroup: 0
+    parentIndex: 20
+    spriteID: 01ab73a20826536409ebddfa50978231
+    layerID: 598
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Tread Fill
+    spriteName: 
+    isGroup: 0
+    parentIndex: 20
+    spriteID: c1921cca6f860a642b6e54b11e7c7a08
+    layerID: 539
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 0
+  - name: Tire Guards
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: ab35b916c9193754d9becc29680dc37e
+    layerID: 854
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Tire Guards
+    spriteName: Tire Guards
+    isGroup: 0
+    parentIndex: 25
+    spriteID: 4da602e0999447c49ba13beb9a241cad
+    layerID: 853
+    mosaicPosition: {x: 4, y: 7931}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Right Tire
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: 24ddd11abe5354e45bffeba44820642a
+    layerID: 863
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Right Tire
+    spriteName: Right Tire
+    isGroup: 0
+    parentIndex: 27
+    spriteID: 31157fd19828e6e4f82d1e8a7b92983e
+    layerID: 871
+    mosaicPosition: {x: 4, y: 9568}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  - name: Left Tire
+    spriteName: 
+    isGroup: 1
+    parentIndex: -1
+    spriteID: ac4bc2e52850c8645aaabdeb6c1b2429
+    layerID: 862
+    mosaicPosition: {x: 0, y: 0}
+    flatten: 0
+    isImported: 0
+    isVisible: 1
+  - name: Left Tire
+    spriteName: Left Tire
+    isGroup: 0
+    parentIndex: 29
+    spriteID: c822e6f6dce1842459430291a6acac1c
+    layerID: 870
+    mosaicPosition: {x: 1701, y: 9568}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
+  mosaicPSDLayers: []
+  rigPSDLayers: []
+  sharedRigPSDLayers: []
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  spriteSizeExpandChanged: 0
+  generateGOHierarchy: 0
+  textureAssetName: 
+  prefabAssetName: 
+  spriteLibAssetName: 
+  skeletonAssetName: 
+  secondarySpriteTextures: []
