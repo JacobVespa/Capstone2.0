@@ -24,10 +24,6 @@ public class RangedEnemyAI : EnemyAI
     [SerializeField] private float minAttackRange = 12;
     [SerializeField] private float maxAttackRange = 18;
 
-    [SerializeField] private AudioSource audioSource;
-    [SerializeField] private AudioClip[] attackClips;
-    [SerializeField] private AudioClip deathClip;
-
     int layer_mask;
 
     protected override void Awake()
@@ -83,10 +79,6 @@ public class RangedEnemyAI : EnemyAI
         if (!hasTarget) { return; }
         if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
         if (!CheckInView()) { behaviour = Behaviour.Moving; }
-
-        int clipIndex = Random.Range(0, attackClips.Length);
-        audioSource.clip = attackClips[clipIndex];
-        audioSource.Play();
 
         body.Attack(targetLoc);
     }

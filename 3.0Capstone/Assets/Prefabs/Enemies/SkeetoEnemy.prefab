@@ -161,6 +161,9 @@ MonoBehaviour:
   health: 3
   attackStartUp: 3
   attackCoolDown: 3
+  audioSource: {fileID: 8747906298825351223}
+  attackClip: {fileID: 8300000, guid: 7d3ad071854abbf4da11c4d2c8c1316f, type: 3}
+  deathClip: {fileID: 8300000, guid: e28cc2afa8a45a149b17293e2d274420, type: 3}
   projSpeed: 3
   bulletPrefab: {fileID: 6735711473433599987, guid: 9bc8267722b991a4b9837db225663d7e, type: 3}
   objectPool: {fileID: 2200124775379224295}
@@ -185,11 +188,6 @@ MonoBehaviour:
   check: 0
   minAttackRange: 10
   maxAttackRange: 20
-  audioSource: {fileID: 8747906298825351223}
-  attackClips:
-  - {fileID: 8300000, guid: 4a33e0e9e701b774d8f64534e09172fe, type: 3}
-  - {fileID: 8300000, guid: 7d3ad071854abbf4da11c4d2c8c1316f, type: 3}
-  deathClip: {fileID: 8300000, guid: e28cc2afa8a45a149b17293e2d274420, type: 3}
 --- !u!114 &1503413796833272081
 MonoBehaviour:
   m_ObjectHideFlags: 0

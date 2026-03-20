@@ -60,6 +60,10 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     protected float attackTimer = 0;
     public float AttackTimer { get { return AttackTimer; } set { AttackTimer = value; } }
 
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AudioClip attackClip;
+    public AudioClip deathClip;
 
     protected virtual void Awake()
     {
@@ -207,6 +211,9 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             WallMoving floor = FindFirstObjectByType<WallMoving>();
             var velOverTime = gooSubEmitter.velocityOverLifetime;
             velOverTime.z = -floor.GetFloorSpeed();
+
+            audioSource.clip = deathClip;
+            audioSource.Play();
 
             //ParticleSystem bugDeath = Instantiate(bugGoo, transform);
             bugGoo.transform.parent = GameManager.Instance.GetStorage();

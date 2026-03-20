@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 /*  MeleeEnemyBody is mainly for letting melee enemies attack
@@ -52,7 +53,8 @@ public class MeleeEnemyBody : EnemyBody
 
         base.Attack(target);
         StartCoroutine(GrubAttack());
-
+        audioSource.clip = attackClip;
+        audioSource.Play();
         if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver damageTarget))
         {
             damageTarget.Attacked(damageSource);
