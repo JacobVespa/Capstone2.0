@@ -25,6 +25,17 @@ public class MapButton : MonoBehaviour
 
         if (locationText != null)
             locationText.text = "Unknown";
+
+        Button btn = GetComponent<Button>();
+        if (btn != null)
+            btn.interactable = false;
+    }
+
+    private bool canBePressed = false;
+
+    public void SetPressAllowed(bool allowed)
+    {
+        canBePressed = allowed;
     }
 
     public void SetLocation(Sprite sprite, string title)
@@ -67,6 +78,7 @@ public class MapButton : MonoBehaviour
     // Only wire this in the inspector OnClick
     public void StartLevel()
     {
+        if (!canBePressed) return;
         if (visited) return; // Prevent double-triggering
 
         // Mark visited and update map state first

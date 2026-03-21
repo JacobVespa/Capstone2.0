@@ -1,3 +1,5 @@
+using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -30,10 +32,12 @@ public class MenuCursor : MonoBehaviour
     // players are initialised on the same button
     [SerializeField] private float confirmCooldown = 0.5f;
     private float confirmCooldownTimer = 0f;
+    [SerializeField] private TMP_Text countDownTimer;
 
     private void Start()
     {
         confirmCooldownTimer = confirmCooldown;
+        voteTimer = autoSelectDelay;
     }
 
     private void Update()
@@ -46,6 +50,8 @@ public class MenuCursor : MonoBehaviour
 
         GameObject sel0 = GetSelection(0);
         GameObject sel1 = GetSelection(1);
+
+        UpdateButtonStates(sel0, sel1);
 
         MoveCursor(P1Circle_Sprite, P1Head_Sprite, sel0, new Vector2(-30, -30));
         MoveCursor(P2Circle_Sprite, P2Head_Sprite, sel1, new Vector2( 30, -30));
@@ -86,24 +92,30 @@ public class MenuCursor : MonoBehaviour
 
     private void HandleVoteTimer(GameObject sel0, GameObject sel1)
     {
-        if (sel0 == null || sel1 == null) return;
+        if (sel0 == null || sel1 == null) 
+        {
+            countDownTimer.text = "Ready!";
+            return;
+        }
 
         if (sel0 == sel1)
         {
             timerRunning = false;
-            voteTimer = 0f;
-            ConfirmSelection(sel0);
+            countDownTimer.text = "Both Ready!";
         }
         else
         {
             if (!timerRunning)
             {
                 timerRunning = true;
-                voteTimer = autoSelectDelay;
             }
 
             voteTimer -= Time.deltaTime;
             // TODO: push voteTimer to a UI countdown display here
+            if (countDownTimer != null) 
+                countDownTimer.text = Mathf.CeilToInt(voteTimer).ToString();
+            else
+                Debug.Log("Timer Object not present in inspector");
 
             if (voteTimer <= 0f)
             {
@@ -117,8 +129,33 @@ public class MenuCursor : MonoBehaviour
     {
         voteConfirmed = true;
 
-        MapButton mb = node.GetComponent<MapButton>();
-        if (mb != null)
-            CaveMap.Instance?.OnNodeVisited(mb.GetComponent<Button>());
+        Button btn = node.GetComponent<Button>();
+        if (btn != null)
+        {
+            btn.onClick.Invoke();   // Simulates a real button press
+        }
+    }
+
+    private void UpdateButtonStates(GameObject sel0, GameObject sel1)
+    {
+        MapButton[] allButtons = FindObjectsByType<MapButton>(FindObjectsSortMode.None);
+
+        foreach (var mb in allButtons)
+            mb.SetPressAllowed(false);
+
+        bool singlePlayer = sel0 != null && sel1 == null;
+
+        if (singlePlayer)
+        {
+            MapButton mb = sel0.GetComponent<MapButton>();
+            if (mb != null) mb.SetPressAllowed(true);
+            return;
+        }
+
+        if (sel0 != null && sel1 != null && sel0 == sel1)
+        {
+            MapButton mb = sel0.GetComponent<MapButton>();
+            if (mb != null) mb.SetPressAllowed(true);
+        }
     }
 }
