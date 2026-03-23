@@ -518,6 +518,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1280483898006906582, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280483898006906582, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280483898006906582, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1280483898006906582, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2537405054030141824, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3404076725289897753, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7908d3c81a6c5a547b25a8a609554280, type: 3}
+    - target: {fileID: 3404076725289897753, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3404076725289897753, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3404076725289897753, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3406142346630937159, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -615,7 +651,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -7197147881584039178, guid: e9aa6e22566b01e4dabfb0897117bdc7, type: 3}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5678143571636434538, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+    - {fileID: 4267929710026054009, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4551af4e7484392479d44baff4f76b24, type: 3}

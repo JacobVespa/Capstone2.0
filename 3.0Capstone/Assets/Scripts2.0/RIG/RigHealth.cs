@@ -3,11 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using Unity.VisualScripting;
+using UnityEditor.Callbacks;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 
 public class RigHealth : MonoBehaviour, IDamageReceiver
 {
+
+
+    
+
+
     [Header("Health")]
     [SerializeField] private float maxHealth = 10f;
     [SerializeField] private float currentHealth;
@@ -109,6 +117,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         CameraCinematic cinematic = FindFirstObjectByType<CameraCinematic>();
         cinematic.ShakeCamera(0.15f,0.25f);
         StartCoroutine(Vignette(Color.red));
+
 
         if (currentHealth <= 0f)
             StartCoroutine(Die());
@@ -215,26 +224,26 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         vignette.gameObject.SetActive(false);
     }
 
-    // private IEnumerator Shake()
-    // {
-    //     if (mainCam == null) yield break;
+     //private IEnumerator Shake()
+     //{
+     //    if (mainCam == null) yield break;
 
-    //     float elapsed = 0f;
-    //     Vector3 startPos = originalCamPos;
+     //    float elapsed = 0f;
+     //    Vector3 startPos = originalCamPos;
 
-    //     while (elapsed < camShakeDur)
-    //     {
-    //         float x = Random.Range(-1f, 1f) * camShakeStr;
-    //         float y = Random.Range(-1f, 1f) * camShakeStr;
+     //    while (elapsed < camShakeDur)
+     //    {
+     //        float x = Random.Range(-1f, 1f) * camShakeStr;
+     //        float y = Random.Range(-1f, 1f) * camShakeStr;
 
-    //         mainCam.transform.position = startPos + new Vector3(x, y, 0f);
+     //        mainCam.transform.position = startPos + new Vector3(x, y, 0f);
 
-    //         elapsed += Time.deltaTime;
-    //         yield return null;
-    //     }
+     //        elapsed += Time.deltaTime;
+     //        yield return null;
+     //    }
 
-    //     mainCam.transform.position = startPos;
-    // }
+     //    mainCam.transform.position = startPos;
+     //}
 
 
     #region ItemEvents
