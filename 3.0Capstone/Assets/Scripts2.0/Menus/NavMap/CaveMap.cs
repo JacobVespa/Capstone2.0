@@ -13,6 +13,8 @@ public class CaveMap : MonoBehaviour
     [SerializeField] private float spacingY = 150f;
 
     [Header("Images")]
+    [SerializeField] GameObject stickynote;
+
     [SerializeField] Sprite searchSprite;
     [SerializeField] Sprite extractSprite;
     [SerializeField] Sprite bonusSprite;
@@ -328,6 +330,8 @@ public class CaveMap : MonoBehaviour
         GameObject levelButton = Instantiate(prefab, mapContainer);
         RectTransform rectTransform = levelButton.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = GetNodePosition(col, row, rowWidth);
+        //Instantiate(stickynote, levelButton.transform);
+
 
         MapButton mapButton = levelButton.GetComponent<MapButton>();
 
