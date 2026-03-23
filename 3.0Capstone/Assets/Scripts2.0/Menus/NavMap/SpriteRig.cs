@@ -27,6 +27,11 @@ public class SpriteRig : MonoBehaviour
         rigRect = rigImage.GetComponent<RectTransform>();
     }
 
+    public RectTransform GetRigParent()
+    {
+        return rigRect.parent as RectTransform;
+    }
+
     /// <summary>
     /// Snaps rig to a position with no animation. Used on map load/restore.
     /// </summary>

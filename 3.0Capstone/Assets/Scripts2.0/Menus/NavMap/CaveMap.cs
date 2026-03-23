@@ -12,8 +12,16 @@ public class CaveMap : MonoBehaviour
     [SerializeField] private float spacingX = 150f;
     [SerializeField] private float spacingY = 150f;
 
+    [Header("City Layout Jitter")]
+    [Tooltip("Max random X offset applied per node (city-block variance)")]
+    [SerializeField] private float jitterX = 45f;
+    [Tooltip("Max random Y offset applied per node (city-block variance)")]
+    [SerializeField] private float jitterY = 30f;
+    [Tooltip("Chance (0-1) a node gets an extra nudge to simulate irregular blocks")]
+    [SerializeField] private float extraNudgeChance = 0.3f;
+    [SerializeField] private float extraNudgeStrength = 25f;
+
     [Header("Images")]
-    [SerializeField] GameObject stickynote;
 
     [SerializeField] Sprite searchSprite;
     [SerializeField] Sprite extractSprite;
@@ -28,6 +36,9 @@ public class CaveMap : MonoBehaviour
     private List<List<Button>> levelTree;
     private List<int> rowWidths;
     private List<List<List<Image>>> connectionLines;
+
+    // Stores the computed city-layout positions for each node [row][col]
+    private List<List<Vector2>> nodePositions;
 
     public Button firstSelectedButton;
 
@@ -65,7 +76,6 @@ public class CaveMap : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
 
-            // Place rig at the bottom centre of the map (below row 0)
             PlaceRigAtStart();
         }
     }
@@ -75,18 +85,24 @@ public class CaveMap : MonoBehaviour
     /// </summary>
     public Vector2 GetButtonPosition(Button button)
     {
-        return button.GetComponent<RectTransform>().anchoredPosition;
+        RectTransform buttonRect = button.GetComponent<RectTransform>();
+        RectTransform rigParent = SpriteRig.Instance.GetRigParent(); // add this getter below
+
+        // Convert button world position → local position in the rig's parent space
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(null, buttonRect.position);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(rigParent, screenPoint, null, out Vector2 localPoint);
+        return localPoint;
     }
 
     private void PlaceRigAtStart()
     {
         if (SpriteRig.Instance == null || levelTree.Count == 0) return;
 
-        // Centre X of the first row, slightly below it
         float centreX = 0f;
-        float bottomY = GetNodePosition(0, 0, rowWidths[0]).y - spacingY * 0.8f;
+        // Use the lowest row's average Y, pushed down a bit
+        float bottomY = nodePositions[0].Average(p => p.y) - spacingY * 0.8f;
 
-        SpriteRig.Instance.SnapTo(new Vector2(centreX, bottomY));
+        SpriteRig.Instance.SnapTo(new Vector2(centreX, bottomY + (bottomY * 0.5f)));
     }
 
     private void RestoreState(CaveMapState state)
@@ -105,7 +121,6 @@ public class CaveMap : MonoBehaviour
         RestoreVisitedLines(state.VisitedPath);
         UpdateButtonAccess();
 
-        // Snap rig to the last visited node
         Vector2Int last = state.LastVisited;
         if (last.y >= 0 && last.y < levelTree.Count && last.x >= 0 && last.x < levelTree[last.y].Count)
         {
@@ -178,6 +193,54 @@ public class CaveMap : MonoBehaviour
         return globalRow == 0 ? levels : levels + (globalRow % 2 == 0 ? 0 : 1);
     }
 
+    // -------------------------------------------------------------------------
+    // City-layout position generator
+    // -------------------------------------------------------------------------
+    /// <summary>
+    /// Builds nodePositions using the current Random state (must be seeded first).
+    /// Each node starts on a regular grid, then receives:
+    ///   1. A per-node jitter in X and Y within [−jitter, +jitter].
+    ///   2. An occasional extra nudge to simulate irregular city blocks.
+    /// Rows are sorted by average X so left-to-right ordering is preserved.
+    /// </summary>
+    private void GenerateCityPositions()
+    {
+        nodePositions = new List<List<Vector2>>();
+
+        float totalHeight = (depth - 1) * spacingY;
+
+        for (int row = 0; row < rowWidths.Count; row++)
+        {
+            int nodeCount = rowWidths[row];
+            List<Vector2> rowPos = new List<Vector2>();
+
+            float totalWidth = (nodeCount - 1) * spacingX;
+            float baseY = (row * spacingY) - (totalHeight / 2f);
+
+            for (int col = 0; col < nodeCount; col++)
+            {
+                float baseX = (col * spacingX) - (totalWidth / 2f);
+
+                // Primary jitter — city block variance
+                float offsetX = Random.Range(-jitterX, jitterX);
+                float offsetY = Random.Range(-jitterY, jitterY);
+
+                // Occasional extra nudge
+                if (Random.value < extraNudgeChance)
+                {
+                    offsetX += Random.Range(-extraNudgeStrength, extraNudgeStrength);
+                    offsetY += Random.Range(-extraNudgeStrength * 0.5f, extraNudgeStrength * 0.5f);
+                }
+
+                rowPos.Add(new Vector2(baseX + offsetX, baseY + offsetY));
+            }
+
+            // Sort within each row by X so neighbour connections remain logical
+            rowPos.Sort((a, b) => a.x.CompareTo(b.x));
+            nodePositions.Add(rowPos);
+        }
+    }
+
     private void CreateMap()
     {
         levelTree = new List<List<Button>>();
@@ -188,18 +251,26 @@ public class CaveMap : MonoBehaviour
         int seed = CaveMapState.Instance != null ? CaveMapState.Instance.MapSeed : 0;
         Random.InitState(seed);
 
+        // Build row widths first so GenerateCityPositions has them
         for (int i = 0; i < depth + 1; i++)
         {
             int nodeCount = GetNodeCountForRow(localGlobalRow);
             rowWidths.Add(nodeCount);
             localGlobalRow++;
+        }
 
+        // Generate city-style positions (uses the seeded Random)
+        GenerateCityPositions();
+
+        // Now create buttons using precomputed city positions
+        for (int i = 0; i < depth + 1; i++)
+        {
             bonusCount = 0;
             List<Button> levelButtons = new List<Button>();
 
-            for (int j = 0; j < nodeCount; j++)
+            for (int j = 0; j < rowWidths[i]; j++)
             {
-                GameObject levelButton = CreateLevel(col: j, row: i, rowWidth: nodeCount);
+                GameObject levelButton = CreateLevel(col: j, row: i);
                 levelButtons.Add(levelButton.GetComponent<Button>());
             }
 
@@ -299,6 +370,7 @@ public class CaveMap : MonoBehaviour
 
         levelTree.Clear();
         rowWidths.Clear();
+        nodePositions = null;
 
         if (CaveMapState.Instance != null)
             CaveMapState.Instance.GenerateNewSeed();
@@ -312,48 +384,49 @@ public class CaveMap : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
     }
 
-    private Vector2 GetNodePosition(int col, int row, int rowWidth)
-    {
-        float totalWidth = (rowWidth - 1) * spacingX;
-        float x = (col * spacingX) - (totalWidth / 2f);
-
-        float totalHeight = (depth - 1) * spacingY;
-        float y = (row * spacingY) - (totalHeight / 2f);
-
-        return new Vector2(x, y);
-    }
-
     int bonusCount = 0;
 
-    private GameObject CreateLevel(int col, int row, int rowWidth)
+    /// <summary>
+    /// Creates a node button using the precomputed city-layout position.
+    /// </summary>
+    private GameObject CreateLevel(int col, int row)
     {
         GameObject levelButton = Instantiate(prefab, mapContainer);
         RectTransform rectTransform = levelButton.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = GetNodePosition(col, row, rowWidth);
-        //Instantiate(stickynote, levelButton.transform);
-
+        rectTransform.anchoredPosition = nodePositions[row][col];
 
         MapButton mapButton = levelButton.GetComponent<MapButton>();
 
-        Sprite[] sprites = { searchSprite, extractSprite, mysterySprite, bonusSprite};
-        string[] names = { "Search", "Extract", "Mystery", "Bonus"};
+        Sprite[] sprites = { searchSprite, extractSprite, mysterySprite, bonusSprite };
+        string[] names = { "Search", "Extract", "Mystery", "Bonus" };
 
-        int rng = 0;
-
-        if (row % 2 == 0)
-        {
-            rng = Random.Range(0, sprites.Length - 1);
-        }
-        else
-        {
-            if (bonusCount <= 1) rng = Random.Range(0, sprites.Length);
-            if (rng == 2) bonusCount++;
-        }
+        int rng = PickLevelType(row);
 
         mapButton.SetLocation(sprites[rng], names[rng]);
         mapButton.LevelIndex = rng;
 
         return levelButton;
+    }
+
+    private int PickLevelType(int row)
+    {
+        bool bonusAllowed = (row % 2 != 0) && (bonusCount <= 1);
+
+        // Weights: Search=35, Extract=35, Mystery=15, Bonus=10 (only on odd rows)
+        int searchWeight  = 30;
+        int extractWeight = 30;
+        int mysteryWeight = 20;
+        int bonusWeight   = bonusAllowed ? 20 : 0;
+
+        int total = searchWeight + extractWeight + mysteryWeight + bonusWeight;
+        int roll  = Random.Range(0, total);
+
+        if (roll < searchWeight)               return 0; // Search
+        if (roll < searchWeight + extractWeight) return 1; // Extract
+        if (roll < searchWeight + extractWeight + mysteryWeight) return 2; // Mystery
+        
+        bonusCount++;
+        return 3; // Bonus
     }
 
     private void DrawAllConnections()
@@ -375,8 +448,9 @@ public class CaveMap : MonoBehaviour
                 {
                     if (n >= 0 && n < levelTree[i + 1].Count)
                     {
-                        Vector2 from = levelTree[i][j].GetComponent<RectTransform>().anchoredPosition;
-                        Vector2 to = levelTree[i + 1][n].GetComponent<RectTransform>().anchoredPosition;
+                        // Draw lines using city positions directly
+                        Vector2 from = nodePositions[i][j];
+                        Vector2 to = nodePositions[i + 1][n];
                         Image line = DrawLine(from, to, defaultLineColor);
                         linesFromNode.Add(line);
                     }

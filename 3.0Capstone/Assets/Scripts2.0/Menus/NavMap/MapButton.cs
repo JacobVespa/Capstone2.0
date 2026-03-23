@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class MapButton : MonoBehaviour
 {
-    Image locationImage;
+    [SerializeField] private Image locationImage;
+    [SerializeField] private Sprite[] stickyNotes;
+    [SerializeField] private Image currentNote;
     TMP_Text locationText;
     private int levelIndex;
     public int LevelIndex
@@ -17,7 +19,6 @@ public class MapButton : MonoBehaviour
 
     void Awake()
     {
-        locationImage = GetComponent<Image>();
         locationText = GetComponentInChildren<TMP_Text>();
 
         if (locationImage != null)
@@ -45,6 +46,17 @@ public class MapButton : MonoBehaviour
 
         if (locationText != null)
             locationText.text = title;
+
+        if (stickyNotes != null)
+            RandomSticky();
+    }
+
+    private void RandomSticky()
+    {
+        int rng = Random.Range(0, stickyNotes.Length - 1);
+
+        if (currentNote != null)
+            currentNote.sprite = stickyNotes[rng];
     }
 
     public void VisitLocation()

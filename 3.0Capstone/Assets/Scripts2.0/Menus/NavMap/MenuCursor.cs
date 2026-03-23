@@ -34,6 +34,8 @@ public class MenuCursor : MonoBehaviour
     private float confirmCooldownTimer = 0f;
     [SerializeField] private TMP_Text countDownTimer;
 
+    MapButton[] allButtons;
+
     private void Start()
     {
         confirmCooldownTimer = confirmCooldown;
@@ -51,6 +53,7 @@ public class MenuCursor : MonoBehaviour
         GameObject sel0 = GetSelection(0);
         GameObject sel1 = GetSelection(1);
 
+        allButtons = FindObjectsByType<MapButton>(FindObjectsSortMode.None);
         UpdateButtonStates(sel0, sel1);
 
         MoveCursor(P1Circle_Sprite, P1Head_Sprite, sel0, new Vector2(-30, -30));
@@ -129,6 +132,9 @@ public class MenuCursor : MonoBehaviour
     {
         voteConfirmed = true;
 
+        foreach (var mb in allButtons)
+            mb.SetPressAllowed(true);
+
         Button btn = node.GetComponent<Button>();
         if (btn != null)
         {
@@ -138,8 +144,6 @@ public class MenuCursor : MonoBehaviour
 
     private void UpdateButtonStates(GameObject sel0, GameObject sel1)
     {
-        MapButton[] allButtons = FindObjectsByType<MapButton>(FindObjectsSortMode.None);
-
         foreach (var mb in allButtons)
             mb.SetPressAllowed(false);
 
