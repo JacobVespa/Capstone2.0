@@ -1,9 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.UIElements;
-using UnityEditor.Search;
 
 public class Resource : MonoBehaviour
 {
