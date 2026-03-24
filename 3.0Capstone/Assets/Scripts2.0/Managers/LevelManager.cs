@@ -112,6 +112,7 @@ public class LevelManager : MonoBehaviour
             DifficultyManager.Instance.CaveCleared();
             DifficultyManager.Instance.ResetGemsCollected();
             GameManager.Instance.LevelsCompleted = 0;
+            CaveMapState.Instance.FullReset();
             ShowEndScreen(7);
         }
         else if (goNext)
@@ -126,6 +127,7 @@ public class LevelManager : MonoBehaviour
                 SoundManager.Instance.PlayBGM("LoseTheme");
 
             DifficultyManager.Instance.ResetDifficulty();
+            CaveMapState.Instance.FullReset();
             ShowEndScreen(GameManager.Instance.ResultScreenIndex);
         }
 

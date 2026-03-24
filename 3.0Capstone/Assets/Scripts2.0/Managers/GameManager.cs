@@ -182,7 +182,6 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         if (flowManager != null) flowManager.WindDownLevel(false);
-        CaveMapState.Instance.FullReset();
         rigObject = null;
 
         PauseGameTime();

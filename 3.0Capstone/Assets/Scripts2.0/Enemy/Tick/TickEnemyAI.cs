@@ -1,4 +1,6 @@
+using UnityEditor.Recorder;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 /*  TickEnemyAI determiens what actiosn the body takes depending on the state
  * 
@@ -49,7 +51,10 @@ public class TickEnemyAI : EnemyAI
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
                 break;
             case Behaviour.Dead:
-                if (CheckDeathPlayed()) { DestroyEnemy(); }
+                if (CheckDeathPlayed()) {
+                    DeathDamage();
+                    DestroyEnemy(); 
+                }
                 break;
         }
     }
@@ -59,6 +64,14 @@ public class TickEnemyAI : EnemyAI
         if (!hasTarget) { return; }
         if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
         body.Attack(attackTarget);
+    }
+
+    protected void DeathDamage()
+    {
+        if (attackTarget.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr))
+        {
+            dr.Attacked(GetComponent<DamageSource>());
+        }
     }
 
 }
