@@ -40,6 +40,7 @@ public class DefenseGem : MonoBehaviour
     public void BreakCrystal(float delay)
     {
         StartCoroutine(Shake(delay));
+
         shardScatter.Play();
         shardScatter.Play();
         this.GetComponentInChildren<SpriteRenderer>().enabled = false;

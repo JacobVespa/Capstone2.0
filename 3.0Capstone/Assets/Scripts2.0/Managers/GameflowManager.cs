@@ -32,6 +32,10 @@ public class GameflowManager : MonoBehaviour
             if (defenceLevel.WavesCompleted > defenceLevel.FinalWave)
             {
                 levelRunning = false;
+                GameManager.Instance.Gems++;
+
+                FlashGems();
+
                 GameManager.Instance.Victory();
             }
         }
@@ -131,6 +135,22 @@ public class GameflowManager : MonoBehaviour
     }
 
     // -------- Utility --------
+
+    private void FlashGems()
+    {
+        StartCoroutine(GemEffect(1f));
+    }
+
+    private IEnumerator GemEffect(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        DefenseGemUI defenseGemUI = GameObject.FindFirstObjectByType<DefenseGemUI>();
+        if (defenseGemUI != null)
+            defenseGemUI.UpdateGemCount();
+        else
+            Debug.Log("gemUI not available");
+    }
 
     public void ResetValues()
     {

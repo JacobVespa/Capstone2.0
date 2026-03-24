@@ -202,7 +202,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
         Collider2D[] colliders = GetComponents<Collider2D>();
         foreach (Collider2D c in colliders) { c.enabled = false; }
         attackNotif.SetActive(false);
-        Debug.Log(ai.behaviour);
+        //Debug.Log(ai.behaviour);
 
         if (bugGoo != null)
         {
