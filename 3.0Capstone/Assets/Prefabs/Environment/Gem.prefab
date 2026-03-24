@@ -57,7 +57,10 @@ MonoBehaviour:
   crystalCrack: {fileID: 8425260559245106556}
   shardScatter: {fileID: 197617709486556625}
   crystalShine: {fileID: 8092629078050733220}
-  resource: {fileID: 8300000, guid: 05ed46ee54cdbf84a8cb5914d0dbfbb3, type: 3}
+  resource:
+  - {fileID: 8300000, guid: 05ed46ee54cdbf84a8cb5914d0dbfbb3, type: 3}
+  - {fileID: 8300000, guid: 0e397a1a4c8b2fe49a8a82643ca5ef0d, type: 3}
+  - {fileID: 8300000, guid: e5fd8fbe9b2d2cf48ab3714a4115456e, type: 3}
   audioSource: {fileID: -5750756409168337022}
   hasItem: 1
   itemManager: {fileID: 66187021408795019, guid: f42e4ed5a2c82b442b682e4244b0ed9a, type: 3}
@@ -130,11 +133,11 @@ AudioSource:
   m_GameObject: {fileID: 2423516624940455703}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -4788311519913184375, guid: ac5fbbf4ed2172f49abb764f57e2b112, type: 2}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 05ed46ee54cdbf84a8cb5914d0dbfbb3, type: 3}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.524
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

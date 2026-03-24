@@ -18,7 +18,7 @@ public class Resource : MonoBehaviour
     [SerializeField] private GameObject crystalShine;
     private Color gemColor;
 
-    [SerializeField] AudioClip resource;
+    [SerializeField] AudioClip[] resource;
     [SerializeField] AudioSource audioSource;
 
     //Item stuff
@@ -72,9 +72,12 @@ public class Resource : MonoBehaviour
                 GetComponentInChildren<SpriteRenderer>().sprite = crystalStates[damageVar];
             }
 
-                int previousHP = currentHP;
+            int previousHP = currentHP;
             crystalCrack.Play();
             shardScatter.Play();
+            
+            int clipIndex = Random.Range(0, resource.Length);
+            audioSource.clip = resource[clipIndex];
             audioSource.Play();
             //shardScatter.Play();
             StartCoroutine(Shake());
