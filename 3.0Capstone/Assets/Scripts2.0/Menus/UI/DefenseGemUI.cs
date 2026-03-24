@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class DefenseGemUI : MonoBehaviour
@@ -25,9 +26,29 @@ public class DefenseGemUI : MonoBehaviour
         for (int i = 0; i < currentGems; i++)
         {
             defenseGems[i].SetActive(true);
+            AnimateGem(defenseGems[i]);
         }
     }
 
     // TODO set the gems initial scale to larger than needed,
     // Then use coroutine so scale back to normal to create a pop-out effect
+    // FIX THIS LATER!
+
+    private void AnimateGem(GameObject gem)
+    {
+        StartCoroutine(GemAnimation(gem));
+    }
+
+    private IEnumerator GemAnimation(GameObject gem)
+    {
+        gem.transform.localScale = gem.transform.localScale + (gem.transform.localScale * Time.deltaTime * 0.1f);
+
+        yield return new WaitForSeconds(0.4f);
+
+        gem.transform.localScale = gem.transform.localScale - (gem.transform.localScale * Time.deltaTime * 0.1f);
+
+        yield return new WaitForSeconds(0.4f);
+
+        yield return null;
+    }
 }
