@@ -41,6 +41,14 @@ public class GameManager : MonoBehaviour
     private int shards;
     public int Shards => shards;
 
+    private int gems;
+
+    public int Gems
+    {
+        set => gems = value;
+        get => gems;
+    }
+
     private int kills;
     public int Kills => kills;
 
@@ -114,6 +122,7 @@ public class GameManager : MonoBehaviour
     {
         shards = 0;
         kills = 0;
+        gems = 0;
     }
 
     public void StartGameTime() => timeActive = true;
