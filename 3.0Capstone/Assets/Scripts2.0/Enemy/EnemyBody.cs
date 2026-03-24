@@ -196,7 +196,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     // NOTE: this coroutine does nto actual delete the game object, that is dealt with in the enemy ai 
     private IEnumerator StartDeath()
     {
-        Debug.Log("Bug Death");
+        //Debug.Log("Bug Death");
         ai.RemoveFromAttackQueue();
         ai.behaviour = EnemyAI.Behaviour.Dead;
         Collider2D[] colliders = GetComponents<Collider2D>();

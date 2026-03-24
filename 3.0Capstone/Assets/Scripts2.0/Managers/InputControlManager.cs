@@ -54,7 +54,7 @@ public class InputControlManager : MonoBehaviour
         // Try to spawn a player for each connected device (up to numberOfPlayers)
         for (int i = 0; i < devices.Count && playersSpawned < numberOfPlayers; i++)
         {
-            Debug.Log("joined");
+            //Debug.Log("joined");
             // Only use Gamepad or Keyboard devices
             //if (devices[i] is Gamepad || devices[i] is Keyboard)
             //{

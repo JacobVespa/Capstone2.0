@@ -52,7 +52,7 @@ public class BigTickEnemtAI : TickEnemyAI
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
                 break;
             case Behaviour.Dead:
-                if (CheckDeathPlayed()) { DestroyEnemy(); }
+                if (CheckDeathPlayed()) { DeathDamage(); DestroyEnemy(); }
                 break;
         }
     }
