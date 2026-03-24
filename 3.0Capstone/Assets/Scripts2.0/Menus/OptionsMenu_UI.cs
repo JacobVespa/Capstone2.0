@@ -33,6 +33,7 @@ public class OptionsMenu_UI : MonoBehaviour
 
     public void SetSFXVolume()
     {
+        sfxSlider.value = 80;
         float volume = sfxSlider.value;
         audioMixer.SetFloat("SFXVolume", volume);
     }

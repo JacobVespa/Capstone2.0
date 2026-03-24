@@ -84,7 +84,21 @@ public class MapButton : MonoBehaviour
         visited = true;
 
         if (locationText != null)
+        {
             locationText.text = "Complete";
+            locationText.color = Color.green;
+        }
+    }
+
+    public void ForceVisitedLast()
+    {
+        visited = true;
+
+        if (locationText != null)
+        {
+            locationText.text = "Onward!";
+            locationText.color = Color.green;
+        }
     }
 
     // Only wire this in the inspector OnClick
