@@ -5,18 +5,27 @@ using UnityEngine.UI;
 
 public class MainMenuButtons : MonoBehaviour, ISelectHandler, IDeselectHandler
 {
-    [SerializeField] private GameObject selectedState;
-    [SerializeField] private GameObject deselectState;
+    //[SerializeField] private GameObject selectedState;
+    //[SerializeField] private GameObject deselectState;
+
+
+    [SerializeField] private Animator buttonAnimator;
+    [SerializeField] private GameObject animatedButton;
 
     public void OnSelect(BaseEventData eventData)
     {
-        selectedState.SetActive(true);
-        deselectState.SetActive(false);
+        //selectedState.SetActive(true);
+        //deselectState.SetActive(false);
+
+        buttonAnimator.SetTrigger("Highlighted");
+        buttonAnimator.ResetTrigger("Dehighlight");
     }
 
     public void OnDeselect(BaseEventData eventData)
     {
-        selectedState.SetActive(false);
-        deselectState.SetActive(true);
+        buttonAnimator.SetTrigger("Dehighlight");
+        buttonAnimator.ResetTrigger("Highlighted");
+        //selectedState.SetActive(false);
+        //deselectState.SetActive(true);
     }
 }
