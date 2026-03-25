@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 60761734}
   - component: {fileID: 60761733}
   - component: {fileID: 60761732}
+  - component: {fileID: 60761735}
   m_Layer: 5
   m_Name: Tutorial
   m_TagString: Untagged
@@ -375,6 +376,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 60761730}
   m_CullTransparentMesh: 1
+--- !u!114 &60761735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60761730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932bde164e8d0a749891c20fab42e7c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedState: {fileID: 0}
+  deselectState: {fileID: 0}
 --- !u!1 &70387657
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,6 +1276,7 @@ GameObject:
   - component: {fileID: 268638425}
   - component: {fileID: 268638424}
   - component: {fileID: 268638423}
+  - component: {fileID: 268638426}
   m_Layer: 5
   m_Name: Options
   m_TagString: Untagged
@@ -1394,6 +1410,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268638421}
   m_CullTransparentMesh: 1
+--- !u!114 &268638426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268638421}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932bde164e8d0a749891c20fab42e7c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedState: {fileID: 0}
+  deselectState: {fileID: 0}
 --- !u!1 &324242076
 GameObject:
   m_ObjectHideFlags: 0
@@ -16511,6 +16541,7 @@ GameObject:
   - component: {fileID: 1139437453}
   - component: {fileID: 1139437452}
   - component: {fileID: 1139437451}
+  - component: {fileID: 1139437455}
   m_Layer: 5
   m_Name: Quit Button
   m_TagString: Untagged
@@ -16644,6 +16675,20 @@ RectTransform:
   m_AnchoredPosition: {x: -7.838135, y: -3.6572266}
   m_SizeDelta: {x: -249.40796, y: -54.0542}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1139437455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139437450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932bde164e8d0a749891c20fab42e7c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedState: {fileID: 0}
+  deselectState: {fileID: 0}
 --- !u!1 &1147925901
 GameObject:
   m_ObjectHideFlags: 0
@@ -18153,6 +18198,7 @@ GameObject:
   - component: {fileID: 1432876174}
   - component: {fileID: 1432876173}
   - component: {fileID: 1432876172}
+  - component: {fileID: 1432876175}
   m_Layer: 5
   m_Name: Controls
   m_TagString: Untagged
@@ -18286,6 +18332,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1432876170}
   m_CullTransparentMesh: 1
+--- !u!114 &1432876175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1432876170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932bde164e8d0a749891c20fab42e7c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedState: {fileID: 0}
+  deselectState: {fileID: 0}
 --- !u!1 &1451088942
 GameObject:
   m_ObjectHideFlags: 0
@@ -19580,6 +19640,7 @@ GameObject:
   - component: {fileID: 1604215524}
   - component: {fileID: 1604215523}
   - component: {fileID: 1604215522}
+  - component: {fileID: 1604215525}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -19713,6 +19774,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1604215520}
   m_CullTransparentMesh: 1
+--- !u!114 &1604215525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1604215520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 932bde164e8d0a749891c20fab42e7c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedState: {fileID: 0}
+  deselectState: {fileID: 0}
 --- !u!1 &1615050892
 GameObject:
   m_ObjectHideFlags: 0
