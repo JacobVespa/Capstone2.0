@@ -5,10 +5,10 @@ using UnityEngine;
 public class RigDrill : MonoBehaviour
 {
     public Transform drillPoint;
-    public float knockbackForce = 5f;
-    public float stunTime = 0.5f;
-    public float drillRadius = 1f;
-    public LayerMask enemyLayer;
+    public float knockbackForce = 100f;
+    //public float stunTime = 0.5f;
+    //public float drillRadius = 1f;
+    //public LayerMask enemyLayer;
 
     private DamageSource damageSource;
 
@@ -19,9 +19,27 @@ public class RigDrill : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        KnockBackEnemies();
+        
+        if (collision.gameObject.layer == 6)
+        {
+            //Debug.LogError("drill hit");
+            HitEnemies(collision.gameObject);
+        }
     }
 
+
+    public void HitEnemies(GameObject enemy)
+    {
+        EnemyBody body = enemy.GetComponent<EnemyBody>();
+        body.Attacked(damageSource);
+        Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
+
+        Vector2 angle = (gameObject.transform.position - drillPoint.position).normalized;
+        Debug.Log(angle);
+        rb.AddForce(new Vector2(5,1));
+    }
+
+    /*
     public void KnockBackEnemies()
     {
         
@@ -42,4 +60,5 @@ public class RigDrill : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(drillPoint.position, drillRadius);
     }
+    */
 }
