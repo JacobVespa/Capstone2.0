@@ -197,6 +197,8 @@ public class Turret : MonoBehaviour
         gameObject.transform.localScale = Vector3.Lerp(dismountedScale, mountedScale, 10f);
 
         aimPos = transform.position;
+
+        Debug.Log($"Turret {name} mounted by {p.name}");
     }
 
     public void Dismount()
@@ -207,10 +209,15 @@ public class Turret : MonoBehaviour
         playerMounted = false;
         mouseAim = false;
         controllerAim = false;
+        canShoot = true;
 
+        StopAllCoroutines();
+        muzzleFlash.SetActive(false);
+        pivot.transform.localPosition = originalPos;
 
-        //testing size decrease
         gameObject.transform.localScale = Vector3.Lerp(mountedScale, dismountedScale, 10f);
+
+        Debug.Log($"Turret {name} dismounted");
     }
 
     private void Shoot()

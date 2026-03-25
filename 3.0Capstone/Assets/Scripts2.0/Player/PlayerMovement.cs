@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private RigHealth rigHealth;
     private Engine engine;
     private Turret turret;
+    private Turret mountedTurret;
     private AudioSource playerAudioSource;
 
     [Header("Sprites")]
@@ -195,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMounting()
     {
-        
+        /**
         if (isHolding) HandleDrop();
 
         canInteract = false; //TESTING
@@ -203,6 +204,24 @@ public class PlayerMovement : MonoBehaviour
         canMove = false;
         interactor.currentInteractObject.GetComponent<Turret>().Mount(this.gameObject);
         playerAnimator.SetBool("MoleWalk", false);
+        **/
+        if (isHolding) HandleDrop();
+
+        mountedTurret = interactor.currentInteractObject.GetComponent<Turret>();
+        if (mountedTurret == null)
+        {
+            Debug.LogWarning("Tried to mount, but no turret was found.");
+            return;
+        }
+
+        canInteract = false;
+        isMounted = true;
+        canMove = false;
+
+        mountedTurret.Mount(this.gameObject);
+        playerAnimator.SetBool("MoleWalk", false);
+
+        Debug.Log($"{name} mounted turret: {mountedTurret?.name}");
     }
 
     private void HandlePickup()
@@ -223,17 +242,18 @@ public class PlayerMovement : MonoBehaviour
     {
         if (!isMounted) return;
 
-        var interactObject = interactor.currentInteractObject.GetComponent<Turret>();
-        if (interactObject != null)
+        if (mountedTurret != null)
         {
-            interactObject.Dismount();
+            mountedTurret.Dismount();
+            mountedTurret = null;
         }
         else
         {
-            Debug.LogWarning("Current interact object does not have a Turret component.");
+            Debug.LogWarning("Player is marked mounted, but mountedTurret is null.");
         }
 
         StartCoroutine(MoveAgain());
+        Debug.Log($"{name} dismounting turret: {mountedTurret?.name}");
     }
 
     private IEnumerator MoveAgain()
