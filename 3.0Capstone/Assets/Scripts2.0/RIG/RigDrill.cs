@@ -22,6 +22,7 @@ public class RigDrill : MonoBehaviour
         
         if (collision.gameObject.layer == 6)
         {
+            
             //Debug.LogError("drill hit");
             HitEnemies(collision.gameObject);
         }
@@ -30,13 +31,17 @@ public class RigDrill : MonoBehaviour
 
     public void HitEnemies(GameObject enemy)
     {
-        EnemyBody body = enemy.GetComponent<EnemyBody>();
-        body.Attacked(damageSource);
+
         Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
 
-        Vector2 angle = (gameObject.transform.position - drillPoint.position).normalized;
+        Vector2 angle = (drillPoint.position - gameObject.transform.position );
         Debug.Log(angle);
-        rb.AddForce(new Vector2(5,1));
+        Debug.Log(angle.x * knockbackForce);
+        rb.linearVelocityX = 3*knockbackForce;
+        rb.linearVelocityY = 1*knockbackForce;
+        EnemyBody body = enemy.GetComponent<EnemyBody>();
+        body.Attacked(damageSource);
+        
     }
 
     /*
