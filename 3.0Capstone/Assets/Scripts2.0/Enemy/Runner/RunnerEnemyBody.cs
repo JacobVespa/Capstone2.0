@@ -64,6 +64,19 @@ public class RunnerEnemyBody: EnemyBody
         //moveSpeed *= 2 / 3;
     }
 
+    public override void Attack(GameObject target)
+    {
+        if (attackTimer < attackStartUp) { return; }
+
+        base.Attack(target);
+
+        if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr))
+        {
+            dr.Attacked(damageSource);
+        }
+        else { Debug.LogError("No damage receiver found on target"); }
+    }
+
 
     public IEnumerator DropOnRig(Vector2 targetPos)
     {

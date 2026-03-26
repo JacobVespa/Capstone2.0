@@ -38,33 +38,34 @@ public class TickEnemyAI : EnemyAI
             case Behaviour.Spawning:
                 if (!body.dropping) { StartCoroutine(body.DropOnRig(dropPos)); }
                 break;
-            case Behaviour.Ready:
-                if (agent.CanDealDamage)
-                {
-                    behaviour = Behaviour.Attacking;
-                }
-                break;
             case Behaviour.Attacking:
-                TryAttackTarget();
-                break;
-            case Behaviour.CoolDown:
-                if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
-                break;
-            case Behaviour.Dead:
-                if (CheckDeathPlayed()) {
+                if(body.attackNotif.activeSelf != true) { body.attackNotif.SetActive(true); }
+                if (CheckExploded())
+                {
                     DeathDamage();
-                    DestroyEnemy(); 
+                    Destroy(this.gameObject);
                 }
+                break;
+
+            case Behaviour.Dead:
+                //if (CheckDeathPlayed()) {
+                    DestroyEnemy(); 
+                //}
                 break;
         }
     }
 
-    protected void TryAttackTarget()
+    protected bool CheckExploded()
     {
-        if (!hasTarget) { return; }
-        if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
-        body.Attack(attackTarget);
+        AnimatorStateInfo state = baseBody.Animator.GetCurrentAnimatorStateInfo(0);
+
+        if (state.IsTag("Explode") && state.normalizedTime >= 1)
+        {
+            return true;
+        }
+        else return false;
     }
+
 
     protected void DeathDamage()
     {

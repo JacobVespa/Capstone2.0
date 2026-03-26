@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3839815783547890168}
   - component: {fileID: 2830340047023057878}
   - component: {fileID: 1426932880656027853}
-  - component: {fileID: 1926179241513098203}
+  - component: {fileID: 4404057807311698793}
   - component: {fileID: 569287320527668088}
   - component: {fileID: 8581929505525562313}
   m_Layer: 7
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviour: 0
-  agent: {fileID: 1926179241513098203}
+  agent: {fileID: 4404057807311698793}
   attackTarget: {fileID: 0}
   targetLoc: {fileID: 0}
   hasTarget: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageVal: 1
   damageTarget: 2
---- !u!114 &1926179241513098203
+--- !u!114 &4404057807311698793
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

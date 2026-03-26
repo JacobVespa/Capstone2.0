@@ -130,7 +130,7 @@ public abstract class EnemyAI : MonoBehaviour
     {
         if (baseBody.Animator == null) { return true; }
         
-            AnimatorStateInfo state = baseBody.Animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo state = baseBody.Animator.GetCurrentAnimatorStateInfo(0);
         
         if (state.IsTag("Death") && state.normalizedTime >= 1)
         {

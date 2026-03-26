@@ -47,18 +47,7 @@ public class TickEnemyBody : EnemyBody
     }
 
     // same implementation as the melee enemy
-    public override void Attack(GameObject target)
-    {
-        if (attackTimer < attackStartUp) { return; }
-
-        base.Attack(target);
-
-        if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr))
-        {
-            dr.Attacked(damageSource);
-        }
-        else { Debug.LogError("No damage receiver found on target"); }
-    }
+    
 
     //  sets tick postiion to above its intial placement then drops it 
     //  it will bounce until it loses enough speed than transition to its next state
@@ -103,8 +92,9 @@ public class TickEnemyBody : EnemyBody
 
         dropping = false;
         foreach (Collider2D c in colliders) { c.enabled = true; }
-        ai.behaviour = EnemyAI.Behaviour.Ready;
-        ai.AddToAttackQueue();
+        ai.behaviour = EnemyAI.Behaviour.Attacking;
+        //ai.AddToAttackQueue();
+        animator.SetTrigger("Landed");
     }
 
     
