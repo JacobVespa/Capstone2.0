@@ -60,6 +60,8 @@ public class RunnerEnemyAI : EnemyAI
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
                 break;
             case Behaviour.Dead:
+                if(escapeDir != Vector2.zero) { escapeDir = Vector2.zero; }
+                
                 if (CheckDeathPlayed()) {DestroyEnemy(); }
                 break;
         }

@@ -23,7 +23,7 @@ public class RunnerEnemyBody: EnemyBody
 
     public override void Attacked(DamageSource d)
     {
-        //if (invincible) { Debug.Log("Denied");  return;  }
+        //if (invincible) {  return;  }
         base.Attacked(d);
         
         //StartCoroutine(Iframes());

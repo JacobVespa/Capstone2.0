@@ -765,6 +765,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fc0d3279f4bc524b8ee3148e0020a6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SpeedUp: 0.109
+  SpeedDown: 0
 --- !u!114 &5987751750684668275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,8 +787,8 @@ MonoBehaviour:
   InitialBottomFeeder_Speed: 0
   InitialTick_Health: 1
   InitialTick_Speed: 0
-  InitialBigTick_Health: 2
-  InitialBigTick_Speed: 0
+  InitialRunner_Health: 2
+  InitialRunner_Speed: 0
   stageClear_M: 0.05
   caveClear_M: 0.08
   gemCollected_M: 0.1
