@@ -243,7 +243,7 @@ public class TutorialManager : MonoBehaviour
             dialogueBox.transform.position = repairTextPos.transform.position;
             repairIndicator.SetActive(true);
             dialogueManager.ShowDialogue("repair");
-            while (rigHealthScript.HealthNormalized >= 0.6f)
+            while (rigHealthScript.HealthNormalized >= 0.7f)
             {
                 rigHealthScript.ApplyDamage(rigHealthScript.DamageThreshold); // Reduce health to trigger repair tutorial
             }

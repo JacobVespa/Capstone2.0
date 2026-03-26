@@ -1,6 +1,4 @@
-using UnityEditor.Recorder;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 /*  TickEnemyAI determiens what actiosn the body takes depending on the state
  * 
