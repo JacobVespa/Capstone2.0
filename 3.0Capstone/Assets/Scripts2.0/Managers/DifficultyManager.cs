@@ -47,8 +47,8 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private float InitialTick_Speed;
 
     [Header("Inital Big Tick Stats")]
-    [SerializeField] private float InitialBigTick_Health;
-    [SerializeField] private float InitialBigTick_Speed;
+    [SerializeField] private float InitialRunner_Health;
+    [SerializeField] private float InitialRunner_Speed;
 
     [Header("Stat Multipliers")]
     [SerializeField] private float stageClear_M = 0.05f;
@@ -82,10 +82,10 @@ public class DifficultyManager : MonoBehaviour
     private float currentTick_Speed;
     public float TickSpeed => currentTick_Speed;
     // Big Tick -------------------------------------------------
-    private float currentBigTick_Health;
-    public float BigTickHealth => currentBigTick_Health;
-    private float currentBigTick_Speed;
-    public float BigTickSpeed => currentBigTick_Speed;
+    private float currentRunner_Health;
+    public float RunnerHealth => currentRunner_Health;
+    private float currentRunner_Speed;
+    public float RunnerSpeed => currentRunner_Speed;
     // -------------------------------------------------
 
     private void Start()
@@ -133,7 +133,7 @@ public class DifficultyManager : MonoBehaviour
         SetSkeeto_Stats(InitialSkeeto_Health * HealthIncrease(), InitialSkeeto_Speed * SpeedIncrease());
         SetBottomFeeder_Stats(InitialBottomFeeder_Health * HealthIncrease(), InitialBottomFeeder_Speed * SpeedIncrease());
         SetTick_Stats(InitialTick_Health * HealthIncrease(), InitialTick_Speed * SpeedIncrease());
-        SetBigTick_Stats(InitialBigTick_Health * HealthIncrease(), InitialBigTick_Speed * SpeedIncrease());
+        SetRunner_Stats(InitialRunner_Health * HealthIncrease(), InitialRunner_Speed * SpeedIncrease());
     }
 
     private float HealthIncrease()
@@ -170,10 +170,10 @@ public class DifficultyManager : MonoBehaviour
         currentTick_Speed = speed;
     }
 
-    private void SetBigTick_Stats(float health, float speed)
+    private void SetRunner_Stats(float health, float speed)
     {
-        currentBigTick_Health = health;
-        currentBigTick_Speed = speed;
+        currentRunner_Health = health;
+        currentRunner_Speed = speed;
     }
 
     private void InitiateStats()
@@ -191,8 +191,8 @@ public class DifficultyManager : MonoBehaviour
         currentTick_Health = InitialTick_Health;
         currentTick_Speed = InitialTick_Speed;
         // Big Tick 
-        currentBigTick_Health = InitialBigTick_Health;
-        currentBigTick_Speed = InitialBigTick_Speed;
+        currentRunner_Health = InitialRunner_Health;
+        currentRunner_Speed = InitialRunner_Speed;
     }
 
 }

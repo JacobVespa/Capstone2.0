@@ -1,18 +1,26 @@
 using UnityEngine;
 
-public class BigTickEnemtAI : TickEnemyAI
+public class RunnerEnemyAI : EnemyAI
 {
+
+    protected RunnerEnemyBody body;
+
+    protected Vector2 dropPos;
+
     Vector2 escapeDir = Vector2.zero;
 
     [SerializeField] private CircleCollider2D detection;
 
     protected override void Awake()
     {
-        
         base.Awake();
-       
-        
-        if(detection != null) { detection.enabled = false; }
+
+        behaviour = Behaviour.Spawning;
+
+        if (body == null) { body = GetComponent<RunnerEnemyBody>(); }
+        if (dropPos == Vector2.zero) { dropPos = gameObject.transform.position; }
+
+        if (detection != null) { detection.enabled = false; }
     }
 
     protected override void FixedUpdate()
@@ -52,9 +60,16 @@ public class BigTickEnemtAI : TickEnemyAI
                 if (body.CheckCoolDown()) { MoveToBottomOfQueue(); }
                 break;
             case Behaviour.Dead:
-                if (CheckDeathPlayed()) { DeathDamage(); DestroyEnemy(); }
+                if (CheckDeathPlayed()) {DestroyEnemy(); }
                 break;
         }
+    }
+
+    protected void TryAttackTarget()
+    {
+        if (!hasTarget) { return; }
+        if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
+        body.Attack(attackTarget);
     }
 
     protected override void ApproachTarget()
