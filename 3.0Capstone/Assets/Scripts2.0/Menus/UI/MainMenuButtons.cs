@@ -10,7 +10,6 @@ public class MainMenuButtons : MonoBehaviour, ISelectHandler, IDeselectHandler
 
 
     [SerializeField] private Animator buttonAnimator;
-    [SerializeField] private GameObject animatedButton;
 
     public void OnSelect(BaseEventData eventData)
     {
