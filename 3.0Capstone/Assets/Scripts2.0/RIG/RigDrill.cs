@@ -1,6 +1,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class RigDrill : MonoBehaviour
 {
@@ -31,15 +32,20 @@ public class RigDrill : MonoBehaviour
 
     public void HitEnemies(GameObject enemy)
     {
-
+        EnemyBody body = enemy.GetComponent<EnemyBody>();
         Rigidbody2D rb = enemy.GetComponent<Rigidbody2D>();
 
-        Vector2 angle = (drillPoint.position - gameObject.transform.position );
-        Debug.Log(angle);
-        Debug.Log(angle.x * knockbackForce);
-        rb.linearVelocityX = 3*knockbackForce;
-        rb.linearVelocityY = 1*knockbackForce;
-        EnemyBody body = enemy.GetComponent<EnemyBody>();
+        Vector2 angle;
+
+        if(enemy.transform.position.x >= transform.position.x)
+        {
+            angle = new Vector2(1, 1);
+        }
+        else { angle = new Vector2(-1, 1); }
+
+            
+        StartCoroutine(body.Knockback(angle,knockbackForce));
+
         body.Attacked(damageSource);
         
     }

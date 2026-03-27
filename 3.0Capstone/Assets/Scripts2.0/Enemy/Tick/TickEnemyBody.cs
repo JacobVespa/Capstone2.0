@@ -14,7 +14,7 @@ using UnityEngine.UIElements;
 public class TickEnemyBody : EnemyBody
 {
 
-    protected Rigidbody2D rb;
+    
 
     protected Vector2 notifPos;
 

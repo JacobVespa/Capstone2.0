@@ -20,6 +20,7 @@ using UnityEngine.UIElements;
 public class EnemyBody : MonoBehaviour, IDamageReceiver
 {
     [Header("Required Components")]
+    [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected EnemyAI ai;  // only the base class of enemyAI, methods in enemy spcific AI scripts can't be called, must implemneted in the base class
     [SerializeField] protected Animator animator;
     [SerializeField] protected GameObject sprite;
@@ -84,7 +85,12 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             {
                 animator = a;
             }
-        }   
+        } 
+        
+        if(rb == null)
+        {
+            rb = GetComponent<Rigidbody2D>();
+        }
     }
 
     protected virtual void FixedUpdate()
@@ -254,5 +260,23 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     }
     #endregion
 
+    public IEnumerator Knockback(Vector2 angle, float strength)
+    {
+        rb.linearVelocityX = angle.x * strength;
+        rb.linearVelocityY = angle.y * strength;
+        while (rb != null)
+        {
+            yield return new WaitForFixedUpdate();
+            if(rb != null)
+            {
+                rb.AddForce(angle * strength);
+            }
+           
+        }
 
+        
+
+        
+
+    }
 }

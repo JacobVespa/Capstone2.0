@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class RunnerEnemyBody: EnemyBody
 {
-    protected Rigidbody2D rb;
+    
 
     protected Vector2 notifPos;
 

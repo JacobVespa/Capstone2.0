@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 3611787792641163113}
   - component: {fileID: 1215407965381333140}
   - component: {fileID: -5853465667177244834}
-  - component: {fileID: 589734686115165846}
   m_Layer: 6
   m_Name: GrubEnemy
   m_TagString: Enemy
@@ -58,6 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9b4dd99fe0672548a206974b2b8844c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   ai: {fileID: 5314007174558124751}
   animator: {fileID: 7216340138079931128}
   sprite: {fileID: 2120958408404255510}
@@ -76,7 +76,7 @@ MonoBehaviour:
   attackClip: {fileID: 8300000, guid: 6264f7b64fcc81c41a6e0ef19710f51f, type: 3}
   deathClip: {fileID: 8300000, guid: b7188412a7bb7424a8d292f8d7590aae, type: 3}
   attackRange: {fileID: 1215407965381333140}
-  attackRangeVal: 3.5
+  attackRangeVal: 6
   isGrub: 1
 --- !u!114 &5314007174558124751
 MonoBehaviour:
@@ -183,8 +183,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 3.6002886
+  m_Offset: {x: 0, y: 4}
+  m_Radius: 3.75
 --- !u!58 &1215407965381333140
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -219,8 +219,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.3}
-  m_Radius: 4.4239664
+  m_Offset: {x: 0, y: 4}
+  m_Radius: 6
 --- !u!82 &-5853465667177244834
 AudioSource:
   m_ObjectHideFlags: 0
@@ -318,18 +318,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &589734686115165846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369488387364779184}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ea4434b124b63442838168a03942db5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2120958408404255510
 GameObject:
   m_ObjectHideFlags: 0
