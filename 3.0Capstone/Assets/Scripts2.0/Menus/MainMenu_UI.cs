@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -5,6 +6,8 @@ using UnityEngine.UI;
 
 public class MainMenu_UI : MonoBehaviour
 {
+    [SerializeField] private Animator menuAnimator;
+
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private GameObject optionsMenu;
     [SerializeField] private GameObject controlsMenu;
@@ -12,6 +15,11 @@ public class MainMenu_UI : MonoBehaviour
     [SerializeField] private GameObject startButton;
 
     [SerializeField] SoundManager soundManager;
+
+    private void Start()
+    {
+        menuAnimator.SetTrigger("OpenMenu");
+    }
 
     private void OnEnable()
     {
@@ -25,7 +33,8 @@ public class MainMenu_UI : MonoBehaviour
         if (LevelManager.Instance != null)
         {
             //gameflowManager.StartScrollerLevel();
-            LevelManager.Instance.StartWindDownLevel(true);
+            //LevelManager.Instance.StartWindDownLevel(true);
+            menuAnimator.SetTrigger("CloseMenu");
         }
         else
         {
@@ -93,5 +102,12 @@ public class MainMenu_UI : MonoBehaviour
     public void QuitButtonClicked()
     {
         Application.Quit();
+    }
+
+    public void StartGame()
+    {
+        
+        LevelManager.Instance.StartWindDownLevel(true);
+        
     }
 }
