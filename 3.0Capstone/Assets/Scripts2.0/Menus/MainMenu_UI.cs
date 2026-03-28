@@ -25,6 +25,9 @@ public class MainMenu_UI : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(startButton);
+        Animator startButtonAnimator = startButton.GetComponentInChildren<Animator>();
+
+        startButtonAnimator.SetTrigger("Highlighted");
     }
 
     public void StartButtonClicked()
