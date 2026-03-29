@@ -25,13 +25,13 @@ public class DialogueManager : MonoBehaviour
     private void InitializeDialogues()
     {
         // Placeholder text!
-        dialogues.Add("intro", "Intro statement! :)");
-        dialogues.Add("engine", "The engine is overheating! Use your 'HAMMER' to repair it and lets get this RIG moving!");
-        dialogues.Add("crystal", "Now mount your turrets using 'A', then aim and shoot those gems on the wall using 'RT' to get shards!");
-        dialogues.Add("smallEnemy", "Enemies incoming! Use your turrets to defend.");
-        dialogues.Add("repair", "Damage detected! Use repair tools to fix your rig. Pickup repair with 'A' and place on hole using 'A'");
-        dialogues.Add("hammer", "Hitch hikers are invading the RIG! Grab your 'HAMMER' and start swinging!");
-        dialogues.Add("largeEnemy", "Watch out! A large enemy is approaching!");
+        dialogues.Add("intro", "Hey there, Cave Crashers!");
+        dialogues.Add("engine", "My engine is overheating! Press 'RT' near my engine to fix it and lets get moving!");
+        dialogues.Add("crystal", "Mount my turrets using 'A', then aim and shoot at those gems on the wall using 'RT' to collect shards!");
+        dialogues.Add("smallEnemy", "Uh oh, there's bugs incoming! Use the turrets to defend us.");
+        dialogues.Add("repair", "I'VE BEEN HIT! Use the repair tape to patch me up! Pick up the repair tape with 'A' and place it on a hole using 'A'");
+        dialogues.Add("hammer", "There's bugs on me! Get 'em off! Grab your 'HAMMER' and start swinging!");
+        dialogues.Add("largeEnemy", "Watch out! There's a big bug coming!");
         dialogues.Add("tutorialComplete", "The path ahead is clear! Get ready for the real challenge ahead!");
     }
 
