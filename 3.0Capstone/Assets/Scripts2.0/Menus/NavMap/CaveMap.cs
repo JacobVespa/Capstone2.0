@@ -30,11 +30,15 @@ public class CaveMap : MonoBehaviour
     [Header("Lines")]
     [SerializeField] private Color defaultLineColor = Color.gray;
     [SerializeField] private Color activeLineColor = Color.green;
-    [SerializeField] private float lineThickness = 4f;
+    [SerializeField] private float lineThickness = 6f;
+    [SerializeField] private float dashLength = 18f;
+    [SerializeField] private float gapLength = 10f;
+    [SerializeField] private float lineCurvature = 0.25f;
+    [SerializeField] private int curveResolution = 40;
 
     private List<List<Button>> levelTree;
     private List<int> rowWidths;
-    private List<List<List<Image>>> connectionLines;
+    private List<List<List<CurvedDashedLine>>> connectionLines;
     private List<List<Vector2>> nodePositions;
 
     public Button firstSelectedButton;
@@ -111,7 +115,6 @@ public class CaveMap : MonoBehaviour
 
             MapButton mb = levelTree[row][col].GetComponent<MapButton>();
 
-            // Last visited node shows "Onward!", all previous nodes show "Complete"
             if (node == last)
                 mb.ForceVisitedLast();
             else
@@ -181,9 +184,14 @@ public class CaveMap : MonoBehaviour
 
             if (neighbourCol < 0 || neighbourCol >= levelTree[row + 1].Count) continue;
 
-            bool neighbourVisited = levelTree[row + 1][neighbourCol].GetComponent<MapButton>().Visited;
+            bool neighbourVisited = levelTree[row + 1][neighbourCol]
+                .GetComponent<MapButton>().Visited;
+
             if (neighbourVisited)
+            {
                 connectionLines[row][col][lineIdx].color = activeLineColor;
+                connectionLines[row][col][lineIdx].Refresh();
+            }
         }
     }
 
@@ -231,7 +239,7 @@ public class CaveMap : MonoBehaviour
     {
         levelTree = new List<List<Button>>();
         rowWidths = new List<int>();
-        connectionLines = new List<List<List<Image>>>();
+        connectionLines = new List<List<List<CurvedDashedLine>>>();
 
         int localGlobalRow = CaveMapState.Instance != null ? CaveMapState.Instance.GlobalRowIndex : 0;
         int seed = CaveMapState.Instance != null ? CaveMapState.Instance.MapSeed : 0;
@@ -294,8 +302,6 @@ public class CaveMap : MonoBehaviour
                 button.interactable = false;
     }
 
-    // Called by MenuCursor when a tiebreak forces a selection,
-    // bypassing the normal interactable check
     public void ForceNodeVisited(Button button)
     {
         if (button == null) return;
@@ -333,6 +339,7 @@ public class CaveMap : MonoBehaviour
             if (neighbours[lineIdx] == toCol && lineIdx < connectionLines[fromRow][fromCol].Count)
             {
                 connectionLines[fromRow][fromCol][lineIdx].color = activeLineColor;
+                connectionLines[fromRow][fromCol][lineIdx].Refresh();
                 break;
             }
         }
@@ -340,9 +347,9 @@ public class CaveMap : MonoBehaviour
 
     private void ResetMap()
     {
-        foreach (List<List<Image>> rowLines in connectionLines)
-            foreach (List<Image> lineGroup in rowLines)
-                foreach (Image line in lineGroup)
+        foreach (var rowLines in connectionLines)
+            foreach (var lineGroup in rowLines)
+                foreach (var line in lineGroup)
                     if (line != null) Destroy(line.gameObject);
 
         connectionLines.Clear();
@@ -415,21 +422,28 @@ public class CaveMap : MonoBehaviour
         for (int i = 0; i < levelTree.Count - 1; i++)
         {
             int currentWidth = rowWidths[i];
-            int nextWidth = rowWidths[i + 1];
-            List<List<Image>> rowLineGroups = new List<List<Image>>();
+            int nextWidth    = rowWidths[i + 1];
+            List<List<CurvedDashedLine>> rowLineGroups = new List<List<CurvedDashedLine>>();
 
             for (int j = 0; j < levelTree[i].Count; j++)
             {
-                List<Image> linesFromNode = new List<Image>();
-                List<int> neighbours = GetNeighbourIndices(col: j, currentRow: i, currentRowWidth: currentWidth, nextRowWidth: nextWidth);
+                List<CurvedDashedLine> linesFromNode = new List<CurvedDashedLine>();
+                List<int> neighbours = GetNeighbourIndices(
+                    col: j, currentRow: i,
+                    currentRowWidth: currentWidth,
+                    nextRowWidth: nextWidth);
 
                 foreach (int n in neighbours)
                 {
                     if (n >= 0 && n < levelTree[i + 1].Count)
                     {
                         Vector2 from = nodePositions[i][j];
-                        Vector2 to = nodePositions[i + 1][n];
-                        Image line = DrawLine(from, to, defaultLineColor);
+                        Vector2 to   = nodePositions[i + 1][n];
+
+                        // Alternate curvature direction so lines don't all bow the same way
+                        float curveDir = ((i + j + n) % 2 == 0) ? lineCurvature : -lineCurvature;
+
+                        CurvedDashedLine line = DrawLine(from, to, defaultLineColor, curveDir);
                         linesFromNode.Add(line);
                     }
                 }
@@ -459,25 +473,25 @@ public class CaveMap : MonoBehaviour
         return neighbours;
     }
 
-    private Image DrawLine(Vector2 from, Vector2 to, Color color)
+    private CurvedDashedLine DrawLine(Vector2 from, Vector2 to, Color color, float curvature = 0.25f)
     {
-        GameObject lineObj = new GameObject("Line", typeof(RectTransform), typeof(Image));
+        GameObject lineObj = new GameObject("DashedLine", typeof(RectTransform), typeof(CanvasRenderer));
         lineObj.transform.SetParent(mapContainer, false);
         lineObj.transform.SetAsFirstSibling();
 
-        Image lineImage = lineObj.GetComponent<Image>();
-        lineImage.color = color;
-        lineImage.raycastTarget = false;
+        CurvedDashedLine line = lineObj.AddComponent<CurvedDashedLine>();
+        line.raycastTarget    = false;
+        line.fromPos          = from;
+        line.toPos            = to;
+        line.color            = color;
+        line.curvature        = curvature;
+        line.dashLength       = dashLength;
+        line.gapLength        = gapLength;
+        line.lineWidth        = lineThickness;
+        line.curveResolution  = curveResolution;
+        line.Refresh();
 
-        RectTransform rt = lineObj.GetComponent<RectTransform>();
-        Vector2 direction = to - from;
-        float distance = direction.magnitude;
-
-        rt.sizeDelta = new Vector2(distance, lineThickness);
-        rt.anchoredPosition = from + direction * 0.5f;
-        rt.localRotation = Quaternion.FromToRotation(Vector3.right, new Vector3(direction.x, direction.y, 0));
-
-        return lineImage;
+        return line;
     }
 
     public void UpdateActiveLines(Button visitedButton) { }
