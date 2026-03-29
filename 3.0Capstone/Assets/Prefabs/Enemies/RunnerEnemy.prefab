@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 890dff3562381b046a51a6b2a4cf2670, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   ai: {fileID: 6671408905850034950}
   animator: {fileID: 5281758878629371337}
   sprite: {fileID: 3090219190475050712}
@@ -552,6 +553,18 @@ PrefabInstance:
     - target: {fileID: 5012074662003811926, guid: 740fe8ac89e40a847920c2087c97ba61, type: 3}
       propertyPath: m_Name
       value: NEWFIXEDTick
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073544215783785655, guid: 740fe8ac89e40a847920c2087c97ba61, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073544215783785655, guid: 740fe8ac89e40a847920c2087c97ba61, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5073544215783785655, guid: 740fe8ac89e40a847920c2087c97ba61, type: 3}
+      propertyPath: m_Color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5531356004248550762, guid: 740fe8ac89e40a847920c2087c97ba61, type: 3}
       propertyPath: m_Controller
