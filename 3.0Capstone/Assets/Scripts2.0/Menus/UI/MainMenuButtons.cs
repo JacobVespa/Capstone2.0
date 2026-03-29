@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class MainMenuButtons : MonoBehaviour, ISelectHandler, IDeselectHandler
+public class MainMenuButtons : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler
 {
     //[SerializeField] private GameObject selectedState;
     //[SerializeField] private GameObject deselectState;
@@ -26,5 +26,17 @@ public class MainMenuButtons : MonoBehaviour, ISelectHandler, IDeselectHandler
         buttonAnimator.ResetTrigger("Highlighted");
         //selectedState.SetActive(false);
         //deselectState.SetActive(true);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        buttonAnimator.SetTrigger("Highlighted");
+        buttonAnimator.ResetTrigger("Dehighlight");
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        buttonAnimator.SetTrigger("Dehighlight");
+        buttonAnimator.ResetTrigger("Highlighted");
     }
 }

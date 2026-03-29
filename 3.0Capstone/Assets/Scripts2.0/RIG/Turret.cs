@@ -226,11 +226,19 @@ public class Turret : MonoBehaviour
 
         if (currentControls.controlEvent.IsAttacking && canShoot)
         {
-            //Debug.Log($"SPEED SHOOWING CD IS {shootingCD}");
             ShootBullet();
             StartCoroutine(ShootingVFX());
             StartCoroutine(Recoil());
             StartCoroutine(CoolDown());
+
+            // Vibrate for this shot only — duration capped to shootingCD so it
+            // never overlaps into the next shot regardless of fire rate
+            if (ControllerVibrateManager.Instance != null)
+            {
+                int playerIndex = player.GetComponent<PlayerInput>().playerIndex;
+                float pulseDuration = Mathf.Min(0.06f, shootingCD * 0.5f);
+                ControllerVibrateManager.Instance.Burst(playerIndex, lowFreq: 0.2f, highFreq: 0.6f, duration: pulseDuration);
+            }
         }
     }
 

@@ -652,6 +652,7 @@ GameObject:
   - component: {fileID: 364605415846936716}
   - component: {fileID: 2240115637602533781}
   - component: {fileID: 5987751750684668275}
+  - component: {fileID: 7703720352664824637}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -795,6 +796,18 @@ MonoBehaviour:
   stagesCleared: -1
   cavesCleared: 0
   gemsCollected: 0
+--- !u!114 &7703720352664824637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3932545320157543553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f52fcc5c7568944abd5adc4f272bf83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5568078536617126128
 GameObject:
   m_ObjectHideFlags: 0

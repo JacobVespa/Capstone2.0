@@ -285,12 +285,19 @@ public class PlayerMovement : MonoBehaviour
     IEnumerator HammerSwing()
     {
         canAttack = false;
-        //Debug.Log("Tried to swing the hammer...");
         playerAnimator.SetTrigger("HammerSwing");
-        if(hammer.isPoweredUp)
+
+        if (ControllerVibrateManager.Instance != null)
+        {
+            int playerIndex = GetComponent<PlayerInput>().playerIndex;
+            ControllerVibrateManager.Instance.Burst(playerIndex, lowFreq: 0.9f, highFreq: 0.3f, duration: 0.2f, delay: 0.3f);
+        }
+
+        if (hammer.isPoweredUp)
         {
             hammer.CallStupidPulse();
         }
+
         yield return new WaitForSeconds(attackCooldown);
         canAttack = true;
     }
