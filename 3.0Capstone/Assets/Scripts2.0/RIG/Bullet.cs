@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
@@ -5,11 +6,13 @@ public class Bullet : MonoBehaviour
 {
     private GameObject turretObject;
     private Turret turret;
+    private ParticleSystem sparks;
 
     private void Start()
     {
         turretObject = GameObject.FindGameObjectWithTag("Turret");
         turret = turretObject.GetComponent<Turret>();
+        sparks = GetComponentInChildren<ParticleSystem>();
     }
 
     private void FixedUpdate()
@@ -26,23 +29,23 @@ public class Bullet : MonoBehaviour
         {
             //Debug.LogError("Hit Enemy with a bullet");
             turret.HitEnemy(collision);
-            Destroy(gameObject);
+            StartCoroutine(DestroyBullet());
         }
         if(collision.CompareTag("Gem"))
         {
             turret.HitGem(collision);
-            Destroy(gameObject);
+            StartCoroutine(DestroyBullet());
         }
         if (collision.CompareTag("DefenseGem"))
         {
             Debug.Log("BIG GEM HIT!!!");
             turret.HitDefenseGem(collision);
-            Destroy(gameObject);
+            StartCoroutine(DestroyBullet());
         }
         if (collision.CompareTag("Projectile"))
         {
             turret.HitProjectile(collision);
-            Destroy(gameObject);
+            StartCoroutine(DestroyBullet());
         }
         if (collision.CompareTag("Grass"))
         {
@@ -62,5 +65,12 @@ public class Bullet : MonoBehaviour
         }
 
         else { return false; }
+    }
+
+    IEnumerator DestroyBullet()
+    {
+        sparks.Play();
+        yield return new WaitForSeconds(0.05f);
+        Destroy(gameObject);
     }
 }
