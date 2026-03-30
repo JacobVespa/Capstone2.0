@@ -18,26 +18,50 @@ public class OptionsMenu_UI : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(volumeSlider.gameObject);
     }
 
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("masterVol"))
+        {
+            LoadVolume();
+        }
+        else
+        {
+            SetMasterVolume();
+            SetMusicVolume();
+            SetSFXVolume();
+        }
+    }
+
     public void SetMasterVolume()
     {
-        volumeSlider.value = 80;
         float volume = volumeSlider.value;
-        audioMixer.SetFloat("MasterVolume", volume);
+        audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("masterVol", volume);
     }
 
     public void SetMusicVolume()
     {
-        musicSlider.value = 70;
         float volume = musicSlider.value;
-        audioMixer.SetFloat("MusicVolume", volume);
+        audioMixer.SetFloat("MusicVolume", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("musicVol", volume);
     }
 
     public void SetSFXVolume()
-    {
-        sfxSlider.value = 70;
+    { 
         float volume = sfxSlider.value;
-        audioMixer.SetFloat("SFXVolume", volume);
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(volume) * 20);
+        PlayerPrefs.SetFloat("sfxVol", volume);
     }
 
+    public void FullscreenToggle(bool fullScreen)
+    {
+        Screen.fullScreen = fullScreen;
+    }
+    private void LoadVolume()
+    {
+        volumeSlider.value = PlayerPrefs.GetFloat("masterVol");
+        musicSlider.value = PlayerPrefs.GetFloat("musicVol");
+        sfxSlider.value = PlayerPrefs.GetFloat("sfxVol");
+    }
 
 }
