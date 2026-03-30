@@ -1,18 +1,25 @@
 using System.Collections;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Bullet : MonoBehaviour
 {
     private GameObject turretObject;
     private Turret turret;
     private ParticleSystem sparks;
+    private SpriteRenderer sprite;
+    private Rigidbody2D rb;
+    private Light2D bulLight;
 
     private void Start()
     {
         turretObject = GameObject.FindGameObjectWithTag("Turret");
         turret = turretObject.GetComponent<Turret>();
         sparks = GetComponentInChildren<ParticleSystem>();
+        sprite = GetComponentInChildren<SpriteRenderer>();
+        rb = GetComponentInChildren<Rigidbody2D>();
+        bulLight = GetComponent<Light2D>();
     }
 
     private void FixedUpdate()
@@ -69,8 +76,12 @@ public class Bullet : MonoBehaviour
 
     IEnumerator DestroyBullet()
     {
+        sprite.enabled = false;
+        rb.angularVelocity = 0f;
+        rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezePositionY;
+        bulLight.enabled = false;
         sparks.Play();
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.3f);
         Destroy(gameObject);
     }
 }
