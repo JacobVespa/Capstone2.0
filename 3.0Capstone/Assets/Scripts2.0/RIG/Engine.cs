@@ -27,6 +27,8 @@ public class Engine : MonoBehaviour
 
     private float heat = 0f;
 
+    [SerializeField] private ParticleSystem sparks;
+
     public float Heat
     {
         set
@@ -81,6 +83,7 @@ public class Engine : MonoBehaviour
         if(other.CompareTag("Hammer"))
         {
             EngineRepair();
+            sparks.Play();
         }
     }
 
