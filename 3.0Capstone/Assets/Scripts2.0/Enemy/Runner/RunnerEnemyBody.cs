@@ -69,7 +69,8 @@ public class RunnerEnemyBody: EnemyBody
         if (attackTimer < attackStartUp) { return; }
 
         base.Attack(target);
-
+        audioSource.clip = attackClip;
+        audioSource.Play();
         if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver dr))
         {
             dr.Attacked(damageSource);
