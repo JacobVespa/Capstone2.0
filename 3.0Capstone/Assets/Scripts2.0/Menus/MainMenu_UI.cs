@@ -16,15 +16,25 @@ public class MainMenu_UI : MonoBehaviour
 
     [SerializeField] SoundManager soundManager;
 
+    bool hasStarted = false;
+
     private void Start()
     {
         menuAnimator.SetTrigger("OpenMenu");
     }
 
+    private void Update()
+    {
+        if (EventSystem.current.currentSelectedGameObject == null && !hasStarted)
+        {
+            EventSystem.current.SetSelectedGameObject(startButton);
+        }
+    }
+
     private void OnEnable()
     {
         EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(startButton);
+        //EventSystem.current.SetSelectedGameObject(startButton);
         Animator startButtonAnimator = startButton.GetComponentInChildren<Animator>();
 
         startButtonAnimator.SetTrigger("Highlighted");
@@ -38,6 +48,7 @@ public class MainMenu_UI : MonoBehaviour
             //gameflowManager.StartScrollerLevel();
             //LevelManager.Instance.StartWindDownLevel(true);
             menuAnimator.SetTrigger("CloseMenu");
+            hasStarted = true;
         }
         else
         {
