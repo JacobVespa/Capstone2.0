@@ -15,6 +15,7 @@ public class ItemTypes : MonoBehaviour
         NONE
     }
 
+    //THIS WILL THEN BE CHANGED TO SIMPLY ACTIVATING THE BUTTON IF CHARGED UP
     //spawning the power-up crystal
     public void SpawnItem(int index)
     {
