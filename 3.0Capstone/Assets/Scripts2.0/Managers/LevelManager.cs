@@ -101,7 +101,9 @@ public class LevelManager : MonoBehaviour
         if (cam != null && goNext)
         {
             cam.PanOver(20f, 0.3f, new Vector3(0, -60, 0));
-            yield return new WaitForSecondsRealtime(4f); // match PanOver duration
+            yield return new WaitForSecondsRealtime(3f); // match PanOver duration
+            GameManager.Instance.EnableTransitionCanvas();
+            yield return new WaitForSecondsRealtime(1f); 
         }
 
         GameManager.Instance.EmptyStorage();

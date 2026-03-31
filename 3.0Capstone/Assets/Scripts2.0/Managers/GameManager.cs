@@ -60,6 +60,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button pauseButton;
 
     [SerializeField] private Transform vfxStorage;
+    [SerializeField] private GameObject transitionCanvas;
 
     private GameflowManager flowManager;
 
@@ -232,6 +233,16 @@ public class GameManager : MonoBehaviour
             if (t != null)
                 Destroy(t.gameObject);
         }
+    }
+
+    public void EnableTransitionCanvas()
+    {
+        transitionCanvas.SetActive(true);
+    }
+
+    public void DisableTransitionCanvas()
+    {
+        transitionCanvas.SetActive(false);
     }
 
 }

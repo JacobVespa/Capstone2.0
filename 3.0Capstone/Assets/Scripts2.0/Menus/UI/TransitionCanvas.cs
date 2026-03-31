@@ -30,27 +30,35 @@ public class TransitionCanvas : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
         originalScale = rectTransform.localScale;
+        originalPosition = rectTransform.anchoredPosition;
     }
 
     private void OnEnable()
     {
-        originalPosition = rectTransform.anchoredPosition;
-
-        rectTransform.localEulerAngles = new Vector3(0f, 0f, startRotationZ);
+        rectTransform.anchoredPosition = originalPosition;
         rectTransform.localScale = Vector3.one * startScale;
+        rectTransform.localEulerAngles = new Vector3(0f, 0f, startRotationZ);
 
         StopAllCoroutines();
         StartCoroutine(RunSequence());
     }
 
+    private void OnDisable()
+    {
+        rectTransform.localEulerAngles = new Vector3(0f, 0f, startRotationZ);
+        rectTransform.localScale = Vector3.one * startScale;
+        rectTransform.anchoredPosition = originalPosition;
+    }
+
     private IEnumerator RunSequence()
     {
-        // Run rotation and scale together, wait for the longer of the two
         Coroutine scaleCoroutine = StartCoroutine(NormalizeScale());
         yield return StartCoroutine(NormalizeRotation());
         yield return scaleCoroutine;
 
         yield return StartCoroutine(SlideDown());
+
+        this.gameObject.SetActive(false);
     }
 
     private IEnumerator NormalizeRotation()
