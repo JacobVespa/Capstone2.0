@@ -4,14 +4,16 @@ using UnityEngine;
 public class DefenseGemUI : MonoBehaviour
 {
     [SerializeField] private GameObject[] defenseGems;
+    [SerializeField] private float popScale = 1.5f;
+    [SerializeField] private float popDuration = 0.2f;
+    [SerializeField] private float shrinkDuration = 0.15f;
+
     private int currentGems = 0;
 
     private void Start()
     {
         foreach (var gem in defenseGems)
-        {
             gem.SetActive(false);
-        }
 
         UpdateGemCount();
     }
@@ -30,10 +32,6 @@ public class DefenseGemUI : MonoBehaviour
         }
     }
 
-    // TODO set the gems initial scale to larger than needed,
-    // Then use coroutine so scale back to normal to create a pop-out effect
-    // FIX THIS LATER!
-
     private void AnimateGem(GameObject gem)
     {
         StartCoroutine(GemAnimation(gem));
@@ -41,14 +39,29 @@ public class DefenseGemUI : MonoBehaviour
 
     private IEnumerator GemAnimation(GameObject gem)
     {
-        gem.transform.localScale = gem.transform.localScale + (gem.transform.localScale * Time.deltaTime * 0.1f);
+        Vector3 originalScale = gem.transform.localScale;
+        Vector3 bigScale = originalScale * popScale;
 
-        yield return new WaitForSeconds(0.4f);
+        // Scale up
+        float elapsed = 0f;
+        while (elapsed < popDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / popDuration);
+            gem.transform.localScale = Vector3.Lerp(originalScale, bigScale, t);
+            yield return null;
+        }
 
-        gem.transform.localScale = gem.transform.localScale - (gem.transform.localScale * Time.deltaTime * 0.1f);
+        // Scale back down
+        elapsed = 0f;
+        while (elapsed < shrinkDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / shrinkDuration);
+            gem.transform.localScale = Vector3.Lerp(bigScale, originalScale, t);
+            yield return null;
+        }
 
-        yield return new WaitForSeconds(0.4f);
-
-        yield return null;
+        gem.transform.localScale = originalScale;
     }
 }
