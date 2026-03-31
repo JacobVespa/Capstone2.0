@@ -46,7 +46,7 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private float InitialTick_Health;
     [SerializeField] private float InitialTick_Speed;
 
-    [Header("Inital Big Tick Stats")]
+    [Header("Inital Runner Stats")]
     [SerializeField] private float InitialRunner_Health;
     [SerializeField] private float InitialRunner_Speed;
 

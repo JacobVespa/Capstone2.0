@@ -1053,8 +1053,8 @@ MonoBehaviour:
   shakeDuration: 0.3
   shakeStrength: 0.1
   health: 20
-  attackStartUp: 3
-  attackCoolDown: 3
+  attackStartUp: 5
+  attackCoolDown: 2
   audioSource: {fileID: 2496146807471325034}
   attackClip: {fileID: 8300000, guid: 47178c5cdb46bcb4b8a89d3e09e61b56, type: 3}
   deathClip: {fileID: 8300000, guid: c9a95f58ac1cd834895b335c797dd732, type: 3}
@@ -1090,7 +1090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f8985a4141778c49af1f779a1c1d628, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageVal: 2
+  damageVal: 3
   damageTarget: 2
 --- !u!114 &6293998474089344726
 MonoBehaviour:
