@@ -23,7 +23,15 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
     [Header("UI")]
     [SerializeField] private Image healthBarFill;
-    [SerializeField] private Image vignette;
+    [SerializeField] private Image hitVignette;
+    [SerializeField] private Image lowHealthVignette;
+
+    [Header("Low Health Vignette")]
+    [SerializeField] [Range(0f, 1f)] private float lowHealthThresholdNormalized = 0.3f;
+    [SerializeField] private float lowHealthPulseSpeed = 3.5f;
+    [SerializeField] [Range(0f, 1f)] private float lowHealthMinAlpha = 0.3f;
+    [SerializeField][Range(0f, 1f)] private float lowHealthMaxAlpha = 0.3f;
+    [SerializeField] private Color lowHealthColor = new Color(0.5f, 0f, 0f, 1f);
 
     //[Header("Camera Shake")]
     //[SerializeField] private Camera mainCam;
@@ -59,6 +67,21 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             healthBarFill.color = Color.green;
         }
 
+        if (lowHealthVignette != null)
+        {
+            Color c = lowHealthColor;
+            c.a = 0f;
+
+            lowHealthVignette.color = c;
+            lowHealthVignette.gameObject.SetActive(false);
+        }
+
+        if ( hitVignette != null)
+        {
+            hitVignette.gameObject.SetActive(false);
+        }
+
+
         damageStages = damagedAreas.Length;
 
         //foreach (var area in damagedAreas)
@@ -93,6 +116,11 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         GameManager.Instance.SetRig(gameObject);
     }
 
+    private void Update()
+    {
+        UpdateLowHealthVignette();
+    }
+
     public void Attacked(DamageSource d)
     {
         if (d.DamageTarget == DamageSource.DamageType.Player)
@@ -110,7 +138,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
 
         CameraCinematic cinematic = FindFirstObjectByType<CameraCinematic>();
         cinematic.ShakeCamera(0.15f,0.25f);
-        StartCoroutine(Vignette(Color.red));
+        StartCoroutine(HitVignetteFlash(Color.red));
 
 
         if (currentHealth <= 0f)
@@ -127,7 +155,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         UpdateHealthUI();
         UpdateDamageStages();
 
-        StartCoroutine(Vignette(Color.green));
+        StartCoroutine(HitVignetteFlash(Color.green));
     }
 
     private void UpdateHealthUI()
@@ -186,14 +214,13 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         GameManager.Instance.GameOverStatus = true;
     }
 
-    private IEnumerator Vignette(Color color)
+    private IEnumerator HitVignetteFlash(Color color)
     {
-        if (vignette == null) yield break;
+        if (hitVignette == null) yield break;
 
         color.a = 0f;
-        vignette.color = color;
-        vignette.gameObject.SetActive(true);
-
+        hitVignette.color = color;
+        hitVignette.gameObject.SetActive(true);
         float alphaTarget = 100f / 255f;
         float alpha = 0f;
 
@@ -201,7 +228,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         {
             alpha += 2f * Time.deltaTime;
             color.a = alpha;
-            vignette.color = color;
+            hitVignette.color = color;
             yield return null;
         }
 
@@ -211,33 +238,64 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         {
             alpha -= 2f * Time.deltaTime;
             color.a = alpha;
-            vignette.color = color;
+            hitVignette.color = color;
             yield return null;
         }
 
-        vignette.gameObject.SetActive(false);
+        hitVignette.gameObject.SetActive(false);
+    }
+
+    private void UpdateLowHealthVignette()
+    {
+        if (lowHealthVignette == null) return;
+        if (currentHealth <= 0f)
+        {
+            lowHealthVignette.gameObject.SetActive(false);
+            return;
+        }
+
+        bool isLowHealth = HealthNormalized <= lowHealthThresholdNormalized;
+
+        if (!isLowHealth)
+        {
+            Color offColor = lowHealthColor;
+            offColor.a = 0f;
+            lowHealthVignette.color = offColor;
+            lowHealthVignette.gameObject.SetActive(false);
+            return;
+        }
+
+        if (!lowHealthVignette.gameObject.activeSelf)
+            lowHealthVignette.gameObject.SetActive(true);
+
+        float pulse = (Mathf.Sin(Time.time * lowHealthPulseSpeed) + 1f) / 0.5f;
+        float alpha = Mathf.Lerp(lowHealthMinAlpha, lowHealthMaxAlpha, pulse);
+
+        Color pulseColor = lowHealthColor;
+        pulseColor.a = alpha;
+        lowHealthVignette.color = pulseColor;
     }
 
      //private IEnumerator Shake()
      //{
      //    if (mainCam == null) yield break;
 
-     //    float elapsed = 0f;
-     //    Vector3 startPos = originalCamPos;
+    //    float elapsed = 0f;
+    //    Vector3 startPos = originalCamPos;
 
-     //    while (elapsed < camShakeDur)
-     //    {
-     //        float x = Random.Range(-1f, 1f) * camShakeStr;
-     //        float y = Random.Range(-1f, 1f) * camShakeStr;
+    //    while (elapsed < camShakeDur)
+    //    {
+    //        float x = Random.Range(-1f, 1f) * camShakeStr;
+    //        float y = Random.Range(-1f, 1f) * camShakeStr;
 
-     //        mainCam.transform.position = startPos + new Vector3(x, y, 0f);
+    //        mainCam.transform.position = startPos + new Vector3(x, y, 0f);
 
-     //        elapsed += Time.deltaTime;
-     //        yield return null;
-     //    }
+    //        elapsed += Time.deltaTime;
+    //        yield return null;
+    //    }
 
-     //    mainCam.transform.position = startPos;
-     //}
+    //    mainCam.transform.position = startPos;
+    //}
 
 
 
