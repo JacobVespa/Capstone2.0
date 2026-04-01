@@ -59,7 +59,7 @@ public class MeleeEnemyAI : EnemyAI
         }
     }
 
-    private void TryAttackTarget()
+    protected virtual void TryAttackTarget()
     {
         if (!hasTarget) { return; }
         if(body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }

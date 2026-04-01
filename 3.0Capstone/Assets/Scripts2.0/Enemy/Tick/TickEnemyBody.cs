@@ -36,7 +36,7 @@ public class TickEnemyBody : EnemyBody
     {
         if (DifficultyManager.Instance != null)
         {
-            this.Health = DifficultyManager.Instance.TickHealth;
+            this.health = DifficultyManager.Instance.TickHealth;
         }
     }
 

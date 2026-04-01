@@ -29,7 +29,7 @@ public class RangedEnemyBody : EnemyBody
     {
         if (DifficultyManager.Instance != null)
         {
-            this.Health = DifficultyManager.Instance.SkeetoHealth;
+            this.health = DifficultyManager.Instance.SkeetoHealth;
         }
     }
 

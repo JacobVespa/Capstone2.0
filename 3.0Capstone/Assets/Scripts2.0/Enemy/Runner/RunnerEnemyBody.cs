@@ -33,7 +33,7 @@ public class RunnerEnemyBody: EnemyBody
     {
         if (DifficultyManager.Instance != null)
         {
-            this.Health = DifficultyManager.Instance.RunnerHealth + 1;
+            this.health = DifficultyManager.Instance.RunnerHealth + 1;
         }
     }
 

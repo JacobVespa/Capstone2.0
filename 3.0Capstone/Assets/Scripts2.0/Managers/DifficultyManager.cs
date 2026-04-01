@@ -28,6 +28,7 @@ public class DifficultyManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        InitiateStats();
     }
 
     [Header("Initial Grub Stats")]

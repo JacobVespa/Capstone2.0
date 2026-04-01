@@ -11,66 +11,65 @@ using UnityEngine;
 
 namespace YourNamespace // Add this if you're using namespaces elsewhere
 {
-public class MeleeEnemyBody : EnemyBody
-{
-    [SerializeField] private CircleCollider2D attackRange;
-    [SerializeField] private float attackRangeVal = 2;
-    
-    public float AttackRangeVal { get { return attackRangeVal; } set { attackRangeVal = value; attackRange.radius = attackRangeVal; } }
-
-    protected override void Awake()
+    public class MeleeEnemyBody : EnemyBody
     {
-        base.Awake();
-        if(attackRange != null)
+        [SerializeField] private CircleCollider2D attackRange;
+        [SerializeField] private float attackRangeVal = 2;
+
+        public float AttackRangeVal { get { return attackRangeVal; } set { attackRangeVal = value; attackRange.radius = attackRangeVal; } }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            if (attackRange != null)
             {
                 attackRange.radius = attackRangeVal;
             }
-           // set the range collider radius equal to what the attackRangeVal is
-    }
-
-    void Start()
-    {
-        if (DifficultyManager.Instance != null)
-        {
-            this.Health = DifficultyManager.Instance.GrubHealth;
+            // set the range collider radius equal to what the attackRangeVal is
         }
-        
-        
-    }
 
-    protected override void FixedUpdate()
-    {
-        base.FixedUpdate();
-    }
-
-    //  tries to get a an IDamageReceiver from the gameobject argument and attacks it (no raycast or pysical interaction to attack)
-    public override void Attack(GameObject target)
-    {
-        if (attackTimer < attackStartUp) { return; }
-
-
-        base.Attack(target);
-        StartCoroutine(GrubAttack());
-        int clipIndex = Random.Range(0, attackClip.Length);
-        audioSource.clip = attackClip[clipIndex];
-        audioSource.Play();
-        if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver damageTarget))
+        private void Start()
         {
-            damageTarget.Attacked(damageSource);
+            if(DifficultyManager.Instance != null)
+            {
+                this.health = DifficultyManager.Instance.GrubHealth;
+            }
         }
-        else { Debug.LogError("no IDamage Receiver found on target"); }
 
-    }
 
-    IEnumerator GrubAttack()
-    {
-        if (animator != null)
+        protected override void FixedUpdate()
         {
-            animator.SetBool("Attack", true);
-            yield return new WaitForSeconds(0.25f); //can adjust the time on this
-            animator.SetBool("Attack", false);
+            base.FixedUpdate();
         }
-    }
 
-}
+        //  tries to get a an IDamageReceiver from the gameobject argument and attacks it (no raycast or pysical interaction to attack)
+        public override void Attack(GameObject target)
+        {
+            if (attackTimer < attackStartUp) { return; }
+
+
+            base.Attack(target);
+            StartCoroutine(GrubAttack());
+            int clipIndex = Random.Range(0, attackClip.Length);
+            audioSource.clip = attackClip[clipIndex];
+            audioSource.Play();
+            if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver damageTarget))
+            {
+                damageTarget.Attacked(damageSource);
+            }
+            else { Debug.LogError("no IDamage Receiver found on target"); }
+
+        }
+
+        IEnumerator GrubAttack()
+        {
+            if (animator != null)
+            {
+                animator.SetBool("Attack", true);
+                yield return new WaitForSeconds(0.25f); //can adjust the time on this
+                animator.SetBool("Attack", false);
+            }
+        }
+
+    }
 }

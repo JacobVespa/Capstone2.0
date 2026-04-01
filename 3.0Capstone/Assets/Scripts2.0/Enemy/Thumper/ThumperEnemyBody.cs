@@ -1,19 +1,27 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using YourNamespace;
 
 public class ThumperEnemyBody : MeleeEnemyBody
 {
     protected float maxHealth;
+    
 
-    private bool sheild = false;
+    private bool hit = false;
+    public bool shield = false;
     private bool loseArmour = false;
+
+    private AnimatorStateInfo state;
+
+    private Coroutine isShielding;
+    
 
     private void Start()
     {
         if(DifficultyManager.Instance != null)
         {
-            Debug.Log(DifficultyManager.Instance.BottomFeederHealth);
+            
             this.health = DifficultyManager.Instance.BottomFeederHealth;
         }
         maxHealth = Health;
@@ -22,18 +30,26 @@ public class ThumperEnemyBody : MeleeEnemyBody
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
-        
-        if (sheild && animator.speed != 0)
+
+        if (hit && !shield && !loseArmour)
         {
-            AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
-            if(state.normalizedTime >= 0.15 && state.IsName("BFHit"))
-            {
-                Debug.LogError("trig");
-                animator.speed = 0;
-                moveSpeed = 0;
-            }
+            state = animator.GetCurrentAnimatorStateInfo(0);
+
             
+
+            if (state.normalizedTime%1.0 >= 0.25 && state.IsTag("Hit"))
+            {
+                isShielding = StartCoroutine(Shielding());
+            }
         }
+ 
+    }
+
+    public override void Attack(GameObject target)
+    {
+        if (shield) { return; }
+
+        base.Attack(target);
     }
 
     public override void Attacked(DamageSource d)
@@ -42,7 +58,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
         if(loseArmour == false)
         {
             animator.SetBool("Hit",true);
-            sheild = true;
+            hit = true;
             
         }
         
@@ -50,33 +66,103 @@ public class ThumperEnemyBody : MeleeEnemyBody
 
     protected override void TakeDamage(float damage)
     {
-        if(sheild == true)
+        if(shield == true)
         {
             damage /= 2;
         }
 
         base.TakeDamage(damage);
 
+        
         if (health <= maxHealth / 3 && loseArmour == false)
         {
-            animator.SetBool("Hit", false);
+            
+
+            if (shield)
+            {
+                StopCoroutine(isShielding);
+                hit = false;
+                animator.speed = 1;
+                shield = false;
+                animator.SetBool("Hit", false);
+                
+            }
             animator.SetTrigger("LoseArmor");
-            animator.speed = 1;
             
             loseArmour = true;
-            sheild = false;
+            StartCoroutine(LoseArmour());
+
+            
         }
+        
     }
 
-    private IEnumerator hit()
+    private IEnumerator Shielding()
+    {
+        hit = false;
+        shield = true;
+        animator.speed = 0;
+        float regularSpeed = moveSpeed;
+        moveSpeed = 0;
+
+        while (true)
+        {
+            yield return new WaitForSeconds(2.5f);
+
+            if(hit == false || loseArmour)
+            {
+                break;
+            }
+            else { hit = false; }
+        }
+
+        
+
+        
+        animator.speed = 1;
+
+        
+        
+        animator.SetBool("Hit", false);
+
+        while (true)
+        {
+            yield return new WaitForEndOfFrame();
+            state = animator.GetCurrentAnimatorStateInfo(0);
+
+            if(!state.IsTag("Hit") || loseArmour)
+            {
+                break;
+            }
+        }
+        
+        moveSpeed = regularSpeed;
+        shield = false;
+
+    }
+
+    IEnumerator LoseArmour()
     {
 
 
-        yield return new WaitForSeconds(2.5f);
-
-        animator.SetBool("Hit", false);
-        animator.speed = 1;
-
-
+        while (true)
+        {
+            yield return new WaitForEndOfFrame();
+            state = animator.GetCurrentAnimatorStateInfo(0);
+            /*
+            if (state.IsTag("LoseArmour"))
+            {
+                Debug.Log(state.normalizedTime);
+            }
+            */
+            
+            if (state.IsTag("LoseArmour") && state.normalizedTime >= 0.95)
+            {
+                //Debug.Log("start");
+                break;
+            }
+        }
+        moveSpeed = 5;
+        
     }
 }

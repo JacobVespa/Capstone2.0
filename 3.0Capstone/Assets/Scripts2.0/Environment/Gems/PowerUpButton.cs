@@ -10,9 +10,13 @@ public class PowerUpButton : MonoBehaviour
     [SerializeField] private SpriteRenderer exclamationOutline;
     [SerializeField] private SpriteRenderer exclamation;
 
-    private void Awake()
+    private void Start()
     {
-        GameManager.Instance.powerUp = this;
+        if(GameManager.Instance != null)
+        {
+            GameManager.Instance.powerUp = this;
+        }
+        
     }
     public void EnableButton()
     {
