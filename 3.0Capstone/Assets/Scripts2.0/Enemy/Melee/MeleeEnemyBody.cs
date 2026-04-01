@@ -51,7 +51,8 @@ public class MeleeEnemyBody : EnemyBody
 
         base.Attack(target);
         StartCoroutine(GrubAttack());
-        audioSource.clip = attackClip;
+        int clipIndex = Random.Range(0, attackClip.Length);
+        audioSource.clip = attackClip[clipIndex];
         audioSource.Play();
         if (target.TryGetComponent<IDamageReceiver>(out IDamageReceiver damageTarget))
         {

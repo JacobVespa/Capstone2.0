@@ -64,8 +64,9 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
 
     [Header("Audio")]
     public AudioSource audioSource;
-    public AudioClip attackClip;
-    public AudioClip deathClip;
+    public AudioClip[] attackClip;
+    public AudioClip[] hitClips;
+    public AudioClip[] deathClip;
 
     protected virtual void Awake()
     {
