@@ -5,11 +5,6 @@ using UnityEngine.UI;
 
 public class RigHealth : MonoBehaviour, IDamageReceiver
 {
-
-
-    
-
-
     [Header("Health")]
     [SerializeField] private float maxHealth = 10f;
     [SerializeField] private float currentHealth;

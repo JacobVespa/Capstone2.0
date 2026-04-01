@@ -921,6 +921,7 @@ MonoBehaviour:
   vfxStorage: {fileID: 7227303927450870685}
   transitionCanvas: {fileID: 3136467480415739375}
   cameFromQVariant: 0
+  powerUp: {fileID: 0}
 --- !u!114 &7949579227434254171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -986,6 +987,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpeedUp: 0.109
   SpeedDown: 0
+  transitionSpeed: 2
 --- !u!114 &5987751750684668275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,9 +1000,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23f1db691447cfb429f1b37fe4678f98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InitialGrub_Health: 5
+  InitialGrub_Health: 3
   InitialGrub_Speed: 0
-  InitialSkeeto_Health: 5
+  InitialSkeeto_Health: 3
   InitialSkeeto_Speed: 0
   InitialBottomFeeder_Health: 30
   InitialBottomFeeder_Speed: 0
