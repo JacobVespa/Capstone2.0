@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using YourNamespace;
 
@@ -21,9 +22,17 @@ public class ThumperEnemyBody : MeleeEnemyBody
     protected override void FixedUpdate()
     {
         base.FixedUpdate();
+        
         if (sheild && animator.speed != 0)
         {
-            animator.speed = 0;
+            AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
+            if(state.normalizedTime >= 0.15 && state.IsName("BFHit"))
+            {
+                Debug.LogError("trig");
+                animator.speed = 0;
+                moveSpeed = 0;
+            }
+            
         }
     }
 
@@ -34,6 +43,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
         {
             animator.SetBool("Hit",true);
             sheild = true;
+            
         }
         
     }
@@ -49,8 +59,24 @@ public class ThumperEnemyBody : MeleeEnemyBody
 
         if (health <= maxHealth / 3 && loseArmour == false)
         {
+            animator.SetBool("Hit", false);
             animator.SetTrigger("LoseArmor");
+            animator.speed = 1;
+            
             loseArmour = true;
+            sheild = false;
         }
+    }
+
+    private IEnumerator hit()
+    {
+
+
+        yield return new WaitForSeconds(2.5f);
+
+        animator.SetBool("Hit", false);
+        animator.speed = 1;
+
+
     }
 }

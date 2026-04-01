@@ -190,7 +190,6 @@ MonoBehaviour:
   deathClip: {fileID: 8300000, guid: b7188412a7bb7424a8d292f8d7590aae, type: 3}
   attackRange: {fileID: 1215407965381333140}
   attackRangeVal: 6
-  isGrub: 1
 --- !u!114 &5314007174558124751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,7 +996,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -2
   m_Sprite: {fileID: 8423272834265113234, guid: 1e8d566268fbe154b98156ed95b068b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
