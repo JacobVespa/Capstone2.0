@@ -11,7 +11,7 @@ public class AaronLeaderboardScript : MonoBehaviour
 
     private string scorePath;
     [SerializeField] private List<string> score_JSON;
-    [SerializeField] private List<Score> scores;
+    [SerializeField] private List<Score> scores = new List<Score>();
 
     public class Score
     {
@@ -44,15 +44,16 @@ public class AaronLeaderboardScript : MonoBehaviour
         WriteScore("Test3!");
         ParseScore();
         SortBoard();
+        DisplayBoard();
     }
 
     public void WriteScore(string name)
     {
         string newJson = "";
 
-        string shards = "##";
-        string kills = "##";
-        string total = "##";
+        string shards = "0";
+        string kills = "0";
+        string total = "0";
 
         if (GameManager.Instance != null)
         {
@@ -91,6 +92,7 @@ public class AaronLeaderboardScript : MonoBehaviour
     {
         string[] parts;
         string temp;
+        string tag = "";
 
         for (int i = 0; i < score_JSON.Count; i++)
         {
@@ -105,15 +107,12 @@ public class AaronLeaderboardScript : MonoBehaviour
 
                 foreach (string part in parts)
                 {
-                    string tag = "";
-
-                    int start = part.IndexOf('{') + 1;
-                    int end = part.IndexOf('(');
+                    int start = 0;
+                    int end = part.IndexOf('(') + 1;
 
                     if (end > start)
                     {
-                        tag = temp.Substring(start, end - start);
-                        Debug.Log(tag);
+                        tag = part.Substring(start, end-1);
                     }
 
                     start = part.IndexOf('(') + 1;
@@ -121,7 +120,7 @@ public class AaronLeaderboardScript : MonoBehaviour
 
                     if (start > 0 && end > start)
                     {
-                        string result = temp.Substring(start, end - start);
+                        string result = part.Substring(start, end - start);
 
                         switch(tag)
                         {
@@ -156,7 +155,7 @@ public class AaronLeaderboardScript : MonoBehaviour
             for (int j = 0; j < scores.Count - 1; j++)
             {
                 Score temp = new Score();
-                bool larger = int.Parse((scores[j].total)) > int.Parse((scores[j + 1].total));
+                bool larger = (float.Parse(scores[j].total)) > (float.Parse(scores[j + 1].total));
 
                 if (!larger)
                 {
@@ -176,7 +175,7 @@ public class AaronLeaderboardScript : MonoBehaviour
     {
         foreach (Score s in scores)
         {
-            Debug.Log(s.name + s.total + s.shards + s.kills);
+            Debug.Log("Name: " + s.name + " Total: " + s.total + " Shards: " + s.shards + " Kills: " + s.kills);
         }
     }
 }
