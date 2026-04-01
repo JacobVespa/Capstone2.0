@@ -17,7 +17,8 @@ public class Turret : MonoBehaviour
     [SerializeField] private GameObject bulletSpawnLocation;
 
     [Header("VFX")]
-    public GameObject muzzleFlash;
+    public Sprite[] muzzleFlashes;
+    [SerializeField] private SpriteRenderer muzzleVFXRenderer;
     [SerializeField] private ParticleSystem comicShot;
 
     [Header("Settings")]
@@ -115,7 +116,7 @@ public class Turret : MonoBehaviour
                 ManualTarget();
 
             Aim();
-            if (assistAim) { AdujstAim(); }
+            if (assistAim) { AdjustAim(); }
             Shoot();
         }
         else
@@ -212,7 +213,8 @@ public class Turret : MonoBehaviour
         canShoot = true;
 
         StopAllCoroutines();
-        muzzleFlash.SetActive(false);
+        muzzleVFXRenderer.sprite = null;
+
         pivot.transform.localPosition = originalPos;
 
         gameObject.transform.localScale = Vector3.Lerp(mountedScale, dismountedScale, 10f);
@@ -304,7 +306,7 @@ public class Turret : MonoBehaviour
         }
     }
 
-    private void AdujstAim()
+    private void AdjustAim()
     {
         ManualTarget();
 
@@ -396,11 +398,13 @@ public class Turret : MonoBehaviour
 
     IEnumerator ShootingVFX()
     {
-        muzzleFlash.SetActive(true);
+        int index = UnityEngine.Random.Range(0, muzzleFlashes.Length);
+        muzzleVFXRenderer.sprite = muzzleFlashes[index];
+        muzzleVFXRenderer.gameObject.SetActive(true);
         comicShot.Play();
         audioSource.Play();
         yield return new WaitForSeconds(0.1f);
-        muzzleFlash.SetActive(false);
+        muzzleVFXRenderer.gameObject.SetActive(false);
     }
 
     IEnumerator Recoil()

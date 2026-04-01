@@ -21111,7 +21111,13 @@ MonoBehaviour:
   - {fileID: 7009589862013810148}
   - {fileID: 3931329001491568306}
   healthBarFill: {fileID: 0}
-  vignette: {fileID: 0}
+  hitVignette: {fileID: 0}
+  lowHealthVignette: {fileID: 0}
+  lowHealthThresholdNormalized: 0.3
+  lowHealthPulseSpeed: 3.5
+  lowHealthMinAlpha: 0.12
+  lowHealthMaxAlpha: 0.3
+  lowHealthColor: {r: 0.5, g: 0, b: 0, a: 1}
   rigDeath: {fileID: 2436525782096443507}
   gameManager: {fileID: 3932545320157543553, guid: 9902f7eda4a83ba4bbf7bb4adcc074a9, type: 3}
   left: {fileID: 7507324265215104102}
@@ -33555,7 +33561,11 @@ PrefabInstance:
     - target: {fileID: 7119150906284733983, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 523933118049462173, guid: 00213b28800b20c40899cf45c5cc3472, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119150906284733983, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7376360003558729196, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -33613,8 +33623,16 @@ PrefabInstance:
       value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: muzzleVFXRenderer
+      value: 
+      objectReference: {fileID: 8361417285949268463}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: projectiles.Array.size
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: muzzleFlashes.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: 'projectiles.Array.data[0]'
@@ -33648,6 +33666,14 @@ PrefabInstance:
       propertyPath: 'projectiles.Array.data[7]'
       value: 
       objectReference: {fileID: 21300000, guid: 8250524737bde644f87ce95c5148b975, type: 3}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: 'muzzleFlashes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 523933118049462173, guid: 00213b28800b20c40899cf45c5cc3472, type: 3}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: 'muzzleFlashes.Array.data[1]'
+      value: 
+      objectReference: {fileID: -7893410222649776646, guid: 0d5c4672980fdfb4faade72f5defd0b9, type: 3}
     - target: {fileID: 9160928724324260839, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: m_SortingOrder
       value: 100
@@ -33706,6 +33732,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f7cd50a69167d4bb74d93b78ec049a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &8361417285949268463 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7119150906284733983, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+  m_PrefabInstance: {fileID: 1640988940725999600}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2036399910490776703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35570,7 +35601,15 @@ PrefabInstance:
     - target: {fileID: 7119150906284733983, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 523933118049462173, guid: 00213b28800b20c40899cf45c5cc3472, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119150906284733983, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7119150906284733983, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7376360003558729196, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -35628,8 +35667,16 @@ PrefabInstance:
       value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: muzzleVFXRenderer
+      value: 
+      objectReference: {fileID: 625567054394577888}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: projectiles.Array.size
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: muzzleFlashes.Array.size
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: 'projectiles.Array.data[0]'
@@ -35663,6 +35710,14 @@ PrefabInstance:
       propertyPath: 'projectiles.Array.data[7]'
       value: 
       objectReference: {fileID: 21300000, guid: 8250524737bde644f87ce95c5148b975, type: 3}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: 'muzzleFlashes.Array.data[0]'
+      value: 
+      objectReference: {fileID: 523933118049462173, guid: 00213b28800b20c40899cf45c5cc3472, type: 3}
+    - target: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+      propertyPath: 'muzzleFlashes.Array.data[1]'
+      value: 
+      objectReference: {fileID: -7893410222649776646, guid: 0d5c4672980fdfb4faade72f5defd0b9, type: 3}
     - target: {fileID: 9160928724324260839, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -35676,6 +35731,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+--- !u!212 &625567054394577888 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7119150906284733983, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
+  m_PrefabInstance: {fileID: 7665755401272436223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1479594070071338601 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 9145307928998200214, guid: 4cdd3fa9bd5aea246baf9135c055f5cc, type: 3}
