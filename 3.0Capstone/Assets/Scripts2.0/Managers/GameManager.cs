@@ -71,6 +71,9 @@ public class GameManager : MonoBehaviour
     //check bool if coming from Q variant level
     public bool cameFromQVariant;
 
+    //power up button ref
+    public PowerUpButton powerUp;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

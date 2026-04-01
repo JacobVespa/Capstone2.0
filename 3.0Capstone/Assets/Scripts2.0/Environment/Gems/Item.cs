@@ -32,6 +32,7 @@ public class Item : MonoBehaviour
                 //gain rapid fire effect
                 Debug.Log("FIRE RATE GO BRRRRRRRR");
                 local.CallSpeedStart();
+                GameManager.Instance.powerUp.DisableButton();
                 break;
             case ItemTypes.Items.LargeHammer:
                 //gain large hammer effect
