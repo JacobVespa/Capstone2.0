@@ -29,7 +29,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     [Header("Low Health Vignette")]
     [SerializeField] [Range(0f, 1f)] private float lowHealthThresholdNormalized = 0.3f;
     [SerializeField] private float lowHealthPulseSpeed = 3.5f;
-    [SerializeField] [Range(0f, 1f)] private float lowHealthMinAlpha = 0.3f;
+    [SerializeField][Range(0f, 1f)] private float lowHealthMinAlpha = 0.12f;
     [SerializeField][Range(0f, 1f)] private float lowHealthMaxAlpha = 0.3f;
     [SerializeField] private Color lowHealthColor = new Color(0.5f, 0f, 0f, 1f);
 
@@ -145,7 +145,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             StartCoroutine(Die());
     }
 
-    public void HealDamage() //TODO make sure the player cannot heal a patched hole!
+    public void HealDamage()
     {
         if (currentHealth <= 0f) return;
 
@@ -268,7 +268,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         if (!lowHealthVignette.gameObject.activeSelf)
             lowHealthVignette.gameObject.SetActive(true);
 
-        float pulse = (Mathf.Sin(Time.time * lowHealthPulseSpeed) + 1f) / 0.5f;
+        float pulse = (Mathf.Sin(Time.time * lowHealthPulseSpeed) + 1f) * 0.5f;
         float alpha = Mathf.Lerp(lowHealthMinAlpha, lowHealthMaxAlpha, pulse);
 
         Color pulseColor = lowHealthColor;
@@ -325,13 +325,22 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
     IEnumerator ShootSpeed()
     {
         isPowerShootSpeed = true;
+
+        if (PostProcessManager.Instance != null)
+            PostProcessManager.Instance.ChangeSpeed();
+
         left.shootingCD = 0.1f;
         right.shootingCD = 0.1f;
+
         yield return new WaitForSeconds(5f);
+
         left.shootingCD = 0.15f;
         right.shootingCD = 0.15f;
-        isPowerShootSpeed = false;
 
+        if (PostProcessManager.Instance != null)
+            PostProcessManager.Instance.ResetEffect();
+
+        isPowerShootSpeed = false;
     }
 
 

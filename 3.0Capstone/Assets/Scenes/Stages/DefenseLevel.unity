@@ -1663,6 +1663,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5099896753559418481, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
+      propertyPath: m_IgnoreReversedGraphics
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5317191110114332263, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1683,6 +1687,17 @@ PrefabInstance:
 --- !u!114 &1571976514 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2887310804161743546, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
+  m_PrefabInstance: {fileID: 1571976513}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1571976515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1671840210048703197, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
   m_PrefabInstance: {fileID: 1571976513}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -1941,9 +1956,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2146687056}
     - target: {fileID: 27367724594689924, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: hitVignette
+      value: 
+      objectReference: {fileID: 2146687056}
+    - target: {fileID: 27367724594689924, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: healthBarFill
       value: 
       objectReference: {fileID: 1571976514}
+    - target: {fileID: 27367724594689924, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: lowHealthVignette
+      value: 
+      objectReference: {fileID: 1571976515}
     - target: {fileID: 254981847607095456, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.03

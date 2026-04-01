@@ -25,6 +25,8 @@ public class PostProcessManager : MonoBehaviour
     [SerializeField] private float SpeedUp = 0.109f;
     [SerializeField] private float SpeedDown = 0f;
 
+    [SerializeField] private float transitionSpeed = 2f;
+
     public void Start()
     {
         postProcessor = GameObject.FindWithTag("PP");
@@ -32,33 +34,48 @@ public class PostProcessManager : MonoBehaviour
         if (postProcessor != null)
             volume = postProcessor.GetComponent<Volume>();
 
-        if (volume != null)
-            aberration = volume.GetComponent<ChromaticAberration>();
+        if (volume != null && volume.profile != null)
+            volume.profile.TryGet(out aberration);
 
         if (aberration == null)
-            Debug.Log("Aberration Not Found!");
+            Debug.LogWarning("Chromatic Aberration not found in Volume Profile!");
+        else
+            ChangeIntensity(SpeedDown);
 
     }
 
     public void ChangeSpeed()
     {
-        StartCoroutine(Speed());
+        StopAllCoroutines();
+        StartCoroutine(FadeToIntensity(SpeedUp));
     }
 
-    private IEnumerator Speed()
+    private IEnumerator FadeToIntensity(float target)
     {
-        ChangeIntensity(SpeedUp);
+        if (aberration == null)
+            yield break;
 
-        //yield return new WaitForSeconds();
+        float current = aberration.intensity.value;
 
-        ChangeIntensity(SpeedDown);
+        while (Mathf.Abs(current - target) > 0.001f)
+        {
+            current = Mathf.MoveTowards(current, target, transitionSpeed * Time.deltaTime);
+            ChangeIntensity(current);
+            yield return null;
+        }
 
-        yield return null;
+        ChangeIntensity(target);
     }
 
     private void ChangeIntensity(float intensity)
     {
         aberration.intensity.Override(intensity);
+    }
+
+    public void ResetEffect()
+        {
+            StopAllCoroutines();
+            StartCoroutine(FadeToIntensity(SpeedDown));
     }
 
 }
