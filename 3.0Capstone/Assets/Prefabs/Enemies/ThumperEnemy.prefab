@@ -1055,8 +1055,24 @@ MonoBehaviour:
   attackStartUp: 5
   attackCoolDown: 2
   audioSource: {fileID: 2496146807471325034}
-  attackClip: {fileID: 8300000, guid: 9601df96bc1ff8542aefae99fbe7255d, type: 3}
-  deathClip: {fileID: 8300000, guid: c9a95f58ac1cd834895b335c797dd732, type: 3}
+  attackClip:
+  - {fileID: 8300000, guid: 9601df96bc1ff8542aefae99fbe7255d, type: 3}
+  - {fileID: 8300000, guid: 48f1bb7cdb3f9414e850988e22f2bce8, type: 3}
+  - {fileID: 8300000, guid: 3d9d458ec4ffff24cb495f9b1dfc7313, type: 3}
+  - {fileID: 8300000, guid: 60b66949a93134a4c8d893902ca0f4d7, type: 3}
+  hitClips:
+  - {fileID: 8300000, guid: 5f851def630040e47803714729848f92, type: 3}
+  - {fileID: 8300000, guid: 44741953a341c95479fda63739df4569, type: 3}
+  - {fileID: 8300000, guid: 8e08e29393ebc7448a879d7ee399101d, type: 3}
+  - {fileID: 8300000, guid: 350db21dbbf440648bb2ed320692c10f, type: 3}
+  - {fileID: 8300000, guid: 711e19b3358d3de4fa09b6dcf7871cc0, type: 3}
+  - {fileID: 8300000, guid: 0d32b77e08d452a49b4b2c31b77b83b3, type: 3}
+  - {fileID: 8300000, guid: b5e922bab57d406488c888170fa8478f, type: 3}
+  deathClip:
+  - {fileID: 8300000, guid: b023fbf25be4322489e318ac46aee5a0, type: 3}
+  - {fileID: 8300000, guid: accf65d3537f5894c8b2e15f8a7c3d8f, type: 3}
+  - {fileID: 8300000, guid: 9a05b8e1c0a38df4ba9912031b396c7d, type: 3}
+  - {fileID: 8300000, guid: c5eb2ae8c2802f540b7ca205a9fbb13d, type: 3}
   attackRange: {fileID: 0}
   attackRangeVal: 3.75
 --- !u!114 &4195490181923118165

@@ -163,8 +163,13 @@ MonoBehaviour:
   attackStartUp: 1.5
   attackCoolDown: 2
   audioSource: {fileID: 8747906298825351223}
-  attackClip: {fileID: 8300000, guid: 7d3ad071854abbf4da11c4d2c8c1316f, type: 3}
-  deathClip: {fileID: 8300000, guid: e28cc2afa8a45a149b17293e2d274420, type: 3}
+  attackClip:
+  - {fileID: 8300000, guid: 7d3ad071854abbf4da11c4d2c8c1316f, type: 3}
+  - {fileID: 8300000, guid: 4a33e0e9e701b774d8f64534e09172fe, type: 3}
+  hitClips:
+  - {fileID: 8300000, guid: 54a8f2bee30846741b2f977dbfdfeb68, type: 3}
+  deathClip:
+  - {fileID: 8300000, guid: e28cc2afa8a45a149b17293e2d274420, type: 3}
   projSpeed: 5
   bulletPrefab: {fileID: 6735711473433599987, guid: 9bc8267722b991a4b9837db225663d7e, type: 3}
   objectPool: {fileID: 2200124775379224295}

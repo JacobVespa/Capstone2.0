@@ -414,8 +414,10 @@ MonoBehaviour:
   attackStartUp: 2
   attackCoolDown: 0
   audioSource: {fileID: 3039575963982118163}
-  attackClip: {fileID: 8300000, guid: 5dd5e6d138e38dc488d1666dec37488b, type: 3}
-  deathClip: {fileID: 0}
+  attackClip:
+  - {fileID: 8300000, guid: 5dd5e6d138e38dc488d1666dec37488b, type: 3}
+  hitClips: []
+  deathClip: []
   dropping: 0
 --- !u!114 &6671408905850034950
 MonoBehaviour:

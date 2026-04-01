@@ -220,7 +220,8 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
             var velOverTime = gooSubEmitter.velocityOverLifetime;
             velOverTime.z = -floor.GetFloorSpeed();
 
-            audioSource.clip = deathClip;
+            int clipIndex = Random.Range(0, deathClip.Length);
+            audioSource.clip = deathClip[clipIndex];
             audioSource.Play();
 
             //ParticleSystem bugDeath = Instantiate(bugGoo, transform);
