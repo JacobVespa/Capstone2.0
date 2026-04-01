@@ -38,10 +38,10 @@ public class AaronLeaderboardScript : MonoBehaviour
             File.WriteAllText(scorePath, "");
         }
 
+        ReadScore();
         WriteScore("Test1!");
         WriteScore("Test2!");
         WriteScore("Test3!");
-        ReadScore();
         ParseScore();
         SortBoard();
     }
@@ -50,9 +50,9 @@ public class AaronLeaderboardScript : MonoBehaviour
     {
         string newJson = "";
 
-        string shards = "null";
-        string kills = "null";
-        string total = "null";
+        string shards = "##";
+        string kills = "##";
+        string total = "##";
 
         if (GameManager.Instance != null)
         {
@@ -94,10 +94,10 @@ public class AaronLeaderboardScript : MonoBehaviour
 
         for (int i = 0; i < score_JSON.Count; i++)
         {
+            Score newScore = new Score();
+
             if (score_JSON[i].Length > 2)
             {
-                Score newScore = new Score();
-
                 temp = score_JSON[i];
                 temp = temp.Substring(1, temp.Length - 2);
 
@@ -105,15 +105,25 @@ public class AaronLeaderboardScript : MonoBehaviour
 
                 foreach (string part in parts)
                 {
-                    int start = part.IndexOf('(') + 1;
-                    int end = part.IndexOf(')');
+                    string tag = "";
+
+                    int start = part.IndexOf('{') + 1;
+                    int end = part.IndexOf('(');
+
+                    if (end > start)
+                    {
+                        tag = temp.Substring(start, end - start);
+                        Debug.Log(tag);
+                    }
+
+                    start = part.IndexOf('(') + 1;
+                    end = part.IndexOf(')');
 
                     if (start > 0 && end > start)
                     {
                         string result = temp.Substring(start, end - start);
-                        Debug.Log(result);
 
-                        switch(result)
+                        switch(tag)
                         {
                             case "Name":
                                 newScore.name = result;
