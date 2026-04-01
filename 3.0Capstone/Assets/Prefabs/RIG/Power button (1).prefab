@@ -81,6 +81,10 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: -6110430078318692045, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
+      propertyPath: m_Name
+      value: EXCLAMATION MARK
+      objectReference: {fileID: 0}
+    - target: {fileID: -6110430078318692045, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
@@ -104,6 +108,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 693368348391305327, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 860831943746365170, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1409849901250285412, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -119,6 +131,10 @@ PrefabInstance:
     - target: {fileID: 4340511314680108243, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4874181094411339115, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
+      propertyPath: m_Name
+      value: EXCLAMATION OUTLINE
       objectReference: {fileID: 0}
     - target: {fileID: 4874181094411339115, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
       propertyPath: m_Layer
@@ -183,6 +199,16 @@ SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: -4427837479098783250, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
   m_PrefabInstance: {fileID: 7540720512454149324}
   m_PrefabAsset: {fileID: 0}
+--- !u!212 &7005722557706417315 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 693368348391305327, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
+  m_PrefabInstance: {fileID: 7540720512454149324}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7157432900149535294 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 860831943746365170, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
+  m_PrefabInstance: {fileID: 7540720512454149324}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8016911485580764529 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8653719598885068355, guid: abc773af84f54f0498b732f86880ea4e, type: 3}
@@ -216,6 +242,8 @@ MonoBehaviour:
   buttonOutline: {fileID: 1226491004676184471}
   button: {fileID: 3038570886194212130}
   circleCollider: {fileID: 265527906190305319}
+  exclamationOutline: {fileID: 7157432900149535294}
+  exclamation: {fileID: 7005722557706417315}
 --- !u!58 &265527906190305319
 CircleCollider2D:
   m_ObjectHideFlags: 0
