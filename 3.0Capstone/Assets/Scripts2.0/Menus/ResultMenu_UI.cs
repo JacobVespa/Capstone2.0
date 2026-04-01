@@ -93,4 +93,10 @@ public class ResultMenu_UI : MonoBehaviour
             LevelManager.Instance.HideEndScreen(GameManager.Instance.ResultScreenIndex);
         }
     }
+
+    public void OnLeaderBoardButton()
+    {
+        LevelManager.Instance.ShowEndScreen(9);
+        LevelManager.Instance.HideEndScreen(GameManager.Instance.ResultScreenIndex);
+    }
 }
