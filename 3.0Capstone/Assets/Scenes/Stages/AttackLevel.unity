@@ -378,6 +378,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1708803103208437315, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2061869734799747394, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -588,7 +592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6525199705907830722, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -56.034058
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7794904560092600125, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
       propertyPath: m_Name
@@ -1644,6 +1648,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1355828848}
     - target: {fileID: 27367724594689924, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: hitVignette
+      value: 
+      objectReference: {fileID: 1355828848}
+    - target: {fileID: 27367724594689924, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: healthBarFill
       value: 
       objectReference: {fileID: 979041993}
@@ -1651,6 +1659,10 @@ PrefabInstance:
       propertyPath: postProcessing
       value: 
       objectReference: {fileID: 215951492}
+    - target: {fileID: 27367724594689924, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: lowHealthVignette
+      value: 
+      objectReference: {fileID: 1920577739}
     - target: {fileID: 254981847607095456, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.142
@@ -1771,6 +1783,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 6694585832992618258, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -4788311519913184375, guid: ac5fbbf4ed2172f49abb764f57e2b112, type: 2}
     - target: {fileID: 6732079295092194010, guid: 7aa75db6e8c398745b8ce114af56af0c, type: 3}
       propertyPath: m_Color.b
       value: 0.50980395
@@ -7791,6 +7807,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913048459}
   m_CullTransparentMesh: 1
+--- !u!114 &1920577739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1671840210048703197, guid: 92194f97b89c9184aad9f020ed4f9311, type: 3}
+  m_PrefabInstance: {fileID: 167771321}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &901358142218713736
 PrefabInstance:
   m_ObjectHideFlags: 0
