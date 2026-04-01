@@ -1,17 +1,17 @@
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Serialization;
+
 //using TMPro;
 public class AaronLeaderboardScript : MonoBehaviour
 {
 
+    LeaderBoardUI boardUI;
+
     private string scorePath;
     [SerializeField] private List<string> score_JSON;
     [SerializeField] private List<Score> scores = new List<Score>();
+    private Score currentScore = new Score();
 
     public class Score
     {
@@ -24,6 +24,8 @@ public class AaronLeaderboardScript : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        boardUI = FindFirstObjectByType<LeaderBoardUI>();
+
         scorePath = Path.Combine(Application.persistentDataPath, "LocalLeaderBoard.txt");
         Debug.Log(scorePath);
 
@@ -39,10 +41,14 @@ public class AaronLeaderboardScript : MonoBehaviour
         }
 
         ReadScore();
-        WriteScore("Test1!");
-        WriteScore("Test2!");
-        WriteScore("Test3!");
+
+        //Write here when entering a new score
+
+        //
+
         ParseScore();
+        currentScore = scores[scores.Count - 1];
+
         SortBoard();
         DisplayBoard();
     }
@@ -173,9 +179,23 @@ public class AaronLeaderboardScript : MonoBehaviour
 
     private void DisplayBoard()
     {
+        int index = 0;
+
         foreach (Score s in scores)
         {
-            Debug.Log("Name: " + s.name + " Total: " + s.total + " Shards: " + s.shards + " Kills: " + s.kills);
+            if (index > 4) break;
+            
+            //Debug.Log("Name: " + s.name + " Total: " + s.total + " Shards: " + s.shards + " Kills: " + s.kills);
+
+            string display = "[" + s.name + "] Total[" + s.total + "] Shards[" + s.shards + "] Kills[" + s.kills + "]";
+
+            boardUI.DisplayScores(display);
+
+            index++;
         }
+
+        // This needs revision
+        string currentDisplay = "[" + currentScore.name + "] Total[" + currentScore.total + "] Shards[" + currentScore.shards + "] Kills[" + currentScore.kills + "]";
+        boardUI.DisplayScores(currentDisplay);
     }
 }
