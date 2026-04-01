@@ -19,7 +19,7 @@ public class AaronsBFScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bfEnemyBody.Health <= bfEnemyBody.Health / 3)
+        if (bfEnemyBody.Health <= currentHealth / 3)
         {
             bfAnimator.SetTrigger("LoseArmor");
         }

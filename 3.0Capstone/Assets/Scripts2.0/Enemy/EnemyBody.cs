@@ -49,6 +49,7 @@ public class EnemyBody : MonoBehaviour, IDamageReceiver
     private Vector3 originalPosition;
 
     [Header("Combat Stats")]
+    
     [SerializeField] protected float health = 3;
     public float Health {  get { return health; } set {  health = value; } }
 

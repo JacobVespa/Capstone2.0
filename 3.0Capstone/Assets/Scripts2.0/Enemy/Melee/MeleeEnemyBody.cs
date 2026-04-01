@@ -15,7 +15,7 @@ public class MeleeEnemyBody : EnemyBody
 {
     [SerializeField] private CircleCollider2D attackRange;
     [SerializeField] private float attackRangeVal = 2;
-    [SerializeField] private bool isGrub;
+    
     public float AttackRangeVal { get { return attackRangeVal; } set { attackRangeVal = value; attackRange.radius = attackRangeVal; } }
 
     protected override void Awake()
@@ -30,14 +30,12 @@ public class MeleeEnemyBody : EnemyBody
 
     void Start()
     {
-        if (DifficultyManager.Instance != null && isGrub)
+        if (DifficultyManager.Instance != null)
         {
             this.Health = DifficultyManager.Instance.GrubHealth;
         }
-        else
-        {
-            this.Health = DifficultyManager.Instance.BottomFeederHealth;
-        }
+        
+        
     }
 
     protected override void FixedUpdate()
