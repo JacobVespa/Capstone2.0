@@ -1,6 +1,7 @@
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class PowerUpButton : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PowerUpButton : MonoBehaviour
     [SerializeField] private CircleCollider2D circleCollider;
     [SerializeField] private SpriteRenderer exclamationOutline;
     [SerializeField] private SpriteRenderer exclamation;
+    private Light2D light;
 
     private void Start()
     {
@@ -16,6 +18,7 @@ public class PowerUpButton : MonoBehaviour
         {
             GameManager.Instance.powerUp = this;
         }
+        light = GetComponentInChildren<Light2D>();
         
     }
     public void EnableButton()
@@ -26,6 +29,7 @@ public class PowerUpButton : MonoBehaviour
         circleCollider.enabled = true;
         exclamationOutline.enabled = true;
         exclamation.enabled = true;
+        light.enabled = true;
     }
 
     public void DisableButton()
@@ -35,6 +39,7 @@ public class PowerUpButton : MonoBehaviour
         circleCollider.enabled = false;
         exclamationOutline.enabled = false;
         exclamation.enabled = false;
+        light.enabled = false;
     }
 
 }

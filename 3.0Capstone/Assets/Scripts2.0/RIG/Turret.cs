@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using System;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class Turret : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class Turret : MonoBehaviour
     public Sprite[] muzzleFlashes;
     [SerializeField] private SpriteRenderer muzzleVFXRenderer;
     [SerializeField] private ParticleSystem comicShot;
+    public ParticleSystem poweredUp;
+    public Light2D powerUpLight;
 
     [Header("Settings")]
     public float shootingCD;

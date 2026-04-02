@@ -327,10 +327,22 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         left.shootingCD = 0.1f;
         right.shootingCD = 0.1f;
 
-        yield return new WaitForSeconds(5f);
+        left.poweredUp.Play();
+        right.poweredUp.Play();
+
+        left.powerUpLight.enabled = true;
+        right.powerUpLight.enabled = true;
+
+        yield return new WaitForSeconds(7f);
 
         left.shootingCD = 0.15f;
         right.shootingCD = 0.15f;
+
+        left.poweredUp.Stop();
+        right.poweredUp.Stop();
+
+        left.powerUpLight.enabled = false;
+        right.powerUpLight.enabled = false;
 
         if (PostProcessManager.Instance != null)
             PostProcessManager.Instance.ResetEffect();
