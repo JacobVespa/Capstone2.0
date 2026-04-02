@@ -9,7 +9,8 @@ public class TreadMoving : MonoBehaviour
 
     private bool hasFinished = false;
     private bool isPaused = false;
-
+    private GameflowManager gameflowManager;
+    private Level currentLevel;
     private Vector3 startPosition;
 
     //offset wall and floor position for despawning
@@ -18,7 +19,8 @@ public class TreadMoving : MonoBehaviour
     private void Start()
     {
         startPosition = transform.position;
-        
+        gameflowManager = FindFirstObjectByType<GameflowManager>();
+        currentLevel = gameflowManager.CurrentLevel;
     }
 
     void Update()
@@ -44,8 +46,16 @@ public class TreadMoving : MonoBehaviour
     {
         if (gameObject.CompareTag("Tread"))
         {
-            transform.position -= new Vector3(0, TreadMoveSpeed, 0) * Time.deltaTime;
-            DistanceCheck(TreadOffsetPos, -6f);
+           if (currentLevel is GoldRushLevel goldRushLevel)
+           {
+                transform.position -= new Vector3(0, TreadMoveSpeed, 0) * Time.deltaTime;
+                DistanceCheck(-9f, -15f);
+           }
+           else if (currentLevel is ScrollerLevel scrollerLevel)
+           {
+                transform.position -= new Vector3(0, TreadMoveSpeed, 0) * Time.deltaTime;
+                DistanceCheck(TreadOffsetPos, -6f);
+           }      
         }
     }
 
