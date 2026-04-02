@@ -19,6 +19,9 @@ public class Engine : MonoBehaviour
     private Color originalColor = Color.white;
     private Color heatColor = Color.red;
 
+    private GameflowManager gameflowManager;
+    private Level currentLevel;
+
     private const float OVERHEAT_THRESHOLD = 0.99f;
     private const float REPAIR_THRESHOLD = 0.01f;
 
@@ -54,28 +57,32 @@ public class Engine : MonoBehaviour
         {
             heat += 0.99f;
         }
+
+        gameflowManager = FindFirstObjectByType<GameflowManager>();
+        currentLevel = gameflowManager.CurrentLevel;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Heat only increases if the engine is not overheated
-        if (!tooHot)
+        if (!(currentLevel is DefenceLevel defenceLevel))
         {
-            heat += heatIncreaseRate * Time.deltaTime;
+            // Heat only increases if the engine is not overheated
+            if (!tooHot)
+            {
+                heat += heatIncreaseRate * Time.deltaTime;
+            }
+
+            heat = Mathf.Clamp01(heat);
+
+            //damageStages[0].color = Color.Lerp(originalColor, heatColor, heat); //AGAIN WILL NEED THIS LATER
+            damageStages[0].GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, heatColor, heat);
+
+            //Debug.Log("Heat: " + heat);
+
+            EngineBreakdown();
+            EngineUpstart();
         }
-
-        heat = Mathf.Clamp01(heat);
-
-        //damageStages[0].color = Color.Lerp(originalColor, heatColor, heat); //AGAIN WILL NEED THIS LATER
-        damageStages[0].GetComponent<SpriteRenderer>().color = Color.Lerp(originalColor, heatColor, heat);
-
-        //Debug.Log("Heat: " + heat);
-
-      
-
-        EngineBreakdown();
-        EngineUpstart();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
