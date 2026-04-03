@@ -38,11 +38,11 @@ public class TutorialManager : MonoBehaviour
     //Dialogue box
     [SerializeField] private GameObject dialogueBox;
 
-    [Header("Text positions")]
-    [SerializeField] private Transform engineTextPos;
-    [SerializeField] private Transform repairTextPos;
-    [SerializeField] private Transform crystalTextPos;
-    [SerializeField] private Transform enemyTextPos;
+    //[Header("Text positions")]
+    //[SerializeField] private Transform engineTextPos;
+    //[SerializeField] private Transform repairTextPos;
+    //[SerializeField] private Transform crystalTextPos;
+    //[SerializeField] private Transform enemyTextPos;
 
     [Header("Interact UI")]
     [SerializeField] private GameObject[] engineIndicators;
@@ -137,7 +137,6 @@ public class TutorialManager : MonoBehaviour
         {
             engineFlag = true;
             dialogueBox.SetActive(true);
-            dialogueBox.transform.position = engineTextPos.transform.position;
             foreach(GameObject g in engineIndicators)
             {
                 g.SetActive(true);
@@ -164,7 +163,6 @@ public class TutorialManager : MonoBehaviour
         if (!crystalFlag) // One time trigger for tutorial spawns and actions
         {
             crystalFlag = true;
-            dialogueBox.transform.position = crystalTextPos.transform.position;
             dialogueBox.SetActive(true);
             triangleTurretIndicator.SetActive(true);
             octagonTurretIndicator.SetActive(true);
@@ -189,7 +187,6 @@ public class TutorialManager : MonoBehaviour
         if (!smallEnemyFlag) // One time trigger for tutorial spawns and actions
         {
             smallEnemyFlag = true;
-            dialogueBox.transform.position = enemyTextPos.transform.position;
             dialogueBox.SetActive(true);
             triangleTurretIndicator.SetActive(true);
             octagonTurretIndicator.SetActive(true);
@@ -214,7 +211,6 @@ public class TutorialManager : MonoBehaviour
         if (!largeEnemyFlag) // One time trigger for tutorial spawns and actions
         {
             largeEnemyFlag = true;
-            dialogueBox.transform.position = enemyTextPos.transform.position;
             dialogueBox.SetActive(true);
             triangleTurretIndicator.SetActive(true);
             octagonTurretIndicator.SetActive(true);
@@ -240,7 +236,6 @@ public class TutorialManager : MonoBehaviour
         {
             repairFlag = true;
             dialogueBox.SetActive(true);
-            dialogueBox.transform.position = repairTextPos.transform.position;
             repairIndicator.SetActive(true);
             dialogueManager.ShowDialogue("repair");
             while (rigHealthScript.HealthNormalized >= 0.7f)
@@ -265,7 +260,6 @@ public class TutorialManager : MonoBehaviour
         if (!hammerFlag) // One time trigger for tutorial spawns and actions
         {
             hammerFlag = true;
-            dialogueBox.transform.position = enemyTextPos.transform.position;
             dialogueBox.SetActive(true);
             hammerIndicator.SetActive(true);
             dialogueManager.ShowDialogue("hammer");
