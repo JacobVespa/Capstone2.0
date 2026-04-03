@@ -38,17 +38,12 @@ public class TutorialManager : MonoBehaviour
     //Dialogue box
     [SerializeField] private GameObject dialogueBox;
 
-    //[Header("Text positions")]
-    //[SerializeField] private Transform engineTextPos;
-    //[SerializeField] private Transform repairTextPos;
-    //[SerializeField] private Transform crystalTextPos;
-    //[SerializeField] private Transform enemyTextPos;
-
     [Header("Interact UI")]
     [SerializeField] private GameObject[] engineIndicators;
-    [SerializeField] private GameObject repairIndicator;
+    [SerializeField] private GameObject[] repairIndicators;
     [SerializeField] private GameObject triangleTurretIndicator;
     [SerializeField] private GameObject octagonTurretIndicator;
+    [SerializeField] private GameObject[] enemyIndicators;
     [SerializeField] private GameObject hammerIndicator;
 
     void Start()
@@ -190,6 +185,10 @@ public class TutorialManager : MonoBehaviour
             dialogueBox.SetActive(true);
             triangleTurretIndicator.SetActive(true);
             octagonTurretIndicator.SetActive(true);
+            foreach(GameObject g in enemyIndicators)
+            {
+                g.SetActive(true);
+            }
             dialogueManager.ShowDialogue("smallEnemy");
             smallEnemySpawner.StartNewWave();
         }
@@ -200,6 +199,10 @@ public class TutorialManager : MonoBehaviour
             dialogueBox.SetActive(false);
             triangleTurretIndicator.SetActive(false);
             octagonTurretIndicator.SetActive(false);
+            foreach (GameObject g in enemyIndicators)
+            {
+                g.SetActive(false);
+            }
             return true;
         }
 
@@ -214,6 +217,10 @@ public class TutorialManager : MonoBehaviour
             dialogueBox.SetActive(true);
             triangleTurretIndicator.SetActive(true);
             octagonTurretIndicator.SetActive(true);
+            foreach (GameObject g in enemyIndicators)
+            {
+                g.SetActive(true);
+            }
             dialogueManager.ShowDialogue("largeEnemy");
             largeEnemySpawner.StartNewWave();
         }
@@ -224,6 +231,10 @@ public class TutorialManager : MonoBehaviour
             dialogueBox.SetActive(false);
             triangleTurretIndicator.SetActive(false);
             octagonTurretIndicator.SetActive(false);
+            foreach (GameObject g in enemyIndicators)
+            {
+                g.SetActive(false);
+            }
             return true;
         }
 
@@ -236,7 +247,10 @@ public class TutorialManager : MonoBehaviour
         {
             repairFlag = true;
             dialogueBox.SetActive(true);
-            repairIndicator.SetActive(true);
+            foreach(GameObject g in repairIndicators)
+            {
+                g.SetActive(true);
+            }
             dialogueManager.ShowDialogue("repair");
             while (rigHealthScript.HealthNormalized >= 0.7f)
             {
@@ -247,7 +261,10 @@ public class TutorialManager : MonoBehaviour
         if (RIG != null && rigHealthScript.HealthNormalized >= 0.8f)
         {
             dialogueManager.SkipTypewriter();
-            repairIndicator.SetActive(false);
+            foreach (GameObject g in repairIndicators)
+            {
+                g.SetActive(false);
+            }
             dialogueBox.SetActive(false);
             return true;
         }
