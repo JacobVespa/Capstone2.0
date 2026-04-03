@@ -701,7 +701,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: 48c380d5603139a40a30e1e5a708b6b3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 94aa0885ecd5f8748a1a3eda3b14cc24, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1392,6 +1392,7 @@ GameObject:
   m_Component:
   - component: {fileID: 94346313646134405}
   - component: {fileID: 5593999644340929026}
+  - component: {fileID: 4629546935666828762}
   m_Layer: 8
   m_Name: AnimatedConeMoleNew 1
   m_TagString: Untagged
@@ -1452,6 +1453,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4629546935666828762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8420302830569086633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12de6188ff8fade44b64adeb388cca7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 52786865223188569}
+  hammerMiss:
+  - {fileID: 8300000, guid: 8fc6e5e482a827d48830b3a333751d3d, type: 3}
+  - {fileID: 8300000, guid: 6fcedcc4d43e98343b67c5a5b7408948, type: 3}
+  - {fileID: 8300000, guid: 95813baad1d48724aa920f2efccab4df, type: 3}
+  - {fileID: 8300000, guid: 3064f114cba5565469ad7f170212fadd, type: 3}
+  hammerHit:
+  - {fileID: 8300000, guid: 749fe6c06c511584fa76a3c6a3f355be, type: 3}
+  - {fileID: 8300000, guid: dc65df2654cafb14389662d1297e840e, type: 3}
+  - {fileID: 8300000, guid: 11832ecbc66842e468ccd14390321a0d, type: 3}
+  - {fileID: 8300000, guid: 35e9ad0a849401d4288991aedef7ae93, type: 3}
+  - {fileID: 8300000, guid: 29e6079bc3a815d40b57429c848507cc, type: 3}
+  - {fileID: 8300000, guid: 1467ccd8fb4f7d14090420478103c448, type: 3}
+  Hammer: {fileID: 150027107417449169}
 --- !u!1001 &6979409126645305163
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1510,6 +1537,22 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20e5352fa1600c041bcb8f5145d0fb32, type: 3}
+--- !u!82 &52786865223188569 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 6944654806443052818, guid: 20e5352fa1600c041bcb8f5145d0fb32, type: 3}
+  m_PrefabInstance: {fileID: 6979409126645305163}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &150027107417449169 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7119864751124639130, guid: 20e5352fa1600c041bcb8f5145d0fb32, type: 3}
+  m_PrefabInstance: {fileID: 6979409126645305163}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0606b12f0c26f854d903d53780a77ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1583431381225768057 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8440499884728716082, guid: 20e5352fa1600c041bcb8f5145d0fb32, type: 3}

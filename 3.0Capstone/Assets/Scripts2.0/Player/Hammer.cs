@@ -10,6 +10,7 @@ public class Hammer : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip[] hammerMiss;
     [SerializeField] private AudioClip[] hammerHit;
+    public bool Hit;
     public SpriteRenderer aoeSprite;
     private Vector3 initialAOESize;
     public bool isPoweredUp;
@@ -28,16 +29,8 @@ public class Hammer : MonoBehaviour
             Debug.Log("Hit an enemy");
             var body = other.GetComponent<EnemyBody>();
             body.Attacked(currentDamage);
-            int clipIndex = Random.Range(0, hammerHit.Length);
-            audioSource.clip = hammerHit[clipIndex];
-            audioSource.Play();
+            Hit = true;
         }
-        else
-        {
-            int clipIndex = Random.Range(0, hammerMiss.Length);
-            audioSource.clip = hammerMiss[clipIndex];
-            audioSource.Play();
-        } 
 
         if (other.CompareTag("Item"))
         {
@@ -48,6 +41,8 @@ public class Hammer : MonoBehaviour
             item.GainItemEffect(item.itemType);
         }
     }
+
+    
 
     public void CallStupidPulse()
     {
