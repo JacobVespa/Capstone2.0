@@ -34949,6 +34949,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5549594053007277627}
     m_Modifications:
+    - target: {fileID: 2481883353511109104, guid: b3e145d196971cd428481f4ab088245b, type: 3}
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8016911485580764529, guid: b3e145d196971cd428481f4ab088245b, type: 3}
       propertyPath: m_Name
       value: Power button (1)
