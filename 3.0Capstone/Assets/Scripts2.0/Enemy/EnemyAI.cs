@@ -93,11 +93,11 @@ public abstract class EnemyAI : MonoBehaviour
         }
     }
 
-    public bool CheckInView()
+    public bool CheckInView(float range)
     {
         Vector3 vPos = Camera.main.WorldToViewportPoint(transform.position);
 
-        if(vPos.x < 0.99 && vPos.x > 0.01 && vPos.y < 0.99 && vPos.y > 0.01)
+        if(vPos.x < range && vPos.x > 1-range && vPos.y < range && vPos.y > 1-range)
         {
             return true;
         }

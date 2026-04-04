@@ -31,6 +31,8 @@ public class ThumperEnemyBody : MeleeEnemyBody
     {
         base.FixedUpdate();
 
+       
+
         if (hit && !shield && !loseArmour)
         {
             state = animator.GetCurrentAnimatorStateInfo(0);
@@ -55,7 +57,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
     public override void Attacked(DamageSource d)
     {
         base.Attacked(d);
-        if(loseArmour == false)
+        if(loseArmour == false && ai.CheckInView(0.85f))
         {
             animator.SetBool("Hit",true);
             hit = true;
@@ -107,7 +109,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
 
         while (true)
         {
-            yield return new WaitForSeconds(2.5f);
+            yield return new WaitForSeconds(1f);
 
             if(hit == false || loseArmour)
             {

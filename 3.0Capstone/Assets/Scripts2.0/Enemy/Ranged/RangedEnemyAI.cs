@@ -17,7 +17,7 @@ public class RangedEnemyAI : EnemyAI
     protected Vector2 stopPos;
     protected Vector2 closestPoint;
 
-    public bool check = false;
+    
 
     private float attackRange;
 
@@ -78,7 +78,7 @@ public class RangedEnemyAI : EnemyAI
     {
         if (!hasTarget) { return; }
         if (body.attackNotif.activeSelf == false) { body.attackNotif.SetActive(true); }
-        if (!CheckInView()) { behaviour = Behaviour.Moving; }
+        if (!CheckInView(0.99f)) { behaviour = Behaviour.Moving; }
 
         body.Attack(targetLoc);
     }
@@ -98,7 +98,7 @@ public class RangedEnemyAI : EnemyAI
 
         if(transform.position.y >= stopPos.y+10 || transform.position.y <= stopPos.y-10) { moveInput *= -1; }
         else if(transform.position.x >= stopPos.x+10 || transform.position.x <= stopPos.x - 10) {  moveInput *= -1; }
-        else if (CheckInView() == false) { moveInput *= -1; }
+        else if (CheckInView(0.99f) == false) { moveInput *= -1; }
         
         body.InputDir = moveInput;
         
@@ -113,13 +113,13 @@ public class RangedEnemyAI : EnemyAI
 
         RaycastHit2D[] r = Physics2D.RaycastAll(transform.position, attackTarget.transform.position - transform.position , 100, layer_mask);
 
-        check = CheckInView();
+        
 
         
 
         foreach (RaycastHit2D h in r)
         {
-            if (h.collider.gameObject == attackTarget && h.distance <= attackRange && CheckInView())
+            if (h.collider.gameObject == attackTarget && h.distance <= attackRange && CheckInView(0.99f))
             {
 
                 behaviour = Behaviour.Ready;

@@ -30,7 +30,7 @@ public class EnemyKnockBack : MonoBehaviour
     IEnumerator StunTimer(float stunTime)
     {
         yield return new WaitForSeconds(stunTime);
-        if (!meleeAI.CheckInView())
+        if (!meleeAI.CheckInView(0.99f))
         {
             Debug.LogError("offscreen");
             Destroy(gameObject);

@@ -75,7 +75,7 @@ public class MeleeEnemyAI : EnemyAI
 
         
 
-        if (attackTarget != null && collision.transform.root == targetLoc.transform.root && CheckInView())
+        if (attackTarget != null && collision.transform.root == targetLoc.transform.root && CheckInView(0.99f))
         {
             behaviour = Behaviour.Ready;
             AddToAttackQueue();
