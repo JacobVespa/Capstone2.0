@@ -348,8 +348,11 @@ MonoBehaviour:
   buttonPromptXB: {fileID: 3770931773985879243}
   bullet: {fileID: 6741580282829468080, guid: d43695bdd1355e74480d0a56ca6f0a99, type: 3}
   bulletSpawnLocation: {fileID: 7713008188368898086}
-  muzzleFlash: {fileID: 2576910162598993063}
+  muzzleFlashes: []
+  muzzleVFXRenderer: {fileID: 0}
   comicShot: {fileID: 4905871742511444026}
+  poweredUp: {fileID: 0}
+  powerUpLight: {fileID: 0}
   shootingCD: 0.3
   controllerAim: 0
   mouseAim: 0
@@ -466,7 +469,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 20
+  m_SortingOrder: 30
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 1}

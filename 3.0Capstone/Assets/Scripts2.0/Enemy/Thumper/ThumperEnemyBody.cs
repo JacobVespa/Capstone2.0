@@ -11,11 +11,15 @@ public class ThumperEnemyBody : MeleeEnemyBody
     private bool hit = false;
     public bool shield = false;
     private bool loseArmour = false;
+    private bool cooldown = false;
 
     private AnimatorStateInfo state;
 
     private Coroutine isShielding;
-    
+
+    [SerializeField] private GameObject[] armourSprites;
+    [SerializeField] private GameObject[] bodySprites;
+
 
     private void Start()
     {
@@ -33,7 +37,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
 
        
 
-        if (hit && !shield && !loseArmour)
+        if (hit && !shield && !loseArmour && !cooldown)
         {
             state = animator.GetCurrentAnimatorStateInfo(0);
 
@@ -41,6 +45,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
 
             if (state.normalizedTime%1.0 >= 0.25 && state.IsTag("Hit"))
             {
+                
                 isShielding = StartCoroutine(Shielding());
             }
         }
@@ -57,8 +62,9 @@ public class ThumperEnemyBody : MeleeEnemyBody
     public override void Attacked(DamageSource d)
     {
         base.Attacked(d);
-        if(loseArmour == false && ai.CheckInView(0.85f))
+        if(loseArmour == false && ai.CheckInView(0.85f) && cooldown == false)
         {
+            bodySprites[1].SetActive(true);
             animator.SetBool("Hit",true);
             hit = true;
             
@@ -76,7 +82,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
         base.TakeDamage(damage);
 
         
-        if (health <= maxHealth / 3 && loseArmour == false)
+        if (health <= maxHealth / 2 && loseArmour == false)
         {
             
 
@@ -106,7 +112,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
         animator.speed = 0;
         float regularSpeed = moveSpeed;
         moveSpeed = 0;
-
+        ai.MoveToBottomOfQueue();
         while (true)
         {
             yield return new WaitForSeconds(1f);
@@ -118,11 +124,11 @@ public class ThumperEnemyBody : MeleeEnemyBody
             else { hit = false; }
         }
 
-        
 
-        
+        bodySprites[1].SetActive(false);
+        shield = false;
         animator.speed = 1;
-
+        cooldown = true;
         
         
         animator.SetBool("Hit", false);
@@ -139,7 +145,10 @@ public class ThumperEnemyBody : MeleeEnemyBody
         }
         
         moveSpeed = regularSpeed;
-        shield = false;
+        
+
+        yield return new WaitForSeconds(0.5f);
+        cooldown = false;
 
     }
 
@@ -158,10 +167,26 @@ public class ThumperEnemyBody : MeleeEnemyBody
             }
             */
             
-            if (state.IsTag("LoseArmour") && state.normalizedTime >= 0.95)
+            if (state.IsTag("LoseArmour") )
             {
-                //Debug.Log("start");
-                break;
+                if (armourSprites[0].activeSelf)
+                {
+                    foreach (GameObject armour in armourSprites)
+                    {
+                        armour.SetActive(false);
+                    }
+                    foreach (GameObject body in bodySprites)
+                    {
+                        body.SetActive(true);
+                    }
+                }
+                
+
+                if(state.normalizedTime >= 0.95)
+                {
+                    break;
+                }
+                
             }
         }
         moveSpeed = 5;
