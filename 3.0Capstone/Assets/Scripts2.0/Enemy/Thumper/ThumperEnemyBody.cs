@@ -62,7 +62,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
     public override void Attacked(DamageSource d)
     {
         base.Attacked(d);
-        if(loseArmour == false && ai.CheckInView(0.85f) && cooldown == false)
+        if(loseArmour == false && ai.CheckInView(0.95f) && cooldown == false)
         {
             bodySprites[1].SetActive(true);
             animator.SetBool("Hit",true);
