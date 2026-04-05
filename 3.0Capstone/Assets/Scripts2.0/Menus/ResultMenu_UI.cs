@@ -33,7 +33,7 @@ public class ResultMenu_UI : MonoBehaviour
         StartCoroutine(DelayedCountUp());
     }
 
-    private float multiplier = 1.0f;
+    private float multiplier = 0.5f;
     private int tempShards = 0;
     private int tempKills = 0;
 
