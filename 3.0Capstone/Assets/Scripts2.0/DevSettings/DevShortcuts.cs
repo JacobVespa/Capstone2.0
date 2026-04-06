@@ -35,6 +35,8 @@ public class DevShortcuts : MonoBehaviour
     //Start Level 1-4
     private void StartSpecificLevel(GameflowManager flow)
     {
+        if (flow.LevelRunning) return;
+
         if (Input.GetKeyUp(KeyCode.Alpha1))
         {
             flow.StartScrollerLevel();

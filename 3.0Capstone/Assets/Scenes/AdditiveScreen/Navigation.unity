@@ -777,32 +777,40 @@ PrefabInstance:
       value: -364
       objectReference: {fileID: 0}
     - target: {fileID: 4516676109427831671, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_Color.a
+      value: 0.9019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 4516676109427831671, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.8867924
       objectReference: {fileID: 0}
     - target: {fileID: 4516676109427831671, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_Color.g
-      value: 0.689902
+      value: 0.42304373
       objectReference: {fileID: 0}
     - target: {fileID: 4516676109427831671, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_Color.r
-      value: 0.5330188
+      value: 0.18823427
       objectReference: {fileID: 0}
     - target: {fileID: 4793956249089145486, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_Name
       value: NavigationCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 5857836761277537580, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: m_Color.a
+      value: 0.9019608
+      objectReference: {fileID: 0}
+    - target: {fileID: 5857836761277537580, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_Color.b
-      value: 0.504717
+      value: 0.21106264
       objectReference: {fileID: 0}
     - target: {fileID: 5857836761277537580, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_Color.g
-      value: 0.504717
+      value: 0.21106264
       objectReference: {fileID: 0}
     - target: {fileID: 5857836761277537580, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.8773585
       objectReference: {fileID: 0}
     - target: {fileID: 6391649569860956731, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: m_LocalScale.x
@@ -821,9 +829,29 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6653036718565025179, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: gapLength
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653036718565025179, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
       propertyPath: stickynote
       value: 
       objectReference: {fileID: 5132894712686918271, guid: 46d8be65ae435ea458d57fee18c3aacd, type: 3}
+    - target: {fileID: 6653036718565025179, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: lineThickness
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653036718565025179, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: defaultLineColor.b
+      value: 0.3532396
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653036718565025179, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: defaultLineColor.g
+      value: 0.3532396
+      objectReference: {fileID: 0}
+    - target: {fileID: 6653036718565025179, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
+      propertyPath: defaultLineColor.r
+      value: 0.9245283
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5678143571636434538, guid: 4551af4e7484392479d44baff4f76b24, type: 3}
