@@ -107,8 +107,6 @@ public class MainMenu_UI : MonoBehaviour
 
     public void StartGame()
     {
-        
         LevelManager.Instance.StartWindDownLevel(true);
-        
     }
 }
