@@ -20,21 +20,15 @@ public class AaronLeaderboardScript : MonoBehaviour
         public string shards;
         public string kills;
     }
+    // {{Name:11}{Total:22}{Shard:33}{Kills:44}}
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void InitilizeBoard(string name)
     {
         boardUI = FindFirstObjectByType<LeaderBoardUI>();
 
         scorePath = Path.Combine(Application.persistentDataPath, "LocalLeaderBoard.txt");
         Debug.Log(scorePath);
 
-        InitilizeBoard();
-    }
-    // {{Name:11}{Total:22}{Shard:33}{Kills:44}}
-
-    private void InitilizeBoard()
-    {
         if (!File.Exists(scorePath))
         {
             File.WriteAllText(scorePath, "");
@@ -43,7 +37,7 @@ public class AaronLeaderboardScript : MonoBehaviour
         ReadScore();
 
         //Write here when entering a new score
-
+        WriteScore(name);
         //
 
         ParseScore();

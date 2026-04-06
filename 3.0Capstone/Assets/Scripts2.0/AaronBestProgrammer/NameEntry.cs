@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -27,8 +26,9 @@ public class NameEntry : MonoBehaviour
     [SerializeField] private Color normalTextColor = Color.white;
     [SerializeField] private Color highlightTextColor = Color.black;
 
-    [Header("Events")]
-    public UnityEvent<string> onNameConfirmed;
+    [Header("Leaderboard")]
+    [SerializeField] private GameObject leaderboardScript;
+    [SerializeField] private GameObject canvas;
 
     private static readonly string[] KeyboardRows = new string[]
     {
@@ -74,7 +74,6 @@ public class NameEntry : MonoBehaviour
     private void OnEnable()
     {
         currentName.Clear();
-        if (nameInputField != null) currentName.Append(nameInputField.text);
 
         cursorRow = 0;
         cursorCol = 0;
@@ -318,8 +317,13 @@ public class NameEntry : MonoBehaviour
         isActive = false;
         StopNav();
         ClearMessage();
-        onNameConfirmed?.Invoke(CurrentName);
-        gameObject.SetActive(false);
+
+        string confirmedName = CurrentName;
+
+        leaderboardScript.SetActive(true);
+        leaderboardScript.GetComponent<AaronLeaderboardScript>().InitilizeBoard(confirmedName);
+
+        canvas.SetActive(false);
     }
 
     private void StartNav(Vector2Int direction)
