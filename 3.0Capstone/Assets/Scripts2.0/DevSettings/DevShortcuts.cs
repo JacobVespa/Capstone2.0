@@ -58,6 +58,13 @@ public class DevShortcuts : MonoBehaviour
     //Back to Main Restart Everything
     private void BackToMainMenu(GameflowManager flow)
     {
+        if (!Input.GetKeyUp(KeyCode.Backslash)) return;
 
+        flow.EndLevel();
+        CaveMapState.Instance.FullReset();
+        GameManager.Instance.SetRig(null);
+        GameManager.Instance.LevelsCompleted = 0;
+        GameManager.Instance.ResetStats();
+        DifficultyManager.Instance.ResetDifficulty();
     }
 }
