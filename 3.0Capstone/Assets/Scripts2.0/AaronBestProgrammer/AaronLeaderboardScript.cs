@@ -8,6 +8,8 @@ public class AaronLeaderboardScript : MonoBehaviour
 
     LeaderBoardUI boardUI;
 
+    [SerializeField] private bool isMainMenu = false;
+
     private string scorePath;
     [SerializeField] private List<string> score_JSON;
     [SerializeField] private List<Score> scores = new List<Score>();
@@ -21,6 +23,11 @@ public class AaronLeaderboardScript : MonoBehaviour
         public string kills;
     }
     // {{Name:11}{Total:22}{Shard:33}{Kills:44}}
+
+    private void Start()
+    {
+        if (isMainMenu) InitilizeBoard("");
+    }
 
     public void InitilizeBoard(string name)
     {
@@ -36,9 +43,7 @@ public class AaronLeaderboardScript : MonoBehaviour
 
         ReadScore();
 
-        //Write here when entering a new score
-        WriteScore(name);
-        //
+        if (!isMainMenu) WriteScore(name);
 
         ParseScore();
         currentScore = scores[scores.Count - 1];
@@ -175,18 +180,31 @@ public class AaronLeaderboardScript : MonoBehaviour
     {
         int index = 0;
 
-        string currentDisplay = "[" + currentScore.name + "] Total[" + currentScore.total + "] Shards[" + currentScore.shards + "] Kills[" + currentScore.kills + "]";
-        boardUI.DisplayScores(currentDisplay);
+        if (!isMainMenu)
+        {
+            string currentDisplay = "[" + currentScore.name + "] Total[" + currentScore.total + "] Shards[" + currentScore.shards + "] Kills[" + currentScore.kills + "]";
+            boardUI.DisplayScores(currentDisplay);
+        }
+
         boardUI.ResetAfterStart();
 
         foreach (Score s in scores)
         {
             if (index > 4) break;
-            
-            Debug.Log("Name: " + s.name + " Total: " + s.total + " Shards: " + s.shards + " Kills: " + s.kills);
-            Debug.Log(scores.Count);
 
-            string display = "[" + s.name + "] Total[" + s.total + "] Shards[" + s.shards + "] Kills[" + s.kills + "]";
+            //Debug.Log("Name: " + s.name + " Total: " + s.total + " Shards: " + s.shards + " Kills: " + s.kills);
+            //Debug.Log(scores.Count);
+
+            string display = "";
+
+            if (isMainMenu)
+            {
+                display = "[" + s.name + "] [" + s.total + "]";
+            }
+            else
+            {
+                display = "[" + s.name + "] Total[" + s.total + "] Shards[" + s.shards + "] Kills[" + s.kills + "]";
+            }
 
             boardUI.DisplayScores(display);
 
