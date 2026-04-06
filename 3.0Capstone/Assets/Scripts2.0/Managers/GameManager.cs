@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     //check bool if coming from Q variant level
     public bool cameFromQVariant;
+    public bool cameFromQVariant2;
 
     //power up button ref
     public PowerUpButton powerUp;
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
         flowManager = FindFirstObjectByType<GameflowManager>();
 
         cameFromQVariant = false;
+        cameFromQVariant2 = false; //maybe use this after?
     }
 
     private void Start()

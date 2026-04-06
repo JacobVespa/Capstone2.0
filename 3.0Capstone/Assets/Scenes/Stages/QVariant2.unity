@@ -954,7 +954,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -6961228760943627036, guid: b9371ee7e97e5e247a4282cfdb043ab2, type: 3}
+  m_Sprite: {fileID: -6920845147928952980, guid: eb89d748a65e43f40b4fa924d2fdc951, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1650,7 +1650,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: repair!!
+  m_text: get shards!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26505ba72217d424992c86660c791147, type: 2}
   m_sharedMaterial: {fileID: 2794191476264317408, guid: 26505ba72217d424992c86660c791147, type: 2}
@@ -1972,7 +1972,7 @@ RectTransform:
   m_GameObject: {fileID: 1311655951}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.9941123, y: 0.9937643, z: 0.9937643}
+  m_LocalScale: {x: 5.7739267, y: 1.1786441, z: 1.1786441}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1796415169}
@@ -1980,7 +1980,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -233.1, y: -164}
+  m_AnchoredPosition: {x: -4, y: -163}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1311655953
@@ -2393,6 +2393,38 @@ PrefabInstance:
     - target: {fileID: 293998400661602735, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572424583161588463, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.atime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572424583161588463, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.ctime1
+      value: 65535
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572424583161588463, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572424583161588463, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.g
+      value: 0.11792451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572424583161588463, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key0.r
+      value: 0.76330966
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572424583161588463, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.11792451
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572424583161588463, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
+      value: 0.76330966
+      objectReference: {fileID: 0}
+    - target: {fileID: 2572424583161588463, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.m_NumAlphaKeys
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2572424583161588463, guid: faa42a73dd17439409cf409f4f8d6384, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
@@ -3028,7 +3060,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: I've been hit!! please help repair me so we can get moving again!
+  m_text: you come across a pile of shards! let's grab them, surely nothing bad will
+    happen...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 26505ba72217d424992c86660c791147, type: 2}
   m_sharedMaterial: {fileID: 2794191476264317408, guid: 26505ba72217d424992c86660c791147, type: 2}
@@ -3116,8 +3149,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1925279058}
-  - component: {fileID: 1925279059}
   - component: {fileID: 1925279060}
+  - component: {fileID: 1925279061}
   m_Layer: 0
   m_Name: LEVEL MANAGER
   m_TagString: Untagged
@@ -3140,19 +3173,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1925279059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1925279057}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ad098ff31bea204193e671d5d7eed62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  crystalShards: {fileID: 659861430}
 --- !u!82 &1925279060
 AudioSource:
   m_ObjectHideFlags: 0
@@ -3250,6 +3270,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1925279061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1925279057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb9c9360f611a674186d513521d29f1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystalShards: {fileID: 659861430}
+  dialogue: {fileID: 1796415170}
 --- !u!1 &1986692649
 GameObject:
   m_ObjectHideFlags: 0
@@ -3287,7 +3321,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.36400002, y: 0.26900002}
   m_AnchorMax: {x: 0.642, y: 0.49600002}
-  m_AnchoredPosition: {x: 6.2436066, y: -104.600006}
+  m_AnchoredPosition: {x: 273, y: -23}
   m_SizeDelta: {x: -9.689911, y: -4.1699524}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1986692651
@@ -3334,9 +3368,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1925279059}
-        m_TargetAssemblyTypeName: QVariant1Manager, Assembly-CSharp
-        m_MethodName: Option2Press
+      - m_Target: {fileID: 1925279061}
+        m_TargetAssemblyTypeName: QVariant2Manager, Assembly-CSharp
+        m_MethodName: ButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

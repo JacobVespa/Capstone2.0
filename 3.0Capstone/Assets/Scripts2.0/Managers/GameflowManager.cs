@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class GameflowManager : MonoBehaviour
 {
@@ -87,12 +88,34 @@ public class GameflowManager : MonoBehaviour
     }
 
     // Randomize variants here
+    public void Randomize()
+    {
+        int randQVariant = Random.Range(0, 2);
+        if(randQVariant == 0)
+        {
+            StartQVariant1Level();
+        }
+        else
+        {
+            StartQVariant2Level();
+        }
+    }
+
     public void StartQVariant1Level()
     {
         int currentSceneIndex = 8;
         int wasPressed = 0;
 
         CurrentLevel = new QVariant1Level(currentSceneIndex, wasPressed);
+        BeginLevel();
+    }
+
+    public void StartQVariant2Level()
+    {
+        int currentSceneIndex = 10;
+        int wasPressed = 0;
+
+        CurrentLevel = new QVariant2Level(currentSceneIndex, wasPressed);
         BeginLevel();
     }
 

@@ -11,7 +11,8 @@ public class Level
         DEFENCE = 2,
         TUTORIAL = 3,
         GOLDRUSH = 4,
-        QVARIANT1 = 5
+        QVARIANT1 = 5,
+        QVARIANT2 = 6
     }
 
     protected LevelType levelType;

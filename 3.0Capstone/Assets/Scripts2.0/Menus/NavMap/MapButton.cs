@@ -135,7 +135,8 @@ public class MapButton : MonoBehaviour
             else if (levelIndex == 1)
                 gameflowManager.StartDefenseLevel();
             else if (levelIndex == 2)
-                gameflowManager.StartQVariant1Level();
+                //gameflowManager.StartQVariant1Level();
+                gameflowManager.Randomize();
             else if (levelIndex == 3)
                 gameflowManager.StartGoldRushLevel();
             else
