@@ -5,7 +5,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class LeaderBoardUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text[] scoreTexts;
-    int index = 0;
+    int index = 5;
 
     public void DisplayScores(string display)
     {
@@ -13,5 +13,10 @@ public class LeaderBoardUI : MonoBehaviour
 
         scoreTexts[index].text = display;
         index++;
+    }
+
+    public void ResetAfterStart()
+    {
+        index = 0;
     }
 }

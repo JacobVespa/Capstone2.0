@@ -175,11 +175,16 @@ public class AaronLeaderboardScript : MonoBehaviour
     {
         int index = 0;
 
+        string currentDisplay = "[" + currentScore.name + "] Total[" + currentScore.total + "] Shards[" + currentScore.shards + "] Kills[" + currentScore.kills + "]";
+        boardUI.DisplayScores(currentDisplay);
+        boardUI.ResetAfterStart();
+
         foreach (Score s in scores)
         {
             if (index > 4) break;
             
-            //Debug.Log("Name: " + s.name + " Total: " + s.total + " Shards: " + s.shards + " Kills: " + s.kills);
+            Debug.Log("Name: " + s.name + " Total: " + s.total + " Shards: " + s.shards + " Kills: " + s.kills);
+            Debug.Log(scores.Count);
 
             string display = "[" + s.name + "] Total[" + s.total + "] Shards[" + s.shards + "] Kills[" + s.kills + "]";
 
@@ -187,9 +192,5 @@ public class AaronLeaderboardScript : MonoBehaviour
 
             index++;
         }
-
-        // This needs revision
-        string currentDisplay = "[" + currentScore.name + "] Total[" + currentScore.total + "] Shards[" + currentScore.shards + "] Kills[" + currentScore.kills + "]";
-        boardUI.DisplayScores(currentDisplay);
     }
 }
