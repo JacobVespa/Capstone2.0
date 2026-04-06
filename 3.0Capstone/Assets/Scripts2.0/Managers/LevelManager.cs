@@ -82,6 +82,12 @@ public class LevelManager : MonoBehaviour
     {
         GameObject[] obs = (GameObject[])FindObjectsByType(typeof(GameObject), FindObjectsSortMode.None);
 
+        if (ControllerVibrateManager.Instance != null)
+        {
+            ControllerVibrateManager.Instance.StopAllCoroutines();
+            ControllerVibrateManager.Instance.StopAllVibration();
+        }
+
         // Disable enemies and spawners immediately so they don't interfere
         foreach (GameObject go in obs)
         {

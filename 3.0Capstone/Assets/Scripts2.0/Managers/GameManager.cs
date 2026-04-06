@@ -144,24 +144,31 @@ public class GameManager : MonoBehaviour
     public void TogglePauseMenu()
     {
 
-        PlayerControls controls = FindFirstObjectByType<PlayerControls>();
+        //PlayerControls controls = FindFirstObjectByType<PlayerControls>();
+
+        //Could cahce for better performance but hahahahaaha
+        PlayerControls[] controls = Object.FindObjectsByType<PlayerControls>(FindObjectsSortMode.None);
 
         if (!flowManager.LevelRunning || controls == null || flowManager == null) return;
 
-        if (controls.controlEvent.HasEscaped && !isPaused)
+        foreach (var control in controls)
         {
-            pauseCanvas.gameObject.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(null);
-            EventSystem.current.SetSelectedGameObject(pauseButton.gameObject);
 
-            StopGameTime();
-            
-        }
-        else if (controls.controlEvent.HasEscaped && isPaused)
-        {
-            pauseCanvas.gameObject.SetActive(false);
+            if (control.controlEvent.HasEscaped && !isPaused)
+            {
+                pauseCanvas.gameObject.SetActive(true);
+                EventSystem.current.SetSelectedGameObject(null);
+                EventSystem.current.SetSelectedGameObject(pauseButton.gameObject);
 
-            ResumeGameTime();
+                StopGameTime();
+
+            }
+            else if (control.controlEvent.HasEscaped && isPaused)
+            {
+                pauseCanvas.gameObject.SetActive(false);
+
+                ResumeGameTime();
+            }
         }
     }
 
