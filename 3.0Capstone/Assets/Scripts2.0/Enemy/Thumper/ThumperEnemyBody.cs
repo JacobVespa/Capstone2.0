@@ -189,7 +189,8 @@ public class ThumperEnemyBody : MeleeEnemyBody
                 
             }
         }
-        moveSpeed = 5;
+        moveSpeed = 8;
+        attackStartUp = 1;
         
     }
 }
