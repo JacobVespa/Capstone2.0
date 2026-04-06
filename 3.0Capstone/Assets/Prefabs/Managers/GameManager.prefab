@@ -870,6 +870,7 @@ GameObject:
   - component: {fileID: 2240115637602533781}
   - component: {fileID: 5987751750684668275}
   - component: {fileID: 7703720352664824637}
+  - component: {fileID: 6039595522163467750}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -921,6 +922,7 @@ MonoBehaviour:
   vfxStorage: {fileID: 7227303927450870685}
   transitionCanvas: {fileID: 3136467480415739375}
   cameFromQVariant: 0
+  cameFromQVariant2: 0
   powerUp: {fileID: 0}
 --- !u!114 &7949579227434254171
 MonoBehaviour:
@@ -1026,6 +1028,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f52fcc5c7568944abd5adc4f272bf83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6039595522163467750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3932545320157543553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b028aa31f956aea4384d9d50eb4c589c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4950391723692088030

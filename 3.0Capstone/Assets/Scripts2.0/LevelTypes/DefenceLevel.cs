@@ -9,7 +9,10 @@ public class DefenceLevel : Level
     }
 
     private int wavesCompleted = 0;
-    public int WavesCompleted { get { return wavesCompleted; } }
+    public int WavesCompleted { 
+        get { return wavesCompleted; } 
+        set { wavesCompleted = value; }
+    }
 
     private WaveSpawner[] spawners;
     DefenseGem gem;

@@ -53,7 +53,11 @@ public class GameManager : MonoBehaviour
     public int Kills => kills;
 
     [SerializeField] private float gameTime;
-    public float GameTime => gameTime;
+    public float GameTime
+    {
+        set => gameTime = value;
+        get => gameTime;
+    }
 
     public PlayerMovement[] playerMovement;
     [SerializeField] private Canvas pauseCanvas;
