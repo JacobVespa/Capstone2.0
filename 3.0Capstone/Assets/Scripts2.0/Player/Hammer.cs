@@ -42,7 +42,6 @@ public class Hammer : MonoBehaviour
         }
     }
 
-    
 
     public void CallStupidPulse()
     {

@@ -191,6 +191,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 35e9ad0a849401d4288991aedef7ae93, type: 3}
   - {fileID: 8300000, guid: 29e6079bc3a815d40b57429c848507cc, type: 3}
   - {fileID: 8300000, guid: 1467ccd8fb4f7d14090420478103c448, type: 3}
+  Hit: 0
   aoeSprite: {fileID: 5010864346674409219}
   isPoweredUp: 0
 --- !u!114 &4867708589588912629
@@ -219,7 +220,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: -4788311519913184375, guid: ac5fbbf4ed2172f49abb764f57e2b112, type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -708,6 +709,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 2798c2aacaee40845bdffa5c7cb37649, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1029169005002220048}
+    - targetCorrespondingSourceObject: {fileID: -8653719598885068355, guid: 2798c2aacaee40845bdffa5c7cb37649, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3089605269763548011}
     - targetCorrespondingSourceObject: {fileID: 5395012368331831202, guid: 2798c2aacaee40845bdffa5c7cb37649, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1354271052520193010}
@@ -783,6 +787,35 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3089605269763548011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3387448963991174107}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12de6188ff8fade44b64adeb388cca7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 2047182281238694742}
+  hammerMiss:
+  - {fileID: 8300000, guid: 8fc6e5e482a827d48830b3a333751d3d, type: 3}
+  - {fileID: 8300000, guid: 6fcedcc4d43e98343b67c5a5b7408948, type: 3}
+  - {fileID: 8300000, guid: 95813baad1d48724aa920f2efccab4df, type: 3}
+  - {fileID: 8300000, guid: 3064f114cba5565469ad7f170212fadd, type: 3}
+  hammerHit:
+  - {fileID: 8300000, guid: 749fe6c06c511584fa76a3c6a3f355be, type: 3}
+  - {fileID: 8300000, guid: dc65df2654cafb14389662d1297e840e, type: 3}
+  - {fileID: 8300000, guid: 41958d0c7ce3c9e44b8f0c7c67e0256f, type: 3}
+  - {fileID: 8300000, guid: a6f0748b2237a3f48b35dea03481dfb9, type: 3}
+  - {fileID: 8300000, guid: 11832ecbc66842e468ccd14390321a0d, type: 3}
+  - {fileID: 8300000, guid: 35e9ad0a849401d4288991aedef7ae93, type: 3}
+  - {fileID: 8300000, guid: 29e6079bc3a815d40b57429c848507cc, type: 3}
+  - {fileID: 8300000, guid: 1467ccd8fb4f7d14090420478103c448, type: 3}
+  Hammer: {fileID: 34962154992762161}
+  inUse: 0
 --- !u!4 &4596692212267230136 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7552582706839291426, guid: 2798c2aacaee40845bdffa5c7cb37649, type: 3}

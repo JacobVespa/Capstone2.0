@@ -20,6 +20,7 @@ public class ThumperEnemyBody : MeleeEnemyBody
     [SerializeField] private GameObject[] armourSprites;
     [SerializeField] private GameObject[] bodySprites;
 
+    [SerializeField] private AudioClip armorBreakClip;
 
     private void Start()
     {
@@ -180,7 +181,9 @@ public class ThumperEnemyBody : MeleeEnemyBody
                         body.SetActive(true);
                     }
                 }
-                
+
+                audioSource.clip = armorBreakClip;
+                audioSource.Play();
 
                 if(state.normalizedTime >= 0.95)
                 {
