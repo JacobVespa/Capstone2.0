@@ -221,7 +221,7 @@ public class PlayerMovement : MonoBehaviour
         mountedTurret.Mount(this.gameObject);
         playerAnimator.SetBool("MoleWalk", false);
 
-        Debug.Log($"{name} mounted turret: {mountedTurret?.name}");
+        //Debug.Log($"{name} mounted turret: {mountedTurret?.name}");
     }
 
     private void HandlePickup()

@@ -72,6 +72,7 @@ public class MeleeEnemyAI : EnemyAI
     {
         if (behaviour == Behaviour.Dead) return;
         if (collision.isTrigger) return;
+        if (collision.gameObject.layer != 9) { return; }
 
         
 

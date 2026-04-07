@@ -202,7 +202,7 @@ public class Turret : MonoBehaviour
 
         aimPos = transform.position;
 
-        Debug.Log($"Turret {name} mounted by {p.name}");
+        //Debug.Log($"Turret {name} mounted by {p.name}");
     }
 
     public void Dismount()

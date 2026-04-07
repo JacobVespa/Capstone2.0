@@ -30,7 +30,7 @@ public class Item : MonoBehaviour
         {
             case ItemTypes.Items.RapidFire:
                 //gain rapid fire effect
-                Debug.Log("FIRE RATE GO BRRRRRRRR");
+                //Debug.Log("FIRE RATE GO BRRRRRRRR");
                 local.CallSpeedStart();
                 GameManager.Instance.powerUp.DisableButton();
                 break;

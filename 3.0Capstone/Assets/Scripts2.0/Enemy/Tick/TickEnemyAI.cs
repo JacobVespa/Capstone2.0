@@ -57,7 +57,7 @@ public class TickEnemyAI : EnemyAI
     {
         AnimatorStateInfo state = baseBody.Animator.GetCurrentAnimatorStateInfo(0);
 
-        if (state.IsTag("Explode") && state.normalizedTime >= 1)
+        if (state.IsTag("Explode") && state.normalizedTime <= 1)
         {
             return true;
         }

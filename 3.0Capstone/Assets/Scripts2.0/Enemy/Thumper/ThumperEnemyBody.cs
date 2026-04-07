@@ -113,7 +113,11 @@ public class ThumperEnemyBody : MeleeEnemyBody
         animator.speed = 0;
         float regularSpeed = moveSpeed;
         moveSpeed = 0;
-        ai.MoveToBottomOfQueue();
+        if(ai.behaviour == EnemyAI.Behaviour.Ready || ai.behaviour == EnemyAI.Behaviour.Attacking)
+        {
+            ai.MoveToBottomOfQueue();
+        }
+        
         while (true)
         {
             yield return new WaitForSeconds(1f);

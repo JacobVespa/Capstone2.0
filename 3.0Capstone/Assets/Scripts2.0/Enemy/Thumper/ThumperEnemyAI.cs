@@ -38,11 +38,12 @@ public class ThumperEnemyAI : MeleeEnemyAI
         }
     }
 
+    /*
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (behaviour == Behaviour.Dead) return;
         if (collision.isTrigger) return;
-
+       
 
 
         if (attackTarget != null && collision.transform.root == targetLoc.transform.root && CheckInView(0.99f) && !Tbody.shield)
@@ -51,5 +52,5 @@ public class ThumperEnemyAI : MeleeEnemyAI
             AddToAttackQueue();
         }
     }
-
+    */
 }

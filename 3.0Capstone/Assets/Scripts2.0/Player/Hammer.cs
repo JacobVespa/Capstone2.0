@@ -26,7 +26,7 @@ public class Hammer : MonoBehaviour
     {
         if(other.CompareTag("Enemy"))
         {
-            Debug.Log("Hit an enemy");
+            //Debug.Log("Hit an enemy");
             var body = other.GetComponent<EnemyBody>();
             body.Attacked(currentDamage);
             Hit = true;
@@ -36,7 +36,7 @@ public class Hammer : MonoBehaviour
         {
             //SpriteRenderer spriteRenderer = other.GetComponent<SpriteRenderer>();
             //spriteRenderer.enabled = false;
-            Debug.Log("GOT THE ITEM");
+            //Debug.Log("GOT THE ITEM");
             Item item = other.GetComponent<Item>();
             item.GainItemEffect(item.itemType);
         }
