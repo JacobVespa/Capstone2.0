@@ -512,7 +512,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -267.99994, y: 299}
+  m_AnchoredPosition: {x: -267.99997, y: 299}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &70387660
@@ -1150,7 +1150,7 @@ GameObject:
   - component: {fileID: 120958476}
   - component: {fileID: 120958478}
   - component: {fileID: 120958477}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreText (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3097,7 +3097,7 @@ GameObject:
   - component: {fileID: 475320723}
   - component: {fileID: 475320725}
   - component: {fileID: 475320724}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreText (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16024,7 +16024,7 @@ GameObject:
   - component: {fileID: 909749545}
   - component: {fileID: 909749547}
   - component: {fileID: 909749546}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreText (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19156,7 +19156,7 @@ GameObject:
   - component: {fileID: 1309322774}
   - component: {fileID: 1309322776}
   - component: {fileID: 1309322775}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreText (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19730,8 +19730,8 @@ RectTransform:
   - {fileID: 1900184840}
   - {fileID: 1138007622}
   - {fileID: 908603750}
-  - {fileID: 500579780}
   - {fileID: 842995458}
+  - {fileID: 500579780}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -29679,7 +29679,7 @@ GameObject:
   - component: {fileID: 1916494322}
   - component: {fileID: 1916494324}
   - component: {fileID: 1916494323}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreText (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30396,7 +30396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 860831943746365170, guid: ce820180a9b81c04db84fff687a32883, type: 3}
       propertyPath: m_SortingOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1409849901250285412, guid: ce820180a9b81c04db84fff687a32883, type: 3}
       propertyPath: m_SortingOrder
@@ -30410,13 +30410,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 2.15
       objectReference: {fileID: 0}
+    - target: {fileID: 4874181094411339115, guid: ce820180a9b81c04db84fff687a32883, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5212976199557208463, guid: ce820180a9b81c04db84fff687a32883, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8173566478546705800, guid: ce820180a9b81c04db84fff687a32883, type: 3}
       propertyPath: m_SortingOrder
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8764948567404797275, guid: ce820180a9b81c04db84fff687a32883, type: 3}
       propertyPath: m_SortingOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30655,7 +30663,7 @@ GameObject:
   - component: {fileID: 2090734377}
   - component: {fileID: 2090734379}
   - component: {fileID: 2090734378}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: ScoreText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
