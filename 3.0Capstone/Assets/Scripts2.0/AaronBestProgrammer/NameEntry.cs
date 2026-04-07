@@ -331,37 +331,29 @@ public class NameEntry : MonoBehaviour
     #region slurs
 
     // List of blacklisted names for scoreboard
-    private string CheckBlackList(string check)
+    private readonly HashSet<string> blackList = new HashSet<string>
     {
-        if (check.Contains("shit") ||
-            check.Contains("cum") ||
-            check.Contains("goon") ||
-            check.Contains("coom") ||
-            check.Contains("chnk") ||
-            check.Contains("fag") ||
-            check.Contains("gay") ||
-            check.Contains("coon") ||
-            check.Contains("fggt") ||
-            check.Contains("cunt") ||
-            check.Contains("nig") ||
-            check.Contains("n1g") ||
-            check.Contains("cock") ||
-            check.Contains("gger") ||
-            check.Contains("nggr") ||
-            check.Contains("fuck") ||
-            check.Contains("fck") ||
-            check.Contains("dick") ||
-            check.Contains("whor") ||
-            check.Contains("btch") ||
-            check.Contains("bich")
-            )
+        "shit", "cum", "goon", "coom", "chnk", "fag", "gay", "coon",
+        "fggt", "cunt", "nig", "n1g", "cock", "gger", "nggr", "fuck",
+        "fck", "dick", "whor", "btch", "bich"
+    };
+
+    private string CheckBlackList(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return input;
+
+        // Convert input to lowercase once so we catch "FUCK", "Fuck", etc.
+        string lowerInput = input.ToLower();
+
+        foreach (string term in blackList)
         {
-            return "####";
+            if (lowerInput.Contains(term))
+            {
+                return "####";
+            }
         }
-        else
-        {
-            return check;
-        }
+
+        return input;
     }
 
     #endregion
