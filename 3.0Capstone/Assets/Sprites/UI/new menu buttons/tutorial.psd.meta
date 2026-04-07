@@ -156,7 +156,7 @@ ScriptedImporter:
       y: 4
       width: 924
       height: 545
-    spriteID: 5468ff19a1033064cb06cace1cdeca9b
+    spriteID: a159732fe112b74488f7e314bdad9037
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -178,7 +178,7 @@ ScriptedImporter:
       y: 557
       width: 893
       height: 502
-    spriteID: 71dab740459201b418a15e273f31cce3
+    spriteID: 148a2e6dacbcc3d4eb052ff511ff835d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -206,7 +206,67 @@ ScriptedImporter:
     characterGroups: []
     pivot: {x: 0, y: 0}
     boneReadOnly: 0
-  platformSettings: []
+  platformSettings:
+  - name: DefaultTexturePlatform
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Standalone
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Android
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: WebGL
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
+  - name: Windows Store Apps
+    overridden: 0
+    ignorePlatformSupport: 0
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    androidETC2FallbackOverride: 0
   mosaicLayers: 1
   characterMode: 1
   documentPivot: {x: 0, y: 0}
@@ -225,7 +285,13 @@ ScriptedImporter:
     categories: []
   spritePackingTag: 
   resliceFromLayer: 0
-  pSDLayerImportSetting: []
+  pSDLayerImportSetting:
+  - spriteId: a159732fe112b74488f7e314bdad9037
+    name: Pixel layer
+    layerId: 4
+    flatten: 0
+    isGroup: 0
+    importLayer: 1
   psdLayers:
   - name: Layer group
     spriteName: 
@@ -261,7 +327,7 @@ ScriptedImporter:
     spriteName: 
     isGroup: 1
     parentIndex: -1
-    spriteID: 89c354f92b51cc148a994d5013417c2e
+    spriteID: 88a9f5a7be59d08468072ba5776788ff
     layerID: 5
     mosaicPosition: {x: 0, y: 0}
     flatten: 0
@@ -271,7 +337,7 @@ ScriptedImporter:
     spriteName: Pixel layer
     isGroup: 0
     parentIndex: 3
-    spriteID: 5468ff19a1033064cb06cace1cdeca9b
+    spriteID: a159732fe112b74488f7e314bdad9037
     layerID: 4
     mosaicPosition: {x: 4, y: 4}
     flatten: 0
@@ -281,7 +347,7 @@ ScriptedImporter:
     spriteName: Pixel layer
     isGroup: 0
     parentIndex: 3
-    spriteID: 71dab740459201b418a15e273f31cce3
+    spriteID: 148a2e6dacbcc3d4eb052ff511ff835d
     layerID: 3
     mosaicPosition: {x: 4, y: 557}
     flatten: 0
