@@ -335,7 +335,7 @@ public class NameEntry : MonoBehaviour
     {
         "shit", "cum", "goon", "coom", "chnk", "fag", "gay", "coon",
         "fggt", "cunt", "nig", "n1g", "cock", "gger", "nggr", "fuck",
-        "fck", "dick", "whor", "btch", "bich"
+        "fck", "dick", "whor", "btch", "bich", "slut", "cuck"
     };
 
     private string CheckBlackList(string input)
