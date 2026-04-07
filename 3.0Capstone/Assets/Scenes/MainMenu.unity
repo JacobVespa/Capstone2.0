@@ -373,8 +373,8 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 1
     m_SelectOnUp: {fileID: 1604215522}
-    m_SelectOnDown: {fileID: 268638423}
-    m_SelectOnLeft: {fileID: 1432876172}
+    m_SelectOnDown: {fileID: 1139437451}
+    m_SelectOnLeft: {fileID: 1604215522}
     m_SelectOnRight: {fileID: 1604215522}
   m_Transition: 1
   m_Colors:
@@ -1748,7 +1748,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2.09}
   m_AnchorMin: {x: 0.25756252, y: 0.06774075}
   m_AnchorMax: {x: 0.46143752, y: 0.2825926}
-  m_AnchoredPosition: {x: 3.959961, y: 15.509949}
+  m_AnchoredPosition: {x: 3.959961, y: 15.509888}
   m_SizeDelta: {x: -216.35, y: -144.56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &268638423
@@ -1767,8 +1767,8 @@ MonoBehaviour:
     m_Mode: 4
     m_WrapAround: 1
     m_SelectOnUp: {fileID: 1604215522}
-    m_SelectOnDown: {fileID: 1604215522}
-    m_SelectOnLeft: {fileID: 60761732}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 1432876172}
     m_SelectOnRight: {fileID: 1139437451}
   m_Transition: 1
   m_Colors:
@@ -10528,7 +10528,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.8055557}
   m_AnchorMax: {x: 0.09825, y: 1}
-  m_AnchoredPosition: {x: -0.5, y: 11.028992}
+  m_AnchoredPosition: {x: -0.5, y: 11.029053}
   m_SizeDelta: {x: 111.76904, y: -152.0998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &865386583
@@ -10546,9 +10546,9 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 0
-    m_SelectOnUp: {fileID: 1139437451}
-    m_SelectOnDown: {fileID: 1139437451}
-    m_SelectOnLeft: {fileID: 1604215522}
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 1604215522}
+    m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
@@ -18342,8 +18342,8 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 1
-    m_SelectOnUp: {fileID: 865386583}
-    m_SelectOnDown: {fileID: 865386583}
+    m_SelectOnUp: {fileID: 60761732}
+    m_SelectOnDown: {fileID: 60761732}
     m_SelectOnLeft: {fileID: 268638423}
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
@@ -18450,7 +18450,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -9.913}
   m_AnchorMin: {x: 0.4671667, y: 0.030777778}
   m_AnchorMax: {x: 0.67843753, y: 0.266}
-  m_AnchoredPosition: {x: 54.02002, y: 3.038025}
+  m_AnchoredPosition: {x: 54.02002, y: 3.038086}
   m_SizeDelta: {x: -275.40796, y: -215.0542}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1139437455
@@ -20367,7 +20367,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -2.09}
   m_AnchorMin: {x: 0.04033333, y: 0.015777778}
   m_AnchorMax: {x: 0.22385418, y: 0.2825926}
-  m_AnchoredPosition: {x: 21.851929, y: 25.700012}
+  m_AnchoredPosition: {x: 21.851807, y: 25.699951}
   m_SizeDelta: {x: -237.45999, y: -221.505}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1432876172
@@ -20385,10 +20385,10 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 1
-    m_SelectOnUp: {fileID: 0}
+    m_SelectOnUp: {fileID: 1604215522}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 1139437451}
-    m_SelectOnRight: {fileID: 60761732}
+    m_SelectOnRight: {fileID: 268638423}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.7254902, g: 0, b: 1, a: 1}
@@ -21772,7 +21772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -10.93}
   m_AnchorMin: {x: 0.09825, y: 0.31437036}
   m_AnchorMax: {x: 0.30612502, y: 0.5}
-  m_AnchoredPosition: {x: 26.40857, y: 6.9958954}
+  m_AnchoredPosition: {x: 26.40857, y: 6.9959106}
   m_SizeDelta: {x: -228.27002, y: -101.78}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1604215522
@@ -21790,10 +21790,10 @@ MonoBehaviour:
   m_Navigation:
     m_Mode: 4
     m_WrapAround: 1
-    m_SelectOnUp: {fileID: 268638423}
-    m_SelectOnDown: {fileID: 268638423}
+    m_SelectOnUp: {fileID: 865386583}
+    m_SelectOnDown: {fileID: 1432876172}
     m_SelectOnLeft: {fileID: 60761732}
-    m_SelectOnRight: {fileID: 865386583}
+    m_SelectOnRight: {fileID: 60761732}
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.7254902, g: 0, b: 1, a: 1}
