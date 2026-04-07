@@ -320,11 +320,51 @@ public class NameEntry : MonoBehaviour
 
         string confirmedName = CurrentName;
 
+        confirmedName = CheckBlackList(confirmedName);
+
         leaderboardScript.SetActive(true);
         leaderboardScript.GetComponent<AaronLeaderboardScript>().InitilizeBoard(confirmedName);
 
         canvas.SetActive(false);
     }
+
+    #region slurs
+
+    // List of blacklisted names for scoreboard
+    private string CheckBlackList(string check)
+    {
+        if (check.Contains("shit") ||
+            check.Contains("cum") ||
+            check.Contains("goon") ||
+            check.Contains("coom") ||
+            check.Contains("chnk") ||
+            check.Contains("fag") ||
+            check.Contains("gay") ||
+            check.Contains("coon") ||
+            check.Contains("fggt") ||
+            check.Contains("cunt") ||
+            check.Contains("nig") ||
+            check.Contains("n1g") ||
+            check.Contains("cock") ||
+            check.Contains("gger") ||
+            check.Contains("nggr") ||
+            check.Contains("fuck") ||
+            check.Contains("fck") ||
+            check.Contains("dick") ||
+            check.Contains("whor") ||
+            check.Contains("btch") ||
+            check.Contains("bich")
+            )
+        {
+            return "####";
+        }
+        else
+        {
+            return check;
+        }
+    }
+
+    #endregion
 
     private void StartNav(Vector2Int direction)
     {
