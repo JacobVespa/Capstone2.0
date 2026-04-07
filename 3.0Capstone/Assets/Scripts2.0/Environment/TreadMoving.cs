@@ -30,14 +30,32 @@ public class TreadMoving : MonoBehaviour
         if (isLooping)
         {
             TreadMovement();
+            TireMovement();
         }
         else if (!hasFinished)
         {
             TreadMovement();
+            TireMovement();
 
-            if (gameObject.CompareTag("Tread"))
+            if (gameObject.CompareTag("Tread") || gameObject.CompareTag("Tire"))
             {
                 HasFinishedCheck(TreadOffsetPos);
+            }
+        }
+    }
+    private void TireMovement()
+    {
+        if (gameObject.CompareTag("Tire"))
+        {
+            if (currentLevel is GoldRushLevel goldRushLevel)
+            {
+                transform.position -= new Vector3(0, TreadMoveSpeed, 0) * Time.deltaTime;
+                DistanceCheck(-15f, -20f);
+            }
+            else if (currentLevel is ScrollerLevel scrollerLevel)
+            {
+                transform.position -= new Vector3(0, TreadMoveSpeed, 0) * Time.deltaTime;
+                DistanceCheck(-15f, -25f);
             }
         }
     }
