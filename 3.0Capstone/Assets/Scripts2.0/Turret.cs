@@ -1,0 +1,99 @@
+using System.Collections;
+using UnityEngine;
+
+public class Turret : MonoBehaviour
+{
+    [SerializeField] AudioClip shootClip;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] GameObject crosshair;
+    private GameObject player;
+    private PlayerControls currentControls;
+
+    private bool playerMounted = false;
+
+    Vector2 aimPos;
+    RaycastHit hit;
+    DamageSource currentDamage;
+
+    [SerializeField] float aimSpeed = 20.0f;
+
+    //reference to the muzzle flash vfx
+    public GameObject muzzleFlash;
+
+    private void Start()
+    {
+        aimPos = transform.position;
+        audioSource.clip = shootClip;
+        currentDamage = GetComponent<DamageSource>();
+    }
+
+    private void Update()
+    {
+        if (playerMounted)
+        {
+            Aim();
+            Shoot();
+        }
+    }
+
+    public void Mount(GameObject p)
+    {
+        player = p;
+        currentControls = player.GetComponent<PlayerControls>();
+        crosshair.SetActive(true);
+        playerMounted = true;
+    }
+
+    public void Dismount()
+    {
+        player = null;
+        currentControls = null;
+        crosshair.SetActive(false);
+        playerMounted = false;
+    }
+
+    private void Shoot()
+    {
+        if (player == null || currentControls == null) return;
+        if (!currentControls.controlEvent.HasAttacked) return;
+
+        StartCoroutine(ShootingVFX());
+
+        Vector3 origin = transform.position;
+        Vector3 direction = (aimPos - (Vector2)origin).normalized;
+
+        if (Physics.Raycast(origin, direction, out hit, 100f, 64)) //layer 6 is enemy layer
+        {
+            Debug.Log("Hit: " + hit.collider.name);
+
+            if (hit.collider.CompareTag("Enemy"))
+            {
+                var body = hit.collider.GetComponent<GrubEnemyBody>();
+                if (body != null)
+                {
+                    body.Attacked(currentDamage);
+                }
+            }
+        }
+    }
+
+    private void Aim()
+    {
+        if (player != null && currentControls != null)
+        {
+            aimPos += currentControls.controlEvent.LookDirection * Time.deltaTime * aimSpeed;
+            crosshair.transform.position = aimPos;
+            transform.LookAt(transform.position + Vector3.fwd, crosshair.transform.position - transform.position); //maybe?
+            transform.Rotate(new Vector3(0, 0, -90));
+        }
+    }
+
+    IEnumerator ShootingVFX()
+    {
+        muzzleFlash.SetActive(true);
+        audioSource.Play();
+        yield return new WaitForSeconds(0.1f);
+        muzzleFlash.SetActive(false);
+    }
+
+}
