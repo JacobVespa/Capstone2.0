@@ -83,6 +83,10 @@ public class Engine : MonoBehaviour
             EngineBreakdown();
             EngineUpstart();
         }
+        else
+        {
+            fireParticles.Stop();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
