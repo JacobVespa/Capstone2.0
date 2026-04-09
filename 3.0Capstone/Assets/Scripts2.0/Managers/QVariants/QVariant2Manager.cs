@@ -45,7 +45,7 @@ public class QVariant2Manager : MonoBehaviour
 
         //good part
         dialogue.text = "Nice! We got the shards safely, now lets get out of here";
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
         flow.LevelRunning = false;
         GameManager.Instance.Victory();
     }

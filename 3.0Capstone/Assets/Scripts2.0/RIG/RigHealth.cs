@@ -206,6 +206,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         var rigLossAnim = rigDeath.GetComponent<Animator>();
         rigLossAnim.SetTrigger("PDeath");
         yield return new WaitForSeconds(2.0f);
+        GameManager.Instance.PauseGameTime();
         GameManager.Instance.GameOverStatus = true;
     }
 
@@ -216,7 +217,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
         color.a = 0f;
         hitVignette.color = color;
         hitVignette.gameObject.SetActive(true);
-        float alphaTarget = 100f / 255f;
+        float alphaTarget = 60f / 255f;
         float alpha = 0f;
 
         while (alpha < alphaTarget)

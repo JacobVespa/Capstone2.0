@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private PlayerControls playerControls;
-    
+
     private PlayerInteract interactor;
     private InputControlManager inputControlManager;
     private Animator playerAnimator;
@@ -34,13 +34,9 @@ public class PlayerMovement : MonoBehaviour
     public bool canInteract = true;
     [SerializeField] float attackCooldown = 1.0f;
 
-    //hammer ref
     private Hammer hammer;
 
-
-    private int playerIndex; // Which player this is (0 or 1)
-
-    
+    private int playerIndex;
 
     private void Start()
     {
@@ -51,35 +47,27 @@ public class PlayerMovement : MonoBehaviour
         engine = FindFirstObjectByType<Engine>();
         playerAudioSource = GetComponent<AudioSource>();
 
-        // Get the index for this player instance
         playerIndex = inputControlManager.GetCurrentPlayerIndex();
 
-        // Ensure playerIndex is within bounds
         if (playerIndex >= inputControlManager.Player.Length)
         {
             playerIndex = inputControlManager.Player.Length - 1;
         }
 
-        //Spawn player animator/layers
         GameObject playerBody = Instantiate(inputControlManager.Player[playerIndex].PlayerObject, this.transform);
 
         playerAnimator = playerBody.GetComponentInChildren<Animator>();
 
-        //teehee
         hammer = playerBody.GetComponentInChildren<Hammer>();
         hammer.gameObject.SetActive(false);
 
-        // Teleport to spawn point
         Transform spawn = inputControlManager.GetCurrentSpawnPoint();
         StartCoroutine(Teleport(spawn));
-        
-        // Notify manager that this player has spawned
+
         inputControlManager.HasSpawned();
 
         isHoldingAmmo = false;
         isHoldingRepair = false;
-
-
     }
 
     private void Update()
@@ -96,10 +84,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement(Vector3 direction)
     {
-        
         transform.position = (transform.position + (direction * movementSpeed * Time.deltaTime));
-        // Only set walk animation to true if actually moving
-        //bool isMoving = moveDirection.magnitude > 0.1f;
         if (direction.magnitude > 0)
         {
             playerAnimator.SetBool("MoleWalk", true);
@@ -112,15 +97,14 @@ public class PlayerMovement : MonoBehaviour
 
     private Quaternion rotateTo = Quaternion.Euler(0, 0, 0);
     private float rotationSpeed = 10f;
-    private float lastDirectionX = 0f; // Track the last non-zero direction
+    private float lastDirectionX = 0f;
 
     private void HandleRotation(Vector2 direction)
     {
-        // Only update target rotation if there's significant horizontal input
         if (Mathf.Abs(direction.x) > 0.1f)
         {
             lastDirectionX = direction.x;
-            
+
             if (direction.x < 0)
             {
                 rotateTo = Quaternion.Euler(0, 180, 0);
@@ -130,8 +114,7 @@ public class PlayerMovement : MonoBehaviour
                 rotateTo = Quaternion.Euler(0, 0, 0);
             }
         }
-        
-        // Always lerp towards the target rotation for smooth transitions
+
         this.transform.rotation = Quaternion.Slerp(this.transform.rotation, rotateTo, Time.deltaTime * rotationSpeed);
     }
 
@@ -147,18 +130,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 HandlePickup();
             }
-            else if(isHolding)
+            else if (isHolding)
             {
                 HandleDrop();
             }
 
-            if (interactor.canRepair)
+            if (interactor.canRepair || isHoldingRepair)
             {
                 HandleRepair();
             }
-
         }
-        else if(!canInteract && playerControls.controlEvent.HasInteracted)
+        else if (!canInteract && playerControls.controlEvent.HasInteracted)
         {
             HandleDismounting();
         }
@@ -170,22 +152,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleRepair()
     {
-        if (interactor.currentInteractObject.CompareTag("Repair"))
+        // Pick up repair kit if not already holding one
+        if (!isHoldingRepair 
+            && interactor.currentInteractObject != null
+            && interactor.currentInteractObject.CompareTag("Repair"))
         {
             interactor.currentInteractObject.GetComponent<RepairStation>().PlayPickupSound();
             heldRepair.SetActive(true);
             isHoldingRepair = true;
+            return; // don't attempt to repair in the same frame as pickup
         }
 
-        if (interactor.currentInteractObject.CompareTag("Damaged") && isHoldingRepair)
+        // Apply repair kit to damaged wall
+        if (isHoldingRepair && interactor.currentRepairTarget != null)
         {
-            RepairPatch repair = interactor.currentInteractObject.GetComponentInChildren<RepairPatch>();
-            
-            // Null check before accessing repair
+            RepairPatch repair = interactor.currentRepairTarget.GetComponentInChildren<RepairPatch>();
+
             if (repair != null && !repair.isPatched)
             {
                 repair.ActivatePatch();
-                //interactor.currentInteractObject.GetComponent<SpriteRenderer>().enabled = false;
                 interactor.canRepair = false;
                 isHoldingRepair = false;
                 heldRepair.SetActive(false);
@@ -196,15 +181,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMounting()
     {
-        /**
-        if (isHolding) HandleDrop();
-
-        canInteract = false; //TESTING
-        isMounted = true;
-        canMove = false;
-        interactor.currentInteractObject.GetComponent<Turret>().Mount(this.gameObject);
-        playerAnimator.SetBool("MoleWalk", false);
-        **/
         if (isHolding) HandleDrop();
 
         mountedTurret = interactor.currentInteractObject.GetComponent<Turret>();
@@ -220,8 +196,6 @@ public class PlayerMovement : MonoBehaviour
 
         mountedTurret.Mount(this.gameObject);
         playerAnimator.SetBool("MoleWalk", false);
-
-        //Debug.Log($"{name} mounted turret: {mountedTurret?.name}");
     }
 
     private void HandlePickup()
@@ -267,7 +241,7 @@ public class PlayerMovement : MonoBehaviour
     public void HandleDrop()
     {
         if (!isHolding) return;
-        
+
         isHolding = false;
         isHoldingAmmo = false;
         isHoldingRepair = false;
@@ -277,7 +251,6 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator Teleport(Transform location)
     {
-        
         this.transform.position = location.position;
         yield return null;
     }

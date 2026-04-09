@@ -136,6 +136,7 @@ public class LevelManager : MonoBehaviour
 
             DifficultyManager.Instance.ResetDifficulty();
             CaveMapState.Instance.FullReset();
+            GameManager.Instance.LevelsCompleted = 0;
             ShowEndScreen(GameManager.Instance.ResultScreenIndex);
         }
 

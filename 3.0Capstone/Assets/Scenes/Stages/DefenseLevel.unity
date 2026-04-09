@@ -1373,6 +1373,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 846573761113834601, guid: 59327c81da5e56e49927981e4c1badcd, type: 3}
+      propertyPath: enableBurstSpawning
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 846573761113834601, guid: 59327c81da5e56e49927981e4c1badcd, type: 3}
       propertyPath: spawnPoints.Array.size
       value: 1
       objectReference: {fileID: 0}

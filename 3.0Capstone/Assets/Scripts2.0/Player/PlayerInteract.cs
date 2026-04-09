@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInteract : MonoBehaviour
@@ -12,6 +12,8 @@ public class PlayerInteract : MonoBehaviour
     private CircleCollider2D interactCollider;
 
     public GameObject currentInteractObject;
+    private List<GameObject> repairTargets = new List<GameObject>();
+    public GameObject currentRepairTarget => GetClosestRepairTarget();
 
     public GameObject wallSection;
 
@@ -21,15 +23,6 @@ public class PlayerInteract : MonoBehaviour
     private AmmoBox ammoBox;
     private Engine engine;
 
-    /*
-     * Method that grabs a collider from the player that determines collisions
-     * 
-     * Param( interactCollider ) --> grabs collision from player
-     * 
-     * Param( interactRange ) --> determines the reach of the collision detection
-     * 
-     */
-
     private void Start()
     {
         interactCollider = GetComponent<CircleCollider2D>();
@@ -37,26 +30,33 @@ public class PlayerInteract : MonoBehaviour
         playerMove = GetComponentInParent<PlayerMovement>();
     }
 
+    private GameObject GetClosestRepairTarget()
+    {
+        repairTargets.RemoveAll(t => t == null); // clean up destroyed objects
+        if (repairTargets.Count == 0) return null;
 
-    /*
-     * Method that determines what collider the player is currently in contact with
-     * 
-     * Param( canMount ) --> allows a player to mount a turret when pressing the interact button (When in the correct collider)
-     * 
-     * Param( canPickup ) --> allows a player to pickup an object when pressing the interact button (When in the correct collider)
-     * 
-     * Param( canRepair ) --> enables the player to repair a damaged area (When in the correct collider)
-     * 
-     * Object( currentInteractObject ) --> tracks which object collider the player is currently inside
-     */
+        GameObject closest = null;
+        float closestDist = Mathf.Infinity;
+
+        foreach (GameObject target in repairTargets)
+        {
+            float dist = Vector2.Distance(transform.position, target.transform.position);
+            if (dist < closestDist)
+            {
+                closestDist = dist;
+                closest = target;
+            }
+        }
+
+        return closest;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Turret"))
         {
-            
             turret = other.GetComponent<Turret>();
-            if(turret.playerMounted) { return; }
+            if (turret.playerMounted) { return; }
             turret.buttonPromptXB.SetActive(true);
             canMount = true;
             currentInteractObject = other.gameObject;
@@ -77,8 +77,7 @@ public class PlayerInteract : MonoBehaviour
         }
         else if (other.CompareTag("Damaged"))
         {
-            currentInteractObject = other.gameObject;
-  
+            repairTargets.Add(other.gameObject);
         }
         else if (other.CompareTag("Engine"))
         {
@@ -88,17 +87,6 @@ public class PlayerInteract : MonoBehaviour
             currentInteractObject = other.gameObject;
         }
     }
-
-
-
-    /*
-     * Method that determines when a player exits a collider, setting proper parameters to flase
-     * 
-     * Param( canMount ) --> allows a player to dismount a turret when pressing the disengage button
-     * 
-     * Param( canPickup ) --> allows a player to drop an object when pressing the disengage button
-     * 
-     */
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -120,6 +108,11 @@ public class PlayerInteract : MonoBehaviour
         {
             repairBox = other.GetComponent<RepairStation>();
             repairBox.buttonPromptXB.SetActive(false);
+            canRepair = false;
+        }
+        else if (other.CompareTag("Damaged"))
+        {
+            repairTargets.Remove(other.gameObject);
         }
         else if (other.CompareTag("Engine"))
         {
@@ -129,6 +122,4 @@ public class PlayerInteract : MonoBehaviour
             currentInteractObject = other.gameObject;
         }
     }
-
-
 }

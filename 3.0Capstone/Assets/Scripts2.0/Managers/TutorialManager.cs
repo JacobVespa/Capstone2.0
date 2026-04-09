@@ -252,7 +252,7 @@ public class TutorialManager : MonoBehaviour
                 g.SetActive(true);
             }
             dialogueManager.ShowDialogue("repair");
-            while (rigHealthScript.HealthNormalized >= 0.7f)
+            if (rigHealthScript.HealthNormalized >= 0.7f)
             {
                 rigHealthScript.ApplyDamage(rigHealthScript.DamageThreshold); // Reduce health to trigger repair tutorial
             }

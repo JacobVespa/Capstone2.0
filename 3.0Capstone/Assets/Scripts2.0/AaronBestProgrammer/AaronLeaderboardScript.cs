@@ -46,7 +46,11 @@ public class AaronLeaderboardScript : MonoBehaviour
         if (!isMainMenu) WriteScore(name);
 
         ParseScore();
-        currentScore = scores[scores.Count - 1];
+
+        if (scores.Count > 0)
+        {
+            currentScore = scores[scores.Count - 1];
+        }
 
         SortBoard();
         DisplayBoard();

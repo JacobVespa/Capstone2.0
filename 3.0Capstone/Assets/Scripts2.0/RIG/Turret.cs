@@ -217,10 +217,12 @@ public class Turret : MonoBehaviour
 
         StopAllCoroutines();
         muzzleVFXRenderer.sprite = null;
+        muzzleVFXRenderer.gameObject.SetActive(false); // ensure muzzle flash is off
 
         pivot.transform.localPosition = originalPos;
+        recoilCurrentOffset = Vector3.zero; // reset recoil state
 
-        gameObject.transform.localScale = Vector3.Lerp(mountedScale, dismountedScale, 10f);
+        gameObject.transform.localScale = dismountedScale; // skip Lerp, just snap
 
         Debug.Log($"Turret {name} dismounted");
     }
@@ -245,6 +247,15 @@ public class Turret : MonoBehaviour
                 ControllerVibrateManager.Instance.Burst(playerIndex, lowFreq: 0.2f, highFreq: 0.6f, duration: pulseDuration);
             }
         }
+    }
+
+    public void ResetState()
+    {
+        StopAllCoroutines();
+        canShoot = true;
+        muzzleVFXRenderer.sprite = null;
+        muzzleVFXRenderer.gameObject.SetActive(false);
+        recoilCurrentOffset = Vector3.zero;
     }
 
     private void ShootBullet()
