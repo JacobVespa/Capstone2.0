@@ -1,6 +1,7 @@
-using UnityEngine;
-using System.IO;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 
 //using TMPro;
 public class AaronLeaderboardScript : MonoBehaviour
@@ -36,6 +37,11 @@ public class AaronLeaderboardScript : MonoBehaviour
         scorePath = Path.Combine(Application.persistentDataPath, "LocalLeaderBoard.txt");
         Debug.Log(scorePath);
 
+        if (name == "MARK")
+        {
+            PlayEasterEgg();
+        }
+
         if (!File.Exists(scorePath))
         {
             File.WriteAllText(scorePath, "");
@@ -56,6 +62,12 @@ public class AaronLeaderboardScript : MonoBehaviour
         DisplayBoard();
     }
 
+    #region EasterEgg
+    private void PlayEasterEgg()
+    {
+        if (SoundManager.Instance != null) SoundManager.Instance.PlayBGM("EasterEgg");
+    }
+    #endregion
     public void WriteScore(string name)
     {
         string newJson = "";
