@@ -76,12 +76,14 @@ public class PlayerInteract : MonoBehaviour
             canRepair = true;  
             currentInteractObject = other.gameObject;
         }
-        else if (other.CompareTag("Damaged") && playerMove.isHoldingRepair == true && damageArea.areaPatched == false)
+        else if (other.CompareTag("Damaged"))
         {
-            Debug.Log("canRepair: " + canRepair );
             damageArea = other.GetComponent<DamageArea>();
-            damageArea.buttonPromptXB.SetActive(true);
-            repairTargets.Add(other.gameObject);
+            if (playerMove.isHoldingRepair == true && damageArea.areaPatched == false)
+            {
+                damageArea.buttonPromptXB.SetActive(true);
+                repairTargets.Add(other.gameObject);
+            }
         }
         else if (other.CompareTag("Engine"))
         {
