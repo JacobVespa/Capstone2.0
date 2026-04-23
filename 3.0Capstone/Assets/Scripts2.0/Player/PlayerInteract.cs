@@ -22,6 +22,7 @@ public class PlayerInteract : MonoBehaviour
     private RepairStation repairBox;
     private AmmoBox ammoBox;
     private Engine engine;
+    private DamageArea damageArea;
 
     private void Start()
     {
@@ -72,11 +73,14 @@ public class PlayerInteract : MonoBehaviour
         {
             repairBox = other.GetComponent<RepairStation>();
             repairBox.buttonPromptXB.SetActive(true);
-            canRepair = true;
+            canRepair = true;  
             currentInteractObject = other.gameObject;
         }
-        else if (other.CompareTag("Damaged"))
+        else if (other.CompareTag("Damaged") && playerMove.isHoldingRepair == true && damageArea.areaPatched == false)
         {
+            Debug.Log("canRepair: " + canRepair );
+            damageArea = other.GetComponent<DamageArea>();
+            damageArea.buttonPromptXB.SetActive(true);
             repairTargets.Add(other.gameObject);
         }
         else if (other.CompareTag("Engine"))
@@ -110,8 +114,10 @@ public class PlayerInteract : MonoBehaviour
             repairBox.buttonPromptXB.SetActive(false);
             canRepair = false;
         }
-        else if (other.CompareTag("Damaged"))
+        else if (other.CompareTag("Damaged"))               
         {
+            damageArea = other.GetComponent<DamageArea>();
+            damageArea.buttonPromptXB.SetActive(false);
             repairTargets.Remove(other.gameObject);
         }
         else if (other.CompareTag("Engine"))

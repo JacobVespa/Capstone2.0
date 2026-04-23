@@ -194,6 +194,7 @@ public class RigHealth : MonoBehaviour, IDamageReceiver
             active[rng].GetComponentInChildren<RepairPatch>().DeactivatePatch();
         }
 
+        damagedAreas[rng].GetComponent<DamageArea>().areaPatched = false;
         damagedAreas[rng].GetComponentInChildren<ParticleSystem>().Play();
         nonActive.Add(active[rng]);
         active.RemoveAt(rng);

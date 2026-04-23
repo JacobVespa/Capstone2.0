@@ -174,6 +174,8 @@ public class PlayerMovement : MonoBehaviour
                 interactor.canRepair = false;
                 isHoldingRepair = false;
                 heldRepair.SetActive(false);
+                DamageArea damageArea = interactor.currentRepairTarget.gameObject.GetComponent<DamageArea>();
+                damageArea.areaPatched = true;
                 rigHealth.HealDamage();
             }
         }
