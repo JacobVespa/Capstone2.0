@@ -116,6 +116,15 @@ public class GameManager : MonoBehaviour
         }
 
         TogglePauseMenu();
+        
+        // Prevent mouse from stealing focus from pause menu buttons
+        if (isPaused && 
+            pauseCanvas.gameObject.activeSelf && 
+            EventSystem.current != null &&
+            EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(pauseButton.gameObject);
+        }
     }
 
     public void AddShards(int amount)
@@ -147,30 +156,24 @@ public class GameManager : MonoBehaviour
 
     public void TogglePauseMenu()
     {
-
-        //PlayerControls controls = FindFirstObjectByType<PlayerControls>();
-
-        //Could cahce for better performance but hahahahaaha
         PlayerControls[] controls = Object.FindObjectsByType<PlayerControls>(FindObjectsSortMode.None);
 
         if (!flowManager.LevelRunning || controls == null || flowManager == null) return;
 
         foreach (var control in controls)
         {
-
             if (control.controlEvent.HasEscaped && !isPaused)
             {
+                isPaused = true; // was missing
                 pauseCanvas.gameObject.SetActive(true);
                 EventSystem.current.SetSelectedGameObject(null);
                 EventSystem.current.SetSelectedGameObject(pauseButton.gameObject);
-
                 StopGameTime();
-
             }
             else if (control.controlEvent.HasEscaped && isPaused)
             {
+                isPaused = false; // was missing
                 pauseCanvas.gameObject.SetActive(false);
-
                 ResumeGameTime();
             }
         }
@@ -178,6 +181,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseButton()
     {
+        isPaused = false;
         pauseCanvas.gameObject.SetActive(false);
         ResumeGameTime();
     }
