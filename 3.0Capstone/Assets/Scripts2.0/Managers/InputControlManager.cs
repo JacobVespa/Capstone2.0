@@ -28,7 +28,6 @@ public class InputControlManager : MonoBehaviour
     private Mole[] player = new Mole[2];
     public Mole[] Player { get { return player; } }
 
-    // Track how many players have spawned
     private int spawnedPlayerCount = 0;
     public int SpawnedPlayerCount { get { return spawnedPlayerCount; } }
 
@@ -46,31 +45,50 @@ public class InputControlManager : MonoBehaviour
         if (numberOfPlayers < 1) numberOfPlayers = 1;
         if (numberOfPlayers > 2) numberOfPlayers = 2;
 
-        // Get all connected input devices
         var devices = InputSystem.devices;
-        
         int playersSpawned = 0;
-        
-        // Try to spawn a player for each connected device (up to numberOfPlayers)
+
+        // Check if Steam is injecting a virtual XInput controller
+        bool hasSteamVirtualController = false;
+        foreach (var device in devices)
+        {
+            if (device is Gamepad && device.description.interfaceName == "XInput")
+            {
+                hasSteamVirtualController = true;
+                break;
+            }
+        }
+
+        // Deduplicate devices by product + serial to catch any remaining duplicates
+        var seen = new HashSet<string>();
+
         for (int i = 0; i < devices.Count && playersSpawned < numberOfPlayers; i++)
         {
-            //Debug.Log("joined");
-            // Only use Gamepad or Keyboard devices
-            //if (devices[i] is Gamepad || devices[i] is Keyboard)
-            //{
-            //    playerInputManager.JoinPlayer(playersSpawned, -1, null, devices[i]);
-            //    playersSpawned++;
-            //}
-            
-            if (devices[i] is Gamepad)
+            if (devices[i] is Gamepad gamepad)
             {
-                
-                playerInputManager.JoinPlayer(playersSpawned, -1, null, devices[i]);
+                // Skip raw duplicate devices when Steam virtual controller is active.
+                // Raw HID duplicates typically have no manufacturer string and are non-XInput.
+                if (hasSteamVirtualController &&
+                    gamepad.description.interfaceName != "XInput" &&
+                    string.IsNullOrEmpty(gamepad.description.manufacturer))
+                {
+                    Debug.Log($"Skipping likely Steam raw duplicate: {gamepad.description.product}");
+                    continue;
+                }
+
+                // Deduplicate by product + serial as a second safety net
+                string deviceKey = gamepad.description.product + "|" + gamepad.description.serial;
+                if (!seen.Add(deviceKey))
+                {
+                    Debug.Log($"Skipping duplicate device: {gamepad.description.product}");
+                    continue;
+                }
+
+                playerInputManager.JoinPlayer(playersSpawned, -1, null, gamepad);
                 playersSpawned++;
             }
         }
 
-        // If we didn't spawn enough players, log a warning
         if (playersSpawned < numberOfPlayers)
         {
             Debug.LogWarning($"Only {playersSpawned} input devices found. Expected {numberOfPlayers} players.");
@@ -116,32 +134,22 @@ public class InputControlManager : MonoBehaviour
     {
         if (numberOfPlayers <= 0 || numberOfPlayers > 2) return;
 
-        //player[0] = new Mole(playerOneSprite, playerOneAnimatorController);
-        //player[1] = new Mole(playerTwoSprite, playerTwoAnimatorController);
-
         player[0] = new Mole(playerOne);
         player[1] = new Mole(playerTwo);
     }
 
     public class Mole
     {
-        //private Sprite playerSprite;
-        //private RuntimeAnimatorController animatorController;
         private GameObject playerObject;
 
         public Mole(GameObject playerObject)
         {
-            //this.playerSprite = sprite;
-            //this.animatorController = controller;
-
             this.playerObject = playerObject;
         }
         public Mole(GameObject playerObject, bool controls)
         {
             this.playerObject = playerObject;
         }
-        //public Sprite PlayerSprite { get { return playerSprite; } }
-        //public RuntimeAnimatorController AnimatorController { get { return animatorController; } }
 
         public GameObject PlayerObject { get { return playerObject; } }
     }
